@@ -34,13 +34,15 @@ class AdminPanelAPITester:
             "details": details
         })
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None):
+    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None, session_token=None):
         """Run a single API test"""
         url = f"{self.base_url}/{endpoint}"
         test_headers = {'Content-Type': 'application/json'}
         
-        if self.session_token:
-            test_headers['Authorization'] = f'Bearer {self.session_token}'
+        # Use provided session token or default admin token
+        token = session_token or self.admin_session_token
+        if token:
+            test_headers['Authorization'] = f'Bearer {token}'
         
         if headers:
             test_headers.update(headers)
@@ -66,11 +68,125 @@ class AdminPanelAPITester:
                     details += f", Response: {response.text[:200]}"
 
             self.log_test(name, success, details)
-            return success, response.json() if success and response.content else {}
+            
+            # Return response data even on failure for debugging
+            try:
+                response_data = response.json() if response.content else {}
+            except:
+                response_data = {"raw_response": response.text[:500]}
+                
+            return success, response_data
 
         except Exception as e:
             self.log_test(name, False, f"Exception: {str(e)}")
             return False, {}
+
+    def create_test_users(self):
+        """Create test users with different roles using MongoDB"""
+        print("\n🔧 Creating test users...")
+        
+        timestamp = int(datetime.now().timestamp())
+        
+        # Create admin user
+        admin_user_id = f"admin-user-{timestamp}"
+        admin_session_token = f"admin_session_{timestamp}"
+        admin_email = f"admin.{timestamp}@example.com"
+        
+        # Create organizer user  
+        organizer_user_id = f"organizer-user-{timestamp}"
+        organizer_session_token = f"organizer_session_{timestamp}"
+        organizer_email = f"organizer.{timestamp}@example.com"
+        
+        # Create participant user
+        participant_user_id = f"participant-user-{timestamp}"
+        participant_session_token = f"participant_session_{timestamp}"
+        participant_email = f"participant.{timestamp}@example.com"
+        
+        mongo_script = f"""
+use('test_database');
+
+// Create admin user
+db.users.insertOne({{
+  _id: '{admin_user_id}',
+  email: '{admin_email}',
+  name: 'Test Admin User',
+  role: 'admin',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{admin_user_id}',
+  session_token: '{admin_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+
+// Create organizer user
+db.users.insertOne({{
+  _id: '{organizer_user_id}',
+  email: '{organizer_email}',
+  name: 'Test Organizer User',
+  role: 'organizer',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{organizer_user_id}',
+  session_token: '{organizer_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+
+// Create participant user
+db.users.insertOne({{
+  _id: '{participant_user_id}',
+  email: '{participant_email}',
+  name: 'Test Participant User',
+  role: 'participant',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{participant_user_id}',
+  session_token: '{participant_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+
+print('Admin session token: {admin_session_token}');
+print('Organizer session token: {organizer_session_token}');
+print('Participant session token: {participant_session_token}');
+"""
+        
+        try:
+            result = subprocess.run(['mongosh', '--eval', mongo_script], 
+                                  capture_output=True, text=True, timeout=30)
+            
+            if result.returncode == 0:
+                self.admin_session_token = admin_session_token
+                self.organizer_session_token = organizer_session_token
+                self.participant_session_token = participant_session_token
+                self.admin_user_id = admin_user_id
+                self.organizer_user_id = organizer_user_id
+                self.participant_user_id = participant_user_id
+                
+                print(f"   ✅ Created admin user: {admin_email}")
+                print(f"   ✅ Created organizer user: {organizer_email}")
+                print(f"   ✅ Created participant user: {participant_email}")
+                return True
+            else:
+                print(f"   ❌ MongoDB script failed: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"   ❌ Failed to create test users: {str(e)}")
+            return False
 
     def test_auth_with_admin_token(self):
         """Test authentication with admin session token"""
