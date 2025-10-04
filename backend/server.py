@@ -77,6 +77,7 @@ class UserSession(BaseModel):
 class Hackathon(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
     title: str
+    slug: str  # SEO-friendly URL slug
     description: str
     cover_image: Optional[str] = None
     organizer_id: str
