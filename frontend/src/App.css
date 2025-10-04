@@ -950,9 +950,9 @@ select:focus {
 /* Badge Styling */
 .badge,
 [class*="badge"] {
-  background: #F5F5F5 !important;
-  color: #000000 !important;
-  border: 1px solid #E5E5E5 !important;
+  background: rgba(13, 148, 136, 0.1) !important;
+  color: #134E4A !important;
+  border: 1px solid rgba(13, 148, 136, 0.2) !important;
   font-weight: 500 !important;
 }
 
