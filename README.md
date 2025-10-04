@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://hackcraft-portal.preview.emergentagent.com
+**Live Demo:** https://event-forge-3.preview.emergentagent.com
