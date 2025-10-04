@@ -223,7 +223,7 @@ export default function LandingEnhanced() {
           {/* Animated Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mt-20 animate-scaleIn">
             {[
-              { icon: Trophy, label: 'Active Hackathons', value: counts.hackathons, suffix: '+', color: 'from-yellow-500 to-orange-500' },
+              { icon: Trophy, label: 'Total Hackathons', value: counts.hackathons, suffix: '+', color: 'from-yellow-500 to-orange-500' },
               { icon: Users, label: 'Innovators', value: counts.participants, suffix: '+', color: 'from-purple-500 to-pink-500' },
               { icon: Code, label: 'Projects Built', value: counts.projects, suffix: '+', color: 'from-blue-500 to-cyan-500' },
               { icon: Rocket, label: 'Success Rate', value: 98, suffix: '%', color: 'from-green-500 to-emerald-500' },
