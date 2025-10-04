@@ -377,16 +377,16 @@ select:focus {
   background: linear-gradient(135deg, #9333ea, #db2777);
 }
 
-/* Glow Effects - Subtle Black Glow */
+/* Glow Effects - Teal Glow */
 .glow-purple,
 .glow-pink {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.2);
 }
 
 /* Text Selection */
 ::selection {
-  background: rgba(0, 0, 0, 0.1);
-  color: #000;
+  background: rgba(13, 148, 136, 0.2);
+  color: #1E293B;
 }
 
 /* Particle Background */
