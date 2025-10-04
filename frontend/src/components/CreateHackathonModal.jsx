@@ -152,15 +152,36 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
             </div>
 
             <div className="md:col-span-2">
-              <Label className="text-gray-400 mb-2 block">Banner Image URL</Label>
-              <Input
-                type="url"
-                value={coverImage}
-                onChange={(e) => setCoverImage(e.target.value)}
-                className="bg-gray-900/50 border-gray-800 text-white"
-                placeholder="https://example.com/banner.jpg"
-                data-testid="hackathon-cover-image"
-              />
+              <Label className="text-gray-400 mb-2 block">Banner Image</Label>
+              <Tabs value={imageMode} onValueChange={setImageMode} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-900/50">
+                  <TabsTrigger value="url">Image URL</TabsTrigger>
+                  <TabsTrigger value="upload">Upload File</TabsTrigger>
+                </TabsList>
+                <TabsContent value="url" className="mt-3">
+                  <Input
+                    type="url"
+                    value={coverImage}
+                    onChange={(e) => setCoverImage(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder="https://example.com/banner.jpg"
+                    data-testid="hackathon-cover-image"
+                  />
+                </TabsContent>
+                <TabsContent value="upload" className="mt-3">
+                  <div className="flex items-center gap-3">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="bg-gray-900/50 border-gray-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700"
+                      disabled={uploading}
+                    />
+                    {uploading && <div className="loading-spinner"></div>}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">Max 5MB • JPG, PNG, WebP, GIF</p>
+                </TabsContent>
+              </Tabs>
               {coverImage && (
                 <div className="mt-3 rounded-lg overflow-hidden border border-gray-800">
                   <img src={coverImage} alt="Banner preview" className="w-full h-48 object-cover" onError={(e) => e.target.style.display = 'none'} />
