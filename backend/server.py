@@ -91,8 +91,10 @@ class Hackathon(BaseModel):
     rules: str = ""
     judging_rubric: List[Dict[str, Any]] = []  # [{"criteria": "Innovation", "max_score": 10}]
     faqs: List[Dict[str, str]] = []
-    status: str = "draft"  # draft, published, ongoing, completed
+    status: str = "pending_approval"  # pending_approval, draft, published, ongoing, completed, rejected
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    approved_at: Optional[datetime] = None
+    approved_by: Optional[str] = None  # Admin user ID who approved
     
     class Config:
         populate_by_name = True
