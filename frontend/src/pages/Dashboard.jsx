@@ -187,6 +187,16 @@ export default function Dashboard() {
                 <User className="w-5 h-5" />
               </Button>
 
+              {/* Settings Button */}
+              <Button
+                variant="ghost"
+                className="text-gray-400 hover:text-teal-400 hover:bg-teal-900/20"
+                onClick={() => navigate('/settings')}
+                data-testid="settings-btn"
+              >
+                <Settings className="w-5 h-5" />
+              </Button>
+
               {/* Logout Button */}
               <Button
                 variant="ghost"
