@@ -290,6 +290,27 @@ async def require_role(user: User, allowed_roles: List[str]):
     if user.role not in allowed_roles:
         raise HTTPException(status_code=403, detail="Insufficient permissions")
 
+# ==================== HELPER FUNCTIONS ====================
+
+def generate_slug(title: str, existing_slugs: List[str] = []) -> str:
+    """Generate a URL-friendly slug from title"""
+    # Convert to lowercase and replace spaces with hyphens
+    slug = title.lower().strip()
+    # Remove special characters, keep only alphanumeric and hyphens
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
+    slug = re.sub(r'\s+', '-', slug)
+    slug = re.sub(r'-+', '-', slug)
+    slug = slug.strip('-')
+    
+    # Ensure uniqueness by appending number if needed
+    original_slug = slug
+    counter = 1
+    while slug in existing_slugs:
+        slug = f"{original_slug}-{counter}"
+        counter += 1
+    
+    return slug
+
 # ==================== AUTH ROUTES ====================
 
 @api_router.post("/auth/session")
