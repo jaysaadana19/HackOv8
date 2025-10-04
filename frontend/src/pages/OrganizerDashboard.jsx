@@ -150,6 +150,17 @@ export default function OrganizerDashboard() {
                       variant="ghost"
                       size="sm"
                       className="text-gray-400 hover:text-purple-400"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowEditModal(true);
+                      }}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-gray-400 hover:text-purple-400"
                       onClick={() => handleStatusToggle(hackathon.id, hackathon.status)}
                     >
                       {hackathon.status === 'published' ? 'Unpublish' : 'Publish'}
