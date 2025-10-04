@@ -198,8 +198,8 @@ export default function AuthModal({ onClose, onSuccess }) {
             </TabsContent>
 
             {/* Signup Tab */}
-            <TabsContent value="signup" className="space-y-5">
-              <form onSubmit={handleSignup} className="space-y-5">
+            <TabsContent value="signup" className="space-y-4">
+              <form onSubmit={handleSignup} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="signup-name" className="text-gray-700 font-medium flex items-center gap-2">
                     <User className="w-4 h-4 text-teal-500" />
