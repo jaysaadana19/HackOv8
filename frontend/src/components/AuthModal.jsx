@@ -90,9 +90,9 @@ export default function AuthModal({ onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[95vh] flex flex-col overflow-hidden">
         {/* Header with Gradient */}
-        <div className="relative bg-gradient-to-br from-teal-500 to-teal-600 p-8 text-white">
+        <div className="relative bg-gradient-to-br from-teal-500 to-teal-600 p-6 text-white flex-shrink-0">
           <button 
             onClick={onClose} 
             className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -110,8 +110,8 @@ export default function AuthModal({ onClose, onSuccess }) {
           <p className="text-teal-100 text-sm">Join the future of hackathons</p>
         </div>
 
-        {/* Tabs */}
-        <div className="p-8">
+        {/* Tabs - Scrollable Content */}
+        <div className="p-6 overflow-y-auto flex-1">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-100 p-1 rounded-xl">
               <TabsTrigger 
