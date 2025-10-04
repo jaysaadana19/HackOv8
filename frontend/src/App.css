@@ -397,11 +397,11 @@ select:focus {
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #00CED1;
+  width: 3px;
+  height: 3px;
+  background: #000000;
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.05;
   animation: particle-float 15s linear infinite;
 }
 
