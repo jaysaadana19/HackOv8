@@ -197,16 +197,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Hackathon Edit Endpoint"
-    - "Team Creation with Validation"
-    - "Team Join with Invite Code"
     - "Complete EditHackathonModal with All Fields"
     - "Team Creation Modal with Invite Code Display"
     - "Team Join Modal"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  backend_testing_complete: false
+  backend_testing_complete: true
 
 agent_communication:
   - agent: "main"
