@@ -453,97 +453,215 @@ export default function AdminDashboard() {
 
           {/* Analytics Tab */}
           <TabsContent value="analytics" className="space-y-6">
-            {/* Growth Chart */}
-            <Card className="glass-effect p-6 border border-purple-800/30">
-              <h2 className="text-2xl font-bold mb-6">Platform <span className="gradient-text">Growth</span></h2>
-              
-              {growthData && growthData.dates && growthData.dates.length > 0 ? (
-                <div className="space-y-6">
-                  {/* Simple Bar Chart Visualization */}
-                  <div className="space-y-4">
-                    <div>
-                      <div className="text-sm text-gray-400 mb-2">User Signups</div>
-                      <div className="flex items-end gap-1 h-32">
-                        {growthData.user_signups.slice(-30).map((value, idx) => {
-                          const maxValue = Math.max(...growthData.user_signups);
-                          const height = maxValue > 0 ? (value / maxValue) * 100 : 0;
-                          return (
-                            <div
-                              key={idx}
-                              className="flex-1 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t hover:opacity-80 transition-opacity"
-                              style={{ height: `${height}%`, minHeight: value > 0 ? '4px' : '0' }}
-                              title={`${value} signups on ${growthData.dates[idx]}`}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
+            {/* Growth Charts */}
+            {growthData && growthData.dates && growthData.dates.length > 0 ? (
+              <div className="space-y-6">
+                {/* Combined Line Chart */}
+                <Card className="glass-effect p-6 border border-purple-800/30">
+                  <h2 className="text-2xl font-bold mb-6">Platform <span className="gradient-text">Growth Trends</span></h2>
+                  <ResponsiveContainer width="100%" height={400}>
+                    <LineChart
+                      data={growthData.dates.map((date, idx) => ({
+                        date: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                        signups: growthData.user_signups[idx],
+                        hackathons: growthData.hackathon_creations[idx],
+                        registrations: growthData.registrations[idx]
+                      }))}
+                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="date" 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1f2937', 
+                          border: '1px solid #374151',
+                          borderRadius: '8px',
+                          color: '#fff'
+                        }}
+                      />
+                      <Legend 
+                        wrapperStyle={{ color: '#9CA3AF' }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="signups" 
+                        stroke="#a855f7" 
+                        strokeWidth={3}
+                        dot={{ fill: '#a855f7', r: 4 }}
+                        activeDot={{ r: 6 }}
+                        name="User Signups"
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="hackathons" 
+                        stroke="#ec4899" 
+                        strokeWidth={3}
+                        dot={{ fill: '#ec4899', r: 4 }}
+                        activeDot={{ r: 6 }}
+                        name="Hackathons Created"
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="registrations" 
+                        stroke="#14b8a6" 
+                        strokeWidth={3}
+                        dot={{ fill: '#14b8a6', r: 4 }}
+                        activeDot={{ r: 6 }}
+                        name="Registrations"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
 
-                    <div>
-                      <div className="text-sm text-gray-400 mb-2">Hackathon Creations</div>
-                      <div className="flex items-end gap-1 h-32">
-                        {growthData.hackathon_creations.slice(-30).map((value, idx) => {
-                          const maxValue = Math.max(...growthData.hackathon_creations);
-                          const height = maxValue > 0 ? (value / maxValue) * 100 : 0;
-                          return (
-                            <div
-                              key={idx}
-                              className="flex-1 bg-gradient-to-t from-pink-600 to-pink-400 rounded-t hover:opacity-80 transition-opacity"
-                              style={{ height: `${height}%`, minHeight: value > 0 ? '4px' : '0' }}
-                              title={`${value} hackathons on ${growthData.dates[idx]}`}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
+                {/* Area Chart for User Growth */}
+                <Card className="glass-effect p-6 border border-teal-500/30">
+                  <h2 className="text-2xl font-bold mb-6">User <span className="gradient-text">Signup Trend</span></h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <AreaChart
+                      data={growthData.dates.map((date, idx) => ({
+                        date: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                        signups: growthData.user_signups[idx]
+                      }))}
+                      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                    >
+                      <defs>
+                        <linearGradient id="colorSignups" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#14b8a6" stopOpacity={0}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="date" 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1f2937', 
+                          border: '1px solid #374151',
+                          borderRadius: '8px',
+                          color: '#fff'
+                        }}
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="signups" 
+                        stroke="#14b8a6" 
+                        strokeWidth={2}
+                        fillOpacity={1} 
+                        fill="url(#colorSignups)"
+                        name="User Signups"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </Card>
 
-                    <div>
-                      <div className="text-sm text-gray-400 mb-2">Registrations</div>
-                      <div className="flex items-end gap-1 h-32">
-                        {growthData.registrations.slice(-30).map((value, idx) => {
-                          const maxValue = Math.max(...growthData.registrations);
-                          const height = maxValue > 0 ? (value / maxValue) * 100 : 0;
-                          return (
-                            <div
-                              key={idx}
-                              className="flex-1 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t hover:opacity-80 transition-opacity"
-                              style={{ height: `${height}%`, minHeight: value > 0 ? '4px' : '0' }}
-                              title={`${value} registrations on ${growthData.dates[idx]}`}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
+                {/* Bar Chart Comparison */}
+                <Card className="glass-effect p-6 border border-purple-800/30">
+                  <h2 className="text-2xl font-bold mb-6">Activity <span className="gradient-text">Comparison</span></h2>
+                  <ResponsiveContainer width="100%" height={350}>
+                    <BarChart
+                      data={growthData.dates.slice(-14).map((date, idx) => ({
+                        date: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                        signups: growthData.user_signups.slice(-14)[idx],
+                        hackathons: growthData.hackathon_creations.slice(-14)[idx],
+                        registrations: growthData.registrations.slice(-14)[idx]
+                      }))}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="date" 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        stroke="#9CA3AF"
+                        tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1f2937', 
+                          border: '1px solid #374151',
+                          borderRadius: '8px',
+                          color: '#fff'
+                        }}
+                      />
+                      <Legend 
+                        wrapperStyle={{ color: '#9CA3AF' }}
+                      />
+                      <Bar dataKey="signups" fill="#a855f7" name="User Signups" />
+                      <Bar dataKey="hackathons" fill="#ec4899" name="Hackathons" />
+                      <Bar dataKey="registrations" fill="#14b8a6" name="Registrations" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </Card>
 
-                  {/* Summary Stats */}
-                  <div className="grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-800">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-400">
-                        {growthData.user_signups.reduce((a, b) => a + b, 0)}
-                      </div>
-                      <div className="text-sm text-gray-400">Total Signups</div>
+                {/* Summary Stats */}
+                <div className="grid md:grid-cols-3 gap-6">
+                  <Card className="glass-effect p-6 border border-purple-500/30">
+                    <div className="flex items-center justify-between mb-3">
+                      <Users className="w-10 h-10 text-purple-400" />
+                      <TrendingUp className="w-5 h-5 text-green-400" />
                     </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-pink-400">
-                        {growthData.hackathon_creations.reduce((a, b) => a + b, 0)}
-                      </div>
-                      <div className="text-sm text-gray-400">Hackathons Created</div>
+                    <div className="text-3xl font-bold text-purple-400 mb-1">
+                      {growthData.user_signups.reduce((a, b) => a + b, 0)}
                     </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-400">
-                        {growthData.registrations.reduce((a, b) => a + b, 0)}
-                      </div>
-                      <div className="text-sm text-gray-400">Total Registrations</div>
+                    <div className="text-sm text-gray-400">Total User Signups</div>
+                    <div className="text-xs text-green-400 mt-2">
+                      +{growthData.user_signups.slice(-7).reduce((a, b) => a + b, 0)} in last 7 days
                     </div>
-                  </div>
+                  </Card>
+
+                  <Card className="glass-effect p-6 border border-pink-500/30">
+                    <div className="flex items-center justify-between mb-3">
+                      <Trophy className="w-10 h-10 text-pink-400" />
+                      <Activity className="w-5 h-5 text-green-400" />
+                    </div>
+                    <div className="text-3xl font-bold text-pink-400 mb-1">
+                      {growthData.hackathon_creations.reduce((a, b) => a + b, 0)}
+                    </div>
+                    <div className="text-sm text-gray-400">Hackathons Created</div>
+                    <div className="text-xs text-green-400 mt-2">
+                      +{growthData.hackathon_creations.slice(-7).reduce((a, b) => a + b, 0)} in last 7 days
+                    </div>
+                  </Card>
+
+                  <Card className="glass-effect p-6 border border-teal-500/30">
+                    <div className="flex items-center justify-between mb-3">
+                      <UserCheck className="w-10 h-10 text-teal-400" />
+                      <BarChart3 className="w-5 h-5 text-green-400" />
+                    </div>
+                    <div className="text-3xl font-bold text-teal-400 mb-1">
+                      {growthData.registrations.reduce((a, b) => a + b, 0)}
+                    </div>
+                    <div className="text-sm text-gray-400">Total Registrations</div>
+                    <div className="text-xs text-green-400 mt-2">
+                      +{growthData.registrations.slice(-7).reduce((a, b) => a + b, 0)} in last 7 days
+                    </div>
+                  </Card>
                 </div>
-              ) : (
+              </div>
+            ) : (
+              <Card className="glass-effect p-6 border border-purple-800/30">
                 <div className="text-center py-8 text-gray-400">
                   No growth data available for the selected period
                 </div>
-              )}
-            </Card>
+              </Card>
+            )}
 
             {/* User Distribution */}
             <Card className="glass-effect p-6 border border-purple-800/30">
