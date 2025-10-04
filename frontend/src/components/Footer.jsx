@@ -69,40 +69,30 @@ export default function Footer() {
           {/* Connect */}
           <div>
             <h3 className="text-white font-semibold mb-4">Connect</h3>
-            <div className="flex gap-3 mb-4">
+            <div className="space-y-3 mb-4">
               <a
-                href="https://twitter.com"
+                href="https://www.linkedin.com/company/getsocialnow/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-teal-600 flex items-center justify-center transition-colors"
+                className="flex items-center gap-3 text-gray-400 hover:text-teal-400 transition-colors group"
               >
-                <Twitter className="w-4 h-4 text-white" />
+                <div className="w-9 h-9 rounded-lg bg-gray-800 group-hover:bg-teal-600 flex items-center justify-center transition-colors">
+                  <Linkedin className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-sm">LinkedIn</span>
               </a>
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-teal-600 flex items-center justify-center transition-colors"
+                href="mailto:hackov8@gmail.com"
+                className="flex items-center gap-3 text-gray-400 hover:text-teal-400 transition-colors group"
               >
-                <Linkedin className="w-4 h-4 text-white" />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-teal-600 flex items-center justify-center transition-colors"
-              >
-                <Github className="w-4 h-4 text-white" />
-              </a>
-              <a
-                href="mailto:support@hackov8.com"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-teal-600 flex items-center justify-center transition-colors"
-              >
-                <Mail className="w-4 h-4 text-white" />
+                <div className="w-9 h-9 rounded-lg bg-gray-800 group-hover:bg-teal-600 flex items-center justify-center transition-colors">
+                  <Mail className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-sm">hackov8@gmail.com</span>
               </a>
             </div>
             <p className="text-gray-400 text-xs">
-              Questions? Reach out to us!
+              For collaboration requests, reach out to us!
             </p>
           </div>
         </div>
