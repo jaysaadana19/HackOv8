@@ -38,11 +38,26 @@ class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
     email: EmailStr
     name: str
+    password_hash: Optional[str] = None  # For email/password auth
     role: str = "participant"  # admin, organizer, judge, participant
     picture: Optional[str] = None
     bio: Optional[str] = None
     github_link: Optional[str] = None
     linkedin_link: Optional[str] = None
+    company_id: Optional[str] = None  # Link to company if organizer
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Company(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    name: str
+    email: EmailStr
+    website: Optional[str] = None
+    logo: Optional[str] = None
+    description: Optional[str] = None
+    admin_user_id: str  # User who owns this company
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
     class Config:
