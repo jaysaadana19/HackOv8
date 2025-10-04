@@ -345,7 +345,7 @@ export default function AdminDashboard() {
                       <div className="flex gap-2">
                         <Button
                           size="sm"
-                          onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+                          onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                           variant="outline"
                           className="border-purple-600 text-purple-400"
                         >
@@ -434,7 +434,7 @@ export default function AdminDashboard() {
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+                        onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                         variant="outline"
                         className="border-purple-600 text-purple-400 hover:bg-purple-600/10"
                       >
