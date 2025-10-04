@@ -324,7 +324,10 @@ export default function LandingEnhanced() {
             >
               <div className="h-56 bg-gradient-to-br from-purple-600/40 to-pink-600/40 flex items-center justify-center relative overflow-hidden">
                 {hackathon.cover_image ? (
-                  <img src={hackathon.cover_image} alt={hackathon.title} className="w-full h-full object-cover" />
+                  <>
+                    <img src={hackathon.cover_image} alt={hackathon.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  </>
                 ) : (
                   <div className="relative">
                     <Code className="w-20 h-20 text-purple-300 group-hover:scale-110 transition-transform" />
