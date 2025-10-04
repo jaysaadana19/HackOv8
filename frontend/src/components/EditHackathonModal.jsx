@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { X, Save, Upload } from 'lucide-react';
+import { X, Save, Upload, Twitter, Linkedin, Globe, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { hackathonAPI, uploadAPI } from '@/lib/api';
 
@@ -17,6 +18,11 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [imageMode, setImageMode] = useState('url');
   const [rules, setRules] = useState(hackathon.rules || '');
   const [status, setStatus] = useState(hackathon.status);
+  const [twitterUrl, setTwitterUrl] = useState(hackathon.twitter_url || '');
+  const [linkedinUrl, setLinkedinUrl] = useState(hackathon.linkedin_url || '');
+  const [websiteUrl, setWebsiteUrl] = useState(hackathon.website_url || '');
+  const [communityUrl, setCommunityUrl] = useState(hackathon.community_url || '');
+  const [communityType, setCommunityType] = useState(hackathon.community_type || 'slack');
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -37,7 +43,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
       const response = await uploadAPI.uploadImage(file);
       const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
       setCoverImage(imageUrl);
-      console.log('Image uploaded, URL:', imageUrl); // Debug log
+      console.log('Image uploaded, URL:', imageUrl);
       toast.success('Image uploaded successfully');
     } catch (error) {
       console.error('Upload error:', error);
@@ -49,7 +55,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!title || !description) {
       toast.error('Title and description are required');
       return;
@@ -57,13 +63,20 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
 
     setLoading(true);
     try {
-      await hackathonAPI.update(hackathon.id, {
+      const data = {
         title,
         description,
-        cover_image: coverImage,
+        cover_image: coverImage || null,
         rules,
-        status
-      });
+        status,
+        twitter_url: twitterUrl || null,
+        linkedin_url: linkedinUrl || null,
+        website_url: websiteUrl || null,
+        community_url: communityUrl || null,
+        community_type: communityUrl ? communityType : null
+      };
+
+      await hackathonAPI.update(hackathon.id, data);
       toast.success('Hackathon updated successfully!');
       onSuccess();
     } catch (error) {
@@ -74,23 +87,25 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="glass-effect rounded-2xl p-8 max-w-2xl w-full my-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white">Edit Hackathon</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-950 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-800">
+        <div className="sticky top-0 bg-gray-950 border-b border-gray-800 p-6 flex items-center justify-between z-10">
+          <h2 className="text-2xl font-bold gradient-text">Edit Hackathon</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div>
-            <Label className="text-gray-400 mb-2 block">Title</Label>
+            <Label className="text-gray-400 mb-2 block">Hackathon Title</Label>
             <Input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="bg-gray-900/50 border-gray-800 text-white"
+              placeholder="Enter hackathon title"
+              required
             />
           </div>
 
@@ -100,6 +115,8 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="bg-gray-900/50 border-gray-800 text-white min-h-24"
+              placeholder="Describe your hackathon..."
+              required
             />
           </div>
 
@@ -141,11 +158,12 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
           </div>
 
           <div>
-            <Label className="text-gray-400 mb-2 block">Rules</Label>
+            <Label className="text-gray-400 mb-2 block">Rules & Guidelines</Label>
             <Textarea
               value={rules}
               onChange={(e) => setRules(e.target.value)}
               className="bg-gray-900/50 border-gray-800 text-white min-h-24"
+              placeholder="Enter hackathon rules..."
             />
           </div>
 
@@ -154,7 +172,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full bg-gray-900/50 border border-gray-800 text-white px-4 py-2 rounded-lg"
+              className="w-full bg-gray-900/50 border border-gray-800 text-white rounded-lg px-4 py-2"
             >
               <option value="draft">Draft</option>
               <option value="published">Published</option>
@@ -163,22 +181,118 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
             </select>
           </div>
 
-          <div className="flex gap-3">
+          {/* Social Profiles & Community Section */}
+          <div className="pt-4 border-t border-gray-800">
+            <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+              <Globe className="w-5 h-5 text-teal-500" />
+              Social Links & Community
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                  <Twitter className="w-4 h-4 text-blue-400" />
+                  Twitter/X URL
+                </Label>
+                <Input
+                  type="url"
+                  value={twitterUrl}
+                  onChange={(e) => setTwitterUrl(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="https://twitter.com/yourusername"
+                />
+              </div>
+
+              <div>
+                <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                  <Linkedin className="w-4 h-4 text-blue-600" />
+                  LinkedIn URL
+                </Label>
+                <Input
+                  type="url"
+                  value={linkedinUrl}
+                  onChange={(e) => setLinkedinUrl(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                />
+              </div>
+
+              <div>
+                <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-green-500" />
+                  Website URL
+                </Label>
+                <Input
+                  type="url"
+                  value={websiteUrl}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="https://yourwebsite.com"
+                />
+              </div>
+
+              <div>
+                <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-purple-500" />
+                  Community Type
+                </Label>
+                <RadioGroup value={communityType} onValueChange={setCommunityType} className="flex gap-4 mt-2">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="slack" id="edit-slack" />
+                    <Label htmlFor="edit-slack" className="text-gray-300 cursor-pointer">Slack</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="discord" id="edit-discord" />
+                    <Label htmlFor="edit-discord" className="text-gray-300 cursor-pointer">Discord</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="other" id="edit-other" />
+                    <Label htmlFor="edit-other" className="text-gray-300 cursor-pointer">Other</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div className="md:col-span-2">
+                <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-teal-500" />
+                  Community URL
+                </Label>
+                <Input
+                  type="url"
+                  value={communityUrl}
+                  onChange={(e) => setCommunityUrl(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder={communityType === 'slack' ? 'https://yourworkspace.slack.com/...' : communityType === 'discord' ? 'https://discord.gg/...' : 'https://community-link.com'}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3 pt-4 border-t border-gray-800">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
               className="flex-1 border-gray-700 text-gray-400"
+              disabled={loading}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              disabled={loading}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+              disabled={loading || uploading}
+              className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
             >
-              <Save className="w-4 h-4 mr-2" />
-              {loading ? 'Saving...' : 'Save Changes'}
+              {loading ? (
+                <>
+                  <div className="loading-spinner mr-2"></div>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Changes
+                </>
+              )}
             </Button>
           </div>
         </form>
