@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 class HackovAPITester:
-    def __init__(self, base_url="https://hackov8.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hackcraft-portal.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.session_token = None
         self.user_id = None
