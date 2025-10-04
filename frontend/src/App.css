@@ -801,14 +801,14 @@ select:focus {
 /* Status badges */
 .from-purple-500.to-pink-500,
 .from-indigo-500.to-purple-500 {
-  background: linear-gradient(to right, #000000, #1A1A1A) !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
 }
 
 /* White backgrounds for cards */
 .bg-gray-950,
 .bg-gray-900 {
   background-color: #FFFFFF !important;
-  border: 1px solid #E5E5E5 !important;
+  border: 1px solid #E2E8F0 !important;
 }
 
 /* Keep white for light mode */
