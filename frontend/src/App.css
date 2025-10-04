@@ -720,21 +720,21 @@ select:focus {
   color: #134E4A !important;
 }
 
-/* All backgrounds to Black/White */
+/* All backgrounds to Teal/Navy */
 .bg-purple-600,
 .bg-purple-500,
 .bg-pink-600,
 .bg-pink-500 {
-  background-color: #000000 !important;
+  background-color: #0D9488 !important;
 }
 
 .bg-purple-700 {
-  background-color: #1A1A1A !important;
+  background-color: #134E4A !important;
 }
 
 .bg-purple-900\/20,
 .bg-purple-900\/30 {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+  background-color: rgba(13, 148, 136, 0.1) !important;
 }
 
 /* Border colors - Light Gray Borders */
