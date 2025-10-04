@@ -891,13 +891,14 @@ nav:hover {
 button {
   font-weight: 500 !important;
   border-radius: 8px !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Black Buttons/CTA */
+/* Teal Gradient Buttons/CTA */
 button.bg-gradient-to-r,
 button[class*="from-purple"],
 button[class*="from-pink"] {
-  background: #000000 !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
   color: #FFFFFF !important;
   border: none !important;
 }
@@ -905,23 +906,25 @@ button[class*="from-pink"] {
 button.bg-gradient-to-r:hover,
 button[class*="from-purple"]:hover,
 button[class*="from-pink"]:hover {
-  background: #1A1A1A !important;
+  background: linear-gradient(to right, #0F766E, #0D9488) !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25) !important;
 }
 
-/* Outlined Buttons */
+/* Outlined Buttons with Teal */
 button[class*="border-purple"],
 button[class*="border-pink"],
 button.border-2 {
   background: transparent !important;
-  border: 1px solid #000000 !important;
-  color: #000000 !important;
+  border: 2px solid #0D9488 !important;
+  color: #0D9488 !important;
 }
 
 button[class*="border-purple"]:hover,
 button[class*="border-pink"]:hover,
 button.border-2:hover {
-  background: #000000 !important;
+  background: #0D9488 !important;
   color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2) !important;
 }
 
 /* Input Fields */
