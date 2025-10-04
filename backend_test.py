@@ -184,8 +184,9 @@ class HackovAPITester:
         
         if success and 'invite_code' in team_data:
             invite_code = team_data['invite_code']
+            team_id = team_data.get('id') or team_data.get('_id')
             print(f"   Created team with invite code: {invite_code}")
-            return team_data['id'], invite_code
+            return team_id, invite_code
         
         return None, None
 
