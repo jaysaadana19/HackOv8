@@ -445,16 +445,26 @@ async def signup(signup_data: SignupRequest):
     # Hash password
     password_hash = pwd_context.hash(signup_data.password)
     
+    # Generate verification token
+    verification_token = secrets.token_urlsafe(32)
+    
     # Create user
     user = User(
         email=signup_data.email,
         name=signup_data.name,
         password_hash=password_hash,
-        role=signup_data.role
+        role=signup_data.role,
+        email_verified=False,
+        verification_token=verification_token
     )
     user_dict = user.dict(by_alias=True)
     await db.users.insert_one(user_dict)
     user_id = user_dict["_id"]
+    
+    # Send verification email (simulated - in production use actual email service)
+    print(f"[EMAIL VERIFICATION] Send to {signup_data.email}")
+    print(f"[VERIFICATION LINK] /api/auth/verify-email?token={verification_token}")
+    # TODO: Integrate with actual email service (SendGrid, AWS SES, etc.)
     
     # If organizer with company, create company
     company_id = None
