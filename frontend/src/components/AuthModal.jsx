@@ -251,31 +251,30 @@ export default function AuthModal({ onClose, onSuccess }) {
                   />
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <Label className="text-gray-700 font-medium">I want to join as</Label>
-                  <RadioGroup value={signupRole} onValueChange={setSignupRole} className="space-y-3">
-                    <div className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
+                  <RadioGroup value={signupRole} onValueChange={setSignupRole} className="space-y-2">
+                    <div className="flex items-center space-x-3 p-3 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
                       <RadioGroupItem value="participant" id="participant" />
                       <Label htmlFor="participant" className="flex-1 cursor-pointer">
-                        <div className="font-semibold text-gray-900">Participant</div>
-                        <div className="text-sm text-gray-500">Join hackathons and compete</div>
+                        <div className="font-semibold text-gray-900 text-sm">Participant</div>
+                        <div className="text-xs text-gray-500">Join hackathons and compete</div>
                       </Label>
-                      <CheckCircle className="w-5 h-5 text-teal-500 opacity-0 group-data-[state=checked]:opacity-100" />
                     </div>
 
-                    <div className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
+                    <div className="flex items-center space-x-3 p-3 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
                       <RadioGroupItem value="organizer" id="organizer" />
                       <Label htmlFor="organizer" className="flex-1 cursor-pointer">
-                        <div className="font-semibold text-gray-900">Organizer</div>
-                        <div className="text-sm text-gray-500">Host and manage hackathons</div>
+                        <div className="font-semibold text-gray-900 text-sm">Organizer</div>
+                        <div className="text-xs text-gray-500">Host and manage hackathons</div>
                       </Label>
                     </div>
 
-                    <div className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
+                    <div className="flex items-center space-x-3 p-3 border-2 border-gray-200 rounded-xl hover:border-teal-500 transition-all cursor-pointer">
                       <RadioGroupItem value="judge" id="judge" />
                       <Label htmlFor="judge" className="flex-1 cursor-pointer">
-                        <div className="font-semibold text-gray-900">Judge</div>
-                        <div className="text-sm text-gray-500">Evaluate hackathon submissions</div>
+                        <div className="font-semibold text-gray-900 text-sm">Judge</div>
+                        <div className="text-xs text-gray-500">Evaluate hackathon submissions</div>
                       </Label>
                     </div>
                   </RadioGroup>
