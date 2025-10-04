@@ -7,7 +7,8 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { hackathonAPI, authAPI } from '@/lib/api';
-import { EMERGENT_AUTH_URL, isAuthenticated, setAuth } from '@/lib/auth';
+import { isAuthenticated, setAuth } from '@/lib/auth';
+import AuthModal from '@/components/AuthModal';
 
 export default function Landing() {
   const navigate = useNavigate();
