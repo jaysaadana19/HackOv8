@@ -1329,6 +1329,28 @@ async def reject_hackathon(hackathon_id: str, reason: str, request: Request):
     
     return {"message": "Hackathon rejected"}
 
+@api_router.put("/admin/hackathons/{hackathon_id}/feature")
+async def toggle_featured_hackathon(hackathon_id: str, featured: bool, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    update_data = {
+        "featured": featured,
+        "featured_at": datetime.now(timezone.utc) if featured else None
+    }
+    
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$set": update_data}
+    )
+    
+    action = "featured" if featured else "unfeatured"
+    return {"message": f"Hackathon {action} successfully"}
+
 @api_router.delete("/admin/hackathons/{hackathon_id}")
 async def delete_hackathon_admin(hackathon_id: str, request: Request):
     user = await get_current_user(request)
