@@ -61,7 +61,9 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
     setUploading(true);
     try {
       const response = await uploadAPI.uploadImage(file);
-      const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
+      // Remove /api from backend URL for static files
+      const backendUrl = process.env.REACT_APP_BACKEND_URL.replace('/api', '');
+      const imageUrl = backendUrl + response.data.url;
       setCoverImage(imageUrl);
       toast.success('Image uploaded successfully');
     } catch (error) {
