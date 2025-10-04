@@ -527,6 +527,30 @@ async def login(login_data: LoginRequest):
         session_token=session_token
     )
 
+@api_router.post("/auth/change-password")
+async def change_password(old_password: str, new_password: str, request: Request):
+    user = await get_current_user(request)
+    
+    # Get user from database
+    user_doc = await db.users.find_one({"_id": user.id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Verify old password
+    if not bcrypt.checkpw(old_password.encode('utf-8'), user_doc["hashed_password"].encode('utf-8')):
+        raise HTTPException(status_code=400, detail="Incorrect current password")
+    
+    # Hash new password
+    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    # Update password
+    await db.users.update_one(
+        {"_id": user.id},
+        {"$set": {"hashed_password": hashed_password}}
+    )
+    
+    return {"message": "Password changed successfully"}
+
 # ==================== COMPANY ROUTES ====================
 
 @api_router.get("/companies/my")
