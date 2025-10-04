@@ -209,9 +209,10 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 bg-gray-900/50 p-1">
+          <TabsList className="grid w-full grid-cols-4 bg-gray-900/50 p-1">
             <TabsTrigger value="overview" className="data-[state=active]:bg-purple-600">Overview</TabsTrigger>
             <TabsTrigger value="hackathons" className="data-[state=active]:bg-purple-600">Hackathons</TabsTrigger>
+            <TabsTrigger value="users" className="data-[state=active]:bg-purple-600">Users</TabsTrigger>
             <TabsTrigger value="analytics" className="data-[state=active]:bg-purple-600">Analytics</TabsTrigger>
           </TabsList>
 
