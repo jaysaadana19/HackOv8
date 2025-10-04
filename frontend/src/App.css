@@ -551,8 +551,9 @@ select:focus {
   color: #1a1a1a !important;
 }
 
-.light-mode .hover\:bg-purple-900\/20:hover {
-  background: rgba(168, 85, 247, 0.1) !important;
+.light-mode .hover\:bg-purple-900\/20:hover,
+.light-mode .hover\:bg-teal-900\/20:hover {
+  background: rgba(0, 206, 209, 0.1) !important;
 }
 
 .light-mode .hover\:bg-gray-900\/50:hover,
