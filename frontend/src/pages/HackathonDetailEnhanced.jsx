@@ -117,7 +117,15 @@ export default function HackathonDetailEnhanced() {
       <div className="relative h-[500px] overflow-hidden">
         {hackathon.cover_image ? (
           <>
-            <img src={hackathon.cover_image} alt={hackathon.title} className="absolute inset-0 w-full h-full object-cover" />
+            <img 
+              src={hackathon.cover_image} 
+              alt={hackathon.title} 
+              className="absolute inset-0 w-full h-full object-cover" 
+              onError={(e) => {
+                e.target.style.display = 'none';
+                console.error('Failed to load banner image:', hackathon.cover_image);
+              }}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/80 to-transparent"></div>
           </>
         ) : (
