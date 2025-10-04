@@ -927,22 +927,24 @@ button.border-2:hover {
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2) !important;
 }
 
-/* Input Fields */
+/* Input Fields with Teal Focus */
 input,
 textarea,
 select {
-  background: #FAFAFA !important;
-  border: 1px solid #E5E5E5 !important;
-  color: #000000 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #1E293B !important;
   border-radius: 8px !important;
+  transition: all 0.3s ease !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none !important;
-  border-color: #000000 !important;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05) !important;
+  border-color: #0D9488 !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1) !important;
+  background: #FFFFFF !important;
 }
 
 /* Badge Styling */
