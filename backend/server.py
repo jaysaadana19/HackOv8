@@ -549,19 +549,61 @@ async def change_password(old_password: str, new_password: str, request: Request
         raise HTTPException(status_code=404, detail="User not found")
     
     # Verify old password
-    if not bcrypt.checkpw(old_password.encode('utf-8'), user_doc["hashed_password"].encode('utf-8')):
+    if not pwd_context.verify(old_password, user_doc["password_hash"]):
         raise HTTPException(status_code=400, detail="Incorrect current password")
     
     # Hash new password
-    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    hashed_password = pwd_context.hash(new_password)
     
     # Update password
     await db.users.update_one(
         {"_id": user.id},
-        {"$set": {"hashed_password": hashed_password}}
+        {"$set": {"password_hash": hashed_password}}
     )
     
     return {"message": "Password changed successfully"}
+
+@api_router.get("/auth/verify-email")
+async def verify_email(token: str):
+    # Find user by verification token
+    user = await db.users.find_one({"verification_token": token})
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid verification token")
+    
+    if user.get("email_verified"):
+        return {"message": "Email already verified"}
+    
+    # Update user as verified
+    await db.users.update_one(
+        {"_id": user["_id"]},
+        {"$set": {"email_verified": True, "verification_token": None}}
+    )
+    
+    return {"message": "Email verified successfully"}
+
+@api_router.post("/auth/resend-verification")
+async def resend_verification(request: Request):
+    user = await get_current_user(request)
+    
+    user_doc = await db.users.find_one({"_id": user.id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user_doc.get("email_verified"):
+        raise HTTPException(status_code=400, detail="Email already verified")
+    
+    # Generate new token
+    verification_token = secrets.token_urlsafe(32)
+    await db.users.update_one(
+        {"_id": user.id},
+        {"$set": {"verification_token": verification_token}}
+    )
+    
+    # Send verification email
+    print(f"[EMAIL VERIFICATION] Resend to {user_doc['email']}")
+    print(f"[VERIFICATION LINK] /api/auth/verify-email?token={verification_token}")
+    
+    return {"message": "Verification email sent"}
 
 # ==================== COMPANY ROUTES ====================
 
