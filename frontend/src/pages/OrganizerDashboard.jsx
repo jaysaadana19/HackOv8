@@ -11,6 +11,7 @@ import EditHackathonModal from '@/components/EditHackathonModal';
 import ViewRegistrationsModal from '@/components/ViewRegistrationsModal';
 import NotifyParticipantsModal from '@/components/NotifyParticipantsModal';
 import axios from 'axios';
+import { getHackathonBanner } from '@/lib/bannerImages';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 
