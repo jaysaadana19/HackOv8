@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingEnhanced />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/hackathon/:id" element={<HackathonDetail />} />
+          <Route path="/hackathon/:id" element={<HackathonDetailEnhanced />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/judge" element={<JudgeDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
