@@ -337,6 +337,94 @@ async def logout(request: Request, response: Response):
     response.delete_cookie("session_token", path="/")
     return {"message": "Logged out successfully"}
 
+@api_router.post("/auth/signup")
+async def signup(signup_data: SignupRequest):
+    # Check if user exists
+    existing_user = await db.users.find_one({"email": signup_data.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Hash password
+    password_hash = pwd_context.hash(signup_data.password)
+    
+    # Create user
+    user = User(
+        email=signup_data.email,
+        name=signup_data.name,
+        password_hash=password_hash,
+        role=signup_data.role
+    )
+    user_dict = user.dict(by_alias=True)
+    await db.users.insert_one(user_dict)
+    user_id = user_dict["_id"]
+    
+    # If organizer with company, create company
+    company_id = None
+    if signup_data.role == "organizer" and signup_data.company_name:
+        company = Company(
+            name=signup_data.company_name,
+            email=signup_data.email,
+            website=signup_data.company_website,
+            admin_user_id=user_id
+        )
+        company_dict = company.dict(by_alias=True)
+        await db.companies.insert_one(company_dict)
+        company_id = company_dict["_id"]
+        
+        # Update user with company_id
+        await db.users.update_one(
+            {"_id": user_id},
+            {"$set": {"company_id": company_id}}
+        )
+    
+    # Create session
+    session_token = secrets.token_urlsafe(32)
+    session = UserSession(
+        user_id=user_id,
+        session_token=session_token,
+        expires_at=datetime.now(timezone.utc) + timedelta(days=7)
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    return SessionResponse(
+        id=user_id,
+        email=signup_data.email,
+        name=signup_data.name,
+        picture=None,
+        session_token=session_token
+    )
+
+@api_router.post("/auth/login")
+async def login(login_data: LoginRequest):
+    # Find user
+    user_doc = await db.users.find_one({"email": login_data.email})
+    if not user_doc:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # Verify password
+    if not user_doc.get("password_hash"):
+        raise HTTPException(status_code=401, detail="Please use Google login for this account")
+    
+    if not pwd_context.verify(login_data.password, user_doc["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # Create session
+    session_token = secrets.token_urlsafe(32)
+    session = UserSession(
+        user_id=user_doc["_id"],
+        session_token=session_token,
+        expires_at=datetime.now(timezone.utc) + timedelta(days=7)
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    return SessionResponse(
+        id=user_doc["_id"],
+        email=user_doc["email"],
+        name=user_doc["name"],
+        picture=user_doc.get("picture"),
+        session_token=session_token
+    )
+
 # ==================== USER ROUTES ====================
 
 @api_router.put("/users/profile")
