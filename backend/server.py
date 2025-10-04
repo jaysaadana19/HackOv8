@@ -829,6 +829,224 @@ async def mark_notification_read(notification_id: str, request: Request):
 
 # ==================== ADMIN ROUTES ====================
 
+# Hackathon Management
+@api_router.get("/admin/hackathons")
+async def get_admin_hackathons(request: Request, status: Optional[str] = None):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    query = {}
+    if status:
+        query["status"] = status
+    
+    hackathons = await db.hackathons.find(query).sort("created_at", -1).to_list(1000)
+    
+    # Enrich with counts
+    result = []
+    for h in hackathons:
+        reg_count = await db.registrations.count_documents({"hackathon_id": h["_id"]})
+        sub_count = await db.submissions.count_documents({"hackathon_id": h["_id"]})
+        result.append({
+            **h,
+            "id": h.pop("_id"),
+            "registration_count": reg_count,
+            "submission_count": sub_count
+        })
+    
+    return result
+
+@api_router.put("/admin/hackathons/{hackathon_id}/approve")
+async def approve_hackathon(hackathon_id: str, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$set": {
+            "status": "published",
+            "approved_at": datetime.now(timezone.utc),
+            "approved_by": user.id
+        }}
+    )
+    
+    # Send notification to organizer
+    await db.notifications.insert_one({
+        "_id": str(uuid.uuid4()),
+        "user_id": hackathon["organizer_id"],
+        "title": "Hackathon Approved!",
+        "message": f"Your hackathon '{hackathon['title']}' has been approved and published.",
+        "type": "hackathon_approved",
+        "read": False,
+        "created_at": datetime.now(timezone.utc)
+    })
+    
+    return {"message": "Hackathon approved successfully"}
+
+@api_router.put("/admin/hackathons/{hackathon_id}/reject")
+async def reject_hackathon(hackathon_id: str, reason: str, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$set": {"status": "rejected"}}
+    )
+    
+    # Send notification to organizer
+    await db.notifications.insert_one({
+        "_id": str(uuid.uuid4()),
+        "user_id": hackathon["organizer_id"],
+        "title": "Hackathon Rejected",
+        "message": f"Your hackathon '{hackathon['title']}' was not approved. Reason: {reason}",
+        "type": "hackathon_rejected",
+        "read": False,
+        "created_at": datetime.now(timezone.utc)
+    })
+    
+    return {"message": "Hackathon rejected"}
+
+@api_router.delete("/admin/hackathons/{hackathon_id}")
+async def delete_hackathon_admin(hackathon_id: str, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    # Delete hackathon and related data
+    await db.hackathons.delete_one({"_id": hackathon_id})
+    await db.registrations.delete_many({"hackathon_id": hackathon_id})
+    await db.submissions.delete_many({"hackathon_id": hackathon_id})
+    await db.teams.delete_many({"hackathon_id": hackathon_id})
+    
+    return {"message": "Hackathon deleted successfully"}
+
+# Analytics & Stats
+@api_router.get("/admin/stats/overview")
+async def get_admin_stats_overview(request: Request, days: int = 30):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=days if days > 0 else 36500)  # All time if days = 0
+    
+    total_users = await db.users.count_documents({})
+    new_users = await db.users.count_documents({"created_at": {"$gte": cutoff_date}})
+    total_hackathons = await db.hackathons.count_documents({})
+    pending_hackathons = await db.hackathons.count_documents({"status": "pending_approval"})
+    published_hackathons = await db.hackathons.count_documents({"status": "published"})
+    total_registrations = await db.registrations.count_documents({})
+    total_submissions = await db.submissions.count_documents({})
+    total_teams = await db.teams.count_documents({})
+    
+    # Get user role distribution
+    users = await db.users.find().to_list(10000)
+    role_distribution = {}
+    for u in users:
+        role = u.get("role", "participant")
+        role_distribution[role] = role_distribution.get(role, 0) + 1
+    
+    return {
+        "total_users": total_users,
+        "new_users": new_users,
+        "total_hackathons": total_hackathons,
+        "pending_hackathons": pending_hackathons,
+        "published_hackathons": published_hackathons,
+        "total_registrations": total_registrations,
+        "total_submissions": total_submissions,
+        "total_teams": total_teams,
+        "role_distribution": role_distribution,
+        "period_days": days
+    }
+
+@api_router.get("/admin/stats/growth")
+async def get_growth_stats(request: Request, days: int = 30):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=days if days > 0 else 36500)
+    
+    # Get daily user signups
+    users = await db.users.find({"created_at": {"$gte": cutoff_date}}).to_list(10000)
+    
+    # Get daily hackathon creation
+    hackathons = await db.hackathons.find({"created_at": {"$gte": cutoff_date}}).to_list(10000)
+    
+    # Get daily registrations
+    registrations = await db.registrations.find({"created_at": {"$gte": cutoff_date}}).to_list(10000)
+    
+    # Group by date
+    user_growth = {}
+    hackathon_growth = {}
+    registration_growth = {}
+    
+    for u in users:
+        date_key = u["created_at"].date().isoformat()
+        user_growth[date_key] = user_growth.get(date_key, 0) + 1
+    
+    for h in hackathons:
+        date_key = h["created_at"].date().isoformat()
+        hackathon_growth[date_key] = hackathon_growth.get(date_key, 0) + 1
+    
+    for r in registrations:
+        date_key = r["created_at"].date().isoformat()
+        registration_growth[date_key] = registration_growth.get(date_key, 0) + 1
+    
+    # Convert to sorted arrays
+    dates = sorted(set(list(user_growth.keys()) + list(hackathon_growth.keys()) + list(registration_growth.keys())))
+    
+    return {
+        "dates": dates,
+        "user_signups": [user_growth.get(d, 0) for d in dates],
+        "hackathon_creations": [hackathon_growth.get(d, 0) for d in dates],
+        "registrations": [registration_growth.get(d, 0) for d in dates]
+    }
+
+@api_router.get("/admin/stats/retention")
+async def get_retention_stats(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    now = datetime.now(timezone.utc)
+    seven_days_ago = now - timedelta(days=7)
+    thirty_days_ago = now - timedelta(days=30)
+    
+    # Total users
+    total_users = await db.users.count_documents({})
+    
+    # Users who logged in within last 7 days
+    active_7_days = await db.users.count_documents({
+        "last_login": {"$gte": seven_days_ago}
+    })
+    
+    # Users who logged in within last 30 days
+    active_30_days = await db.users.count_documents({
+        "last_login": {"$gte": thirty_days_ago}
+    })
+    
+    # Users who participated in multiple hackathons
+    registrations = await db.registrations.find().to_list(10000)
+    user_participation = {}
+    for reg in registrations:
+        user_id = reg["user_id"]
+        user_participation[user_id] = user_participation.get(user_id, 0) + 1
+    
+    multi_hackathon_users = sum(1 for count in user_participation.values() if count > 1)
+    
+    return {
+        "total_users": total_users,
+        "active_7_days": active_7_days,
+        "active_30_days": active_30_days,
+        "retention_rate_7_days": round((active_7_days / total_users * 100) if total_users > 0 else 0, 2),
+        "retention_rate_30_days": round((active_30_days / total_users * 100) if total_users > 0 else 0, 2),
+        "multi_hackathon_participants": multi_hackathon_users,
+        "multi_participation_rate": round((multi_hackathon_users / total_users * 100) if total_users > 0 else 0, 2)
+    }
+
 @api_router.get("/admin/stats")
 async def get_admin_stats(request: Request):
     user = await get_current_user(request)
