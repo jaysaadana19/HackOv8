@@ -63,7 +63,7 @@ export default function JoinTeamModal({ onClose, onSuccess }) {
             <Button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+              className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
               data-testid="join-team-submit"
             >
               {loading ? 'Joining...' : 'Join'}
