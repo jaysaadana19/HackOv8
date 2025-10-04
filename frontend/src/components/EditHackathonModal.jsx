@@ -93,8 +93,13 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description) {
-      toast.error('Title and description are required');
+    if (!title || !description || !category) {
+      toast.error('Title, description, and category are required');
+      return;
+    }
+
+    if (!regStart || !regEnd || !eventStart || !eventEnd || !submissionDeadline) {
+      toast.error('All date fields are required');
       return;
     }
 
@@ -104,6 +109,17 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
         title,
         description,
         cover_image: coverImage || null,
+        category,
+        location,
+        venue: location !== 'online' ? venue : null,
+        registration_start: new Date(regStart).toISOString(),
+        registration_end: new Date(regEnd).toISOString(),
+        event_start: new Date(eventStart).toISOString(),
+        event_end: new Date(eventEnd).toISOString(),
+        submission_deadline: new Date(submissionDeadline).toISOString(),
+        min_team_size: parseInt(minTeamSize),
+        max_team_size: parseInt(maxTeamSize),
+        prizes: prizes.filter(p => p.place && p.amount),
         rules,
         status,
         twitter_url: twitterUrl || null,
