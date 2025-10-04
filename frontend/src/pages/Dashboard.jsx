@@ -166,6 +166,16 @@ export default function Dashboard() {
                 </Button>
               )}
 
+              {/* Theme Toggle */}
+              <Button
+                variant="ghost"
+                className="text-gray-400 hover:text-white hover:bg-purple-900/20"
+                onClick={toggleTheme}
+                title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+
               {/* Profile Button */}
               <Button
                 variant="ghost"
