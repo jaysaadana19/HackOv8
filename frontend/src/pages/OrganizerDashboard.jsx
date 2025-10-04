@@ -119,8 +119,12 @@ export default function OrganizerDashboard() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {myHackathons.map((hackathon) => (
               <Card key={hackathon.id} className="glass-effect hover-lift overflow-hidden" data-testid={`hackathon-card-${hackathon.id}`}>
-                <div className="h-32 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center">
-                  <Rocket className="w-12 h-12 text-purple-500" />
+                <div className="h-32 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
+                  {hackathon.cover_image ? (
+                    <img src={hackathon.cover_image} alt={hackathon.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <Rocket className="w-12 h-12 text-purple-500" />
+                  )}
                 </div>
 
                 <div className="p-6 space-y-4">
