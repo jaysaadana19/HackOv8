@@ -704,8 +704,17 @@ async def get_hackathons(
     hackathons = await db.hackathons.find(query).sort([("featured", -1), ("created_at", -1)]).to_list(100)
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
+@api_router.get("/hackathons/slug/{slug}")
+async def get_hackathon_by_slug(slug: str):
+    """Get hackathon by SEO-friendly slug"""
+    hackathon = await db.hackathons.find_one({"slug": slug})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    return {**hackathon, "id": hackathon.pop("_id")}
+
 @api_router.get("/hackathons/{hackathon_id}")
 async def get_hackathon(hackathon_id: str):
+    """Get hackathon by ID (for backward compatibility)"""
     hackathon = await db.hackathons.find_one({"_id": hackathon_id})
     if not hackathon:
         raise HTTPException(status_code=404, detail="Hackathon not found")
