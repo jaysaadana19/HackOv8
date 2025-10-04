@@ -86,7 +86,7 @@ export default function HackathonDetailEnhanced() {
     }
 
     try {
-      await registrationAPI.register(id);
+      await registrationAPI.register(hackathon.id);
       toast.success('Registered successfully!');
       setIsRegistered(true);
       fetchData();
