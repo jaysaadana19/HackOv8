@@ -1,15 +1,19 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Response, Request
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field
-from typing import List
+from pydantic import BaseModel, Field, EmailStr
+from typing import List, Optional, Dict, Any
 import uuid
-from datetime import datetime
-
+from datetime import datetime, timezone, timedelta
+import httpx
+from passlib.context import CryptContext
+import secrets
+import json
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -25,32 +29,707 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Password hashing
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Define Models
-class StatusCheck(BaseModel):
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+# ==================== MODELS ====================
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class User(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    email: EmailStr
+    name: str
+    role: str = "participant"  # admin, organizer, judge, participant
+    picture: Optional[str] = None
+    bio: Optional[str] = None
+    github_link: Optional[str] = None
+    linkedin_link: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
 
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
+class UserSession(BaseModel):
+    user_id: str
+    session_token: str
+    expires_at: datetime
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.dict()
-    status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
-    return status_obj
+class Hackathon(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    title: str
+    description: str
+    cover_image: Optional[str] = None
+    organizer_id: str
+    organizer_name: str
+    category: str
+    location: str  # online/offline/hybrid
+    venue: Optional[str] = None
+    registration_start: datetime
+    registration_end: datetime
+    event_start: datetime
+    event_end: datetime
+    submission_deadline: datetime
+    max_team_size: int = 4
+    min_team_size: int = 1
+    prizes: List[Dict[str, Any]] = []
+    rules: str = ""
+    judging_rubric: List[Dict[str, Any]] = []  # [{"criteria": "Innovation", "max_score": 10}]
+    faqs: List[Dict[str, str]] = []
+    status: str = "draft"  # draft, published, ongoing, completed
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
+class Team(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    name: str
+    hackathon_id: str
+    leader_id: str
+    members: List[str] = []  # user IDs
+    invite_code: str = Field(default_factory=lambda: secrets.token_urlsafe(8))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Registration(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    user_id: str
+    hackathon_id: str
+    team_id: Optional[str] = None
+    status: str = "registered"  # registered, cancelled
+    registered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Submission(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    team_id: str
+    hackathon_id: str
+    project_name: str
+    description: str
+    repo_link: Optional[str] = None
+    video_link: Optional[str] = None
+    demo_link: Optional[str] = None
+    files: List[str] = []  # file paths
+    submitted_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class JudgeAssignment(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    user_id: str
+    hackathon_id: str
+    assigned_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Score(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    submission_id: str
+    judge_id: str
+    hackathon_id: str
+    rubric_scores: Dict[str, float] = {}  # {"Innovation": 8.5, "Technical": 9.0}
+    feedback: Optional[str] = None
+    total_score: float = 0.0
+    scored_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Notification(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    user_id: str
+    type: str  # registration, submission, result, team_invite
+    title: str
+    message: str
+    read: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+# Request/Response Models
+class SessionResponse(BaseModel):
+    id: str
+    email: str
+    name: str
+    picture: Optional[str]
+    session_token: str
+
+class HackathonCreate(BaseModel):
+    title: str
+    description: str
+    cover_image: Optional[str] = None
+    category: str
+    location: str
+    venue: Optional[str] = None
+    registration_start: datetime
+    registration_end: datetime
+    event_start: datetime
+    event_end: datetime
+    submission_deadline: datetime
+    max_team_size: int = 4
+    min_team_size: int = 1
+    prizes: List[Dict[str, Any]] = []
+    rules: str = ""
+    judging_rubric: List[Dict[str, Any]] = []
+    faqs: List[Dict[str, str]] = []
+
+class TeamCreate(BaseModel):
+    name: str
+    hackathon_id: str
+
+class SubmissionCreate(BaseModel):
+    team_id: str
+    hackathon_id: str
+    project_name: str
+    description: str
+    repo_link: Optional[str] = None
+    video_link: Optional[str] = None
+    demo_link: Optional[str] = None
+
+class ScoreCreate(BaseModel):
+    submission_id: str
+    rubric_scores: Dict[str, float]
+    feedback: Optional[str] = None
+
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    bio: Optional[str] = None
+    github_link: Optional[str] = None
+    linkedin_link: Optional[str] = None
+
+# ==================== AUTH HELPER ====================
+
+async def get_current_user(request: Request) -> User:
+    # Check cookie first
+    session_token = request.cookies.get("session_token")
+    
+    # Fallback to Authorization header
+    if not session_token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            session_token = auth_header.replace("Bearer ", "")
+    
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Find session
+    session = await db.user_sessions.find_one({"session_token": session_token})
+    if not session or session["expires_at"] < datetime.now(timezone.utc):
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+    
+    # Find user
+    user_doc = await db.users.find_one({"_id": session["user_id"]})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user_doc["id"] = user_doc.pop("_id")
+    return User(**user_doc)
+
+async def require_role(user: User, allowed_roles: List[str]):
+    if user.role not in allowed_roles:
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+
+# ==================== AUTH ROUTES ====================
+
+@api_router.post("/auth/session")
+async def process_session(request: Request):
+    session_id = request.headers.get("X-Session-ID")
+    if not session_id:
+        raise HTTPException(status_code=400, detail="Missing session ID")
+    
+    # Call Emergent Auth API
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(
+                "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
+                headers={"X-Session-ID": session_id}
+            )
+            response.raise_for_status()
+            data = response.json()
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Failed to validate session: {str(e)}")
+    
+    # Check if user exists
+    existing_user = await db.users.find_one({"email": data["email"]})
+    
+    if existing_user:
+        user_id = existing_user["_id"]
+    else:
+        # Create new user
+        user = User(
+            email=data["email"],
+            name=data["name"],
+            picture=data.get("picture"),
+            role="participant"
+        )
+        user_dict = user.dict(by_alias=True)
+        await db.users.insert_one(user_dict)
+        user_id = user_dict["_id"]
+    
+    # Create session
+    session = UserSession(
+        user_id=user_id,
+        session_token=data["session_token"],
+        expires_at=datetime.now(timezone.utc) + timedelta(days=7)
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    return SessionResponse(
+        id=user_id,
+        email=data["email"],
+        name=data["name"],
+        picture=data.get("picture"),
+        session_token=data["session_token"]
+    )
+
+@api_router.get("/auth/me")
+async def get_current_user_info(request: Request):
+    user = await get_current_user(request)
+    return user
+
+@api_router.post("/auth/logout")
+async def logout(request: Request, response: Response):
+    session_token = request.cookies.get("session_token")
+    if session_token:
+        await db.user_sessions.delete_one({"session_token": session_token})
+    response.delete_cookie("session_token", path="/")
+    return {"message": "Logged out successfully"}
+
+# ==================== USER ROUTES ====================
+
+@api_router.put("/users/profile")
+async def update_profile(update: UserUpdate, request: Request):
+    user = await get_current_user(request)
+    
+    update_data = {k: v for k, v in update.dict().items() if v is not None}
+    if update_data:
+        await db.users.update_one(
+            {"_id": user.id},
+            {"$set": update_data}
+        )
+    
+    return {"message": "Profile updated successfully"}
+
+@api_router.get("/users/{user_id}")
+async def get_user(user_id: str):
+    user_doc = await db.users.find_one({"_id": user_id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+    user_doc["id"] = user_doc.pop("_id")
+    return User(**user_doc)
+
+# ==================== HACKATHON ROUTES ====================
+
+@api_router.get("/hackathons")
+async def get_hackathons(
+    status: Optional[str] = None,
+    category: Optional[str] = None,
+    location: Optional[str] = None
+):
+    query = {}
+    if status:
+        query["status"] = status
+    if category:
+        query["category"] = category
+    if location:
+        query["location"] = location
+    
+    hackathons = await db.hackathons.find(query).sort("created_at", -1).to_list(100)
+    return [{**h, "id": h.pop("_id")} for h in hackathons]
+
+@api_router.get("/hackathons/{hackathon_id}")
+async def get_hackathon(hackathon_id: str):
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    hackathon["id"] = hackathon.pop("_id")
+    return hackathon
+
+@api_router.post("/hackathons", response_model=Hackathon)
+async def create_hackathon(hackathon_data: HackathonCreate, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin", "organizer"])
+    
+    hackathon = Hackathon(
+        **hackathon_data.dict(),
+        organizer_id=user.id,
+        organizer_name=user.name,
+        status="draft"
+    )
+    hackathon_dict = hackathon.dict(by_alias=True)
+    await db.hackathons.insert_one(hackathon_dict)
+    
+    return hackathon
+
+@api_router.put("/hackathons/{hackathon_id}")
+async def update_hackathon(hackathon_id: str, update_data: Dict[str, Any], request: Request):
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$set": update_data}
+    )
+    
+    return {"message": "Hackathon updated successfully"}
+
+@api_router.delete("/hackathons/{hackathon_id}")
+async def delete_hackathon(hackathon_id: str, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    await db.hackathons.delete_one({"_id": hackathon_id})
+    return {"message": "Hackathon deleted successfully"}
+
+# ==================== REGISTRATION ROUTES ====================
+
+@api_router.post("/registrations")
+async def register_for_hackathon(hackathon_id: str, team_id: Optional[str] = None, request: Request = None):
+    user = await get_current_user(request)
+    
+    # Check if already registered
+    existing = await db.registrations.find_one({
+        "user_id": user.id,
+        "hackathon_id": hackathon_id
+    })
+    if existing:
+        raise HTTPException(status_code=400, detail="Already registered")
+    
+    registration = Registration(
+        user_id=user.id,
+        hackathon_id=hackathon_id,
+        team_id=team_id
+    )
+    await db.registrations.insert_one(registration.dict(by_alias=True))
+    
+    # Create notification
+    notification = Notification(
+        user_id=user.id,
+        type="registration",
+        title="Registration Successful",
+        message=f"You have successfully registered for the hackathon"
+    )
+    await db.notifications.insert_one(notification.dict(by_alias=True))
+    
+    return {"message": "Registered successfully"}
+
+@api_router.get("/registrations/my")
+async def get_my_registrations(request: Request):
+    user = await get_current_user(request)
+    registrations = await db.registrations.find({"user_id": user.id}).to_list(100)
+    return [{**r, "id": r.pop("_id")} for r in registrations]
+
+@api_router.get("/hackathons/{hackathon_id}/registrations")
+async def get_hackathon_registrations(hackathon_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    registrations = await db.registrations.find({"hackathon_id": hackathon_id}).to_list(1000)
+    return [{**r, "id": r.pop("_id")} for r in registrations]
+
+# ==================== TEAM ROUTES ====================
+
+@api_router.post("/teams", response_model=Team)
+async def create_team(team_data: TeamCreate, request: Request):
+    user = await get_current_user(request)
+    
+    team = Team(
+        name=team_data.name,
+        hackathon_id=team_data.hackathon_id,
+        leader_id=user.id,
+        members=[user.id]
+    )
+    team_dict = team.dict(by_alias=True)
+    await db.teams.insert_one(team_dict)
+    
+    return team
+
+@api_router.post("/teams/join")
+async def join_team(invite_code: str, request: Request):
+    user = await get_current_user(request)
+    
+    team = await db.teams.find_one({"invite_code": invite_code})
+    if not team:
+        raise HTTPException(status_code=404, detail="Team not found")
+    
+    if user.id in team["members"]:
+        raise HTTPException(status_code=400, detail="Already in team")
+    
+    await db.teams.update_one(
+        {"_id": team["_id"]},
+        {"$push": {"members": user.id}}
+    )
+    
+    return {"message": "Joined team successfully"}
+
+@api_router.get("/teams/my")
+async def get_my_teams(request: Request):
+    user = await get_current_user(request)
+    teams = await db.teams.find({"members": user.id}).to_list(100)
+    return [{**t, "id": t.pop("_id")} for t in teams]
+
+@api_router.get("/hackathons/{hackathon_id}/teams")
+async def get_hackathon_teams(hackathon_id: str):
+    teams = await db.teams.find({"hackathon_id": hackathon_id}).to_list(100)
+    return [{**t, "id": t.pop("_id")} for t in teams]
+
+# ==================== SUBMISSION ROUTES ====================
+
+@api_router.post("/submissions", response_model=Submission)
+async def create_submission(submission_data: SubmissionCreate, request: Request):
+    user = await get_current_user(request)
+    
+    # Verify user is in team
+    team = await db.teams.find_one({"_id": submission_data.team_id})
+    if not team or user.id not in team["members"]:
+        raise HTTPException(status_code=403, detail="Not a team member")
+    
+    submission = Submission(**submission_data.dict())
+    submission_dict = submission.dict(by_alias=True)
+    await db.submissions.insert_one(submission_dict)
+    
+    # Notify team members
+    for member_id in team["members"]:
+        notification = Notification(
+            user_id=member_id,
+            type="submission",
+            title="Project Submitted",
+            message=f"Your team has submitted the project: {submission_data.project_name}"
+        )
+        await db.notifications.insert_one(notification.dict(by_alias=True))
+    
+    return submission
+
+@api_router.get("/hackathons/{hackathon_id}/submissions")
+async def get_hackathon_submissions(hackathon_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check if user is organizer, judge or admin
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_judge = await db.judge_assignments.find_one({"user_id": user.id, "hackathon_id": hackathon_id})
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_judge or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    submissions = await db.submissions.find({"hackathon_id": hackathon_id}).to_list(1000)
+    return [{**s, "id": s.pop("_id")} for s in submissions]
+
+@api_router.get("/teams/{team_id}/submission")
+async def get_team_submission(team_id: str, hackathon_id: str):
+    submission = await db.submissions.find_one({
+        "team_id": team_id,
+        "hackathon_id": hackathon_id
+    })
+    if not submission:
+        return None
+    submission["id"] = submission.pop("_id")
+    return submission
+
+# ==================== JUDGE ROUTES ====================
+
+@api_router.post("/judges/assign")
+async def assign_judge(hackathon_id: str, judge_user_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Update user role to judge if not already
+    await db.users.update_one(
+        {"_id": judge_user_id},
+        {"$set": {"role": "judge"}}
+    )
+    
+    assignment = JudgeAssignment(
+        user_id=judge_user_id,
+        hackathon_id=hackathon_id
+    )
+    await db.judge_assignments.insert_one(assignment.dict(by_alias=True))
+    
+    return {"message": "Judge assigned successfully"}
+
+@api_router.post("/scores", response_model=Score)
+async def submit_score(score_data: ScoreCreate, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["judge", "admin"])
+    
+    # Get submission to find hackathon_id
+    submission = await db.submissions.find_one({"_id": score_data.submission_id})
+    if not submission:
+        raise HTTPException(status_code=404, detail="Submission not found")
+    
+    # Calculate total score
+    total = sum(score_data.rubric_scores.values())
+    
+    score = Score(
+        submission_id=score_data.submission_id,
+        judge_id=user.id,
+        hackathon_id=submission["hackathon_id"],
+        rubric_scores=score_data.rubric_scores,
+        feedback=score_data.feedback,
+        total_score=total
+    )
+    score_dict = score.dict(by_alias=True)
+    await db.scores.insert_one(score_dict)
+    
+    return score
+
+@api_router.get("/submissions/{submission_id}/scores")
+async def get_submission_scores(submission_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    scores = await db.scores.find({"submission_id": submission_id}).to_list(100)
+    return [{**s, "id": s.pop("_id")} for s in scores]
+
+@api_router.get("/hackathons/{hackathon_id}/leaderboard")
+async def get_leaderboard(hackathon_id: str):
+    submissions = await db.submissions.find({"hackathon_id": hackathon_id}).to_list(1000)
+    
+    leaderboard = []
+    for submission in submissions:
+        scores = await db.scores.find({"submission_id": submission["_id"]}).to_list(100)
+        if scores:
+            avg_score = sum(s["total_score"] for s in scores) / len(scores)
+        else:
+            avg_score = 0
+        
+        team = await db.teams.find_one({"_id": submission["team_id"]})
+        
+        leaderboard.append({
+            "submission_id": submission["_id"],
+            "team_name": team["name"] if team else "Unknown",
+            "project_name": submission["project_name"],
+            "average_score": round(avg_score, 2),
+            "judge_count": len(scores)
+        })
+    
+    leaderboard.sort(key=lambda x: x["average_score"], reverse=True)
+    return leaderboard
+
+# ==================== NOTIFICATION ROUTES ====================
+
+@api_router.get("/notifications")
+async def get_notifications(request: Request):
+    user = await get_current_user(request)
+    notifications = await db.notifications.find({"user_id": user.id}).sort("created_at", -1).to_list(100)
+    return [{**n, "id": n.pop("_id")} for n in notifications]
+
+@api_router.put("/notifications/{notification_id}/read")
+async def mark_notification_read(notification_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    await db.notifications.update_one(
+        {"_id": notification_id, "user_id": user.id},
+        {"$set": {"read": True}}
+    )
+    
+    return {"message": "Notification marked as read"}
+
+# ==================== ADMIN ROUTES ====================
+
+@api_router.get("/admin/stats")
+async def get_admin_stats(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    total_users = await db.users.count_documents({})
+    total_hackathons = await db.hackathons.count_documents({})
+    total_registrations = await db.registrations.count_documents({})
+    total_submissions = await db.submissions.count_documents({})
+    total_teams = await db.teams.count_documents({})
+    
+    # Get user role distribution
+    users = await db.users.find().to_list(10000)
+    role_distribution = {}
+    for u in users:
+        role = u.get("role", "participant")
+        role_distribution[role] = role_distribution.get(role, 0) + 1
+    
+    return {
+        "total_users": total_users,
+        "total_hackathons": total_hackathons,
+        "total_registrations": total_registrations,
+        "total_submissions": total_submissions,
+        "total_teams": total_teams,
+        "role_distribution": role_distribution
+    }
+
+@api_router.get("/admin/users")
+async def get_all_users(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    users = await db.users.find().sort("created_at", -1).to_list(1000)
+    return [{**u, "id": u.pop("_id")} for u in users]
+
+@api_router.put("/admin/users/{user_id}/role")
+async def update_user_role(user_id: str, new_role: str, request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    if new_role not in ["admin", "organizer", "judge", "participant"]:
+        raise HTTPException(status_code=400, detail="Invalid role")
+    
+    await db.users.update_one(
+        {"_id": user_id},
+        {"$set": {"role": new_role}}
+    )
+    
+    return {"message": "User role updated successfully"}
+
+@api_router.get("/admin/export/users")
+async def export_users(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    users = await db.users.find().to_list(10000)
+    csv_data = "ID,Name,Email,Role,Created At\n"
+    for u in users:
+        csv_data += f"{u['_id']},{u['name']},{u['email']},{u.get('role', 'participant')},{u['created_at']}\n"
+    
+    return Response(content=csv_data, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=users.csv"})
+
+@api_router.get("/admin/export/hackathons")
+async def export_hackathons(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    hackathons = await db.hackathons.find().to_list(10000)
+    csv_data = "ID,Title,Organizer,Status,Registrations,Submissions,Created At\n"
+    for h in hackathons:
+        reg_count = await db.registrations.count_documents({"hackathon_id": h["_id"]})
+        sub_count = await db.submissions.count_documents({"hackathon_id": h["_id"]})
+        csv_data += f"{h['_id']},{h['title']},{h.get('organizer_name', 'N/A')},{h['status']},{reg_count},{sub_count},{h['created_at']}\n"
+    
+    return Response(content=csv_data, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=hackathons.csv"})
 
 # Include the router in the main app
 app.include_router(api_router)
