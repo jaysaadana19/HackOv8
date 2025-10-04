@@ -258,19 +258,13 @@ export default function Dashboard() {
                     data-testid={`registration-card-${reg.id}`}
                   >
                     <div className="h-40 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
-                      {hackathon.cover_image ? (
-                        <>
-                          <img 
-                            src={hackathon.cover_image} 
-                            alt={hackathon.title} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                            onError={(e) => e.target.style.display = 'none'}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        </>
-                      ) : (
-                        <Code className="w-16 h-16 text-purple-400 group-hover:scale-110 transition-transform" />
-                      )}
+                      <img 
+                        src={getHackathonBanner(hackathon)} 
+                        alt={hackathon.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        onError={(e) => e.target.style.display = 'none'}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                       <Badge className="absolute top-3 right-3 status-badge status-live">Registered</Badge>
                     </div>
                     <div className="p-6">
