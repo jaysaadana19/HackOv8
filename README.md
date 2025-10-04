@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://event-forge-3.preview.emergentagent.com
+**Live Demo:** https://team-hackathon.preview.emergentagent.com

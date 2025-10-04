@@ -6,7 +6,7 @@ import uuid
 import subprocess
 
 class AdminPanelAPITester:
-    def __init__(self, base_url="https://event-forge-3.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://team-hackathon.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.admin_session_token = None
         self.organizer_session_token = None
