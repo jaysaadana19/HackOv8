@@ -190,6 +190,21 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showEditModal && selectedHackathon && (
+        <EditHackathonModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowEditModal(false);
+            setSelectedHackathon(null);
+          }}
+          onSuccess={() => {
+            setShowEditModal(false);
+            setSelectedHackathon(null);
+            fetchMyHackathons();
+          }}
+        />
+      )}
     </div>
   );
 }
