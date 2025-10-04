@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { hackathonAPI, authAPI, registrationAPI, teamAPI, notificationAPI } from '@/lib/api';
 import { isAuthenticated, getUser, clearAuth } from '@/lib/auth';
+import { getHackathonBanner } from '@/lib/bannerImages';
 
 export default function Dashboard() {
   const navigate = useNavigate();
