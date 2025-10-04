@@ -103,6 +103,7 @@ class Hackathon(BaseModel):
     website_url: Optional[str] = None
     community_url: Optional[str] = None  # Slack/Discord
     community_type: Optional[str] = None  # slack, discord, other
+    co_organizers: List[str] = []  # List of user IDs who can co-manage this hackathon
     
     class Config:
         populate_by_name = True
