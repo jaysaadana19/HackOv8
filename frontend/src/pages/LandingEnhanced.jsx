@@ -349,25 +349,16 @@ export default function LandingEnhanced() {
               data-testid={`hackathon-card-${hackathon.id}`}
             >
               <div className="h-56 bg-gradient-to-br from-purple-600/40 to-pink-600/40 flex items-center justify-center relative overflow-hidden">
-                {hackathon.cover_image ? (
-                  <>
-                    <img 
-                      src={hackathon.cover_image} 
-                      alt={hackathon.title} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        console.error('Failed to load image:', hackathon.cover_image);
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  </>
-                ) : (
-                  <div className="relative">
-                    <Code className="w-20 h-20 text-purple-300 group-hover:scale-110 transition-transform" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-2xl"></div>
-                  </div>
-                )}
+                <img 
+                  src={getHackathonBanner(hackathon)} 
+                  alt={hackathon.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    console.error('Failed to load image:', getHackathonBanner(hackathon));
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
               <div className="p-8 space-y-4">
