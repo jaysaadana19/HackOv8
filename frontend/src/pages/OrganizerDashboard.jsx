@@ -92,12 +92,22 @@ export default function OrganizerDashboard() {
   return (
     <div className="min-h-screen bg-[#0a0a0b]">
       <nav className="border-b border-gray-900 bg-gray-950/50">
-        <div className="container mx-auto px-6 py-4 flex items-center gap-4">
-          <Button variant="ghost" onClick={() => navigate('/dashboard')} className="text-gray-400">
-            <ArrowLeft className="w-5 h-5" />
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => navigate('/dashboard')} className="text-gray-400">
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <Rocket className="w-6 h-6 text-purple-500" />
+            <span className="text-xl font-bold gradient-text">Organizer Dashboard</span>
+          </div>
+          <Button
+            variant="ghost"
+            onClick={toggleTheme}
+            className="text-gray-400 hover:text-white"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
-          <Rocket className="w-6 h-6 text-purple-500" />
-          <span className="text-xl font-bold gradient-text">Organizer Dashboard</span>
         </div>
       </nav>
 
