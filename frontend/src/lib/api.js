@@ -65,6 +65,13 @@ export const hackathonAPI = {
   getSubmissions: (id) => api.get(`/hackathons/${id}/submissions`),
   getTeams: (id) => api.get(`/hackathons/${id}/teams`),
   getLeaderboard: (id) => api.get(`/hackathons/${id}/leaderboard`),
+  getMyHackathons: () => api.get('/hackathons/organizer/my'),
+};
+
+// Company APIs
+export const companyAPI = {
+  getMy: () => api.get('/companies/my'),
+  update: (data) => api.put('/companies/my', data),
 };
 
 // Registration APIs
