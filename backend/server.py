@@ -46,6 +46,7 @@ class User(BaseModel):
     linkedin_link: Optional[str] = None
     company_id: Optional[str] = None  # Link to company if organizer
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    last_login: Optional[datetime] = None  # Track user logins for retention
     
     class Config:
         populate_by_name = True
