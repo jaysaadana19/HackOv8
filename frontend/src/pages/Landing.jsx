@@ -74,7 +74,12 @@ export default function Landing() {
   };
 
   const handleGetStarted = () => {
-    window.location.href = EMERGENT_AUTH_URL;
+    setShowAuthModal(true);
+  };
+
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    navigate('/dashboard');
   };
 
   const filteredHackathons = hackathons.filter((h) => {
