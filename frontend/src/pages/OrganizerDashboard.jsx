@@ -101,14 +101,24 @@ export default function OrganizerDashboard() {
             <Rocket className="w-6 h-6 text-purple-500" />
             <span className="text-xl font-bold gradient-text">Organizer Dashboard</span>
           </div>
-          <Button
-            variant="ghost"
-            onClick={toggleTheme}
-            className="text-gray-400 hover:text-white"
-            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/settings')}
+              className="text-gray-400 hover:text-teal-400"
+              title="Settings"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={toggleTheme}
+              className="text-gray-400 hover:text-white"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
+          </div>
         </div>
       </nav>
 
