@@ -570,9 +570,9 @@ select:focus {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Keep gradient text and buttons colorful in light mode */
+/* Gradient text stays black in light mode */
 .light-mode .gradient-text {
-  background: linear-gradient(135deg, #00CED1 0%, #48D1CC 50%, #20B2AA 100%);
+  background: linear-gradient(135deg, #000000 0%, #1A1A1A 50%, #000000 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
