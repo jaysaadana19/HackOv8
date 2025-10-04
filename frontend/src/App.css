@@ -63,7 +63,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(0, 206, 209, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
   animation: float 20s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -76,7 +76,7 @@ body {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(72, 209, 204, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
   animation: float 25s ease-in-out infinite reverse;
   pointer-events: none;
   z-index: 0;
