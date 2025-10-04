@@ -358,6 +358,12 @@ export default function Dashboard() {
                       onError={(e) => e.target.style.display = 'none'}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    {hackathon.featured && (
+                      <div className="absolute top-3 right-3 bg-yellow-500 text-black px-2 py-1 rounded-full flex items-center gap-1 font-bold text-xs shadow-lg">
+                        <Star className="w-3 h-3 fill-black" />
+                        Featured
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6 space-y-4">
