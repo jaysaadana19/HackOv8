@@ -325,8 +325,18 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="border-t border-gray-900 py-8">
-        <div className="container mx-auto px-6 text-center text-gray-500">
-          <p>© 2025 Hackov8. Streamline how hackathons are hosted, managed, and judged.</p>
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-500">© 2025 Hackov8. Streamline how hackathons are hosted, managed, and judged.</p>
+            <div className="flex gap-6">
+              <button onClick={() => navigate('/about')} className="text-gray-400 hover:text-purple-400 transition-colors">
+                About
+              </button>
+              <button onClick={() => navigate('/about')} className="text-gray-400 hover:text-purple-400 transition-colors">
+                FAQ
+              </button>
+            </div>
+          </div>
         </div>
       </footer>
 
