@@ -270,6 +270,19 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showNotifyModal && selectedHackathon && (
+        <NotifyParticipantsModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowNotifyModal(false);
+            setSelectedHackathon(null);
+          }}
+          onSuccess={() => {
+            fetchMyHackathons();
+          }}
+        />
+      )}
     </div>
   );
 }
