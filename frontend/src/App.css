@@ -712,6 +712,8 @@ select:focus {
 
 /* Ensure gradient buttons keep white text */
 .light-mode .bg-gradient-to-r.from-purple-600,
+.light-mode .bg-gradient-to-r.from-teal-600,
+.light-mode .bg-gradient-to-r.from-cyan-600,
 .light-mode .bg-gradient-to-r.from-green-600,
 .light-mode .bg-gradient-to-r.from-red-600,
 .light-mode button[class*="bg-gradient"] {
