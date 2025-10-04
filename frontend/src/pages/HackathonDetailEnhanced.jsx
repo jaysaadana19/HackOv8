@@ -72,8 +72,7 @@ export default function HackathonDetailEnhanced() {
   const handleRegister = async () => {
     // Check if user is authenticated
     if (!isAuthenticated()) {
-      toast.error('Please sign up as a participant first to register for hackathons');
-      navigate('/');
+      setShowAuthModal(true);
       return;
     }
 
