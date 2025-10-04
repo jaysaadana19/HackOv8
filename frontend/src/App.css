@@ -493,34 +493,34 @@ select:focus {
 }
 
 
-/* ==================== LIGHT MODE STYLES ==================== */
+/* ==================== LIGHT MODE STYLES (Same as Default White Theme) ==================== */
 
 .light-mode {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
-  --text-primary: #1a1a1a;
-  --text-secondary: #6c757d;
-  --border-color: #dee2e6;
-  --card-bg: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.9);
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #F5F5F5;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --border-color: #E5E5E5;
+  --card-bg: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.95);
 }
 
 .light-mode body {
-  background: #f8f9fa;
-  color: #1a1a1a;
+  background: #FFFFFF;
+  color: #000000;
 }
 
 .light-mode .bg-\[\#0a0a0b\] {
-  background: #f8f9fa !important;
+  background: #FFFFFF !important;
 }
 
 .light-mode .bg-gray-950\/50,
 .light-mode .bg-gray-950\/80,
 .light-mode .bg-gray-900\/50,
 .light-mode .bg-gray-900\/30 {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: #dee2e6 !important;
+  background: #FFFFFF !important;
+  border-color: #E5E5E5 !important;
 }
 
 .light-mode .glass-effect {
