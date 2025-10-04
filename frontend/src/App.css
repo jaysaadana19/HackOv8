@@ -524,28 +524,28 @@ select:focus {
 }
 
 .light-mode .glass-effect {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: #FFFFFF !important;
   backdrop-filter: blur(10px);
-  border: 1px solid #dee2e6 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E5E5E5 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .light-mode .text-white {
-  color: #1a1a1a !important;
+  color: #000000 !important;
 }
 
 .light-mode .text-gray-400,
 .light-mode .text-gray-500 {
-  color: #6c757d !important;
+  color: #666666 !important;
 }
 
 .light-mode .text-gray-300 {
-  color: #495057 !important;
+  color: #1A1A1A !important;
 }
 
 .light-mode .border-gray-800,
 .light-mode .border-gray-900 {
-  border-color: #dee2e6 !important;
+  border-color: #E5E5E5 !important;
 }
 
 .light-mode .border-purple-800\/30,
