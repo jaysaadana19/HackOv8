@@ -361,7 +361,7 @@ export default function HackathonDetailEnhanced() {
                 <div className="space-y-4">
                   <Button
                     className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white py-6 text-lg font-bold shadow-xl"
-                    onClick={() => navigate('/')}
+                    onClick={() => setShowAuthModal(true)}
                     data-testid="signup-to-register-btn"
                   >
                     <User className="w-5 h-5 mr-2" />
