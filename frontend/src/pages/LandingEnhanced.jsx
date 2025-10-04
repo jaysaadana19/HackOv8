@@ -365,6 +365,12 @@ export default function LandingEnhanced() {
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                {hackathon.featured && (
+                  <div className="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full flex items-center gap-2 font-bold text-sm shadow-lg">
+                    <Star className="w-4 h-4 fill-black" />
+                    Featured
+                  </div>
+                )}
               </div>
 
               <div className="p-8 space-y-4">
