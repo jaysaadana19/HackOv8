@@ -131,6 +131,7 @@ export const adminAPI = {
   approveHackathon: (hackathonId) => api.put(`/admin/hackathons/${hackathonId}/approve`),
   rejectHackathon: (hackathonId, reason) => api.put(`/admin/hackathons/${hackathonId}/reject`, null, { params: { reason } }),
   deleteHackathon: (hackathonId) => api.delete(`/admin/hackathons/${hackathonId}`),
+  toggleFeatured: (hackathonId, featured) => api.put(`/admin/hackathons/${hackathonId}/feature`, null, { params: { featured } }),
   updateUserRole: (userId, role) => api.put(`/admin/users/${userId}/role`, null, { params: { new_role: role } }),
   exportUsers: () => api.get('/admin/export/users', { responseType: 'blob' }),
   exportHackathons: () => api.get('/admin/export/hackathons', { responseType: 'blob' }),
