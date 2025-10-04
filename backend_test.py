@@ -836,22 +836,43 @@ print('Participant session token: {participant_session_token}');
         )
 
     def run_all_tests(self):
-        """Run all API tests"""
-        print("🚀 Starting Hackov8 API Testing...")
+        """Run comprehensive admin panel API tests"""
+        print("🚀 Starting Admin Panel API Testing...")
         print(f"Base URL: {self.base_url}")
         
-        # Test authentication first
-        if not self.test_auth_with_admin_token():
+        # Step 1: Create test users
+        if not self.create_test_users():
+            print("❌ Failed to create test users - stopping tests")
+            return False
+        
+        # Step 2: Test authentication
+        if not self.test_authentication():
             print("❌ Authentication failed - stopping tests")
             return False
         
-        # Test core endpoints
-        hackathon_id = self.test_hackathons()
-        self.test_registrations(hackathon_id)
-        team_id, invite_code = self.test_teams(hackathon_id)
-        self.test_submissions(team_id, hackathon_id)
-        self.test_admin_endpoints()
-        self.test_notifications()
+        # Step 3: Test admin stats and analytics
+        self.test_admin_stats_analytics()
+        
+        # Step 4: Test hackathon creation flow
+        organizer_hackathon_id, admin_hackathon_id = self.test_hackathon_creation_flow()
+        
+        # Step 5: Test hackathon management
+        self.test_hackathon_management()
+        
+        # Step 6: Test approval workflow
+        self.test_approval_workflow(organizer_hackathon_id)
+        
+        # Step 7: Test user login tracking
+        self.test_user_login_tracking()
+        
+        # Step 8: Test data validation
+        self.test_data_validation()
+        
+        # Step 9: Test notification system
+        self.test_notification_system()
+        
+        # Step 10: Cleanup
+        self.cleanup_test_data()
         
         # Print summary
         print(f"\n📊 Test Summary:")
@@ -865,6 +886,8 @@ print('Participant session token: {participant_session_token}');
             print(f"\n❌ Failed Tests ({len(failed_tests)}):")
             for test in failed_tests:
                 print(f"  - {test['test']}: {test['details']}")
+        else:
+            print(f"\n🎉 All tests passed!")
         
         return self.tests_passed == self.tests_run
 
