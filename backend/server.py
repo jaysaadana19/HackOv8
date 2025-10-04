@@ -802,6 +802,19 @@ async def get_hackathon_registrations(hackathon_id: str, request: Request):
 async def create_team(team_data: TeamCreate, request: Request):
     user = await get_current_user(request)
     
+    # Get hackathon to check team size limits
+    hackathon = await db.hackathons.find_one({"_id": team_data.hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check if user is already in a team for this hackathon
+    existing_team = await db.teams.find_one({
+        "hackathon_id": team_data.hackathon_id,
+        "members": user.id
+    })
+    if existing_team:
+        raise HTTPException(status_code=400, detail="You are already in a team for this hackathon")
+    
     team = Team(
         name=team_data.name,
         hackathon_id=team_data.hackathon_id,
@@ -819,17 +832,46 @@ async def join_team(invite_code: str, request: Request):
     
     team = await db.teams.find_one({"invite_code": invite_code})
     if not team:
-        raise HTTPException(status_code=404, detail="Team not found")
+        raise HTTPException(status_code=404, detail="Invalid invite code")
     
-    if user.id in team["members"]:
-        raise HTTPException(status_code=400, detail="Already in team")
+    # Get hackathon to check team size limits
+    hackathon = await db.hackathons.find_one({"_id": team["hackathon_id"]})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
     
+    # Check if user is registered for this hackathon
+    registration = await db.registrations.find_one({
+        "user_id": user.id,
+        "hackathon_id": team["hackathon_id"]
+    })
+    if not registration:
+        raise HTTPException(status_code=400, detail="You must register for the hackathon first")
+    
+    # Check if user is already in a team
+    existing_team = await db.teams.find_one({
+        "hackathon_id": team["hackathon_id"],
+        "members": user.id
+    })
+    if existing_team:
+        raise HTTPException(status_code=400, detail="You are already in a team for this hackathon")
+    
+    # Check team size limit
+    if len(team["members"]) >= hackathon["max_team_size"]:
+        raise HTTPException(status_code=400, detail=f"Team is full (max {hackathon['max_team_size']} members)")
+    
+    # Add user to team
     await db.teams.update_one(
         {"_id": team["_id"]},
         {"$push": {"members": user.id}}
     )
     
-    return {"message": "Joined team successfully"}
+    # Update registration with team_id
+    await db.registrations.update_one(
+        {"_id": registration["_id"]},
+        {"$set": {"team_id": team["_id"]}}
+    )
+    
+    return {"message": "Joined team successfully", "team_name": team["name"]}
 
 @api_router.get("/teams/my")
 async def get_my_teams(request: Request):
