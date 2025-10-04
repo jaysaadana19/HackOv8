@@ -523,14 +523,31 @@ async def create_hackathon(hackathon_data: HackathonCreate, request: Request):
     user = await get_current_user(request)
     await require_role(user, ["admin", "organizer"])
     
+    # Set status to pending_approval for organizers, published for admins
+    initial_status = "published" if user.role == "admin" else "pending_approval"
+    
     hackathon = Hackathon(
         **hackathon_data.dict(),
         organizer_id=user.id,
         organizer_name=user.name,
-        status="draft"
+        status=initial_status
     )
     hackathon_dict = hackathon.dict(by_alias=True)
     await db.hackathons.insert_one(hackathon_dict)
+    
+    # Send notification to all admins when hackathon is submitted for approval
+    if initial_status == "pending_approval":
+        admins = await db.users.find({"role": "admin"}).to_list(100)
+        for admin in admins:
+            await db.notifications.insert_one({
+                "_id": str(uuid.uuid4()),
+                "user_id": admin["_id"],
+                "title": "New Hackathon Pending Approval",
+                "message": f"'{hackathon.title}' by {user.name} is awaiting your approval.",
+                "type": "hackathon_pending",
+                "read": False,
+                "created_at": datetime.now(timezone.utc)
+            })
     
     return hackathon
 
