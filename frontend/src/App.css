@@ -590,3 +590,133 @@ select:focus {
   font-weight: 600;
 }
 
+/* Comprehensive text color fixes for light mode */
+.light-mode h1,
+.light-mode h2,
+.light-mode h3,
+.light-mode h4,
+.light-mode h5,
+.light-mode h6 {
+  color: #1a1a1a !important;
+}
+
+.light-mode p,
+.light-mode span,
+.light-mode div {
+  color: inherit;
+}
+
+/* Specific text classes */
+.light-mode .text-white,
+.light-mode [class*="text-white"] {
+  color: #1a1a1a !important;
+}
+
+.light-mode .text-gray-400 {
+  color: #6c757d !important;
+}
+
+.light-mode .text-gray-500 {
+  color: #868e96 !important;
+}
+
+.light-mode .text-gray-300 {
+  color: #495057 !important;
+}
+
+.light-mode .text-gray-600 {
+  color: #495057 !important;
+}
+
+/* Hover text colors */
+.light-mode .hover\:text-white:hover {
+  color: #1a1a1a !important;
+}
+
+.light-mode .hover\:text-purple-400:hover {
+  color: #7c3aed !important;
+}
+
+.light-mode .hover\:text-blue-400:hover {
+  color: #3b82f6 !important;
+}
+
+.light-mode .hover\:text-red-400:hover {
+  color: #ef4444 !important;
+}
+
+/* Card backgrounds in light mode */
+.light-mode .bg-gray-900\/50 {
+  background: rgba(248, 249, 250, 0.8) !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.light-mode .bg-gray-800 {
+  background: #f1f3f5 !important;
+}
+
+/* Button text colors */
+.light-mode button .text-white {
+  color: #1a1a1a !important;
+}
+
+.light-mode button .text-gray-400 {
+  color: #6c757d !important;
+}
+
+/* Make sure all font colors are readable */
+.light-mode * {
+  color: inherit;
+}
+
+.light-mode body,
+.light-mode #root,
+.light-mode .App {
+  color: #1a1a1a;
+}
+
+/* Notification panel */
+.light-mode .bg-purple-900\/20 {
+  background: rgba(168, 85, 247, 0.1) !important;
+}
+
+/* Icon colors */
+.light-mode svg {
+  color: inherit !important;
+}
+
+/* Specific component overrides */
+.light-mode .font-bold,
+.light-mode .font-semibold {
+  color: #1a1a1a !important;
+}
+
+/* Badge text */
+.light-mode .badge {
+  color: #1a1a1a !important;
+}
+
+/* Table and list text */
+.light-mode td,
+.light-mode th,
+.light-mode li {
+  color: #1a1a1a !important;
+}
+
+/* Ensure gradient buttons keep white text */
+.light-mode .bg-gradient-to-r.from-purple-600,
+.light-mode .bg-gradient-to-r.from-green-600,
+.light-mode .bg-gradient-to-r.from-red-600,
+.light-mode button[class*="bg-gradient"] {
+  color: #ffffff !important;
+}
+
+.light-mode button[class*="bg-gradient"] * {
+  color: #ffffff !important;
+}
+
+/* Fix any remaining white text issues */
+.light-mode [class*="text-white"]:not(button[class*="bg-gradient"] *):not([class*="gradient-text"]) {
+  color: #1a1a1a !important;
+}
+
