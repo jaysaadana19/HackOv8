@@ -299,13 +299,19 @@ async def process_session(request: Request):
     
     if existing_user:
         user_id = existing_user["_id"]
+        # Update last login for retention tracking
+        await db.users.update_one(
+            {"_id": user_id},
+            {"$set": {"last_login": datetime.now(timezone.utc)}}
+        )
     else:
         # Create new user
         user = User(
             email=data["email"],
             name=data["name"],
             picture=data.get("picture"),
-            role="participant"
+            role="participant",
+            last_login=datetime.now(timezone.utc)
         )
         user_dict = user.dict(by_alias=True)
         await db.users.insert_one(user_dict)
