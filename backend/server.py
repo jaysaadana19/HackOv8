@@ -16,6 +16,7 @@ from passlib.context import CryptContext
 import secrets
 import json
 import shutil
+import re
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
