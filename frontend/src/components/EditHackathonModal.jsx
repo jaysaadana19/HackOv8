@@ -174,41 +174,205 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
               />
             </div>
 
-          <div>
-            <Label className="text-gray-400 mb-2 block">Banner Image</Label>
-            <Tabs value={imageMode} onValueChange={setImageMode} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-gray-900/50">
-                <TabsTrigger value="url">Image URL</TabsTrigger>
-                <TabsTrigger value="upload">Upload File</TabsTrigger>
-              </TabsList>
-              <TabsContent value="url" className="mt-3">
-                <Input
-                  type="url"
-                  value={coverImage}
-                  onChange={(e) => setCoverImage(e.target.value)}
-                  className="bg-gray-900/50 border-gray-800 text-white"
-                  placeholder="https://example.com/banner.jpg"
-                />
-              </TabsContent>
-              <TabsContent value="upload" className="mt-3">
-                <div className="flex items-center gap-3">
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-2 block">Banner Image</Label>
+              <Tabs value={imageMode} onValueChange={setImageMode} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-900/50">
+                  <TabsTrigger value="url">Image URL</TabsTrigger>
+                  <TabsTrigger value="upload">Upload File</TabsTrigger>
+                </TabsList>
+                <TabsContent value="url" className="mt-3">
                   <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="bg-gray-900/50 border-gray-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700"
-                    disabled={uploading}
+                    type="url"
+                    value={coverImage}
+                    onChange={(e) => setCoverImage(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder="https://example.com/banner.jpg"
                   />
-                  {uploading && <div className="loading-spinner"></div>}
+                </TabsContent>
+                <TabsContent value="upload" className="mt-3">
+                  <div className="flex items-center gap-3">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="bg-gray-900/50 border-gray-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-teal-600 file:text-white file:cursor-pointer hover:file:bg-teal-700"
+                      disabled={uploading}
+                    />
+                    {uploading && <div className="loading-spinner"></div>}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">Max 5MB • JPG, PNG, WebP, GIF</p>
+                </TabsContent>
+              </Tabs>
+              {coverImage && (
+                <div className="mt-3 rounded-lg overflow-hidden border border-gray-800">
+                  <img src={coverImage} alt="Banner preview" className="w-full h-40 object-cover" onError={(e) => e.target.style.display = 'none'} />
                 </div>
-                <p className="text-xs text-gray-500 mt-2">Max 5MB • JPG, PNG, WebP, GIF</p>
-              </TabsContent>
-            </Tabs>
-            {coverImage && (
-              <div className="mt-3 rounded-lg overflow-hidden border border-gray-800">
-                <img src={coverImage} alt="Banner preview" className="w-full h-40 object-cover" onError={(e) => e.target.style.display = 'none'} />
+              )}
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Category *</Label>
+              <Input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                placeholder="AI/ML, Web3, Mobile, etc."
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Location *</Label>
+              <select
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-full bg-gray-900/50 border border-gray-800 text-white px-4 py-2 rounded-lg"
+              >
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+
+            {location !== 'online' && (
+              <div className="md:col-span-2">
+                <Label className="text-gray-400 mb-2 block">Venue</Label>
+                <Input
+                  type="text"
+                  value={venue}
+                  onChange={(e) => setVenue(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="Tech Hub, San Francisco"
+                />
               </div>
             )}
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Registration Start *</Label>
+              <Input
+                type="datetime-local"
+                value={regStart}
+                onChange={(e) => setRegStart(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Registration End *</Label>
+              <Input
+                type="datetime-local"
+                value={regEnd}
+                onChange={(e) => setRegEnd(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Event Start *</Label>
+              <Input
+                type="datetime-local"
+                value={eventStart}
+                onChange={(e) => setEventStart(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Event End *</Label>
+              <Input
+                type="datetime-local"
+                value={eventEnd}
+                onChange={(e) => setEventEnd(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Submission Deadline *</Label>
+              <Input
+                type="datetime-local"
+                value={submissionDeadline}
+                onChange={(e) => setSubmissionDeadline(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <Label className="text-gray-400 mb-2 block">Team Size (Min-Max) *</Label>
+              <div className="flex gap-2">
+                <Input
+                  type="number"
+                  min="1"
+                  max="4"
+                  value={minTeamSize}
+                  onChange={(e) => setMinTeamSize(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="Min (1)"
+                  required
+                />
+                <Input
+                  type="number"
+                  min="1"
+                  max="4"
+                  value={maxTeamSize}
+                  onChange={(e) => setMaxTeamSize(e.target.value)}
+                  className="bg-gray-900/50 border-gray-800 text-white"
+                  placeholder="Max (4)"
+                  required
+                />
+              </div>
+              <p className="text-xs text-gray-500 mt-1">Range: 1-4 members per team</p>
+            </div>
+
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-2 block">Prizes</Label>
+              <div className="space-y-3">
+                {prizes.map((prize, index) => (
+                  <div key={index} className="flex gap-2">
+                    <Input
+                      type="text"
+                      value={prize.place}
+                      onChange={(e) => handlePrizeChange(index, 'place', e.target.value)}
+                      className="bg-gray-900/50 border-gray-800 text-white flex-1"
+                      placeholder="1st Place"
+                    />
+                    <Input
+                      type="text"
+                      value={prize.amount}
+                      onChange={(e) => handlePrizeChange(index, 'amount', e.target.value)}
+                      className="bg-gray-900/50 border-gray-800 text-white flex-1"
+                      placeholder="$10,000"
+                    />
+                    {prizes.length > 1 && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => handleRemovePrize(index)}
+                        className="text-red-400 hover:text-red-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    )}
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddPrize}
+                  className="border-gray-700 text-gray-400 w-full"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Prize
+                </Button>
+              </div>
+            </div>
           </div>
 
           <div>
