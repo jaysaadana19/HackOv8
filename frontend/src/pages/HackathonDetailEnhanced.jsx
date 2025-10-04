@@ -29,10 +29,6 @@ export default function HackathonDetailEnhanced() {
   const user = getUser();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate('/');
-      return;
-    }
     fetchData();
   }, [id]);
 
@@ -49,17 +45,20 @@ export default function HackathonDetailEnhanced() {
       setTeams(teamsRes.data);
       setLeaderboard(leaderboardRes.data);
 
-      const regsRes = await registrationAPI.getMyRegistrations();
-      const registered = regsRes.data.some(r => r.hackathon_id === id);
-      setIsRegistered(registered);
+      // Only fetch user-specific data if authenticated
+      if (isAuthenticated()) {
+        const regsRes = await registrationAPI.getMyRegistrations();
+        const registered = regsRes.data.some(r => r.hackathon_id === id);
+        setIsRegistered(registered);
 
-      const myTeamsRes = await teamAPI.getMy();
-      const team = myTeamsRes.data.find(t => t.hackathon_id === id);
-      setMyTeam(team);
+        const myTeamsRes = await teamAPI.getMy();
+        const team = myTeamsRes.data.find(t => t.hackathon_id === id);
+        setMyTeam(team);
 
-      if (team) {
-        const subRes = await submissionAPI.getTeamSubmission(team.id, id);
-        setSubmission(subRes.data);
+        if (team) {
+          const subRes = await submissionAPI.getTeamSubmission(team.id, id);
+          setSubmission(subRes.data);
+        }
       }
     } catch (error) {
       toast.error('Failed to load hackathon details');
@@ -69,10 +68,24 @@ export default function HackathonDetailEnhanced() {
   };
 
   const handleRegister = async () => {
+    // Check if user is authenticated
+    if (!isAuthenticated()) {
+      toast.error('Please sign up as a participant first to register for hackathons');
+      navigate('/');
+      return;
+    }
+
+    // Check if user is a participant
+    if (user && user.role !== 'participant') {
+      toast.error('Only participants can register for hackathons');
+      return;
+    }
+
     try {
       await registrationAPI.register(id);
       toast.success('Registered successfully!');
       setIsRegistered(true);
+      fetchData();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Registration failed');
     }
