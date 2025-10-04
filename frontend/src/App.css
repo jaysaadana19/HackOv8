@@ -88,12 +88,12 @@ body {
   66% { transform: translate(-20px, 20px) rotate(240deg); }
 }
 
-/* Glass Effect */
+/* Glass Effect - Modern White Card */
 .glass-effect {
-  background: rgba(18, 18, 20, 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 206, 209, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: #FFFFFF;
+  backdrop-filter: blur(10px);
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Card Effects */
