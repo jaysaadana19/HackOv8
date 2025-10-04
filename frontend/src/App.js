@@ -26,6 +26,7 @@ function App() {
           <Route path="/judge" element={<JudgeDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </BrowserRouter>
