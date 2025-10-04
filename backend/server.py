@@ -225,6 +225,12 @@ class HackathonCreate(BaseModel):
     rules: str = ""
     judging_rubric: List[Dict[str, Any]] = []
     faqs: List[Dict[str, str]] = []
+    # Social profiles and community
+    twitter_url: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    website_url: Optional[str] = None
+    community_url: Optional[str] = None
+    community_type: Optional[str] = None
 
 class TeamCreate(BaseModel):
     name: str
