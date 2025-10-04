@@ -108,6 +108,20 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleRoleChange = async (userId, newRole, userName) => {
+    if (!window.confirm(`Are you sure you want to change ${userName}'s role to ${newRole}?`)) {
+      return;
+    }
+
+    try {
+      await adminAPI.updateUserRole(userId, newRole);
+      toast.success(`Role updated to ${newRole} successfully`);
+      fetchData();
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to update role');
+    }
+  };
+
   const handleExportUsers = async () => {
     try {
       const response = await adminAPI.exportUsers();
