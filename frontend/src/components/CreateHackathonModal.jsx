@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { X, Plus, Trash2, Upload, Image as ImageIcon } from 'lucide-react';
+import { X, Plus, Trash2, Upload, Image as ImageIcon, Twitter, Linkedin, Globe, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { hackathonAPI, uploadAPI } from '@/lib/api';
 
@@ -27,6 +28,11 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
   const [maxTeamSize, setMaxTeamSize] = useState(4);
   const [prizes, setPrizes] = useState([{ place: '', amount: '', description: '' }]);
   const [rules, setRules] = useState('');
+  const [twitterUrl, setTwitterUrl] = useState('');
+  const [linkedinUrl, setLinkedinUrl] = useState('');
+  const [websiteUrl, setWebsiteUrl] = useState('');
+  const [communityUrl, setCommunityUrl] = useState('');
+  const [communityType, setCommunityType] = useState('slack');
 
   const handleAddPrize = () => {
     setPrizes([...prizes, { place: '', amount: '', description: '' }]);
