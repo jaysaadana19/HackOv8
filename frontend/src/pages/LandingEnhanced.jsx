@@ -351,7 +351,7 @@ export default function LandingEnhanced() {
             <Card 
               key={hackathon.id} 
               className="glass-effect hover-lift overflow-hidden cursor-pointer group"
-              onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+              onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
               data-testid={`hackathon-card-${hackathon.id}`}
             >
               <div className="h-56 bg-gradient-to-br from-purple-600/40 to-pink-600/40 flex items-center justify-center relative overflow-hidden">
