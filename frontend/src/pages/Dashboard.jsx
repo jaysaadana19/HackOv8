@@ -341,19 +341,13 @@ export default function Dashboard() {
                   data-testid={`available-hackathon-${hackathon.id}`}
                 >
                   <div className="h-48 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
-                    {hackathon.cover_image ? (
-                      <>
-                        <img 
-                          src={hackathon.cover_image} 
-                          alt={hackathon.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                          onError={(e) => e.target.style.display = 'none'}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                      </>
-                    ) : (
-                      <Code className="w-20 h-20 text-purple-400 group-hover:rotate-12 transition-transform" />
-                    )}
+                    <img 
+                      src={getHackathonBanner(hackathon)} 
+                      alt={hackathon.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                      onError={(e) => e.target.style.display = 'none'}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                   </div>
 
                   <div className="p-6 space-y-4">
