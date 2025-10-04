@@ -987,22 +987,24 @@ select:focus {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: #000000 !important;
+  color: #1E293B !important;
   font-weight: 700 !important;
 }
 
 p {
-  color: #666666 !important;
+  color: #64748B !important;
   line-height: 1.6 !important;
 }
 
 /* Links */
 a {
-  color: #000000 !important;
+  color: #0D9488 !important;
   text-decoration: none !important;
+  transition: color 0.3s ease !important;
 }
 
 a:hover {
+  color: #134E4A !important;
   text-decoration: underline !important;
 }
 
