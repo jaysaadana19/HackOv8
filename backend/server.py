@@ -670,7 +670,12 @@ async def update_hackathon(hackathon_id: str, update_data: Dict[str, Any], reque
     if not hackathon:
         raise HTTPException(status_code=404, detail="Hackathon not found")
     
-    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+    # Check if user is organizer, co-organizer, or admin
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
         raise HTTPException(status_code=403, detail="Not authorized")
     
     await db.hackathons.update_one(
