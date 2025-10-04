@@ -264,7 +264,7 @@ export default function Dashboard() {
                   <Card
                     key={reg.id}
                     className="glass-effect hover-lift cursor-pointer overflow-hidden border border-purple-800/30 group"
-                    onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+                    onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                     data-testid={`registration-card-${reg.id}`}
                   >
                     <div className="h-40 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
@@ -384,7 +384,7 @@ export default function Dashboard() {
                     <div className="flex gap-2 pt-4 border-t border-gray-800">
                       <Button
                         className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
-                        onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+                        onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                         data-testid={`view-details-btn-${hackathon.id}`}
                       >
                         View Details
