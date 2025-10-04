@@ -37,8 +37,10 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
       const response = await uploadAPI.uploadImage(file);
       const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
       setCoverImage(imageUrl);
+      console.log('Image uploaded, URL:', imageUrl); // Debug log
       toast.success('Image uploaded successfully');
     } catch (error) {
+      console.error('Upload error:', error);
       toast.error(error.response?.data?.detail || 'Failed to upload image');
     } finally {
       setUploading(false);
