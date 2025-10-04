@@ -97,6 +97,12 @@ class Hackathon(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     approved_at: Optional[datetime] = None
     approved_by: Optional[str] = None  # Admin user ID who approved
+    # Social profiles and community
+    twitter_url: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    website_url: Optional[str] = None
+    community_url: Optional[str] = None  # Slack/Discord
+    community_type: Optional[str] = None  # slack, discord, other
     
     class Config:
         populate_by_name = True
