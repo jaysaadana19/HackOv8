@@ -66,6 +66,20 @@ export const hackathonAPI = {
   getTeams: (id) => api.get(`/hackathons/${id}/teams`),
   getLeaderboard: (id) => api.get(`/hackathons/${id}/leaderboard`),
   getMyHackathons: () => api.get('/hackathons/organizer/my'),
+  notifyParticipants: (id, title, message) => api.post(`/hackathons/${id}/notify-participants`, null, { params: { title, message } }),
+};
+
+// Upload APIs
+export const uploadAPI = {
+  uploadImage: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post('/upload/image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
 };
 
 // Company APIs
