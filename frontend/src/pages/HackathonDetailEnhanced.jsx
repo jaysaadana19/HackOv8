@@ -53,15 +53,15 @@ export default function HackathonDetailEnhanced() {
       // Only fetch user-specific data if authenticated
       if (isAuthenticated()) {
         const regsRes = await registrationAPI.getMyRegistrations();
-        const registered = regsRes.data.some(r => r.hackathon_id === id);
+        const registered = regsRes.data.some(r => r.hackathon_id === hackathonId);
         setIsRegistered(registered);
 
         const myTeamsRes = await teamAPI.getMy();
-        const team = myTeamsRes.data.find(t => t.hackathon_id === id);
+        const team = myTeamsRes.data.find(t => t.hackathon_id === hackathonId);
         setMyTeam(team);
 
         if (team) {
-          const subRes = await submissionAPI.getTeamSubmission(team.id, id);
+          const subRes = await submissionAPI.getTeamSubmission(team.id, hackathonId);
           setSubmission(subRes.data);
         }
       }
