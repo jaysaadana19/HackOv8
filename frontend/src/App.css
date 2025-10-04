@@ -713,25 +713,21 @@ select:focus {
   color: #000000 !important;
 }
 
-/* Purple backgrounds to Teal */
+/* All backgrounds to Black/White */
 .bg-purple-600,
-.bg-purple-500 {
-  background-color: #00CED1 !important;
+.bg-purple-500,
+.bg-pink-600,
+.bg-pink-500 {
+  background-color: #000000 !important;
 }
 
 .bg-purple-700 {
-  background-color: #20B2AA !important;
+  background-color: #1A1A1A !important;
 }
 
 .bg-purple-900\/20,
 .bg-purple-900\/30 {
-  background-color: rgba(0, 206, 209, 0.2) !important;
-}
-
-/* Pink backgrounds to Mint */
-.bg-pink-600,
-.bg-pink-500 {
-  background-color: #48D1CC !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Border colors */
