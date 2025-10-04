@@ -15,7 +15,7 @@ import AuthModal from '@/components/AuthModal';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
 export default function HackathonDetailEnhanced() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [hackathon, setHackathon] = useState(null);
   const [teams, setTeams] = useState([]);
@@ -32,15 +32,18 @@ export default function HackathonDetailEnhanced() {
 
   useEffect(() => {
     fetchData();
-  }, [id]);
+  }, [slug]);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [hackathonRes, teamsRes, leaderboardRes] = await Promise.all([
-        hackathonAPI.getById(id),
-        hackathonAPI.getTeams(id),
-        hackathonAPI.getLeaderboard(id),
+      // Fetch hackathon by slug
+      const hackathonRes = await hackathonAPI.getBySlug(slug);
+      const hackathonId = hackathonRes.data.id;
+      
+      const [teamsRes, leaderboardRes] = await Promise.all([
+        hackathonAPI.getTeams(hackathonId),
+        hackathonAPI.getLeaderboard(hackathonId),
       ]);
 
       setHackathon(hackathonRes.data);
