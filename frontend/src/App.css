@@ -873,8 +873,14 @@ h1, h2, h3, h4, h5, h6 {
 .light-mode .bg-gradient-to-r.from-cyan-600,
 .light-mode .bg-gradient-to-r.from-green-600,
 .light-mode .bg-gradient-to-r.from-red-600,
-.light-mode button[class*="bg-gradient"] {
-  color: #ffffff !important;
+.light-mode button[class*="bg-gradient"],
+.bg-gradient-to-r.from-purple-600,
+.bg-gradient-to-r.from-teal-600,
+button[class*="bg-gradient"],
+button[class*="from-purple"],
+button[class*="from-pink"] {
+  color: #FFFFFF !important;
+}
 
 
 /* ==================== MODERN DEVELOPER-FOCUSED ADDITIONS ==================== */
