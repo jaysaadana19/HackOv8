@@ -705,6 +705,117 @@ async def notify_hackathon_participants(hackathon_id: str, title: str, message: 
         "count": notifications_sent
     }
 
+@api_router.post("/hackathons/{hackathon_id}/co-organizers")
+async def add_co_organizer(hackathon_id: str, email: str, request: Request):
+    user = await get_current_user(request)
+    
+    # Check if user is the organizer or admin
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Find user by email
+    co_organizer = await db.users.find_one({"email": email})
+    if not co_organizer:
+        raise HTTPException(status_code=404, detail="User with this email not found on platform")
+    
+    # Check if user is organizer or admin
+    if co_organizer["role"] not in ["organizer", "admin"]:
+        raise HTTPException(status_code=400, detail="User must be an organizer or admin")
+    
+    # Add to co_organizers list if not already there
+    co_organizers = hackathon.get("co_organizers", [])
+    if co_organizer["_id"] in co_organizers:
+        raise HTTPException(status_code=400, detail="User is already a co-organizer")
+    
+    co_organizers.append(co_organizer["_id"])
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$set": {"co_organizers": co_organizers}}
+    )
+    
+    return {"message": f"Added {email} as co-organizer", "co_organizer_id": co_organizer["_id"]}
+
+@api_router.delete("/hackathons/{hackathon_id}/co-organizers/{co_organizer_id}")
+async def remove_co_organizer(hackathon_id: str, co_organizer_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$pull": {"co_organizers": co_organizer_id}}
+    )
+    
+    return {"message": "Co-organizer removed successfully"}
+
+@api_router.put("/submissions/{submission_id}/winner")
+async def set_winner(submission_id: str, position: int, request: Request):
+    user = await get_current_user(request)
+    
+    if position not in [1, 2, 3]:
+        raise HTTPException(status_code=400, detail="Position must be 1, 2, or 3")
+    
+    # Get submission
+    submission = await db.submissions.find_one({"_id": submission_id})
+    if not submission:
+        raise HTTPException(status_code=404, detail="Submission not found")
+    
+    # Get hackathon
+    hackathon = await db.hackathons.find_one({"_id": submission["hackathon_id"]})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check if user is organizer, co-organizer, or admin
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Update submission with winner position
+    await db.submissions.update_one(
+        {"_id": submission_id},
+        {"$set": {"winner_position": position}}
+    )
+    
+    return {"message": f"Set as position {position} winner", "submission_id": submission_id}
+
+@api_router.delete("/submissions/{submission_id}/winner")
+async def remove_winner(submission_id: str, request: Request):
+    user = await get_current_user(request)
+    
+    submission = await db.submissions.find_one({"_id": submission_id})
+    if not submission:
+        raise HTTPException(status_code=404, detail="Submission not found")
+    
+    hackathon = await db.hackathons.find_one({"_id": submission["hackathon_id"]})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    await db.submissions.update_one(
+        {"_id": submission_id},
+        {"$set": {"winner_position": None}}
+    )
+    
+    return {"message": "Winner status removed"}
+
 # ==================== FILE UPLOAD ROUTES ====================
 
 @api_router.post("/upload/image")
