@@ -436,6 +436,88 @@ export default function HackathonDetailEnhanced() {
                 </div>
               </div>
             </Card>
+
+            {/* Connect with Organizers Card */}
+            {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
+              <Card className="glass-effect p-6 border border-teal-500/30">
+                <h3 className="font-bold text-xl mb-6 flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-teal-500" />
+                  <span className="gradient-text">Connect with Us</span>
+                </h3>
+                <div className="space-y-3">
+                  {hackathon.twitter_url && (
+                    <a
+                      href={hackathon.twitter_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-lg border border-blue-400/30 hover:border-blue-400 transition-all hover:shadow-lg group"
+                    >
+                      <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-all">
+                        <Twitter className="w-5 h-5 text-blue-400" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white font-semibold text-sm">Follow on Twitter</p>
+                        <p className="text-gray-400 text-xs">Stay updated with announcements</p>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-400 transition-colors" />
+                    </a>
+                  )}
+                  {hackathon.linkedin_url && (
+                    <a
+                      href={hackathon.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-600/10 to-blue-700/10 rounded-lg border border-blue-600/30 hover:border-blue-600 transition-all hover:shadow-lg group"
+                    >
+                      <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center group-hover:bg-blue-600/30 transition-all">
+                        <Linkedin className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white font-semibold text-sm">Connect on LinkedIn</p>
+                        <p className="text-gray-400 text-xs">Professional networking</p>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                    </a>
+                  )}
+                  {hackathon.website_url && (
+                    <a
+                      href={hackathon.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-gradient-to-r from-green-500/10 to-green-600/10 rounded-lg border border-green-500/30 hover:border-green-500 transition-all hover:shadow-lg group"
+                    >
+                      <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:bg-green-500/30 transition-all">
+                        <Globe className="w-5 h-5 text-green-500" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white font-semibold text-sm">Visit Website</p>
+                        <p className="text-gray-400 text-xs">Learn more about us</p>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-green-500 transition-colors" />
+                    </a>
+                  )}
+                  {hackathon.community_url && (
+                    <a
+                      href={hackathon.community_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-4 bg-gradient-to-r from-teal-500/20 to-teal-600/20 rounded-lg border-2 border-teal-500/50 hover:border-teal-500 transition-all hover:shadow-xl group animate-pulse hover:animate-none"
+                    >
+                      <div className="w-12 h-12 bg-teal-500/30 rounded-lg flex items-center justify-center group-hover:bg-teal-500/40 transition-all">
+                        <MessageCircle className="w-6 h-6 text-teal-400" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white font-bold text-base">
+                          Join {hackathon.community_type === 'slack' ? 'Slack' : hackathon.community_type === 'discord' ? 'Discord' : 'Community'}
+                        </p>
+                        <p className="text-teal-300 text-xs font-medium">Chat with participants & organizers</p>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-teal-400 group-hover:text-teal-300 transition-colors" />
+                    </a>
+                  )}
+                </div>
+              </Card>
+            )}
           </div>
         </div>
       </div>
