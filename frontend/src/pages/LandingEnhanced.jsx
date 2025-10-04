@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, Trophy, Users, Code, Calendar, MapPin, ArrowRight, Search, Sparkles, Zap, Shield, TrendingUp, Star, CheckCircle } from 'lucide-react';
+import { Rocket, Trophy, Users, Code, Calendar, MapPin, ArrowRight, Search, Sparkles, Zap, Shield, TrendingUp, Star, CheckCircle, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -18,7 +18,22 @@ export default function LandingEnhanced() {
   const [filterLocation, setFilterLocation] = useState('');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [counts, setCounts] = useState({ hackathons: 0, participants: 0, projects: 0 });
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const heroRef = useRef(null);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-mode');
+    } else {
+      document.documentElement.classList.remove('light-mode');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   useEffect(() => {
     const fragment = window.location.hash;
