@@ -1019,15 +1019,25 @@ a:hover {
   background: #FFFFFF !important;
 }
 
-/* Subtle Dividers */
+/* Subtle Dividers with Teal */
 hr,
 .divider {
-  border-color: #E5E5E5 !important;
+  border-color: #E2E8F0 !important;
 }
 
-/* Icons should be black */
+hr:hover,
+.divider:hover {
+  border-color: #0D9488 !important;
+}
+
+/* Icons should be teal */
 svg {
-  color: #000000 !important;
+  color: #0D9488 !important;
+  transition: color 0.3s ease !important;
+}
+
+svg:hover {
+  color: #134E4A !important;
 }
 
 /* Clean Tables */
