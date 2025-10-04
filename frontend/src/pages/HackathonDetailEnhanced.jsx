@@ -183,26 +183,31 @@ export default function HackathonDetailEnhanced() {
                   <p className="text-gray-300 leading-relaxed text-lg">{hackathon.description}</p>
                 </Card>
 
-                <Card className="glass-effect p-8 border border-purple-800/30 hover-lift">
-                  <h2 className="text-3xl font-bold mb-6 gradient-text">Timeline</h2>
-                  <div className="space-y-6">
-                    {[
-                      { label: 'Registration Opens', date: hackathon.registration_start, icon: Calendar, color: 'text-blue-500' },
-                      { label: 'Registration Closes', date: hackathon.registration_end, icon: Clock, color: 'text-purple-500' },
-                      { label: 'Event Starts', date: hackathon.event_start, icon: Zap, color: 'text-green-500' },
-                      { label: 'Event Ends', date: hackathon.event_end, icon: Clock, color: 'text-orange-500' },
-                      { label: 'Submission Deadline', date: hackathon.submission_deadline, icon: FileText, color: 'text-red-500' },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-4 p-4 bg-gray-900/30 rounded-xl border border-gray-800 hover:border-purple-800/50 transition-colors">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center`}>
-                          <item.icon className={`w-6 h-6 ${item.color}`} />
+                <Card className="glass-effect p-8 border border-teal-200 hover-lift">
+                  <h2 className="text-3xl font-bold mb-6 gradient-text">Event Timeline</h2>
+                  <div className="relative">
+                    {/* Timeline Line */}
+                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-500 via-teal-400 to-teal-500"></div>
+                    
+                    <div className="space-y-6">
+                      {[
+                        { label: 'Registration Opens', date: hackathon.registration_start, icon: Calendar, color: 'from-blue-500 to-blue-600' },
+                        { label: 'Registration Closes', date: hackathon.registration_end, icon: Clock, color: 'from-teal-500 to-teal-600' },
+                        { label: 'Event Starts', date: hackathon.event_start, icon: Zap, color: 'from-green-500 to-green-600' },
+                        { label: 'Event Ends', date: hackathon.event_end, icon: Clock, color: 'from-orange-500 to-orange-600' },
+                        { label: 'Submission Deadline', date: hackathon.submission_deadline, icon: FileText, color: 'from-red-500 to-red-600' },
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-4 relative">
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg z-10 border-4 border-white`}>
+                            <item.icon className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1 p-4 bg-gradient-to-r from-teal-50 to-white rounded-xl border border-teal-200 hover:border-teal-400 transition-all hover:shadow-md">
+                            <p className="font-semibold text-gray-900 text-lg">{item.label}</p>
+                            <p className="text-teal-600 font-medium">{new Date(item.date).toLocaleString()}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-white text-lg">{item.label}</p>
-                          <p className="text-gray-400">{new Date(item.date).toLocaleString()}</p>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </Card>
 
