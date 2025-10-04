@@ -487,27 +487,7 @@ export default function LandingEnhanced() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-900 py-12 bg-black/30">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                <Rocket className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-xl font-bold gradient-text">Hackov8</span>
-            </div>
-            <p className="text-gray-500">© 2025 Hackov8. Streamline how hackathons are hosted, managed, and judged.</p>
-            <div className="flex gap-8">
-              <button onClick={() => navigate('/about')} className="text-gray-400 hover:text-purple-400 transition-colors font-medium">
-                About
-              </button>
-              <button onClick={() => navigate('/about')} className="text-gray-400 hover:text-purple-400 transition-colors font-medium">
-                FAQ
-              </button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Auth Modal */}
       {showAuthModal && (
