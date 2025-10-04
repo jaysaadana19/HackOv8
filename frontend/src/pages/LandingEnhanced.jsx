@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { hackathonAPI } from '@/lib/api';
+import { hackathonAPI, authAPI } from '@/lib/api';
 import { isAuthenticated, setAuth } from '@/lib/auth';
 import AuthModal from '@/components/AuthModal';
 
