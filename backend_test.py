@@ -1,16 +1,23 @@
 import requests
 import sys
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+import uuid
+import subprocess
 
-class HackovAPITester:
+class AdminPanelAPITester:
     def __init__(self, base_url="https://hackcraft-portal.preview.emergentagent.com/api"):
         self.base_url = base_url
-        self.session_token = None
-        self.user_id = None
+        self.admin_session_token = None
+        self.organizer_session_token = None
+        self.participant_session_token = None
+        self.admin_user_id = None
+        self.organizer_user_id = None
+        self.participant_user_id = None
         self.tests_run = 0
         self.tests_passed = 0
         self.test_results = []
+        self.created_hackathon_ids = []
 
     def log_test(self, name, success, details=""):
         """Log test result"""
