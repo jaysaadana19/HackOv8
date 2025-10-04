@@ -550,7 +550,7 @@ select:focus {
 
 .light-mode .border-purple-800\/30,
 .light-mode .border-teal-800\/30 {
-  border-color: rgba(0, 206, 209, 0.2) !important;
+  border-color: #E5E5E5 !important;
 }
 
 .light-mode input,
