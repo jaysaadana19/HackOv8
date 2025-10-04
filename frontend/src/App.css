@@ -748,32 +748,23 @@ select:focus {
   --tw-ring-color: #000000 !important;
 }
 
-/* Hover states */
+/* Hover states - Subtle Gray Hovers */
 .hover\:text-purple-400:hover,
-.hover\:text-purple-500:hover {
-  color: #00CED1 !important;
-}
-
+.hover\:text-purple-500:hover,
 .hover\:text-pink-400:hover,
 .hover\:text-pink-500:hover {
-  color: #48D1CC !important;
+  color: #000000 !important;
 }
 
 .hover\:bg-purple-500\/10:hover,
-.hover\:bg-purple-600\/10:hover {
-  background-color: rgba(0, 206, 209, 0.1) !important;
-}
-
+.hover\:bg-purple-600\/10:hover,
 .hover\:bg-purple-900\/20:hover {
-  background-color: rgba(0, 206, 209, 0.2) !important;
+  background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
-.hover\:bg-purple-700:hover {
-  background-color: #20B2AA !important;
-}
-
+.hover\:bg-purple-700:hover,
 .hover\:bg-pink-700:hover {
-  background-color: #40E0D0 !important;
+  background-color: #1A1A1A !important;
 }
 
 /* Shadow colors */
