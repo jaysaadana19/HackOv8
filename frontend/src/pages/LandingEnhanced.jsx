@@ -121,7 +121,7 @@ export default function LandingEnhanced() {
       {/* Hero Section */}
       <div className="relative min-h-screen animated-bg" ref={heroRef}>
         {/* Animated Particles */}
-        <div className="particles">
+        <div className="particles pointer-events-none">
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
@@ -135,7 +135,7 @@ export default function LandingEnhanced() {
           ))}
         </div>
 
-        <div className="relative container mx-auto px-6 py-8">
+        <div className="relative container mx-auto px-6 py-8 z-10">
           {/* Navbar */}
           <nav className="flex items-center justify-between mb-20 animate-fadeIn" data-testid="landing-navbar">
             <div className="flex items-center space-x-3">
