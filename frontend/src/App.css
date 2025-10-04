@@ -98,12 +98,17 @@ body {
   box-shadow: 0 2px 8px rgba(13, 148, 136, 0.04);
 }
 
-/* Card Effects - Clean White Cards */
+/* Card Effects - White Cards with Teal Accent */
 .card-gradient {
   background: #FFFFFF;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #E2E8F0;
   position: relative;
   overflow: hidden;
+}
+
+.card-gradient:hover {
+  border-color: #0D9488;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.1);
 }
 
 .card-gradient::before {
