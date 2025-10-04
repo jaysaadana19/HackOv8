@@ -737,22 +737,22 @@ select:focus {
   background-color: rgba(13, 148, 136, 0.1) !important;
 }
 
-/* Border colors - Light Gray Borders */
+/* Border colors - Teal Borders */
 .border-purple-500,
 .border-purple-600,
 .border-purple-800,
 .border-pink-600 {
-  border-color: #E5E5E5 !important;
+  border-color: #0D9488 !important;
 }
 
 .border-purple-800\/30 {
-  border-color: rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(13, 148, 136, 0.2) !important;
 }
 
 /* Ring colors */
 .ring-purple-500,
 .ring-pink-500 {
-  --tw-ring-color: #000000 !important;
+  --tw-ring-color: #0D9488 !important;
 }
 
 /* Hover states - Subtle Gray Hovers */
