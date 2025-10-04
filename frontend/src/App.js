@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
 import LandingEnhanced from '@/pages/LandingEnhanced';
 import Dashboard from '@/pages/Dashboard';
-import HackathonDetail from '@/pages/HackathonDetail';
+import HackathonDetailEnhanced from '@/pages/HackathonDetailEnhanced';
 import OrganizerDashboard from '@/pages/OrganizerDashboard';
 import JudgeDashboard from '@/pages/JudgeDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
