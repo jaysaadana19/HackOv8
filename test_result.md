@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Fix button clickability and modal interaction issues on the landing page (Get Started, Start Your Journey, Explore Hackathons buttons). Then enhance UI/UX for User Dashboard, Hackathon Detail Page, and Organizer Dashboard."
+user_problem_statement: "Complete the EditHackathonModal to allow organizers to edit all hackathon details including team size limits (1-4 members). Implement team creation with invite codes and team joining functionality with proper validation - users can only join one team per hackathon and teams must respect the size limits set by organizers."
 
 backend:
   - task: "Admin Stats & Analytics Endpoints"
