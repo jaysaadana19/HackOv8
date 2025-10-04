@@ -160,6 +160,60 @@ export default function HackathonDetailEnhanced() {
                   </div>
                 </div>
               </div>
+
+              {/* Social Links & Community */}
+              {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
+                <div className="flex flex-wrap gap-3 mt-6">
+                  {hackathon.twitter_url && (
+                    <a
+                      href={hackathon.twitter_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-effect px-4 py-2 rounded-xl border border-blue-400/30 hover:border-blue-400 transition-all flex items-center gap-2 text-white hover:bg-blue-500/10"
+                    >
+                      <Twitter className="w-4 h-4 text-blue-400" />
+                      <span className="text-sm font-medium">Twitter</span>
+                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                    </a>
+                  )}
+                  {hackathon.linkedin_url && (
+                    <a
+                      href={hackathon.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-effect px-4 py-2 rounded-xl border border-blue-600/30 hover:border-blue-600 transition-all flex items-center gap-2 text-white hover:bg-blue-600/10"
+                    >
+                      <Linkedin className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium">LinkedIn</span>
+                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                    </a>
+                  )}
+                  {hackathon.website_url && (
+                    <a
+                      href={hackathon.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-effect px-4 py-2 rounded-xl border border-green-500/30 hover:border-green-500 transition-all flex items-center gap-2 text-white hover:bg-green-500/10"
+                    >
+                      <Globe className="w-4 h-4 text-green-500" />
+                      <span className="text-sm font-medium">Website</span>
+                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                    </a>
+                  )}
+                  {hackathon.community_url && (
+                    <a
+                      href={hackathon.community_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-effect px-4 py-2 rounded-xl border border-teal-500/30 hover:border-teal-500 transition-all flex items-center gap-2 text-white hover:bg-teal-500/10 animate-pulse"
+                    >
+                      <MessageCircle className="w-4 h-4 text-teal-500" />
+                      <span className="text-sm font-medium">Join {hackathon.community_type === 'slack' ? 'Slack' : hackathon.community_type === 'discord' ? 'Discord' : 'Community'}</span>
+                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
