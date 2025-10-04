@@ -11,6 +11,7 @@ import { isAuthenticated, getUser } from '@/lib/auth';
 import CreateTeamModal from '@/components/CreateTeamModal';
 import JoinTeamModal from '@/components/JoinTeamModal';
 import SubmitProjectModal from '@/components/SubmitProjectModal';
+import { getHackathonBanner } from '@/lib/bannerImages';
 
 export default function HackathonDetailEnhanced() {
   const { id } = useParams();
