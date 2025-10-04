@@ -258,7 +258,7 @@ export default function Dashboard() {
                   className="glass-effect hover-lift overflow-hidden"
                   data-testid={`available-hackathon-${hackathon.id}`}
                 >
-                  <div className="h-48 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center">
+                  <div className="h-48 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
                     {hackathon.cover_image ? (
                       <img src={hackathon.cover_image} alt={hackathon.title} className="w-full h-full object-cover" />
                     ) : (
