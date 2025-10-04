@@ -679,6 +679,511 @@ print('Participant session token: {participant_session_token}');
             else:
                 print(f"   ⚠️  No approval/rejection notifications found")
 
+    def test_hackathon_edit_endpoint(self):
+        """Test hackathon edit endpoint with comprehensive field updates"""
+        print("\n✏️  Testing Hackathon Edit Endpoint...")
+        
+        # First create a hackathon as organizer
+        hackathon_data = {
+            "title": f"Edit Test Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "Original description",
+            "category": "Technology",
+            "location": "online",
+            "venue": "Original Venue",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1,
+            "prizes": [{"position": "1st", "amount": "$500"}],
+            "rules": "Original rules",
+            "twitter_url": "https://twitter.com/original",
+            "linkedin_url": "https://linkedin.com/original",
+            "website_url": "https://original.com",
+            "community_url": "https://discord.gg/original",
+            "community_type": "discord"
+        }
+        
+        success, response = self.run_test(
+            "Create Hackathon for Edit Test",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon_data,
+            session_token=self.organizer_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create hackathon for edit test")
+            return
+            
+        hackathon_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon_id)
+        
+        # Test 1: Organizer can edit their own hackathon (ALL fields)
+        updated_data = {
+            "title": f"UPDATED Edit Test Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "UPDATED description with more details",
+            "category": "Business",
+            "location": "hybrid",
+            "venue": "UPDATED Convention Center",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=11)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "max_team_size": 3,
+            "min_team_size": 2,
+            "prizes": [
+                {"position": "1st", "amount": "$2000"},
+                {"position": "2nd", "amount": "$1000"}
+            ],
+            "rules": "UPDATED comprehensive rules and guidelines",
+            "twitter_url": "https://twitter.com/updated",
+            "linkedin_url": "https://linkedin.com/updated", 
+            "website_url": "https://updated.com",
+            "community_url": "https://slack.com/updated",
+            "community_type": "slack"
+        }
+        
+        success, response = self.run_test(
+            "Organizer Edit Own Hackathon (All Fields)",
+            "PUT",
+            f"hackathons/{hackathon_id}",
+            200,
+            data=updated_data,
+            session_token=self.organizer_session_token
+        )
+        
+        if success:
+            # Verify all fields were updated
+            success, hackathon = self.run_test(
+                "Verify Hackathon Fields Updated",
+                "GET",
+                f"hackathons/{hackathon_id}",
+                200
+            )
+            
+            if success:
+                verification_passed = True
+                for key, expected_value in updated_data.items():
+                    actual_value = hackathon.get(key)
+                    if actual_value != expected_value:
+                        print(f"   ⚠️  Field {key}: expected {expected_value}, got {actual_value}")
+                        verification_passed = False
+                
+                if verification_passed:
+                    print(f"   ✅ All hackathon fields updated correctly")
+                    print(f"   ✅ Team size limits: min={hackathon.get('min_team_size')}, max={hackathon.get('max_team_size')}")
+        
+        # Test 2: Organizer CANNOT edit someone else's hackathon
+        # Create another hackathon as admin
+        admin_hackathon_data = {
+            "title": f"Admin Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "Admin's hackathon",
+            "category": "Technology",
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Admin Hackathon for Permission Test",
+            "POST",
+            "hackathons",
+            200,
+            data=admin_hackathon_data,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            admin_hackathon_id = response.get('id') or response.get('_id')
+            self.created_hackathon_ids.append(admin_hackathon_id)
+            
+            # Try to edit admin's hackathon as organizer (should fail)
+            success, response = self.run_test(
+                "Organizer Try Edit Admin Hackathon (Should Fail)",
+                "PUT",
+                f"hackathons/{admin_hackathon_id}",
+                403,  # Expecting forbidden
+                data={"title": "Unauthorized edit attempt"},
+                session_token=self.organizer_session_token
+            )
+            
+            if success:
+                print(f"   ✅ Organizer correctly blocked from editing admin's hackathon")
+        
+        # Test 3: Admin CAN edit any hackathon
+        admin_edit_data = {
+            "title": "Admin Override Edit",
+            "description": "Admin can edit any hackathon",
+            "max_team_size": 6,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Admin Edit Any Hackathon",
+            "PUT",
+            f"hackathons/{hackathon_id}",  # Edit organizer's hackathon as admin
+            200,
+            data=admin_edit_data,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Admin can edit any hackathon")
+            
+            # Verify admin's changes were applied
+            success, hackathon = self.run_test(
+                "Verify Admin Edit Applied",
+                "GET",
+                f"hackathons/{hackathon_id}",
+                200
+            )
+            
+            if success and hackathon.get('title') == "Admin Override Edit":
+                print(f"   ✅ Admin edit changes verified")
+
+    def test_team_creation_endpoint(self):
+        """Test team creation with invite code generation and validation"""
+        print("\n👥 Testing Team Creation Endpoint...")
+        
+        # First create a hackathon for team testing
+        hackathon_data = {
+            "title": f"Team Test Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "Hackathon for testing team functionality",
+            "category": "Technology",
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Hackathon for Team Tests",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon_data,
+            session_token=self.admin_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create hackathon for team tests")
+            return
+            
+        hackathon_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon_id)
+        
+        # Register participant for the hackathon
+        success, response = self.run_test(
+            "Register Participant for Hackathon",
+            "POST",
+            f"registrations?hackathon_id={hackathon_id}",
+            200,
+            session_token=self.participant_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to register participant for hackathon")
+            return
+        
+        # Test 1: Create team with auto-generated invite code
+        team_data = {
+            "name": f"Test Team {datetime.now().strftime('%H%M%S')}",
+            "hackathon_id": hackathon_id
+        }
+        
+        success, response = self.run_test(
+            "Create Team with Auto-Generated Invite Code",
+            "POST",
+            "teams",
+            200,
+            data=team_data,
+            session_token=self.participant_session_token
+        )
+        
+        team_id = None
+        invite_code = None
+        
+        if success:
+            team_id = response.get('id') or response.get('_id')
+            invite_code = response.get('invite_code')
+            
+            # Verify invite code is returned and not empty
+            if invite_code:
+                print(f"   ✅ Team created with invite code: {invite_code}")
+            else:
+                print(f"   ❌ No invite code returned in response")
+                return
+            
+            # Verify user is added as leader and member
+            if response.get('leader_id') == self.participant_user_id:
+                print(f"   ✅ User set as team leader")
+            else:
+                print(f"   ⚠️  User not set as team leader")
+            
+            if self.participant_user_id in response.get('members', []):
+                print(f"   ✅ User added to team members")
+            else:
+                print(f"   ⚠️  User not in team members list")
+        else:
+            print("   ❌ Failed to create team")
+            return
+        
+        # Test 2: User CANNOT create another team for same hackathon
+        duplicate_team_data = {
+            "name": f"Duplicate Team {datetime.now().strftime('%H%M%S')}",
+            "hackathon_id": hackathon_id
+        }
+        
+        success, response = self.run_test(
+            "Try Create Duplicate Team (Should Fail)",
+            "POST",
+            "teams",
+            400,  # Expecting bad request
+            data=duplicate_team_data,
+            session_token=self.participant_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked duplicate team creation")
+        
+        return team_id, invite_code, hackathon_id
+
+    def test_team_join_endpoint(self):
+        """Test team joining with invite code and validation"""
+        print("\n🤝 Testing Team Join Endpoint...")
+        
+        # Get team data from previous test
+        team_data = self.test_team_creation_endpoint()
+        if not team_data or len(team_data) != 3:
+            print("   ❌ Failed to get team data for join tests")
+            return
+            
+        team_id, invite_code, hackathon_id = team_data
+        
+        # Create a second participant for joining tests
+        timestamp = int(datetime.now().timestamp())
+        participant2_user_id = f"participant2-user-{timestamp}"
+        participant2_session_token = f"participant2_session_{timestamp}"
+        participant2_email = f"participant2.{timestamp}@example.com"
+        
+        mongo_script = f"""
+use('test_database');
+
+// Create second participant user
+db.users.insertOne({{
+  _id: '{participant2_user_id}',
+  email: '{participant2_email}',
+  name: 'Test Participant 2',
+  role: 'participant',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{participant2_user_id}',
+  session_token: '{participant2_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+"""
+        
+        try:
+            result = subprocess.run(['mongosh', '--eval', mongo_script], 
+                                  capture_output=True, text=True, timeout=30)
+            
+            if result.returncode != 0:
+                print(f"   ❌ Failed to create second participant: {result.stderr}")
+                return
+                
+        except Exception as e:
+            print(f"   ❌ Failed to create second participant: {str(e)}")
+            return
+        
+        # Test 1: User CANNOT join if not registered for hackathon
+        success, response = self.run_test(
+            "Try Join Team Without Registration (Should Fail)",
+            "POST",
+            f"teams/join?invite_code={invite_code}",
+            400,  # Expecting bad request
+            session_token=participant2_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked unregistered user from joining team")
+        
+        # Register second participant for hackathon
+        success, response = self.run_test(
+            "Register Second Participant for Hackathon",
+            "POST",
+            f"registrations?hackathon_id={hackathon_id}",
+            200,
+            session_token=participant2_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to register second participant")
+            return
+        
+        # Test 2: Successfully join team using invite code
+        success, response = self.run_test(
+            "Join Team Using Invite Code",
+            "POST",
+            f"teams/join?invite_code={invite_code}",
+            200,
+            session_token=participant2_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Successfully joined team: {response.get('team_name')}")
+            
+            # Verify user was added to team
+            success, team = self.run_test(
+                "Verify User Added to Team",
+                "GET",
+                f"hackathons/{hackathon_id}/teams",
+                200
+            )
+            
+            if success:
+                target_team = None
+                for t in team:
+                    if t.get('id') == team_id or t.get('_id') == team_id:
+                        target_team = t
+                        break
+                
+                if target_team and participant2_user_id in target_team.get('members', []):
+                    print(f"   ✅ User added to team members list")
+                else:
+                    print(f"   ⚠️  User not found in team members")
+        
+        # Test 3: User CANNOT join if already in a team
+        success, response = self.run_test(
+            "Try Join Another Team (Should Fail)",
+            "POST",
+            f"teams/join?invite_code={invite_code}",
+            400,  # Expecting bad request
+            session_token=participant2_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked user already in team from joining another")
+        
+        # Test 4: Test team size limit validation
+        # Create participants up to max team size and try to exceed
+        hackathon_with_limit_data = {
+            "title": f"Size Limit Test Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "Testing team size limits",
+            "category": "Technology", 
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 2,  # Small limit for testing
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Hackathon with Small Team Limit",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon_with_limit_data,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            limit_hackathon_id = response.get('id') or response.get('_id')
+            self.created_hackathon_ids.append(limit_hackathon_id)
+            
+            # Create a team in this limited hackathon
+            # First register organizer
+            success, response = self.run_test(
+                "Register Organizer for Limited Hackathon",
+                "POST",
+                f"registrations?hackathon_id={limit_hackathon_id}",
+                200,
+                session_token=self.organizer_session_token
+            )
+            
+            if success:
+                # Create team
+                limit_team_data = {
+                    "name": f"Limited Team {datetime.now().strftime('%H%M%S')}",
+                    "hackathon_id": limit_hackathon_id
+                }
+                
+                success, response = self.run_test(
+                    "Create Team in Limited Hackathon",
+                    "POST",
+                    "teams",
+                    200,
+                    data=limit_team_data,
+                    session_token=self.organizer_session_token
+                )
+                
+                if success:
+                    limit_invite_code = response.get('invite_code')
+                    
+                    # Register admin and join team (should work - team size = 2)
+                    success, response = self.run_test(
+                        "Register Admin for Limited Hackathon",
+                        "POST",
+                        f"registrations?hackathon_id={limit_hackathon_id}",
+                        200,
+                        session_token=self.admin_session_token
+                    )
+                    
+                    if success:
+                        success, response = self.run_test(
+                            "Admin Join Limited Team (Should Work)",
+                            "POST",
+                            f"teams/join?invite_code={limit_invite_code}",
+                            200,
+                            session_token=self.admin_session_token
+                        )
+                        
+                        if success:
+                            print(f"   ✅ Team at max capacity (2/2)")
+                            
+                            # Now try to add participant (should fail - team full)
+                            # Register participant for limited hackathon
+                            success, response = self.run_test(
+                                "Register Participant for Limited Hackathon",
+                                "POST",
+                                f"registrations?hackathon_id={limit_hackathon_id}",
+                                200,
+                                session_token=self.participant_session_token
+                            )
+                            
+                            if success:
+                                success, response = self.run_test(
+                                    "Try Join Full Team (Should Fail)",
+                                    "POST",
+                                    f"teams/join?invite_code={limit_invite_code}",
+                                    400,  # Expecting bad request - team full
+                                    session_token=self.participant_session_token
+                                )
+                                
+                                if success:
+                                    print(f"   ✅ Correctly blocked joining full team (max_team_size=2)")
+
     def cleanup_test_data(self):
         """Clean up created test hackathons"""
         print("\n🧹 Cleaning up test data...")
