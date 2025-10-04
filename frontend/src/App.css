@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* Arctic White + Teal Mint + Navy Blue Theme Variables */
+:root {
+  --color-teal: #00CED1;
+  --color-teal-light: #48D1CC;
+  --color-teal-dark: #20B2AA;
+  --color-navy: #001f3f;
+  --color-navy-light: #003d5c;
+  --color-arctic: #F0F8FF;
+  --color-mint: #98FB98;
+}
+
 * {
   margin: 0;
   padding: 0;
