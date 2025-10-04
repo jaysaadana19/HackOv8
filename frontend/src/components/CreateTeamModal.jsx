@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -8,6 +8,8 @@ import { teamAPI } from '@/lib/api';
 export default function CreateTeamModal({ hackathonId, onClose, onSuccess }) {
   const [teamName, setTeamName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [createdTeam, setCreatedTeam] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,14 +20,25 @@ export default function CreateTeamModal({ hackathonId, onClose, onSuccess }) {
 
     setLoading(true);
     try {
-      await teamAPI.create({ name: teamName, hackathon_id: hackathonId });
+      const response = await teamAPI.create({ name: teamName, hackathon_id: hackathonId });
+      setCreatedTeam(response.data);
       toast.success('Team created successfully!');
-      onSuccess();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to create team');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCopyInviteCode = () => {
+    navigator.clipboard.writeText(createdTeam.invite_code);
+    setCopied(true);
+    toast.success('Invite code copied to clipboard!');
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDone = () => {
+    onSuccess();
   };
 
   return (
