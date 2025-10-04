@@ -1240,7 +1240,14 @@ db.user_sessions.insertOne({{
         # Step 9: Test notification system
         self.test_notification_system()
         
-        # Step 10: Cleanup
+        # NEW TESTS: Team management and hackathon editing
+        # Step 10: Test hackathon edit endpoint
+        self.test_hackathon_edit_endpoint()
+        
+        # Step 11: Test team creation and joining
+        self.test_team_join_endpoint()  # This calls test_team_creation_endpoint internally
+        
+        # Step 12: Cleanup
         self.cleanup_test_data()
         
         # Print summary
