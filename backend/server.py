@@ -664,7 +664,8 @@ async def get_user(user_id: str):
 async def get_hackathons(
     status: Optional[str] = None,
     category: Optional[str] = None,
-    location: Optional[str] = None
+    location: Optional[str] = None,
+    featured_only: bool = False
 ):
     query = {}
     if status:
@@ -673,8 +674,11 @@ async def get_hackathons(
         query["category"] = category
     if location:
         query["location"] = location
+    if featured_only:
+        query["featured"] = True
     
-    hackathons = await db.hackathons.find(query).sort("created_at", -1).to_list(100)
+    # Sort: featured first, then by creation date
+    hackathons = await db.hackathons.find(query).sort([("featured", -1), ("created_at", -1)]).to_list(100)
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
 @api_router.get("/hackathons/{hackathon_id}")
