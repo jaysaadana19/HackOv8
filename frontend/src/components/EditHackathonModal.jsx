@@ -28,6 +28,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
       await hackathonAPI.update(hackathon.id, {
         title,
         description,
+        cover_image: coverImage,
         rules,
         status
       });
