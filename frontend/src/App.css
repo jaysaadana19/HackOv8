@@ -562,7 +562,7 @@ select:focus {
 
 /* Keep gradient text and buttons colorful in light mode */
 .light-mode .gradient-text {
-  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #6d28d9 100%);
+  background: linear-gradient(135deg, #00CED1 0%, #48D1CC 50%, #20B2AA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
