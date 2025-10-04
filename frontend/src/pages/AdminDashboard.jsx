@@ -440,6 +440,16 @@ export default function AdminDashboard() {
                       >
                         <Eye className="w-4 h-4" />
                       </Button>
+                      {(hackathon.status === 'published' || hackathon.status === 'ongoing') && (
+                        <Button
+                          size="sm"
+                          onClick={() => handleToggleFeatured(hackathon.id, hackathon.featured, hackathon.title)}
+                          className={hackathon.featured ? "bg-yellow-600 hover:bg-yellow-700 text-white" : "bg-gray-700 hover:bg-gray-600 text-gray-300"}
+                          title={hackathon.featured ? "Remove from featured" : "Mark as featured"}
+                        >
+                          <Star className={`w-4 h-4 ${hackathon.featured ? 'fill-white' : ''}`} />
+                        </Button>
+                      )}
                       {hackathon.status === 'pending_approval' && (
                         <>
                           <Button
