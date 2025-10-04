@@ -9,6 +9,7 @@ import JudgeDashboard from '@/pages/JudgeDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
 import Profile from '@/pages/Profile';
 import About from '@/pages/About';
+import Settings from '@/pages/Settings';
 import GoogleCallback from '@/pages/GoogleCallback';
 import '@/App.css';
 
