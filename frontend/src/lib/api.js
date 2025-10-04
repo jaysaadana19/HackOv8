@@ -58,6 +58,7 @@ export const userAPI = {
 export const hackathonAPI = {
   getAll: (params) => api.get('/hackathons', { params }),
   getById: (id) => api.get(`/hackathons/${id}`),
+  getBySlug: (slug) => api.get(`/hackathons/slug/${slug}`),
   create: (data) => api.post('/hackathons', data),
   update: (id, data) => api.put(`/hackathons/${id}`, data),
   delete: (id) => api.delete(`/hackathons/${id}`),
