@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, ArrowLeft, Plus, Edit, Trash2, Users, FileText, Eye } from 'lucide-react';
+import { Rocket, ArrowLeft, Plus, Edit, Trash2, Users, FileText, Eye, Bell, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,7 @@ import { hackathonAPI } from '@/lib/api';
 import CreateHackathonModal from '@/components/CreateHackathonModal';
 import EditHackathonModal from '@/components/EditHackathonModal';
 import ViewRegistrationsModal from '@/components/ViewRegistrationsModal';
+import NotifyParticipantsModal from '@/components/NotifyParticipantsModal';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
@@ -20,7 +21,23 @@ export default function OrganizerDashboard() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showRegistrationsModal, setShowRegistrationsModal] = useState(false);
+  const [showNotifyModal, setShowNotifyModal] = useState(false);
   const [selectedHackathon, setSelectedHackathon] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-mode');
+    } else {
+      document.documentElement.classList.remove('light-mode');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   useEffect(() => {
     fetchMyHackathons();
