@@ -100,7 +100,7 @@ class HackovAPITester:
         )
         
         if success and hackathons:
-            hackathon_id = hackathons[0]['id']
+            hackathon_id = hackathons[0].get('id') or hackathons[0].get('_id')
             print(f"   Found {len(hackathons)} hackathons")
             
             # Get specific hackathon
