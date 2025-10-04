@@ -587,6 +587,80 @@ async def get_my_hackathons(request: Request):
     hackathons = await db.hackathons.find({"organizer_id": user.id}).sort("created_at", -1).to_list(100)
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
+@api_router.post("/hackathons/{hackathon_id}/notify-participants")
+async def notify_hackathon_participants(hackathon_id: str, title: str, message: str, request: Request):
+    user = await get_current_user(request)
+    
+    # Check if user is the organizer or admin
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Get all participants
+    registrations = await db.registrations.find({"hackathon_id": hackathon_id}).to_list(1000)
+    participant_ids = list(set([reg["user_id"] for reg in registrations]))
+    
+    # Send notification to all participants
+    notifications_sent = 0
+    for participant_id in participant_ids:
+        notification = Notification(
+            user_id=participant_id,
+            type="hackathon_update",
+            title=f"Update: {hackathon['title']}",
+            message=f"{title}\n\n{message}"
+        )
+        await db.notifications.insert_one(notification.dict(by_alias=True))
+        notifications_sent += 1
+    
+    return {
+        "message": f"Notification sent to {notifications_sent} participants",
+        "count": notifications_sent
+    }
+
+# ==================== FILE UPLOAD ROUTES ====================
+
+@api_router.post("/upload/image")
+async def upload_image(file: UploadFile = File(...), request: Request = None):
+    user = await get_current_user(request)
+    
+    # Validate file type
+    allowed_types = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"]
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail="Invalid file type. Only images allowed.")
+    
+    # Validate file size (max 5MB)
+    file_size = 0
+    chunk_size = 1024 * 1024  # 1MB chunks
+    temp_file = f"/tmp/{uuid.uuid4()}"
+    
+    with open(temp_file, "wb") as buffer:
+        while chunk := await file.read(chunk_size):
+            file_size += len(chunk)
+            if file_size > 5 * 1024 * 1024:  # 5MB
+                os.remove(temp_file)
+                raise HTTPException(status_code=400, detail="File too large. Max 5MB allowed.")
+            buffer.write(chunk)
+    
+    # Generate unique filename
+    file_extension = file.filename.split(".")[-1]
+    unique_filename = f"{uuid.uuid4()}.{file_extension}"
+    upload_path = f"/app/uploads/hackathon_banners/{unique_filename}"
+    
+    # Move file to uploads directory
+    shutil.move(temp_file, upload_path)
+    
+    # Return URL (will be served by static files)
+    file_url = f"/uploads/hackathon_banners/{unique_filename}"
+    
+    return {
+        "url": file_url,
+        "filename": unique_filename,
+        "message": "File uploaded successfully"
+    }
+
 # ==================== REGISTRATION ROUTES ====================
 
 @api_router.post("/registrations")
