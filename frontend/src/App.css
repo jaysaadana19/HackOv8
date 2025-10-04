@@ -1109,3 +1109,93 @@ button[class*="from-pink"] * {
   color: #1a1a1a !important;
 }
 
+/* Toast Notification Styling */
+[data-sonner-toast] {
+  background: #1f2937 !important;
+  border: 1px solid #374151 !important;
+  color: #f3f4f6 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: #064e3b !important;
+  border: 1px solid #10b981 !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: #7f1d1d !important;
+  border: 1px solid #ef4444 !important;
+}
+
+[data-sonner-toast][data-type="warning"] {
+  background: #78350f !important;
+  border: 1px solid #f59e0b !important;
+}
+
+[data-sonner-toast][data-type="info"] {
+  background: #1e3a8a !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+[data-sonner-toast] [data-title] {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+[data-sonner-toast] [data-description] {
+  color: #e5e7eb !important;
+}
+
+[data-sonner-toast] [data-button] {
+  background: #14b8a6 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+[data-sonner-toast] [data-close-button] {
+  background: transparent !important;
+  color: #9ca3af !important;
+  border: none !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Light mode toast overrides */
+.light-mode [data-sonner-toast] {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #1f2937 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.light-mode [data-sonner-toast][data-type="success"] {
+  background: #d1fae5 !important;
+  border: 1px solid #10b981 !important;
+}
+
+.light-mode [data-sonner-toast][data-type="error"] {
+  background: #fee2e2 !important;
+  border: 1px solid #ef4444 !important;
+}
+
+.light-mode [data-sonner-toast][data-type="warning"] {
+  background: #fef3c7 !important;
+  border: 1px solid #f59e0b !important;
+}
+
+.light-mode [data-sonner-toast][data-type="info"] {
+  background: #dbeafe !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+.light-mode [data-sonner-toast] [data-title] {
+  color: #111827 !important;
+}
+
+.light-mode [data-sonner-toast] [data-description] {
+  color: #4b5563 !important;
+}
+
