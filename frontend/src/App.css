@@ -860,20 +860,31 @@ select:focus {
   color: #ffffff !important;
 
 
-/* ==================== MODERN DEVFOLIO-INSPIRED ADDITIONS ==================== */
+/* ==================== MODERN DEVELOPER-FOCUSED ADDITIONS ==================== */
 
-/* Clean Navbar */
+/* Clean Navbar with Teal Accent */
 nav {
   background: #FFFFFF !important;
-  border-bottom: 1px solid #E5E5E5 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+nav:hover {
+  border-bottom-color: #0D9488 !important;
 }
 
 /* Modern Card Styling */
 .card,
 [class*="card"] {
   background: #FFFFFF !important;
-  border: 1px solid #E5E5E5 !important;
+  border: 1px solid #E2E8F0 !important;
   border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.card:hover,
+[class*="card"]:hover {
+  border-color: #0D9488 !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.1) !important;
 }
 
 /* Clean Buttons */
