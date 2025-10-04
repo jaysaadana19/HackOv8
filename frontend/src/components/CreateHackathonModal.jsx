@@ -52,6 +52,7 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
       const data = {
         title,
         description,
+        cover_image: coverImage || null,
         category,
         location,
         venue: location !== 'online' ? venue : null,
