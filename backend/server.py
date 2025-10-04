@@ -545,6 +545,14 @@ async def delete_hackathon(hackathon_id: str, request: Request):
     await db.hackathons.delete_one({"_id": hackathon_id})
     return {"message": "Hackathon deleted successfully"}
 
+@api_router.get("/hackathons/organizer/my")
+async def get_my_hackathons(request: Request):
+    user = await get_current_user(request)
+    await require_role(user, ["organizer", "admin"])
+    
+    hackathons = await db.hackathons.find({"organizer_id": user.id}).sort("created_at", -1).to_list(100)
+    return [{**h, "id": h.pop("_id")} for h in hackathons]
+
 # ==================== REGISTRATION ROUTES ====================
 
 @api_router.post("/registrations")
