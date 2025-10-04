@@ -1043,25 +1043,26 @@ svg:hover {
 /* Clean Tables */
 table {
   background: #FFFFFF !important;
-  border: 1px solid #E5E5E5 !important;
+  border: 1px solid #E2E8F0 !important;
 }
 
 th {
-  background: #FAFAFA !important;
-  color: #000000 !important;
+  background: #E2E8F0 !important;
+  color: #1E293B !important;
   font-weight: 600 !important;
 }
 
 td {
-  border-top: 1px solid #E5E5E5 !important;
-  color: #000000 !important;
+  border-top: 1px solid #E2E8F0 !important;
+  color: #1E293B !important;
 }
 
 /* Modal/Dialog Backgrounds */
 [role="dialog"],
 .modal {
   background: #FFFFFF !important;
-  border: 1px solid #E5E5E5 !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.1) !important;
 }
 
 /* Dropdown/Menu Backgrounds */
@@ -1069,8 +1070,8 @@ td {
 .dropdown,
 .menu {
   background: #FFFFFF !important;
-  border: 1px solid #E5E5E5 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.1) !important;
 }
 
 }
