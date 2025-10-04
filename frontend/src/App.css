@@ -361,16 +361,16 @@ select:focus {
 
 /* Glow Effects */
 .glow-purple {
-  box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 30px rgba(0, 206, 209, 0.5);
 }
 
 .glow-pink {
-  box-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
+  box-shadow: 0 0 30px rgba(72, 209, 204, 0.5);
 }
 
 /* Text Selection */
 ::selection {
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(0, 206, 209, 0.3);
   color: #fff;
 }
 
