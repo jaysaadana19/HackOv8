@@ -11,6 +11,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(hackathon.title);
   const [description, setDescription] = useState(hackathon.description);
+  const [coverImage, setCoverImage] = useState(hackathon.cover_image || '');
   const [rules, setRules] = useState(hackathon.rules || '');
   const [status, setStatus] = useState(hackathon.status);
 
