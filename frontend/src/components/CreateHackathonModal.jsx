@@ -119,6 +119,23 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
               />
             </div>
 
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-2 block">Banner Image URL</Label>
+              <Input
+                type="url"
+                value={coverImage}
+                onChange={(e) => setCoverImage(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                placeholder="https://example.com/banner.jpg"
+                data-testid="hackathon-cover-image"
+              />
+              {coverImage && (
+                <div className="mt-3 rounded-lg overflow-hidden border border-gray-800">
+                  <img src={coverImage} alt="Banner preview" className="w-full h-48 object-cover" onError={(e) => e.target.style.display = 'none'} />
+                </div>
+              )}
+            </div>
+
             <div>
               <Label className="text-gray-400 mb-2 block">Category *</Label>
               <Input
