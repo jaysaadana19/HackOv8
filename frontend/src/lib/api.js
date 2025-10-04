@@ -109,7 +109,14 @@ export const notificationAPI = {
 // Admin APIs
 export const adminAPI = {
   getStats: () => api.get('/admin/stats'),
+  getStatsOverview: (days = 30) => api.get('/admin/stats/overview', { params: { days } }),
+  getGrowthStats: (days = 30) => api.get('/admin/stats/growth', { params: { days } }),
+  getRetentionStats: () => api.get('/admin/stats/retention'),
   getAllUsers: () => api.get('/admin/users'),
+  getAllHackathons: (status) => api.get('/admin/hackathons', { params: { status } }),
+  approveHackathon: (hackathonId) => api.put(`/admin/hackathons/${hackathonId}/approve`),
+  rejectHackathon: (hackathonId, reason) => api.put(`/admin/hackathons/${hackathonId}/reject`, null, { params: { reason } }),
+  deleteHackathon: (hackathonId) => api.delete(`/admin/hackathons/${hackathonId}`),
   updateUserRole: (userId, role) => api.put(`/admin/users/${userId}/role`, null, { params: { new_role: role } }),
   exportUsers: () => api.get('/admin/export/users', { responseType: 'blob' }),
   exportHackathons: () => api.get('/admin/export/hackathons', { responseType: 'blob' }),
