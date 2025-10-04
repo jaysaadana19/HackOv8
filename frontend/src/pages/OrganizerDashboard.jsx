@@ -19,6 +19,7 @@ export default function OrganizerDashboard() {
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showRegistrationsModal, setShowRegistrationsModal] = useState(false);
   const [selectedHackathon, setSelectedHackathon] = useState(null);
 
   useEffect(() => {
