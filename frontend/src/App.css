@@ -691,19 +691,19 @@ select:focus {
 .light-mode #root,
 
 
-/* ==================== GLOBAL THEME OVERRIDE - Modern White & Black ==================== */
+/* ==================== GLOBAL THEME OVERRIDE - White + Teal + Navy ==================== */
 
-/* Replace all purple gradients with black gradients */
+/* Replace all purple gradients with teal gradients */
 .bg-gradient-to-r.from-purple-600,
 .bg-gradient-to-r.from-purple-600.to-pink-600,
 .bg-gradient-to-br.from-purple-600,
 .bg-gradient-to-br.from-purple-600.to-pink-600 {
-  background: linear-gradient(to right, #000000, #1A1A1A) !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
 }
 
 .hover\:from-purple-700:hover,
 .hover\:to-pink-700:hover {
-  background: linear-gradient(to right, #1A1A1A, #000000) !important;
+  background: linear-gradient(to right, #0F766E, #0D9488) !important;
 }
 
 /* All colors to Black/Dark Gray */
