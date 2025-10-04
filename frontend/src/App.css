@@ -96,10 +96,10 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Card Effects */
+/* Card Effects - Clean White Cards */
 .card-gradient {
-  background: linear-gradient(135deg, rgba(0, 206, 209, 0.1) 0%, rgba(72, 209, 204, 0.1) 100%);
-  border: 1px solid rgba(0, 206, 209, 0.3);
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
   position: relative;
   overflow: hidden;
 }
