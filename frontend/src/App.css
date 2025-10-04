@@ -767,11 +767,11 @@ select:focus {
   background-color: #1A1A1A !important;
 }
 
-/* Shadow colors */
+/* Shadow colors - Subtle Black Shadows */
 .shadow-purple-500\/50,
 .hover\:shadow-purple-500\/50:hover {
-  --tw-shadow-color: rgba(0, 206, 209, 0.5) !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 0 30px rgba(0, 206, 209, 0.5) !important;
+  --tw-shadow-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Gradient backgrounds with opacity */
