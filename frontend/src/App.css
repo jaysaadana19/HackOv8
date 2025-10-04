@@ -24,9 +24,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Gradient Text */
+/* Gradient Text - New Arctic White + Teal Mint + Navy Blue Theme */
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #00CED1 0%, #48D1CC 50%, #20B2AA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
