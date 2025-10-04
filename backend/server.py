@@ -720,8 +720,14 @@ async def create_hackathon(hackathon_data: HackathonCreate, request: Request):
     # Set status to pending_approval for organizers, published for admins
     initial_status = "published" if user.role == "admin" else "pending_approval"
     
+    # Generate unique slug from title
+    existing_hackathons = await db.hackathons.find({}, {"slug": 1}).to_list(1000)
+    existing_slugs = [h.get("slug", "") for h in existing_hackathons if h.get("slug")]
+    slug = generate_slug(hackathon_data.title, existing_slugs)
+    
     hackathon = Hackathon(
         **hackathon_data.dict(),
+        slug=slug,
         organizer_id=user.id,
         organizer_name=user.name,
         status=initial_status
