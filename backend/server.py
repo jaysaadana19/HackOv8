@@ -335,6 +335,83 @@ async def process_session(request: Request):
         session_token=data["session_token"]
     )
 
+@api_router.post("/auth/google/callback")
+async def google_callback(code: str, redirect_uri: str):
+    """Handle Google OAuth callback"""
+    client_id = os.environ.get('GOOGLE_CLIENT_ID')
+    
+    if not client_id:
+        raise HTTPException(status_code=500, detail="Google OAuth not configured")
+    
+    # Exchange code for tokens
+    async with httpx.AsyncClient() as client:
+        try:
+            token_response = await client.post(
+                'https://oauth2.googleapis.com/token',
+                data={
+                    'code': code,
+                    'client_id': client_id,
+                    'redirect_uri': redirect_uri,
+                    'grant_type': 'authorization_code'
+                }
+            )
+            token_response.raise_for_status()
+            tokens = token_response.json()
+            
+            # Get user info from Google
+            user_info_response = await client.get(
+                'https://www.googleapis.com/oauth2/v2/userinfo',
+                headers={'Authorization': f'Bearer {tokens["access_token"]}'}
+            )
+            user_info_response.raise_for_status()
+            user_info = user_info_response.json()
+            
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Google OAuth failed: {str(e)}")
+    
+    # Check if user exists
+    existing_user = await db.users.find_one({"email": user_info["email"]})
+    
+    if existing_user:
+        user_id = existing_user["_id"]
+        # Update last login
+        await db.users.update_one(
+            {"_id": user_id},
+            {"$set": {"last_login": datetime.now(timezone.utc)}}
+        )
+    else:
+        # Create new user
+        user = User(
+            email=user_info["email"],
+            name=user_info.get("name", user_info["email"].split("@")[0]),
+            picture=user_info.get("picture"),
+            role="participant",
+            last_login=datetime.now(timezone.utc)
+        )
+        user_dict = user.dict(by_alias=True)
+        await db.users.insert_one(user_dict)
+        user_id = user_dict["_id"]
+    
+    # Create session
+    session_token = secrets.token_urlsafe(32)
+    session = UserSession(
+        user_id=user_id,
+        session_token=session_token,
+        expires_at=datetime.now(timezone.utc) + timedelta(days=7)
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    # Get user data
+    user_doc = await db.users.find_one({"_id": user_id})
+    
+    return SessionResponse(
+        id=user_id,
+        email=user_doc["email"],
+        name=user_doc["name"],
+        picture=user_doc.get("picture"),
+        session_token=session_token
+    )
+
 @api_router.get("/auth/me")
 async def get_current_user_info(request: Request):
     user = await get_current_user(request)
