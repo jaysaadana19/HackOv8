@@ -281,9 +281,9 @@ export default function AuthModal({ onClose, onSuccess }) {
                 </div>
 
                 {signupRole === 'organizer' && (
-                  <div className="space-y-4 p-4 bg-teal-50 rounded-xl border-2 border-teal-200">
-                    <div className="space-y-2">
-                      <Label htmlFor="company-name" className="text-gray-700 font-medium flex items-center gap-2">
+                  <div className="space-y-3 p-3 bg-teal-50 rounded-xl border-2 border-teal-200">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="company-name" className="text-gray-700 font-medium flex items-center gap-2 text-sm">
                         <Building className="w-4 h-4 text-teal-500" />
                         Company Name
                       </Label>
@@ -293,16 +293,16 @@ export default function AuthModal({ onClose, onSuccess }) {
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
                         placeholder="Your Company"
-                        className="h-11 bg-white border-2 border-teal-200 focus:border-teal-500 rounded-lg"
+                        className="h-10 bg-white border-2 border-teal-200 focus:border-teal-500 rounded-lg"
                         disabled={loading}
                         required
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="company-website" className="text-gray-700 font-medium flex items-center gap-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="company-website" className="text-gray-700 font-medium flex items-center gap-2 text-sm">
                         <Globe className="w-4 h-4 text-teal-500" />
-                        Company Website (Optional)
+                        Website (Optional)
                       </Label>
                       <Input
                         id="company-website"
@@ -310,7 +310,7 @@ export default function AuthModal({ onClose, onSuccess }) {
                         value={companyWebsite}
                         onChange={(e) => setCompanyWebsite(e.target.value)}
                         placeholder="https://yourcompany.com"
-                        className="h-11 bg-white border-2 border-teal-200 focus:border-teal-500 rounded-lg"
+                        className="h-10 bg-white border-2 border-teal-200 focus:border-teal-500 rounded-lg"
                         disabled={loading}
                       />
                     </div>
