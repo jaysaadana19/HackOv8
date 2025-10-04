@@ -814,7 +814,7 @@ select:focus {
 /* Notification panel */
 .light-mode .bg-purple-900\/20,
 .light-mode .bg-teal-900\/20 {
-  background: rgba(0, 206, 209, 0.1) !important;
+  background: rgba(0, 0, 0, 0.03) !important;
 }
 
 /* Icon colors */
