@@ -363,6 +363,93 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
                 placeholder="Enter hackathon rules and guidelines..."
               />
             </div>
+
+            {/* Social Profiles & Community Section */}
+            <div className="md:col-span-2 pt-4 border-t border-gray-800">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Globe className="w-5 h-5 text-teal-500" />
+                Social Links & Community (Optional)
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                    <Twitter className="w-4 h-4 text-blue-400" />
+                    Twitter/X URL
+                  </Label>
+                  <Input
+                    type="url"
+                    value={twitterUrl}
+                    onChange={(e) => setTwitterUrl(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder="https://twitter.com/yourusername"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                    <Linkedin className="w-4 h-4 text-blue-600" />
+                    LinkedIn URL
+                  </Label>
+                  <Input
+                    type="url"
+                    value={linkedinUrl}
+                    onChange={(e) => setLinkedinUrl(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-green-500" />
+                    Website URL
+                  </Label>
+                  <Input
+                    type="url"
+                    value={websiteUrl}
+                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder="https://yourwebsite.com"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4 text-purple-500" />
+                    Community Type
+                  </Label>
+                  <RadioGroup value={communityType} onValueChange={setCommunityType} className="flex gap-4 mt-2">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="slack" id="slack" />
+                      <Label htmlFor="slack" className="text-gray-300 cursor-pointer">Slack</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="discord" id="discord" />
+                      <Label htmlFor="discord" className="text-gray-300 cursor-pointer">Discord</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="other" id="other" />
+                      <Label htmlFor="other" className="text-gray-300 cursor-pointer">Other</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="md:col-span-2">
+                  <Label className="text-gray-400 mb-2 block flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4 text-teal-500" />
+                    Community URL ({communityType === 'slack' ? 'Slack' : communityType === 'discord' ? 'Discord' : 'Community'})
+                  </Label>
+                  <Input
+                    type="url"
+                    value={communityUrl}
+                    onChange={(e) => setCommunityUrl(e.target.value)}
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                    placeholder={communityType === 'slack' ? 'https://yourworkspace.slack.com/...' : communityType === 'discord' ? 'https://discord.gg/...' : 'https://community-link.com'}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">This will be displayed on the event page for participants to join</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="flex gap-3 pt-6 border-t border-gray-800">
