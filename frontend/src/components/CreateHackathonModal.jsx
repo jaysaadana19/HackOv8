@@ -11,6 +11,7 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState('');
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('online');
   const [venue, setVenue] = useState('');
