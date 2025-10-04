@@ -716,6 +716,93 @@ export default function AdminDashboard() {
               </div>
             </Card>
           </TabsContent>
+
+          {/* Users Tab */}
+          <TabsContent value="users" className="space-y-6">
+            <Card className="glass-effect p-6 border border-purple-800/30">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">
+                  <span className="gradient-text">User Management</span>
+                </h2>
+                <Badge className="bg-purple-600/20 text-purple-400 border-purple-600">
+                  {users.length} Total Users
+                </Badge>
+              </div>
+
+              {/* Users List */}
+              <div className="space-y-4">
+                {users.map((user) => (
+                  <div
+                    key={user.id}
+                    className="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-purple-600 transition-all"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">
+                            {user.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white">{user.name}</h3>
+                          <p className="text-sm text-gray-400">{user.email}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 ml-13">
+                        <Badge
+                          className={
+                            user.role === 'admin'
+                              ? 'bg-red-600/20 text-red-400 border-red-600'
+                              : user.role === 'organizer'
+                              ? 'bg-blue-600/20 text-blue-400 border-blue-600'
+                              : user.role === 'judge'
+                              ? 'bg-yellow-600/20 text-yellow-400 border-yellow-600'
+                              : 'bg-green-600/20 text-green-400 border-green-600'
+                          }
+                        >
+                          {user.role.toUpperCase()}
+                        </Badge>
+                        {user.email_verified && (
+                          <Badge className="bg-teal-600/20 text-teal-400 border-teal-600">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                        <span className="text-xs text-gray-500">
+                          Joined: {new Date(user.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Role Change Dropdown */}
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={user.role}
+                        onChange={(e) => handleRoleChange(user.id, e.target.value, user.name)}
+                        className="bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg text-sm focus:border-purple-600 focus:outline-none"
+                        disabled={user.id === getUser()?.id}
+                      >
+                        <option value="participant">Participant</option>
+                        <option value="organizer">Organizer</option>
+                        <option value="judge">Judge</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                      {user.id === getUser()?.id && (
+                        <span className="text-xs text-gray-500">(You)</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {users.length === 0 && (
+                <div className="text-center py-12 text-gray-400">
+                  <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <p>No users found</p>
+                </div>
+              )}
+            </Card>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
