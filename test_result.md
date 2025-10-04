@@ -105,89 +105,41 @@
 user_problem_statement: "Complete the EditHackathonModal to allow organizers to edit all hackathon details including team size limits (1-4 members). Implement team creation with invite codes and team joining functionality with proper validation - users can only join one team per hackathon and teams must respect the size limits set by organizers."
 
 backend:
-  - task: "Admin Stats & Analytics Endpoints"
+  - task: "Hackathon Edit Endpoint"
     implemented: true
-    working: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "testing"
-        comment: "Comprehensive testing completed. All admin stats endpoints working: overview stats (7/30/90/all-time days), growth stats with proper date arrays, retention stats with correct percentage calculations. All required fields present and calculations verified."
-  
-  - task: "Hackathon Management Endpoints"
+      - working: "NA"
+        agent: "main"
+        comment: "PUT /api/hackathons/{id} endpoint exists at line 640. Accepts any update_data dict and validates organizer ownership. Backend ready to handle all hackathon field updates including team size limits."
+
+  - task: "Team Creation with Validation"
     implemented: true
-    working: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "testing"
-        comment: "All admin hackathon management endpoints working: GET /admin/hackathons (with status filters), PUT /admin/hackathons/{id}/approve, PUT /admin/hackathons/{id}/reject, DELETE /admin/hackathons/{id}. Hackathons properly enriched with registration/submission counts."
-  
-  - task: "Hackathon Creation Flow"
+      - working: "NA"
+        agent: "main"
+        comment: "POST /api/teams endpoint at line 802. Creates team with auto-generated invite_code. Validates user not already in team for hackathon. Need to test if invite code is returned in response and if team size validation works."
+
+  - task: "Team Join with Invite Code"
     implemented: true
-    working: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "testing"
-        comment: "Hackathon creation flow working correctly: organizer-created hackathons set to 'pending_approval', admin-created hackathons set to 'published' directly. Status changes verified."
-  
-  - task: "Approval Workflow"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Approval workflow fully functional: hackathon approval changes status to 'published' with approved_by and approved_at fields. Rejection changes status to 'rejected'. Notifications sent to organizers for both approval and rejection."
-  
-  - task: "User Login Tracking"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "User login tracking working: last_login field updated on email/password login and OAuth login. Retention stats properly reflect login activity with 7-day and 30-day active user counts."
-  
-  - task: "Data Validation & Calculations"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "All data validation passed: growth stats return proper date arrays with matching lengths, retention percentages calculated correctly (7-day: 10.0%, 30-day: 10.0%), multi-hackathon participation tracking working."
-  
-  - task: "Notification System"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Notification system working: admins receive notifications for new hackathon submissions, organizers receive approval/rejection notifications. All notification types properly categorized and delivered."
+      - working: "NA"
+        agent: "main"
+        comment: "POST /api/teams/join endpoint at line 830. Validates: invite code exists, user registered for hackathon, user not in team, team not full (checks max_team_size). Updates registration with team_id. All validation logic present."
 
 frontend:
   - task: "Fix Landing Page Button Clickability"
