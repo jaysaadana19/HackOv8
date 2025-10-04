@@ -634,7 +634,11 @@ select:focus {
 }
 
 .light-mode .hover\:text-purple-400:hover {
-  color: #7c3aed !important;
+  color: #00CED1 !important;
+}
+
+.light-mode .hover\:text-teal-400:hover {
+  color: #00CED1 !important;
 }
 
 .light-mode .hover\:text-blue-400:hover {
