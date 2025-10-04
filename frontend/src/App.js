@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<LandingEnhanced />} />
           <Route path="/auth/google/callback" element={<GoogleCallback />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/hackathon/:id" element={<HackathonDetailEnhanced />} />
+          <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/judge" element={<JudgeDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
