@@ -417,6 +417,12 @@ export default function AdminDashboard() {
                         >
                           {hackathon.status.replace('_', ' ')}
                         </Badge>
+                        {hackathon.featured && (
+                          <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500">
+                            <Star className="w-3 h-3 mr-1 fill-yellow-400" />
+                            Featured
+                          </Badge>
+                        )}
                       </div>
                       <p className="text-sm text-gray-400">
                         by {hackathon.organizer_name} • {hackathon.registration_count || 0} registrations • {hackathon.submission_count || 0} submissions
