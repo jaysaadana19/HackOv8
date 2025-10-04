@@ -176,6 +176,18 @@ class SessionResponse(BaseModel):
     picture: Optional[str]
     session_token: str
 
+class SignupRequest(BaseModel):
+    email: EmailStr
+    password: str
+    name: str
+    role: str = "participant"  # participant or organizer
+    company_name: Optional[str] = None  # For organizers
+    company_website: Optional[str] = None
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
 class HackathonCreate(BaseModel):
     title: str
     description: str
