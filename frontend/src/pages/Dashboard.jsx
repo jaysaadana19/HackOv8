@@ -348,7 +348,12 @@ export default function Dashboard() {
                   <div className="h-48 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
                     {hackathon.cover_image ? (
                       <>
-                        <img src={hackathon.cover_image} alt={hackathon.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <img 
+                          src={hackathon.cover_image} 
+                          alt={hackathon.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                          onError={(e) => e.target.style.display = 'none'}
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                       </>
                     ) : (
