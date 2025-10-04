@@ -111,7 +111,12 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
           { criteria: 'Design & UX', max_score: 10 },
           { criteria: 'Impact', max_score: 10 }
         ],
-        faqs: []
+        faqs: [],
+        twitter_url: twitterUrl || null,
+        linkedin_url: linkedinUrl || null,
+        website_url: websiteUrl || null,
+        community_url: communityUrl || null,
+        community_type: communityUrl ? communityType : null
       };
 
       await hackathonAPI.create(data);
