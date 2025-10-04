@@ -150,28 +150,29 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          <div>
-            <Label className="text-gray-400 mb-2 block">Hackathon Title</Label>
-            <Input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="bg-gray-900/50 border-gray-800 text-white"
-              placeholder="Enter hackathon title"
-              required
-            />
-          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-2 block">Hackathon Title *</Label>
+              <Input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white"
+                placeholder="Enter hackathon title"
+                required
+              />
+            </div>
 
-          <div>
-            <Label className="text-gray-400 mb-2 block">Description</Label>
-            <Textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="bg-gray-900/50 border-gray-800 text-white min-h-24"
-              placeholder="Describe your hackathon..."
-              required
-            />
-          </div>
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-2 block">Description *</Label>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="bg-gray-900/50 border-gray-800 text-white min-h-24"
+                placeholder="Describe your hackathon..."
+                required
+              />
+            </div>
 
           <div>
             <Label className="text-gray-400 mb-2 block">Banner Image</Label>
