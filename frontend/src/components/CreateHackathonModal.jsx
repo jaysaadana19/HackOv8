@@ -52,9 +52,10 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file');
+    // Validate file type (JPG, PNG, SVG)
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('Please upload JPG, PNG, or SVG image only');
       return;
     }
 
@@ -64,19 +65,40 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
       return;
     }
 
-    setUploading(true);
-    try {
-      const response = await uploadAPI.uploadImage(file);
-      const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
-      setCoverImage(imageUrl);
-      console.log('Image uploaded, URL:', imageUrl); // Debug log
-      toast.success('Image uploaded successfully');
-    } catch (error) {
-      console.error('Upload error:', error);
-      toast.error(error.response?.data?.detail || 'Failed to upload image');
-    } finally {
-      setUploading(false);
-    }
+    // Validate image dimensions (1200x400px)
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    
+    img.onload = async () => {
+      URL.revokeObjectURL(objectUrl);
+      
+      if (img.width !== 1200 || img.height !== 400) {
+        toast.error('Image must be exactly 1200x400 pixels');
+        return;
+      }
+
+      // All validations passed, upload the image
+      setUploading(true);
+      try {
+        const response = await uploadAPI.uploadImage(file);
+        const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
+        setCoverImage(imageUrl);
+        console.log('Image uploaded, URL:', imageUrl);
+        toast.success('Image uploaded successfully');
+      } catch (error) {
+        console.error('Upload error:', error);
+        toast.error(error.response?.data?.detail || 'Failed to upload image');
+      } finally {
+        setUploading(false);
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      toast.error('Failed to load image. Please try another file.');
+    };
+
+    img.src = objectUrl;
   };
 
   const handleSubmit = async (e) => {
