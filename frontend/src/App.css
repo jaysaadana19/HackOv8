@@ -637,24 +637,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Specific text classes */
 .light-mode .text-white,
-.light-mode [class*="text-white"] {
-  color: #1a1a1a !important;
+.light-mode [class*="text-white"],
+.text-white {
+  color: #1E293B !important;
 }
 
-.light-mode .text-gray-400 {
-  color: #6c757d !important;
+.light-mode .text-gray-400,
+.text-gray-400 {
+  color: #64748B !important;
 }
 
-.light-mode .text-gray-500 {
-  color: #868e96 !important;
+.light-mode .text-gray-500,
+.text-gray-500 {
+  color: #64748B !important;
 }
 
-.light-mode .text-gray-300 {
-  color: #495057 !important;
+.light-mode .text-gray-300,
+.text-gray-300 {
+  color: #1E293B !important;
 }
 
-.light-mode .text-gray-600 {
-  color: #495057 !important;
+.light-mode .text-gray-600,
+.text-gray-600 {
+  color: #475569 !important;
 }
 
 /* Hover text colors */
