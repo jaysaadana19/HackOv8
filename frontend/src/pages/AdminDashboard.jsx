@@ -35,15 +35,17 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [statsRes, growthRes, retentionRes, hackathonsRes] = await Promise.all([
+      const [statsRes, growthRes, retentionRes, hackathonsRes, usersRes] = await Promise.all([
         adminAPI.getStatsOverview(selectedPeriod === 0 ? 0 : selectedPeriod),
         adminAPI.getGrowthStats(selectedPeriod === 0 ? 365 : selectedPeriod),
         adminAPI.getRetentionStats(),
-        adminAPI.getAllHackathons()
+        adminAPI.getAllHackathons(),
+        adminAPI.getAllUsers()
       ]);
 
       setStats(statsRes.data);
       setGrowthData(growthRes.data);
+      setUsers(usersRes.data || []);
       setRetentionData(retentionRes.data);
       setHackathons(hackathonsRes.data);
     } catch (error) {
