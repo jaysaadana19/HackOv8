@@ -137,9 +137,19 @@ export default function OrganizerDashboard() {
 
                   <p className="text-gray-400 text-sm line-clamp-2">{hackathon.description}</p>
 
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Users className="w-4 h-4" />
-                    <span>View registrations & submissions</span>
+                  <div className="space-y-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-400 hover:text-purple-400 hover:bg-purple-900/20"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowRegistrationsModal(true);
+                      }}
+                    >
+                      <Users className="w-4 h-4 mr-2" />
+                      View Registrations
+                    </Button>
                   </div>
 
                   <div className="flex gap-2 pt-4 border-t border-gray-800">
