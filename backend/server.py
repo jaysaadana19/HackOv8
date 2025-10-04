@@ -99,6 +99,8 @@ class Hackathon(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     approved_at: Optional[datetime] = None
     approved_by: Optional[str] = None  # Admin user ID who approved
+    featured: bool = False  # Admin can feature good hackathons
+    featured_at: Optional[datetime] = None
     # Social profiles and community
     twitter_url: Optional[str] = None
     linkedin_url: Optional[str] = None
