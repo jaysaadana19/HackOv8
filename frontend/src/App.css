@@ -483,3 +483,110 @@ select:focus {
   84% { width: 55px; right: 0; top: 35px; }
   100% { width: 47px; right: 8px; top: 38px; }
 }
+
+
+/* ==================== LIGHT MODE STYLES ==================== */
+
+.light-mode {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6c757d;
+  --border-color: #dee2e6;
+  --card-bg: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+}
+
+.light-mode body {
+  background: #f8f9fa;
+  color: #1a1a1a;
+}
+
+.light-mode .bg-\[\#0a0a0b\] {
+  background: #f8f9fa !important;
+}
+
+.light-mode .bg-gray-950\/50,
+.light-mode .bg-gray-950\/80,
+.light-mode .bg-gray-900\/50,
+.light-mode .bg-gray-900\/30 {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #dee2e6 !important;
+}
+
+.light-mode .glass-effect {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .text-white {
+  color: #1a1a1a !important;
+}
+
+.light-mode .text-gray-400,
+.light-mode .text-gray-500 {
+  color: #6c757d !important;
+}
+
+.light-mode .text-gray-300 {
+  color: #495057 !important;
+}
+
+.light-mode .border-gray-800,
+.light-mode .border-gray-900 {
+  border-color: #dee2e6 !important;
+}
+
+.light-mode .border-purple-800\/30 {
+  border-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+.light-mode input,
+.light-mode textarea {
+  background: #ffffff !important;
+  border-color: #ced4da !important;
+  color: #1a1a1a !important;
+}
+
+.light-mode .hover\:bg-purple-900\/20:hover {
+  background: rgba(168, 85, 247, 0.1) !important;
+}
+
+.light-mode .hover\:bg-gray-900\/50:hover,
+.light-mode .hover\:bg-gray-900\/70:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Keep gradient text and buttons colorful in light mode */
+.light-mode .gradient-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #6d28d9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light-mode .bg-gradient-to-r,
+.light-mode .bg-gradient-to-br {
+  /* Keep gradients as is */
+}
+
+/* Particles should be more subtle in light mode */
+.light-mode .particles .particle {
+  opacity: 0.2;
+}
+
+/* Cards and hover effects */
+.light-mode .hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Status badges adjustments */
+.light-mode .status-badge {
+  border-width: 1px;
+  font-weight: 600;
+}
+
