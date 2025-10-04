@@ -1,19 +1,49 @@
 import React, { useState } from 'react';
-import { X, Save } from 'lucide-react';
+import { X, Save, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { hackathonAPI } from '@/lib/api';
+import { hackathonAPI, uploadAPI } from '@/lib/api';
 
 export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [title, setTitle] = useState(hackathon.title);
   const [description, setDescription] = useState(hackathon.description);
   const [coverImage, setCoverImage] = useState(hackathon.cover_image || '');
+  const [imageMode, setImageMode] = useState('url');
   const [rules, setRules] = useState(hackathon.rules || '');
   const [status, setStatus] = useState(hackathon.status);
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload an image file');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be less than 5MB');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const response = await uploadAPI.uploadImage(file);
+      const imageUrl = process.env.REACT_APP_BACKEND_URL + response.data.url;
+      setCoverImage(imageUrl);
+      toast.success('Image uploaded successfully');
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to upload image');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
