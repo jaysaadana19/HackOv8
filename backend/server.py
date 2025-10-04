@@ -425,6 +425,34 @@ async def login(login_data: LoginRequest):
         session_token=session_token
     )
 
+# ==================== COMPANY ROUTES ====================
+
+@api_router.get("/companies/my")
+async def get_my_company(request: Request):
+    user = await get_current_user(request)
+    if not user.company_id:
+        return None
+    
+    company_doc = await db.companies.find_one({"_id": user.company_id})
+    if not company_doc:
+        return None
+    
+    company_doc["id"] = company_doc.pop("_id")
+    return company_doc
+
+@api_router.put("/companies/my")
+async def update_company(company_data: Dict[str, Any], request: Request):
+    user = await get_current_user(request)
+    if not user.company_id:
+        raise HTTPException(status_code=404, detail="No company found")
+    
+    await db.companies.update_one(
+        {"_id": user.company_id},
+        {"$set": company_data}
+    )
+    
+    return {"message": "Company updated successfully"}
+
 # ==================== USER ROUTES ====================
 
 @api_router.put("/users/profile")
