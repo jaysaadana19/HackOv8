@@ -69,8 +69,8 @@ class HackovAPITester:
         """Test authentication with admin session token"""
         print("\n🔐 Testing Authentication...")
         
-        # Use the provided admin session token
-        self.session_token = "admin_session_token_123"
+        # Use the created test session token
+        self.session_token = "test_session_1759566855900"
         
         success, response = self.run_test(
             "Admin Auth Check",
