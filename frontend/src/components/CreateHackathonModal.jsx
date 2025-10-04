@@ -214,7 +214,7 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
                     />
                     {uploading && <div className="loading-spinner"></div>}
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">Max 5MB • JPG, PNG, WebP, GIF</p>
+                  <p className="text-xs text-gray-500 mt-2">Max 5MB • 1200x400px • JPG, PNG, SVG</p>
                 </TabsContent>
               </Tabs>
               {coverImage && (
