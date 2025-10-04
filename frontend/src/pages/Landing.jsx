@@ -16,6 +16,7 @@ export default function Landing() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     // Check for session_id in URL fragment
