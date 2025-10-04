@@ -329,6 +329,14 @@ export default function Landing() {
           <p>© 2025 Hackov8. Streamline how hackathons are hosted, managed, and judged.</p>
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <AuthModal
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
     </div>
   );
 }
