@@ -207,9 +207,9 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
                   <div className="flex items-center gap-3">
                     <Input
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/jpg,image/png,image/svg+xml"
                       onChange={handleFileUpload}
-                      className="bg-gray-900/50 border-gray-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700"
+                      className="bg-gray-900/50 border-gray-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-teal-600 file:text-white file:cursor-pointer hover:file:bg-teal-700"
                       disabled={uploading}
                     />
                     {uploading && <div className="loading-spinner"></div>}
