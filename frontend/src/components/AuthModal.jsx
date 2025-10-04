@@ -113,7 +113,7 @@ export default function AuthModal({ onClose, onSuccess }) {
         {/* Tabs - Scrollable Content */}
         <div className="p-6 overflow-y-auto flex-1">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-100 p-1 rounded-xl">
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100 p-1 rounded-xl flex-shrink-0">
               <TabsTrigger 
                 value="login" 
                 className="rounded-lg data-[state=active]:bg-teal-500 data-[state=active]:text-white transition-all"
@@ -131,7 +131,7 @@ export default function AuthModal({ onClose, onSuccess }) {
             </TabsList>
 
             {/* Login Tab */}
-            <TabsContent value="login" className="space-y-5">
+            <TabsContent value="login" className="space-y-4">
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="login-email" className="text-gray-700 font-medium flex items-center gap-2">
