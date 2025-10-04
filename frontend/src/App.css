@@ -688,6 +688,163 @@ select:focus {
 
 .light-mode body,
 .light-mode #root,
+
+
+/* ==================== GLOBAL THEME OVERRIDE - Arctic White + Teal Mint + Navy Blue ==================== */
+
+/* Replace all purple gradients with teal gradients */
+.bg-gradient-to-r.from-purple-600,
+.bg-gradient-to-r.from-purple-600.to-pink-600,
+.bg-gradient-to-br.from-purple-600,
+.bg-gradient-to-br.from-purple-600.to-pink-600 {
+  background: linear-gradient(to right, #00CED1, #48D1CC) !important;
+}
+
+.hover\:from-purple-700:hover,
+.hover\:to-pink-700:hover {
+  background: linear-gradient(to right, #20B2AA, #40E0D0) !important;
+}
+
+/* Purple colors to Teal */
+.text-purple-500,
+.text-purple-400,
+.text-purple-300 {
+  color: #00CED1 !important;
+}
+
+.text-purple-600 {
+  color: #20B2AA !important;
+}
+
+/* Pink colors to Mint/Teal Light */
+.text-pink-500,
+.text-pink-400,
+.text-pink-600 {
+  color: #48D1CC !important;
+}
+
+/* Purple backgrounds to Teal */
+.bg-purple-600,
+.bg-purple-500 {
+  background-color: #00CED1 !important;
+}
+
+.bg-purple-700 {
+  background-color: #20B2AA !important;
+}
+
+.bg-purple-900\/20,
+.bg-purple-900\/30 {
+  background-color: rgba(0, 206, 209, 0.2) !important;
+}
+
+/* Pink backgrounds to Mint */
+.bg-pink-600,
+.bg-pink-500 {
+  background-color: #48D1CC !important;
+}
+
+/* Border colors */
+.border-purple-500,
+.border-purple-600,
+.border-purple-800 {
+  border-color: #00CED1 !important;
+}
+
+.border-purple-800\/30 {
+  border-color: rgba(0, 206, 209, 0.3) !important;
+}
+
+.border-pink-600 {
+  border-color: #48D1CC !important;
+}
+
+/* Ring colors */
+.ring-purple-500,
+.ring-pink-500 {
+  --tw-ring-color: #00CED1 !important;
+}
+
+/* Hover states */
+.hover\:text-purple-400:hover,
+.hover\:text-purple-500:hover {
+  color: #00CED1 !important;
+}
+
+.hover\:text-pink-400:hover,
+.hover\:text-pink-500:hover {
+  color: #48D1CC !important;
+}
+
+.hover\:bg-purple-500\/10:hover,
+.hover\:bg-purple-600\/10:hover {
+  background-color: rgba(0, 206, 209, 0.1) !important;
+}
+
+.hover\:bg-purple-900\/20:hover {
+  background-color: rgba(0, 206, 209, 0.2) !important;
+}
+
+.hover\:bg-purple-700:hover {
+  background-color: #20B2AA !important;
+}
+
+.hover\:bg-pink-700:hover {
+  background-color: #40E0D0 !important;
+}
+
+/* Shadow colors */
+.shadow-purple-500\/50,
+.hover\:shadow-purple-500\/50:hover {
+  --tw-shadow-color: rgba(0, 206, 209, 0.5) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 0 30px rgba(0, 206, 209, 0.5) !important;
+}
+
+/* Gradient backgrounds with opacity */
+.from-purple-600\/30,
+.from-purple-600\/40 {
+  --tw-gradient-from: rgba(0, 206, 209, 0.3) !important;
+}
+
+.to-purple-900\/30,
+.to-purple-900\/20,
+.via-purple-900\/20 {
+  --tw-gradient-to: rgba(0, 206, 209, 0.2) !important;
+  --tw-gradient-via: rgba(0, 206, 209, 0.2) !important;
+}
+
+.to-pink-600\/30,
+.to-pink-600\/40 {
+  --tw-gradient-to: rgba(72, 209, 204, 0.3) !important;
+}
+
+.from-pink-600\/20,
+.to-pink-600\/20 {
+  --tw-gradient-from: rgba(72, 209, 204, 0.2) !important;
+  --tw-gradient-to: rgba(72, 209, 204, 0.2) !important;
+}
+
+/* Status badges */
+.from-purple-500.to-pink-500 {
+  background: linear-gradient(to right, #00CED1, #48D1CC) !important;
+}
+
+.from-indigo-500.to-purple-500 {
+  background: linear-gradient(to right, #001f3f, #00CED1) !important;
+}
+
+/* Navy Blue for dark elements */
+.bg-gray-950,
+.bg-gray-900 {
+  background-color: #001f3f !important;
+}
+
+/* Arctic White for light elements in light mode */
+.light-mode .bg-white,
+.light-mode body {
+  background-color: #F0F8FF !important;
+}
+
 .light-mode .App {
   color: #1a1a1a;
 }
