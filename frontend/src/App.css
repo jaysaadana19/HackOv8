@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Modern White & Black Theme Variables - Devfolio Inspired */
+/* White + Teal + Navy Theme - Developer-Focused Professional */
 :root {
   --color-white: #FFFFFF;
-  --color-off-white: #FAFAFA;
-  --color-light-gray: #F5F5F5;
-  --color-border: #E5E5E5;
-  --color-black: #000000;
-  --color-dark-gray: #1A1A1A;
-  --color-text-gray: #666666;
-  --color-accent: #2563EB;
+  --color-background: #FFFFFF;
+  --color-primary: #0D9488;
+  --color-accent: #134E4A;
+  --color-secondary: #E2E8F0;
+  --color-text: #1E293B;
+  --color-text-light: #64748B;
+  --color-border: #E2E8F0;
+  --color-teal: #0D9488;
+  --color-navy: #134E4A;
 }
 
 * {
