@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { hackathonAPI } from '@/lib/api';
 import CreateHackathonModal from '@/components/CreateHackathonModal';
+import EditHackathonModal from '@/components/EditHackathonModal';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
