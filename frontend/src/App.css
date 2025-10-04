@@ -774,11 +774,11 @@ select:focus {
   background-color: #134E4A !important;
 }
 
-/* Shadow colors - Subtle Black Shadows */
+/* Shadow colors - Teal Shadows */
 .shadow-purple-500\/50,
 .hover\:shadow-purple-500\/50:hover {
-  --tw-shadow-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  --tw-shadow-color: rgba(13, 148, 136, 0.15) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 4px 16px rgba(13, 148, 136, 0.15) !important;
 }
 
 /* Gradient backgrounds with opacity */
