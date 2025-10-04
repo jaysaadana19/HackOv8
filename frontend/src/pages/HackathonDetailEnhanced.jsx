@@ -580,6 +580,16 @@ export default function HackathonDetailEnhanced() {
           }}
         />
       )}
+      {showAuthModal && (
+        <AuthModal
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={() => {
+            setShowAuthModal(false);
+            toast.success('Welcome! You can now register for this hackathon');
+            fetchData();
+          }}
+        />
+      )}
     </div>
   );
 }
