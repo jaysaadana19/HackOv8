@@ -82,8 +82,13 @@ export default function LandingEnhanced() {
 
   const fetchHackathons = async () => {
     try {
+      // Get published hackathons, featured first, limit to 5
       const response = await hackathonAPI.getAll({ status: 'published' });
-      setHackathons(response.data);
+      // Filter out completed hackathons and limit to 5
+      const activeHackathons = response.data
+        .filter(h => h.status !== 'completed')
+        .slice(0, 5);
+      setHackathons(activeHackathons);
     } catch (error) {
       console.error('Failed to fetch hackathons', error);
     }
