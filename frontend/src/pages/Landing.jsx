@@ -155,7 +155,7 @@ export default function Landing() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {[
-              { icon: Trophy, label: 'Active Hackathons', value: hackathons.length },
+              { icon: Trophy, label: 'Total Hackathons', value: hackathons.length },
               { icon: Users, label: 'Innovators', value: '10K+' },
               { icon: Code, label: 'Projects Built', value: '5K+' },
               { icon: Rocket, label: 'Winners Funded', value: '500+' },
