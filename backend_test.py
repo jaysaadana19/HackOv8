@@ -83,7 +83,9 @@ class HackovAPITester:
             self.user_id = response['id']
             print(f"   Authenticated as: {response.get('name', 'Unknown')} (Role: {response.get('role', 'Unknown')})")
             return True
-        return False
+        else:
+            print(f"   Auth response: {response}")
+            return False
 
     def test_hackathons(self):
         """Test hackathon endpoints"""
