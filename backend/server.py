@@ -1219,6 +1219,9 @@ async def export_hackathons(request: Request):
 # Include the router in the main app
 app.include_router(api_router)
 
+# Mount static files for uploads
+app.mount("/uploads", StaticFiles(directory="/app/uploads"), name="uploads")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
