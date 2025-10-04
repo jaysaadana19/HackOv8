@@ -792,24 +792,22 @@ select:focus {
 }
 
 /* Status badges */
-.from-purple-500.to-pink-500 {
-  background: linear-gradient(to right, #00CED1, #48D1CC) !important;
-}
-
+.from-purple-500.to-pink-500,
 .from-indigo-500.to-purple-500 {
-  background: linear-gradient(to right, #001f3f, #00CED1) !important;
+  background: linear-gradient(to right, #000000, #1A1A1A) !important;
 }
 
-/* Navy Blue for dark elements */
+/* White backgrounds for cards */
 .bg-gray-950,
 .bg-gray-900 {
-  background-color: #001f3f !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E5E5 !important;
 }
 
-/* Arctic White for light elements in light mode */
+/* Keep white for light mode */
 .light-mode .bg-white,
 .light-mode body {
-  background-color: #F0F8FF !important;
+  background-color: #FFFFFF !important;
 }
 
 .light-mode .App {
