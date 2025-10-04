@@ -411,6 +411,12 @@ async def login(login_data: LoginRequest):
     if not pwd_context.verify(login_data.password, user_doc["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
+    # Update last login for retention tracking
+    await db.users.update_one(
+        {"_id": user_doc["_id"]},
+        {"$set": {"last_login": datetime.now(timezone.utc)}}
+    )
+    
     # Create session
     session_token = secrets.token_urlsafe(32)
     session = UserSession(
