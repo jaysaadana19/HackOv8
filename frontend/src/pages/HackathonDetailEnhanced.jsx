@@ -111,7 +111,7 @@ export default function HackathonDetailEnhanced() {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate(isAuthenticated() ? '/dashboard' : '/')}
               className="text-gray-400 hover:text-white"
               data-testid="back-btn"
             >
