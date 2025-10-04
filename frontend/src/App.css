@@ -702,22 +702,15 @@ select:focus {
   background: linear-gradient(to right, #1A1A1A, #000000) !important;
 }
 
-/* Purple colors to Teal */
+/* All colors to Black/Dark Gray */
 .text-purple-500,
 .text-purple-400,
-.text-purple-300 {
-  color: #00CED1 !important;
-}
-
-.text-purple-600 {
-  color: #20B2AA !important;
-}
-
-/* Pink colors to Mint/Teal Light */
+.text-purple-300,
+.text-purple-600,
 .text-pink-500,
 .text-pink-400,
 .text-pink-600 {
-  color: #48D1CC !important;
+  color: #000000 !important;
 }
 
 /* Purple backgrounds to Teal */
