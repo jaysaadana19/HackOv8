@@ -320,7 +320,7 @@ export default function AuthModal({ onClose, onSuccess }) {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-12 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 mt-6"
+                  className="w-full h-11 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -336,7 +336,7 @@ export default function AuthModal({ onClose, onSuccess }) {
                 </Button>
               </form>
 
-              <div className="text-center text-sm text-gray-500 mt-6">
+              <div className="text-center text-sm text-gray-500 mt-4">
                 Already have an account?{' '}
                 <button 
                   onClick={() => setActiveTab('login')}
@@ -350,7 +350,7 @@ export default function AuthModal({ onClose, onSuccess }) {
         </div>
 
         {/* Footer */}
-        <div className="px-8 pb-6 pt-2">
+        <div className="px-6 pb-4 pt-2 flex-shrink-0 border-t border-gray-100">
           <p className="text-xs text-center text-gray-400">
             By continuing, you agree to our Terms of Service and Privacy Policy
           </p>
