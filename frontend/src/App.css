@@ -388,7 +388,7 @@ select:focus {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: #a855f7;
+  background: #00CED1;
   border-radius: 50%;
   opacity: 0.5;
   animation: particle-float 15s linear infinite;
