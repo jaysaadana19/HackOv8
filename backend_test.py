@@ -79,8 +79,8 @@ class HackovAPITester:
             200
         )
         
-        if success and 'id' in response:
-            self.user_id = response['id']
+        if success and ('id' in response or '_id' in response):
+            self.user_id = response.get('id') or response.get('_id')
             print(f"   Authenticated as: {response.get('name', 'Unknown')} (Role: {response.get('role', 'Unknown')})")
             return True
         else:
