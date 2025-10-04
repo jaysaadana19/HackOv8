@@ -221,6 +221,16 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showRegistrationsModal && selectedHackathon && (
+        <ViewRegistrationsModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowRegistrationsModal(false);
+            setSelectedHackathon(null);
+          }}
+        />
+      )}
     </div>
   );
 }
