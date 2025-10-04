@@ -9,6 +9,7 @@ import JudgeDashboard from '@/pages/JudgeDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
 import Profile from '@/pages/Profile';
 import About from '@/pages/About';
+import GoogleCallback from '@/pages/GoogleCallback';
 import '@/App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingEnhanced />} />
+          <Route path="/auth/google/callback" element={<GoogleCallback />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/hackathon/:id" element={<HackathonDetailEnhanced />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
