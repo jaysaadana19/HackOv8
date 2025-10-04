@@ -142,6 +142,7 @@ class Submission(BaseModel):
     demo_link: Optional[str] = None
     files: List[str] = []  # file paths
     submitted_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    winner_position: Optional[int] = None  # 1 for 1st place, 2 for 2nd, 3 for 3rd
     
     class Config:
         populate_by_name = True
