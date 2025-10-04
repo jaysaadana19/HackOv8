@@ -730,25 +730,22 @@ select:focus {
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Border colors */
+/* Border colors - Light Gray Borders */
 .border-purple-500,
 .border-purple-600,
-.border-purple-800 {
-  border-color: #00CED1 !important;
+.border-purple-800,
+.border-pink-600 {
+  border-color: #E5E5E5 !important;
 }
 
 .border-purple-800\/30 {
-  border-color: rgba(0, 206, 209, 0.3) !important;
-}
-
-.border-pink-600 {
-  border-color: #48D1CC !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Ring colors */
 .ring-purple-500,
 .ring-pink-500 {
-  --tw-ring-color: #00CED1 !important;
+  --tw-ring-color: #000000 !important;
 }
 
 /* Hover states */
