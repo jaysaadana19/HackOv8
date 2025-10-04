@@ -392,6 +392,7 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
               onChange={(e) => setStatus(e.target.value)}
               className="w-full bg-gray-900/50 border border-gray-800 text-white rounded-lg px-4 py-2"
             >
+              <option value="pending_approval">Pending Approval</option>
               <option value="draft">Draft</option>
               <option value="published">Published</option>
               <option value="ongoing">Ongoing</option>
