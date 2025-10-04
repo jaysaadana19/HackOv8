@@ -115,16 +115,20 @@ export default function HackathonDetail() {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative h-80 bg-gradient-to-br from-purple-600/30 to-purple-900/30 overflow-hidden">
-        {hackathon.cover_image && (
-          <img src={hackathon.cover_image} alt={hackathon.title} className="absolute inset-0 w-full h-full object-cover opacity-50" />
+      <div className="relative h-96 bg-gradient-to-br from-purple-600/30 to-purple-900/30 overflow-hidden">
+        {hackathon.cover_image ? (
+          <>
+            <img src={hackathon.cover_image} alt={hackathon.title} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-purple-900/30" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] to-transparent" />
         <div className="relative container mx-auto px-6 h-full flex items-end pb-8">
           <div>
             <Badge className="status-badge status-live mb-4">{hackathon.status}</Badge>
-            <h1 className="text-5xl font-bold mb-3 text-white">{hackathon.title}</h1>
-            <p className="text-gray-300 text-lg max-w-3xl">{hackathon.description}</p>
+            <h1 className="text-5xl font-bold mb-3 text-white drop-shadow-lg">{hackathon.title}</h1>
+            <p className="text-gray-200 text-lg max-w-3xl drop-shadow-md">{hackathon.description}</p>
           </div>
         </div>
       </div>
