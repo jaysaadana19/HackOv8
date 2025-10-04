@@ -188,27 +188,56 @@ print('Participant session token: {participant_session_token}');
             print(f"   ❌ Failed to create test users: {str(e)}")
             return False
 
-    def test_auth_with_admin_token(self):
-        """Test authentication with admin session token"""
+    def test_authentication(self):
+        """Test authentication for all user types"""
         print("\n🔐 Testing Authentication...")
         
-        # Use the created test session token
-        self.session_token = "test_session_1759566855900"
-        
+        # Test admin authentication
         success, response = self.run_test(
             "Admin Auth Check",
             "GET",
             "auth/me",
-            200
+            200,
+            session_token=self.admin_session_token
         )
         
-        if success and ('id' in response or '_id' in response):
-            self.user_id = response.get('id') or response.get('_id')
-            print(f"   Authenticated as: {response.get('name', 'Unknown')} (Role: {response.get('role', 'Unknown')})")
-            return True
-        else:
-            print(f"   Auth response: {response}")
+        if not success or response.get('role') != 'admin':
+            print(f"   ❌ Admin auth failed: {response}")
             return False
+        
+        print(f"   ✅ Admin authenticated: {response.get('name')} (Role: {response.get('role')})")
+        
+        # Test organizer authentication
+        success, response = self.run_test(
+            "Organizer Auth Check",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.organizer_session_token
+        )
+        
+        if not success or response.get('role') != 'organizer':
+            print(f"   ❌ Organizer auth failed: {response}")
+            return False
+            
+        print(f"   ✅ Organizer authenticated: {response.get('name')} (Role: {response.get('role')})")
+        
+        # Test participant authentication
+        success, response = self.run_test(
+            "Participant Auth Check",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.participant_session_token
+        )
+        
+        if not success or response.get('role') != 'participant':
+            print(f"   ❌ Participant auth failed: {response}")
+            return False
+            
+        print(f"   ✅ Participant authenticated: {response.get('name')} (Role: {response.get('role')})")
+        
+        return True
 
     def test_hackathons(self):
         """Test hackathon endpoints"""
