@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { hackathonAPI, authAPI } from '@/lib/api';
 import { isAuthenticated, setAuth } from '@/lib/auth';
 import AuthModal from '@/components/AuthModal';
+import Footer from '@/components/Footer';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
 export default function LandingEnhanced() {
