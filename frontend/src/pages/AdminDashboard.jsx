@@ -90,6 +90,21 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleToggleFeatured = async (hackathonId, currentFeaturedStatus, title) => {
+    const action = currentFeaturedStatus ? 'unfeature' : 'feature';
+    if (!window.confirm(`Are you sure you want to ${action} "${title}"?`)) {
+      return;
+    }
+
+    try {
+      await adminAPI.toggleFeatured(hackathonId, !currentFeaturedStatus);
+      toast.success(`Hackathon ${action}d successfully`);
+      fetchData();
+    } catch (error) {
+      toast.error(`Failed to ${action} hackathon`);
+    }
+  };
+
   const handleExportUsers = async () => {
     try {
       const response = await adminAPI.exportUsers();
