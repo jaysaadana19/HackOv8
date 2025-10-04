@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
-import Landing from '@/pages/Landing';
+import LandingEnhanced from '@/pages/LandingEnhanced';
 import Dashboard from '@/pages/Dashboard';
 import HackathonDetail from '@/pages/HackathonDetail';
 import OrganizerDashboard from '@/pages/OrganizerDashboard';
