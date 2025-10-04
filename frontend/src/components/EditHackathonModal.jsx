@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Save, Upload, Twitter, Linkedin, Globe, MessageCircle } from 'lucide-react';
+import { X, Save, Upload, Twitter, Linkedin, Globe, MessageCircle, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,6 +9,18 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { hackathonAPI, uploadAPI } from '@/lib/api';
 
+// Helper function to format date for datetime-local input
+const formatDateForInput = (dateString) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
 export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -16,6 +28,17 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [description, setDescription] = useState(hackathon.description);
   const [coverImage, setCoverImage] = useState(hackathon.cover_image || '');
   const [imageMode, setImageMode] = useState('url');
+  const [category, setCategory] = useState(hackathon.category || '');
+  const [location, setLocation] = useState(hackathon.location || 'online');
+  const [venue, setVenue] = useState(hackathon.venue || '');
+  const [regStart, setRegStart] = useState(formatDateForInput(hackathon.registration_start));
+  const [regEnd, setRegEnd] = useState(formatDateForInput(hackathon.registration_end));
+  const [eventStart, setEventStart] = useState(formatDateForInput(hackathon.event_start));
+  const [eventEnd, setEventEnd] = useState(formatDateForInput(hackathon.event_end));
+  const [submissionDeadline, setSubmissionDeadline] = useState(formatDateForInput(hackathon.submission_deadline));
+  const [minTeamSize, setMinTeamSize] = useState(hackathon.min_team_size || 1);
+  const [maxTeamSize, setMaxTeamSize] = useState(hackathon.max_team_size || 4);
+  const [prizes, setPrizes] = useState(hackathon.prizes?.length > 0 ? hackathon.prizes : [{ place: '', amount: '', description: '' }]);
   const [rules, setRules] = useState(hackathon.rules || '');
   const [status, setStatus] = useState(hackathon.status);
   const [twitterUrl, setTwitterUrl] = useState(hackathon.twitter_url || '');
@@ -23,6 +46,20 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [websiteUrl, setWebsiteUrl] = useState(hackathon.website_url || '');
   const [communityUrl, setCommunityUrl] = useState(hackathon.community_url || '');
   const [communityType, setCommunityType] = useState(hackathon.community_type || 'slack');
+
+  const handleAddPrize = () => {
+    setPrizes([...prizes, { place: '', amount: '', description: '' }]);
+  };
+
+  const handleRemovePrize = (index) => {
+    setPrizes(prizes.filter((_, i) => i !== index));
+  };
+
+  const handlePrizeChange = (index, field, value) => {
+    const updated = [...prizes];
+    updated[index][field] = value;
+    setPrizes(updated);
+  };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
