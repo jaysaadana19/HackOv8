@@ -229,19 +229,19 @@ export default function LandingEnhanced() {
           </div>
 
           {/* Animated Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mt-20 animate-scaleIn">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto mt-12 sm:mt-20 animate-scaleIn">
             {[
               { icon: Trophy, label: 'Total Hackathons', value: counts.hackathons, suffix: '+', color: 'from-yellow-500 to-orange-500' },
               { icon: Users, label: 'Innovators', value: counts.participants, suffix: '+', color: 'from-purple-500 to-pink-500' },
               { icon: Code, label: 'Projects Built', value: counts.projects, suffix: '+', color: 'from-blue-500 to-cyan-500' },
               { icon: Rocket, label: 'Success Rate', value: 98, suffix: '%', color: 'from-green-500 to-emerald-500' },
             ].map((stat, idx) => (
-              <Card key={idx} className="glass-effect p-8 hover-lift text-center" data-testid={`stat-card-${idx}`}>
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
-                  <stat.icon className="w-7 h-7 text-white" />
+              <Card key={idx} className="glass-effect p-4 sm:p-8 hover-lift text-center" data-testid={`stat-card-${idx}`}>
+                <div className={`w-10 h-10 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
+                  <stat.icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                 </div>
-                <div className="text-4xl font-bold gradient-text count-up">{stat.value.toLocaleString()}{stat.suffix}</div>
-                <div className="text-sm text-gray-400 mt-2 font-medium">{stat.label}</div>
+                <div className="text-2xl sm:text-4xl font-bold gradient-text count-up">{stat.value.toLocaleString()}{stat.suffix}</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2 font-medium">{stat.label}</div>
               </Card>
             ))}
           </div>
