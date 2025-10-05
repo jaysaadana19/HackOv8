@@ -811,6 +811,102 @@ async def get_my_hackathons(request: Request):
     }).sort("created_at", -1).to_list(100)
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
+
+@api_router.post("/hackathons/{hackathon_id}/co-organizers")
+async def add_co_organizer(hackathon_id: str, email: str, request: Request):
+    """Add a co-organizer to a hackathon by email"""
+    user = await get_current_user(request)
+    
+    # Get hackathon
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Only main organizer or admin can add co-organizers
+    if hackathon["organizer_id"] != user.id and user.role != "admin":
+        raise HTTPException(status_code=403, detail="Only the main organizer can add co-organizers")
+    
+    # Find user by email
+    co_organizer = await db.users.find_one({"email": email})
+    if not co_organizer:
+        raise HTTPException(status_code=404, detail="User not found with this email")
+    
+    co_organizer_id = co_organizer["_id"]
+    
+    # Check if already a co-organizer
+    if co_organizer_id in hackathon.get("co_organizers", []):
+        raise HTTPException(status_code=400, detail="User is already a co-organizer")
+    
+    # Check if it's the main organizer
+    if co_organizer_id == hackathon["organizer_id"]:
+        raise HTTPException(status_code=400, detail="Cannot add main organizer as co-organizer")
+    
+    # Add co-organizer
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$addToSet": {"co_organizers": co_organizer_id}}
+    )
+    
+    return {"message": f"Co-organizer {co_organizer['name']} added successfully", "user": {
+        "id": co_organizer_id,
+        "name": co_organizer["name"],
+        "email": co_organizer["email"]
+    }}
+
+@api_router.delete("/hackathons/{hackathon_id}/co-organizers/{user_id}")
+async def remove_co_organizer(hackathon_id: str, user_id: str, request: Request):
+    """Remove a co-organizer from a hackathon"""
+    user = await get_current_user(request)
+    
+    # Get hackathon
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Only main organizer or admin can remove co-organizers
+    if hackathon["organizer_id"] != user.id and user.role != "admin":
+        raise HTTPException(status_code=403, detail="Only the main organizer can remove co-organizers")
+    
+    # Remove co-organizer
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$pull": {"co_organizers": user_id}}
+    )
+    
+    return {"message": "Co-organizer removed successfully"}
+
+@api_router.get("/hackathons/{hackathon_id}/co-organizers")
+async def get_co_organizers(hackathon_id: str, request: Request):
+    """Get list of co-organizers for a hackathon"""
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check if user has access
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Get co-organizer details
+    co_organizer_ids = hackathon.get("co_organizers", [])
+    co_organizers = []
+    
+    for org_id in co_organizer_ids:
+        org_user = await db.users.find_one({"_id": org_id})
+        if org_user:
+            co_organizers.append({
+                "id": org_user["_id"],
+                "name": org_user["name"],
+                "email": org_user["email"]
+            })
+    
+    return co_organizers
+
 @api_router.post("/hackathons/{hackathon_id}/notify-participants")
 async def notify_hackathon_participants(hackathon_id: str, title: str, message: str, request: Request):
     user = await get_current_user(request)
