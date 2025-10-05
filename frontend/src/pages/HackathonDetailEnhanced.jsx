@@ -293,11 +293,11 @@ export default function HackathonDetailEnhanced() {
                   <p className="text-gray-300 leading-relaxed text-sm sm:text-lg">{hackathon.description}</p>
                 </Card>
 
-                <Card className="glass-effect p-4 sm:p-8 border border-teal-200 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 gradient-text">Event Timeline</h2>
                   <div className="relative">
                     {/* Timeline Line */}
-                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-500 via-teal-400 to-teal-500"></div>
+                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-400 to-purple-500"></div>
                     
                     <div className="space-y-6">
                       {[
@@ -308,12 +308,12 @@ export default function HackathonDetailEnhanced() {
                         { label: 'Submission Deadline', date: hackathon.submission_deadline, icon: FileText, color: 'from-red-500 to-red-600' },
                       ].map((item, idx) => (
                         <div key={idx} className="flex items-center gap-4 relative">
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg z-10 border-4 border-white`}>
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg z-10 border-4 border-gray-900`}>
                             <item.icon className="w-6 h-6 text-white" />
                           </div>
-                          <div className="flex-1 p-4 bg-gradient-to-r from-teal-50 to-white rounded-xl border border-teal-200 hover:border-teal-400 transition-all hover:shadow-md">
-                            <p className="font-semibold text-gray-900 text-lg">{item.label}</p>
-                            <p className="text-teal-600 font-medium">{new Date(item.date).toLocaleString()}</p>
+                          <div className="flex-1 p-4 bg-gradient-to-r from-gray-900/80 to-gray-900/50 rounded-xl border border-purple-800/30 hover:border-purple-600 transition-all hover:shadow-lg hover:shadow-purple-900/30">
+                            <p className="font-semibold text-white text-base sm:text-lg">{item.label}</p>
+                            <p className="text-purple-400 font-medium text-sm sm:text-base">{new Date(item.date).toLocaleString()}</p>
                           </div>
                         </div>
                       ))}
