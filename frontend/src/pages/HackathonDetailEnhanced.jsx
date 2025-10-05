@@ -75,6 +75,8 @@ export default function HackathonDetailEnhanced() {
   const handleRegister = async () => {
     // Check if user is authenticated
     if (!isAuthenticated()) {
+      // Store hackathon ID for post-auth registration
+      localStorage.setItem('pendingHackathonRegistration', hackathon.id);
       setShowAuthModal(true);
       return;
     }
@@ -89,9 +91,32 @@ export default function HackathonDetailEnhanced() {
       await registrationAPI.register(hackathon.id);
       toast.success('Registered successfully!');
       setIsRegistered(true);
+      // Clear pending registration if any
+      localStorage.removeItem('pendingHackathonRegistration');
       fetchData();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Registration failed');
+    }
+  };
+
+  const completeRegistration = async () => {
+    const pendingHackathonId = localStorage.getItem('pendingHackathonRegistration');
+    if (pendingHackathonId && isAuthenticated()) {
+      const currentUser = getUser();
+      if (currentUser && currentUser.role === 'participant') {
+        try {
+          await registrationAPI.register(pendingHackathonId);
+          toast.success('Successfully registered for the hackathon!');
+          localStorage.removeItem('pendingHackathonRegistration');
+          fetchData();
+        } catch (error) {
+          console.error('Auto-registration failed:', error);
+          toast.error(error.response?.data?.detail || 'Registration failed');
+          localStorage.removeItem('pendingHackathonRegistration');
+        }
+      } else {
+        localStorage.removeItem('pendingHackathonRegistration');
+      }
     }
   };
 
