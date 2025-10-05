@@ -18,6 +18,7 @@ const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 export default function OrganizerDashboard() {
   const navigate = useNavigate();
   const [myHackathons, setMyHackathons] = useState([]);
+  const [registrationCounts, setRegistrationCounts] = useState({});
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
