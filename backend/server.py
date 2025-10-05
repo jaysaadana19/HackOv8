@@ -1102,7 +1102,12 @@ async def get_hackathon_registrations(hackathon_id: str, request: Request):
     if not hackathon:
         raise HTTPException(status_code=404, detail="Hackathon not found")
     
-    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+    # Check if user is organizer, co-organizer, or admin
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
         raise HTTPException(status_code=403, detail="Not authorized")
     
     registrations = await db.registrations.find({"hackathon_id": hackathon_id}).to_list(1000)
