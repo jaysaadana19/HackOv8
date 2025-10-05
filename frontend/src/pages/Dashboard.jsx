@@ -211,7 +211,7 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
         {/* Enhanced Welcome Section */}
         <div className="relative mb-8 sm:mb-12 overflow-hidden rounded-2xl sm:rounded-3xl">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
