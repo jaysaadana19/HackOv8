@@ -950,23 +950,7 @@ async def notify_hackathon_participants(hackathon_id: str, title: str, message: 
 
 # Duplicate function removed - using the first add_co_organizer function above
 
-@api_router.delete("/hackathons/{hackathon_id}/co-organizers/{co_organizer_id}")
-async def remove_co_organizer(hackathon_id: str, co_organizer_id: str, request: Request):
-    user = await get_current_user(request)
-    
-    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
-    if not hackathon:
-        raise HTTPException(status_code=404, detail="Hackathon not found")
-    
-    if user.role != "admin" and hackathon["organizer_id"] != user.id:
-        raise HTTPException(status_code=403, detail="Not authorized")
-    
-    await db.hackathons.update_one(
-        {"_id": hackathon_id},
-        {"$pull": {"co_organizers": co_organizer_id}}
-    )
-    
-    return {"message": "Co-organizer removed successfully"}
+# Duplicate function removed - using the first remove_co_organizer function above
 
 @api_router.put("/submissions/{submission_id}/winner")
 async def set_winner(submission_id: str, position: int, request: Request):
