@@ -157,31 +157,32 @@ export default function LandingEnhanced() {
           ))}
         </div>
 
-        <div className="relative container mx-auto px-6 py-8 z-10">
+        <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-8 z-10">
           {/* Navbar */}
-          <nav className="flex items-center justify-between mb-20 animate-fadeIn" data-testid="landing-navbar">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center glow-purple">
-                <Rocket className="w-6 h-6 text-white" />
+          <nav className="flex items-center justify-between mb-12 sm:mb-20 animate-fadeIn" data-testid="landing-navbar">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center glow-purple">
+                <Rocket className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold gradient-text">Hackov8</span>
+              <span className="text-xl sm:text-2xl font-bold gradient-text">Hackov8</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Button
                 variant="ghost"
                 onClick={toggleTheme}
                 className="text-gray-600 hover:text-teal-600 p-2"
                 title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
               >
-                {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                {theme === 'light' ? <Moon className="w-4 h-4 sm:w-5 sm:h-5" /> : <Sun className="w-4 h-4 sm:w-5 sm:h-5" />}
               </Button>
               <Button 
                 onClick={handleGetStarted}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-purple-500/50 transition-all"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-purple-500/50 transition-all text-sm sm:text-base"
                 data-testid="get-started-btn"
               >
-                <Sparkles className="w-5 h-5 mr-2" />
-                Get Started
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Get Started</span>
+                <span className="sm:hidden">Start</span>
               </Button>
             </div>
           </nav>
