@@ -867,9 +867,13 @@ async def remove_co_organizer(hackathon_id: str, user_id: str, request: Request)
     if not hackathon:
         raise HTTPException(status_code=404, detail="Hackathon not found")
     
-    # Only main organizer or admin can remove co-organizers
-    if hackathon["organizer_id"] != user.id and user.role != "admin":
-        raise HTTPException(status_code=403, detail="Only the main organizer can remove co-organizers")
+    # Check if user is organizer, co-organizer, or admin
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized to remove co-organizers")
     
     # Remove co-organizer
     await db.hackathons.update_one(
