@@ -184,9 +184,25 @@ export default function HackathonDetailEnhanced() {
                 <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-purple-400" />
-                    <span className="text-white font-semibold">{teams.length} Teams</span>
+                    <span className="text-white font-semibold">{registrationCount} Registered</span>
                   </div>
                 </div>
+                {/* Show team size info */}
+                {hackathon.min_team_size === 1 && hackathon.max_team_size === 1 ? (
+                  <div className="glass-effect px-4 py-2 rounded-xl border border-teal-800/30">
+                    <div className="flex items-center gap-2">
+                      <User className="w-5 h-5 text-teal-400" />
+                      <span className="text-white font-semibold">Solo Participation</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="glass-effect px-4 py-2 rounded-xl border border-blue-800/30">
+                    <div className="flex items-center gap-2">
+                      <Users className="w-5 h-5 text-blue-400" />
+                      <span className="text-white font-semibold">{hackathon.min_team_size}-{hackathon.max_team_size} Team Size</span>
+                    </div>
+                  </div>
+                )}
                 <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
                   <div className="flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-yellow-500" />
