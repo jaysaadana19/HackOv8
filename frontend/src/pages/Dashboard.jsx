@@ -138,7 +138,19 @@ export default function Dashboard() {
 
                 {showNotifications && (
                   <div className="absolute right-0 mt-2 w-80 glass-effect rounded-xl p-4 max-h-96 overflow-y-auto shadow-2xl border border-purple-800/30 animate-fadeIn">
-                    <h3 className="font-semibold mb-3 text-white">Notifications</h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-white">Notifications</h3>
+                      {unreadCount > 0 && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleMarkAllRead}
+                          className="text-xs text-purple-400 hover:text-purple-300 hover:bg-purple-900/20"
+                        >
+                          Mark all read
+                        </Button>
+                      )}
+                    </div>
                     {notifications.length === 0 ? (
                       <p className="text-gray-500 text-sm">No notifications</p>
                     ) : (
