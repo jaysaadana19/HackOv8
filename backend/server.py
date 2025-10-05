@@ -944,43 +944,7 @@ async def notify_hackathon_participants(hackathon_id: str, title: str, message: 
         "count": notifications_sent
     }
 
-@api_router.post("/hackathons/{hackathon_id}/co-organizers")
-async def add_co_organizer(hackathon_id: str, email: str, request: Request):
-    user = await get_current_user(request)
-    
-    # Check if user is the organizer, co-organizer, or admin
-    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
-    if not hackathon:
-        raise HTTPException(status_code=404, detail="Hackathon not found")
-    
-    is_organizer = hackathon["organizer_id"] == user.id
-    is_co_organizer = user.id in hackathon.get("co_organizers", [])
-    is_admin = user.role == "admin"
-    
-    if not (is_organizer or is_co_organizer or is_admin):
-        raise HTTPException(status_code=403, detail="Not authorized")
-    
-    # Find user by email
-    co_organizer = await db.users.find_one({"email": email})
-    if not co_organizer:
-        raise HTTPException(status_code=404, detail="User with this email not found on platform")
-    
-    # Check if user is organizer or admin
-    if co_organizer["role"] not in ["organizer", "admin"]:
-        raise HTTPException(status_code=400, detail="User must be an organizer or admin")
-    
-    # Add to co_organizers list if not already there
-    co_organizers = hackathon.get("co_organizers", [])
-    if co_organizer["_id"] in co_organizers:
-        raise HTTPException(status_code=400, detail="User is already a co-organizer")
-    
-    co_organizers.append(co_organizer["_id"])
-    await db.hackathons.update_one(
-        {"_id": hackathon_id},
-        {"$set": {"co_organizers": co_organizers}}
-    )
-    
-    return {"message": f"Added {email} as co-organizer", "co_organizer_id": co_organizer["_id"]}
+# Duplicate function removed - using the first add_co_organizer function above
 
 @api_router.delete("/hackathons/{hackathon_id}/co-organizers/{co_organizer_id}")
 async def remove_co_organizer(hackathon_id: str, co_organizer_id: str, request: Request):
