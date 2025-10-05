@@ -40,7 +40,7 @@ body {
 
 /* Gradient Text - Teal to Navy Gradient */
 .gradient-text {
-  background: linear-gradient(135deg, #0D9488 0%, #14B8A6 50%, #0D9488 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #a855f7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
