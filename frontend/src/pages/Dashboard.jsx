@@ -329,18 +329,18 @@ export default function Dashboard() {
 
         {/* Available Hackathons */}
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold">Available <span className="gradient-text">Hackathons</span></h2>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold">Available <span className="gradient-text">Hackathons</span></h2>
             <Button
               variant="outline"
-              className="border-purple-600 text-purple-400 hover:bg-purple-600/10"
+              className="border-purple-600 text-purple-400 hover:bg-purple-600/10 text-sm sm:text-base whitespace-nowrap"
               onClick={() => navigate('/')}
             >
-              <TrendingUp className="w-4 h-4 mr-2" />
+              <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               Browse All
             </Button>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {hackathons.slice(0, 6).map((hackathon) => {
               const isRegistered = myRegistrations.some(r => r.hackathon_id === hackathon.id);
 
