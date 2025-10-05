@@ -506,8 +506,8 @@ export default function HackathonDetailEnhanced() {
             </Card>
 
             {/* Info Card */}
-            <Card className="glass-effect p-6 border border-purple-800/30">
-              <h3 className="font-bold text-xl mb-6 gradient-text">Details</h3>
+            <Card className="glass-effect p-4 sm:p-6 border border-purple-800/30">
+              <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6 gradient-text">Details</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3 p-3 bg-gray-900/30 rounded-lg">
                   <MapPin className="w-5 h-5 text-purple-500 mt-0.5" />
