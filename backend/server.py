@@ -802,7 +802,13 @@ async def get_my_hackathons(request: Request):
     user = await get_current_user(request)
     await require_role(user, ["organizer", "admin"])
     
-    hackathons = await db.hackathons.find({"organizer_id": user.id}).sort("created_at", -1).to_list(100)
+    # Get hackathons where user is organizer OR co-organizer
+    hackathons = await db.hackathons.find({
+        "$or": [
+            {"organizer_id": user.id},
+            {"co_organizers": user.id}
+        ]
+    }).sort("created_at", -1).to_list(100)
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
 @api_router.post("/hackathons/{hackathon_id}/notify-participants")
