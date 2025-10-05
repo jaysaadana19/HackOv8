@@ -400,9 +400,9 @@ export default function HackathonDetailEnhanced() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:sticky lg:top-24">
             {/* Action Card */}
-            <Card className="glass-effect p-6 border border-purple-800/30 sticky top-24" data-testid="action-card">
+            <Card className="glass-effect p-4 sm:p-6 border border-purple-800/30" data-testid="action-card">
               {!isAuthenticated() ? (
                 <div className="space-y-4">
                   <Button
