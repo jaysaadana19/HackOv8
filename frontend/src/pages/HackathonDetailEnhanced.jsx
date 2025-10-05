@@ -19,6 +19,7 @@ export default function HackathonDetailEnhanced() {
   const navigate = useNavigate();
   const [hackathon, setHackathon] = useState(null);
   const [teams, setTeams] = useState([]);
+  const [registrationCount, setRegistrationCount] = useState(0);
   const [myTeam, setMyTeam] = useState(null);
   const [submission, setSubmission] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]);
