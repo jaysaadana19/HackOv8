@@ -249,18 +249,18 @@ export default function LandingEnhanced() {
       </div>
 
       {/* Features Section */}
-      <div className="py-32 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl sm:text-6xl font-bold mb-6">
+      <div className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-20">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 px-4">
               Why Choose <span className="gradient-text">Hackov8</span>?
             </h2>
-            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
+            <p className="text-gray-400 text-base sm:text-xl max-w-2xl mx-auto px-4">
               Everything you need to succeed in hackathons, all in one powerful platform
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 max-w-7xl mx-auto">
             {[
               {
                 icon: Zap,
