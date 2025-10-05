@@ -366,28 +366,28 @@ export default function HackathonDetailEnhanced() {
               </TabsContent>
 
               <TabsContent value="leaderboard">
-                <Card className="glass-effect p-8 border border-purple-800/30 hover-lift">
-                  <h2 className="text-3xl font-bold mb-8 gradient-text">Leaderboard</h2>
+                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 gradient-text">Leaderboard</h2>
                   {leaderboard.length === 0 ? (
-                    <div className="text-center py-12">
-                      <Award className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                      <p className="text-gray-500 text-lg">No submissions yet</p>
+                    <div className="text-center py-8 sm:py-12">
+                      <Award className="w-12 h-12 sm:w-16 sm:h-16 text-gray-600 mx-auto mb-4" />
+                      <p className="text-gray-500 text-base sm:text-lg">No submissions yet</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {leaderboard.map((entry, idx) => (
-                        <div key={idx} className={`flex items-center justify-between p-6 rounded-2xl ${idx < 3 ? 'card-gradient border border-purple-800/50' : 'bg-gray-900/50 border border-gray-800'} hover-lift`}>
-                          <div className="flex items-center gap-6">
-                            <div className={`w-14 h-14 rounded-xl ${idx === 0 ? 'bg-gradient-to-br from-yellow-500 to-orange-500' : idx === 1 ? 'bg-gradient-to-br from-gray-400 to-gray-600' : idx === 2 ? 'bg-gradient-to-br from-orange-600 to-red-600' : 'bg-gray-800'} flex items-center justify-center shadow-lg`}>
-                              <span className="text-2xl font-bold text-white">#{idx + 1}</span>
+                        <div key={idx} className={`flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 rounded-2xl ${idx < 3 ? 'card-gradient border border-purple-800/50' : 'bg-gray-900/50 border border-gray-800'} hover-lift gap-4`}>
+                          <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${idx === 0 ? 'bg-gradient-to-br from-yellow-500 to-orange-500' : idx === 1 ? 'bg-gradient-to-br from-gray-400 to-gray-600' : idx === 2 ? 'bg-gradient-to-br from-orange-600 to-red-600' : 'bg-gray-800'} flex items-center justify-center shadow-lg flex-shrink-0`}>
+                              <span className="text-xl sm:text-2xl font-bold text-white">#{idx + 1}</span>
                             </div>
-                            <div>
-                              <p className="font-bold text-white text-xl">{entry.team_name}</p>
-                              <p className="text-gray-400">{entry.project_name}</p>
+                            <div className="min-w-0 flex-1">
+                              <p className="font-bold text-white text-lg sm:text-xl truncate">{entry.team_name}</p>
+                              <p className="text-gray-400 text-sm sm:text-base truncate">{entry.project_name}</p>
                             </div>
                           </div>
-                          <div className="text-right">
-                            <p className="text-4xl font-bold gradient-text">{entry.average_score}</p>
+                          <div className="text-left sm:text-right w-full sm:w-auto">
+                            <p className="text-3xl sm:text-4xl font-bold gradient-text">{entry.average_score}</p>
                             <p className="text-xs text-gray-500 mt-1">{entry.judge_count} judges</p>
                           </div>
                         </div>
