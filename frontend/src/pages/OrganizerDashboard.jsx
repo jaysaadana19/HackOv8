@@ -325,6 +325,19 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showCoOrganizersModal && selectedHackathon && (
+        <ManageCoOrganizersModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowCoOrganizersModal(false);
+            setSelectedHackathon(null);
+          }}
+          onSuccess={() => {
+            fetchMyHackathons();
+          }}
+        />
+      )}
     </div>
   );
 }
