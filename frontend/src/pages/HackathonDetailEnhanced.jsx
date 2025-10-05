@@ -256,26 +256,26 @@ export default function HackathonDetailEnhanced() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="bg-gray-900/50 p-2 rounded-2xl border border-gray-800">
-                <TabsTrigger value="overview" className="rounded-xl" data-testid="tab-overview">Overview</TabsTrigger>
-                <TabsTrigger value="prizes" className="rounded-xl" data-testid="tab-prizes">Prizes</TabsTrigger>
-                <TabsTrigger value="rules" className="rounded-xl" data-testid="tab-rules">Rules</TabsTrigger>
-                <TabsTrigger value="leaderboard" className="rounded-xl" data-testid="tab-leaderboard">Leaderboard</TabsTrigger>
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+            <Tabs defaultValue="overview" className="space-y-4 sm:space-y-6">
+              <TabsList className="bg-gray-900/50 p-1.5 sm:p-2 rounded-2xl border border-gray-800 w-full overflow-x-auto flex justify-start sm:justify-center">
+                <TabsTrigger value="overview" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-overview">Overview</TabsTrigger>
+                <TabsTrigger value="prizes" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-prizes">Prizes</TabsTrigger>
+                <TabsTrigger value="rules" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-rules">Rules</TabsTrigger>
+                <TabsTrigger value="leaderboard" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-leaderboard">Leaderboard</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="overview" className="space-y-6">
-                <Card className="glass-effect p-8 border border-purple-800/30 hover-lift">
-                  <h2 className="text-3xl font-bold mb-4 gradient-text">About This Hackathon</h2>
-                  <p className="text-gray-300 leading-relaxed text-lg">{hackathon.description}</p>
+              <TabsContent value="overview" className="space-y-4 sm:space-y-6">
+                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 gradient-text">About This Hackathon</h2>
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-lg">{hackathon.description}</p>
                 </Card>
 
-                <Card className="glass-effect p-8 border border-teal-200 hover-lift">
-                  <h2 className="text-3xl font-bold mb-6 gradient-text">Event Timeline</h2>
+                <Card className="glass-effect p-4 sm:p-8 border border-teal-200 hover-lift">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 gradient-text">Event Timeline</h2>
                   <div className="relative">
                     {/* Timeline Line */}
                     <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-500 via-teal-400 to-teal-500"></div>
