@@ -157,7 +157,7 @@ export default function HackathonDetailEnhanced() {
       </nav>
 
       {/* Enhanced Hero Section */}
-      <div className="relative h-[500px] overflow-hidden">
+      <div className="relative h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
         <img 
           src={getHackathonBanner(hackathon)} 
           alt={hackathon.title} 
@@ -170,14 +170,14 @@ export default function HackathonDetailEnhanced() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/80 to-transparent"></div>
         
         <div className="absolute inset-0 flex items-end">
-          <div className="container mx-auto px-6 pb-12">
+          <div className="container mx-auto px-4 sm:px-6 pb-6 sm:pb-12">
             <div className="max-w-4xl">
-              <Badge className="status-badge status-live mb-4 text-base px-6 py-2">{hackathon.status}</Badge>
-              <h1 className="text-6xl font-bold mb-4 text-white drop-shadow-2xl">{hackathon.title}</h1>
-              <p className="text-gray-200 text-xl max-w-3xl drop-shadow-lg leading-relaxed">{hackathon.description}</p>
+              <Badge className="status-badge status-live mb-3 sm:mb-4 text-xs sm:text-base px-4 sm:px-6 py-1.5 sm:py-2">{hackathon.status}</Badge>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4 text-white drop-shadow-2xl">{hackathon.title}</h1>
+              <p className="text-gray-200 text-sm sm:text-lg md:text-xl max-w-3xl drop-shadow-lg leading-relaxed">{hackathon.description}</p>
               
               {/* Quick Stats */}
-              <div className="flex flex-wrap gap-4 mt-6">
+              <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
                 <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-purple-400" />
