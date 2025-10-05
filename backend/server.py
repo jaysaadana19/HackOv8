@@ -948,12 +948,16 @@ async def notify_hackathon_participants(hackathon_id: str, title: str, message: 
 async def add_co_organizer(hackathon_id: str, email: str, request: Request):
     user = await get_current_user(request)
     
-    # Check if user is the organizer or admin
+    # Check if user is the organizer, co-organizer, or admin
     hackathon = await db.hackathons.find_one({"_id": hackathon_id})
     if not hackathon:
         raise HTTPException(status_code=404, detail="Hackathon not found")
     
-    if user.role != "admin" and hackathon["organizer_id"] != user.id:
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
         raise HTTPException(status_code=403, detail="Not authorized")
     
     # Find user by email
