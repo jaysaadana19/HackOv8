@@ -238,7 +238,7 @@ export default function OrganizerDashboard() {
                       variant="ghost"
                       size="sm"
                       className="flex-1 text-gray-400 hover:text-white"
-                      onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+                      onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                     >
                       <Eye className="w-4 h-4 mr-1" />
                       View
