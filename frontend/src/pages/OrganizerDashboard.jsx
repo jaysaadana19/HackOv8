@@ -53,6 +53,20 @@ export default function OrganizerDashboard() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyHackathons(response.data);
+      
+      // Fetch registration counts for each hackathon
+      const counts = {};
+      await Promise.all(
+        response.data.map(async (hackathon) => {
+          try {
+            const countRes = await hackathonAPI.getRegistrationCount(hackathon.id);
+            counts[hackathon.id] = countRes.data.count;
+          } catch (err) {
+            counts[hackathon.id] = 0;
+          }
+        })
+      );
+      setRegistrationCounts(counts);
     } catch (error) {
       toast.error('Failed to load hackathons');
     } finally {
