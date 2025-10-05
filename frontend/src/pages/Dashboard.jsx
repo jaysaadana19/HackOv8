@@ -96,6 +96,16 @@ export default function Dashboard() {
     }
   };
 
+  const handleMarkAllRead = async () => {
+    try {
+      await notificationAPI.markAllRead();
+      toast.success('All notifications marked as read');
+      fetchData();
+    } catch (error) {
+      toast.error('Failed to mark notifications as read');
+    }
+  };
+
   const unreadCount = notifications.filter(n => !n.read).length;
 
   if (loading) {
