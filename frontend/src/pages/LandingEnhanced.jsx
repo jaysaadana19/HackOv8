@@ -299,12 +299,12 @@ export default function LandingEnhanced() {
                 gradient: 'from-indigo-500 to-purple-500'
               },
             ].map((feature, idx) => (
-              <Card key={idx} className="card-gradient p-8 hover-lift group" data-testid={`feature-card-${idx}`}>
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
-                  <feature.icon className="w-8 h-8 text-white" />
+              <Card key={idx} className="card-gradient p-6 sm:p-8 hover-lift group" data-testid={`feature-card-${idx}`}>
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+                  <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white">{feature.title}</h3>
+                <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{feature.description}</p>
               </Card>
             ))}
           </div>
