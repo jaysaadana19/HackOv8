@@ -1048,6 +1048,13 @@ async def get_hackathon_registrations(hackathon_id: str, request: Request):
     registrations = await db.registrations.find({"hackathon_id": hackathon_id}).to_list(1000)
     return [{**r, "id": r.pop("_id")} for r in registrations]
 
+@api_router.get("/hackathons/{hackathon_id}/registrations/count")
+async def get_hackathon_registration_count(hackathon_id: str):
+    """Get registration count for a hackathon (public endpoint)"""
+    count = await db.registrations.count_documents({"hackathon_id": hackathon_id})
+    return {"count": count}
+
+
 # ==================== TEAM ROUTES ====================
 
 @api_router.post("/teams", response_model=Team)
