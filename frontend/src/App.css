@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* White + Teal + Navy Theme - Developer-Focused Professional */
+/* Dark + Purple + Pink Theme - Hackov8 Platform */
 :root {
   --color-white: #FFFFFF;
-  --color-background: #FFFFFF;
-  --color-primary: #0D9488;
-  --color-accent: #134E4A;
-  --color-secondary: #E2E8F0;
-  --color-text: #1E293B;
-  --color-text-light: #64748B;
-  --color-border: #E2E8F0;
-  --color-teal: #0D9488;
-  --color-navy: #134E4A;
+  --color-background: #0a0a0b;
+  --color-primary: #a855f7;
+  --color-accent: #ec4899;
+  --color-secondary: #1f1f23;
+  --color-text: #ffffff;
+  --color-text-light: #9ca3af;
+  --color-border: rgba(147, 51, 234, 0.3);
+  --color-purple: #a855f7;
+  --color-pink: #ec4899;
 }
 
 * {
