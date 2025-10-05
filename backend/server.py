@@ -1369,6 +1369,19 @@ async def mark_notification_read(notification_id: str, request: Request):
     
     return {"message": "Notification marked as read"}
 
+
+@api_router.put("/notifications/read-all")
+async def mark_all_notifications_read(request: Request):
+    user = await get_current_user(request)
+    
+    result = await db.notifications.update_many(
+        {"user_id": user.id, "read": False},
+        {"$set": {"read": True}}
+    )
+    
+    return {"message": f"Marked {result.modified_count} notifications as read"}
+
+
 # ==================== ADMIN ROUTES ====================
 
 # Hackathon Management
