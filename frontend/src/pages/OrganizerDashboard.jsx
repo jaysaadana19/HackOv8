@@ -185,6 +185,12 @@ export default function OrganizerDashboard() {
                   </div>
 
                   <p className="text-gray-400 text-sm line-clamp-2">{hackathon.description}</p>
+                  
+                  {/* Registration Count */}
+                  <div className="flex items-center gap-2 text-sm bg-purple-900/20 px-3 py-2 rounded-lg border border-purple-800/30">
+                    <Users className="w-4 h-4 text-purple-400" />
+                    <span className="text-white font-semibold">{registrationCounts[hackathon.id] || 0} Registrations</span>
+                  </div>
 
                   <div className="space-y-2">
                     <Button
