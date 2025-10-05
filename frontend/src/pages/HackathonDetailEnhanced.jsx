@@ -536,8 +536,8 @@ export default function HackathonDetailEnhanced() {
 
             {/* Connect with Organizers Card */}
             {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
-              <Card className="glass-effect p-6 border border-teal-500/30">
-                <h3 className="font-bold text-xl mb-6 flex items-center gap-2">
+              <Card className="glass-effect p-4 sm:p-6 border border-teal-500/30">
+                <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6 flex items-center gap-2">
                   <Globe className="w-5 h-5 text-teal-500" />
                   <span className="gradient-text">Connect with Us</span>
                 </h3>
