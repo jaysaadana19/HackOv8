@@ -63,11 +63,16 @@ export const hackathonAPI = {
   update: (id, data) => api.put(`/hackathons/${id}`, data),
   delete: (id) => api.delete(`/hackathons/${id}`),
   getRegistrations: (id) => api.get(`/hackathons/${id}/registrations`),
+  getRegistrationCount: (id) => api.get(`/hackathons/${id}/registrations/count`),
   getSubmissions: (id) => api.get(`/hackathons/${id}/submissions`),
   getTeams: (id) => api.get(`/hackathons/${id}/teams`),
   getLeaderboard: (id) => api.get(`/hackathons/${id}/leaderboard`),
   getMyHackathons: () => api.get('/hackathons/organizer/my'),
   notifyParticipants: (id, title, message) => api.post(`/hackathons/${id}/notify-participants`, null, { params: { title, message } }),
+  // Co-organizer management
+  addCoOrganizer: (id, email) => api.post(`/hackathons/${id}/co-organizers`, null, { params: { email } }),
+  removeCoOrganizer: (id, userId) => api.delete(`/hackathons/${id}/co-organizers/${userId}`),
+  getCoOrganizers: (id) => api.get(`/hackathons/${id}/co-organizers`),
 };
 
 // Upload APIs
