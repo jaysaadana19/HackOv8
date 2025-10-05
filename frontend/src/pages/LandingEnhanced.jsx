@@ -312,16 +312,16 @@ export default function LandingEnhanced() {
       </div>
 
       {/* Hackathons Section */}
-      <div id="hackathons" className="py-32 container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl sm:text-6xl font-bold mb-6">
+      <div id="hackathons" className="py-16 sm:py-24 md:py-32 container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 px-4">
             Discover <span className="gradient-text">Hackathons</span>
           </h2>
-          <p className="text-gray-400 text-xl">Find the perfect challenge to showcase your skills</p>
+          <p className="text-gray-400 text-base sm:text-xl px-4">Find the perfect challenge to showcase your skills</p>
         </div>
 
         {/* Search & Filter */}
-        <div className="flex flex-col sm:flex-row gap-6 mb-16 max-w-4xl mx-auto">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-12 sm:mb-16 max-w-4xl mx-auto">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500" />
             <Input
