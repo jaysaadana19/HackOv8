@@ -219,6 +219,18 @@ export default function OrganizerDashboard() {
                       <Bell className="w-4 h-4 mr-2" />
                       Notify Participants
                     </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-400 hover:text-teal-400 hover:bg-teal-900/20"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowCoOrganizersModal(true);
+                      }}
+                    >
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Manage Co-organizers
+                    </Button>
                   </div>
 
                   <div className="flex gap-2 pt-4 border-t border-gray-800">
