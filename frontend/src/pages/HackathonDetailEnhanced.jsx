@@ -612,8 +612,8 @@ export default function HackathonDetailEnhanced() {
           onClose={() => setShowAuthModal(false)}
           onSuccess={() => {
             setShowAuthModal(false);
-            toast.success('Welcome! You can now register for this hackathon');
-            fetchData();
+            // Complete registration after successful auth
+            setTimeout(() => completeRegistration(), 500);
           }}
         />
       )}
