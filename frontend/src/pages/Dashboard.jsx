@@ -293,9 +293,9 @@ export default function Dashboard() {
 
         {/* My Teams */}
         {myTeams.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold mb-6">My <span className="gradient-text">Teams</span></h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">My <span className="gradient-text">Teams</span></h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {myTeams.map((team) => (
                 <Card key={team.id} className="glass-effect hover-lift p-6 border border-purple-800/30" data-testid={`team-card-${team.id}`}>
                   <div className="flex items-start justify-between mb-4">
