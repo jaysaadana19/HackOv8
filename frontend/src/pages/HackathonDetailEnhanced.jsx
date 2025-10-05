@@ -42,14 +42,16 @@ export default function HackathonDetailEnhanced() {
       const hackathonRes = await hackathonAPI.getBySlug(slug);
       const hackathonId = hackathonRes.data.id;
       
-      const [teamsRes, leaderboardRes] = await Promise.all([
+      const [teamsRes, leaderboardRes, regCountRes] = await Promise.all([
         hackathonAPI.getTeams(hackathonId),
         hackathonAPI.getLeaderboard(hackathonId),
+        hackathonAPI.getRegistrationCount(hackathonId),
       ]);
 
       setHackathon(hackathonRes.data);
       setTeams(teamsRes.data);
       setLeaderboard(leaderboardRes.data);
+      setRegistrationCount(regCountRes.data.count);
 
       // Only fetch user-specific data if authenticated
       if (isAuthenticated()) {
