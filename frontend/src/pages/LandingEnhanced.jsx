@@ -188,34 +188,34 @@ export default function LandingEnhanced() {
           </nav>
 
           {/* Hero Content */}
-          <div className="max-w-5xl mx-auto text-center space-y-8 py-20">
+          <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 py-10 sm:py-20">
             <div className="animate-fadeIn">
-              <Badge className="status-badge status-upcoming mb-6 text-sm px-6 py-2">
-                <Sparkles className="w-4 h-4 mr-2" />
+              <Badge className="status-badge status-upcoming mb-4 sm:mb-6 text-xs sm:text-sm px-4 sm:px-6 py-1.5 sm:py-2">
+                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 🎉 Now Live - Join 10K+ Innovators
               </Badge>
             </div>
 
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-tight animate-fadeIn">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight animate-fadeIn px-4">
               Build. Innovate.
               <br />
               <span className="gradient-text">Win Together.</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto animate-fadeIn leading-relaxed">
+            <p className="text-base sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto animate-fadeIn leading-relaxed px-4">
               The ultimate platform where <span className="text-purple-400 font-semibold">developers</span>, 
               <span className="text-pink-400 font-semibold"> designers</span>, and 
               <span className="text-purple-400 font-semibold"> innovators</span> collaborate to create groundbreaking solutions.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fadeIn pt-8">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-fadeIn pt-6 sm:pt-8 px-4">
               <Button 
                 onClick={handleGetStarted}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-7 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-purple-500/50 transition-all group"
+                className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-purple-500/50 transition-all group"
                 data-testid="hero-get-started-btn"
               >
                 Start Your Journey
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <ArrowRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
               </Button>
               <Button 
                 variant="outline"
