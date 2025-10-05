@@ -213,25 +213,25 @@ export default function Dashboard() {
 
       <div className="container mx-auto px-6 py-8">
         {/* Enhanced Welcome Section */}
-        <div className="relative mb-12 overflow-hidden rounded-3xl">
+        <div className="relative mb-8 sm:mb-12 overflow-hidden rounded-2xl sm:rounded-3xl">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
-          <div className="relative glass-effect p-10 border border-purple-800/30">
-            <div className="flex items-center gap-6">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-2xl">
-                <User className="w-10 h-10 text-white" />
+          <div className="relative glass-effect p-4 sm:p-10 border border-purple-800/30">
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-2xl flex-shrink-0">
+                <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
-              <div>
-                <h1 className="text-4xl font-bold mb-2">
+              <div className="text-center sm:text-left">
+                <h1 className="text-2xl sm:text-4xl font-bold mb-1 sm:mb-2">
                   Welcome back, <span className="gradient-text">{user?.name}</span>! 👋
                 </h1>
-                <p className="text-gray-400 text-lg">Ready to build something amazing?</p>
+                <p className="text-gray-400 text-sm sm:text-lg">Ready to build something amazing?</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {[
             { icon: Trophy, label: 'Registered', value: myRegistrations.length, gradient: 'from-yellow-500 to-orange-500' },
             { icon: Users, label: 'Teams', value: myTeams.length, gradient: 'from-purple-500 to-pink-500' },
