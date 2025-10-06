@@ -434,11 +434,11 @@ export default function HackathonDetailEnhanced() {
                           <User className="w-5 h-5 text-teal-600" />
                           Solo Participation
                         </p>
-                        <p className="text-sm text-gray-400 mt-1">You're registered as an individual</p>
+                        <p className="text-sm text-gray-600 mt-1">You're registered as an individual</p>
                       </div>
                       {!submission && (
                         <Button
-                          className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
+                          className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all"
                           onClick={() => setShowSubmit(true)}
                           data-testid="submit-project-btn"
                         >
@@ -451,7 +451,7 @@ export default function HackathonDetailEnhanced() {
                     /* Team participation - show team creation/join options */
                     <>
                       <Button
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                        className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all"
                         onClick={() => setShowCreateTeam(true)}
                         data-testid="create-team-btn"
                       >
@@ -460,7 +460,7 @@ export default function HackathonDetailEnhanced() {
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full border-purple-600 text-purple-400 hover:bg-purple-600/10"
+                        className="w-full border-teal-600 text-teal-600 hover:bg-teal-50"
                         onClick={() => setShowJoinTeam(true)}
                         data-testid="join-team-btn"
                       >
