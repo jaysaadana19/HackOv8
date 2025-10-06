@@ -108,19 +108,33 @@ export default function HackathonDetailEnhanced() {
   const completeRegistration = async () => {
     const pendingHackathonId = localStorage.getItem('pendingHackathonRegistration');
     if (pendingHackathonId && isAuthenticated()) {
+      // Get fresh user data from localStorage
       const currentUser = getUser();
-      if (currentUser && currentUser.role === 'participant') {
-        try {
-          await registrationAPI.register(pendingHackathonId);
-          toast.success('Successfully registered for the hackathon!');
-          localStorage.removeItem('pendingHackathonRegistration');
-          fetchData();
-        } catch (error) {
-          console.error('Auto-registration failed:', error);
-          toast.error(error.response?.data?.detail || 'Registration failed');
-          localStorage.removeItem('pendingHackathonRegistration');
-        }
-      } else {
+      
+      console.log('Complete Registration - User:', currentUser);
+      
+      if (!currentUser) {
+        console.error('No user found in localStorage');
+        localStorage.removeItem('pendingHackathonRegistration');
+        return;
+      }
+      
+      if (currentUser.role !== 'participant') {
+        console.log('User role is not participant:', currentUser.role);
+        toast.info('Only participants can register for hackathons');
+        localStorage.removeItem('pendingHackathonRegistration');
+        return;
+      }
+      
+      try {
+        await registrationAPI.register(pendingHackathonId);
+        toast.success('Successfully registered for the hackathon!');
+        localStorage.removeItem('pendingHackathonRegistration');
+        setIsRegistered(true);
+        fetchData();
+      } catch (error) {
+        console.error('Auto-registration failed:', error);
+        toast.error(error.response?.data?.detail || 'Registration failed');
         localStorage.removeItem('pendingHackathonRegistration');
       }
     }
