@@ -378,18 +378,15 @@ select:focus {
 }
 
 /* Glow Effects - Teal Glow */
-.glow-purple {
-  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
-}
-
-.glow-pink {
-  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4);
+.glow-purple,
+.glow-teal {
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.2);
 }
 
 /* Text Selection */
 ::selection {
-  background: rgba(168, 85, 247, 0.3);
-  color: #ffffff;
+  background: rgba(13, 148, 136, 0.2);
+  color: #1E293B;
 }
 
 /* Particle Background */
