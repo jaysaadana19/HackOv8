@@ -274,24 +274,24 @@ export default function HackathonDetailEnhanced() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <Tabs defaultValue="overview" className="space-y-4 sm:space-y-6">
-              <TabsList className="bg-gray-900/50 p-1.5 sm:p-2 rounded-2xl border border-gray-800 w-full overflow-x-auto flex justify-start sm:justify-center">
-                <TabsTrigger value="overview" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-overview">Overview</TabsTrigger>
-                <TabsTrigger value="prizes" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-prizes">Prizes</TabsTrigger>
-                <TabsTrigger value="rules" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-rules">Rules</TabsTrigger>
-                <TabsTrigger value="leaderboard" className="rounded-xl text-xs sm:text-sm whitespace-nowrap" data-testid="tab-leaderboard">Leaderboard</TabsTrigger>
+              <TabsList className="bg-white p-1.5 sm:p-2 rounded-xl border border-gray-200 shadow-sm w-full overflow-x-auto flex justify-start sm:justify-center">
+                <TabsTrigger value="overview" className="rounded-lg text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-teal-50 data-[state=active]:text-teal-700" data-testid="tab-overview">Overview</TabsTrigger>
+                <TabsTrigger value="prizes" className="rounded-lg text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-teal-50 data-[state=active]:text-teal-700" data-testid="tab-prizes">Prizes</TabsTrigger>
+                <TabsTrigger value="rules" className="rounded-lg text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-teal-50 data-[state=active]:text-teal-700" data-testid="tab-rules">Rules</TabsTrigger>
+                <TabsTrigger value="leaderboard" className="rounded-lg text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-teal-50 data-[state=active]:text-teal-700" data-testid="tab-leaderboard">Leaderboard</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4 sm:space-y-6">
-                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 gradient-text">About This Hackathon</h2>
-                  <p className="text-gray-300 leading-relaxed text-sm sm:text-lg">{hackathon.description}</p>
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-lg">{hackathon.description}</p>
                 </Card>
 
-                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 gradient-text">Event Timeline</h2>
                   <div className="relative">
                     {/* Timeline Line */}
-                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-400 to-purple-500"></div>
+                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-400 via-teal-500 to-teal-600"></div>
                     
                     <div className="space-y-6">
                       {[
