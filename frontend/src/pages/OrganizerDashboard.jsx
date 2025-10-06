@@ -27,7 +27,7 @@ export default function OrganizerDashboard() {
   const [showNotifyModal, setShowNotifyModal] = useState(false);
   const [showCoOrganizersModal, setShowCoOrganizersModal] = useState(false);
   const [selectedHackathon, setSelectedHackathon] = useState(null);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
     if (theme === 'light') {
