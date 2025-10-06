@@ -360,24 +360,24 @@ export default function HackathonDetailEnhanced() {
               </TabsContent>
 
               <TabsContent value="leaderboard">
-                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 gradient-text">Leaderboard</h2>
                   {leaderboard.length === 0 ? (
                     <div className="text-center py-8 sm:py-12">
-                      <Award className="w-12 h-12 sm:w-16 sm:h-16 text-gray-600 mx-auto mb-4" />
-                      <p className="text-gray-500 text-base sm:text-lg">No submissions yet</p>
+                      <Award className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600 text-base sm:text-lg">No submissions yet</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {leaderboard.map((entry, idx) => (
-                        <div key={idx} className={`flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 rounded-2xl ${idx < 3 ? 'card-gradient border border-purple-800/50' : 'bg-gray-900/50 border border-gray-800'} hover-lift gap-4`}>
+                        <div key={idx} className={`flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 rounded-2xl ${idx < 3 ? 'bg-teal-50 border border-teal-200' : 'bg-white border border-gray-200'} hover-lift gap-4 hover:shadow-md transition-all`}>
                           <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
-                            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${idx === 0 ? 'bg-gradient-to-br from-yellow-500 to-orange-500' : idx === 1 ? 'bg-gradient-to-br from-gray-400 to-gray-600' : idx === 2 ? 'bg-gradient-to-br from-orange-600 to-red-600' : 'bg-gray-800'} flex items-center justify-center shadow-lg flex-shrink-0`}>
+                            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${idx === 0 ? 'bg-gradient-to-br from-yellow-500 to-orange-500' : idx === 1 ? 'bg-gradient-to-br from-gray-400 to-gray-600' : idx === 2 ? 'bg-gradient-to-br from-orange-600 to-red-600' : 'bg-gray-300'} flex items-center justify-center shadow-lg flex-shrink-0`}>
                               <span className="text-xl sm:text-2xl font-bold text-white">#{idx + 1}</span>
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="font-bold text-white text-lg sm:text-xl truncate">{entry.team_name}</p>
-                              <p className="text-gray-400 text-sm sm:text-base truncate">{entry.project_name}</p>
+                              <p className="font-bold text-gray-900 text-lg sm:text-xl truncate">{entry.team_name}</p>
+                              <p className="text-gray-600 text-sm sm:text-base truncate">{entry.project_name}</p>
                             </div>
                           </div>
                           <div className="text-left sm:text-right w-full sm:w-auto">
