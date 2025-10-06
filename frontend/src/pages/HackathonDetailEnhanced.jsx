@@ -84,8 +84,11 @@ export default function HackathonDetailEnhanced() {
       return;
     }
 
+    // Get fresh user data from localStorage
+    const currentUser = getUser();
+    
     // Check if user is a participant
-    if (user && user.role !== 'participant') {
+    if (currentUser && currentUser.role !== 'participant') {
       toast.error('Only participants can register for hackathons');
       return;
     }
