@@ -85,7 +85,22 @@ export default function HackathonDetailEnhanced() {
     }
 
     // Get fresh user data from localStorage
-    const currentUser = getUser();
+    let currentUser = getUser();
+    
+    // If role is missing (old session), fetch from backend
+    if (currentUser && !currentUser.role) {
+      console.log('Role missing, fetching from backend...');
+      try {
+        const response = await authAPI.getCurrentUser();
+        currentUser = response.data;
+        // Update localStorage with complete user data
+        localStorage.setItem('user', JSON.stringify(currentUser));
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+        toast.error('Please log out and log in again');
+        return;
+      }
+    }
     
     // Check if user is a participant
     if (currentUser && currentUser.role !== 'participant') {
