@@ -182,7 +182,9 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
         linkedin_url: linkedinUrl || null,
         website_url: websiteUrl || null,
         community_url: communityUrl || null,
-        community_type: communityUrl ? communityType : null
+        community_type: communityUrl ? communityType : null,
+        sponsors: sponsors.filter(s => s.name),
+        judges: judges.filter(j => j.name)
       };
 
       await hackathonAPI.update(hackathon.id, data);
