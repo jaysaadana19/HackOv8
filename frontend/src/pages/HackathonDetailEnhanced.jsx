@@ -109,7 +109,7 @@ export default function HackathonDetailEnhanced() {
     const pendingHackathonId = localStorage.getItem('pendingHackathonRegistration');
     if (pendingHackathonId && isAuthenticated()) {
       // Get fresh user data from localStorage
-      const currentUser = getUser();
+      let currentUser = getUser();
       
       console.log('Complete Registration - User:', currentUser);
       
@@ -117,6 +117,23 @@ export default function HackathonDetailEnhanced() {
         console.error('No user found in localStorage');
         localStorage.removeItem('pendingHackathonRegistration');
         return;
+      }
+      
+      // If role is missing (old session), fetch from backend
+      if (!currentUser.role) {
+        console.log('Role missing in localStorage, fetching from backend...');
+        try {
+          const response = await authAPI.getCurrentUser();
+          currentUser = response.data;
+          // Update localStorage with complete user data
+          localStorage.setItem('user', JSON.stringify(currentUser));
+          console.log('Updated user with role:', currentUser);
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
+          toast.error('Please log out and log in again');
+          localStorage.removeItem('pendingHackathonRegistration');
+          return;
+        }
       }
       
       if (currentUser.role !== 'participant') {
