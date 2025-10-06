@@ -192,6 +192,7 @@ class SessionResponse(BaseModel):
     id: str
     email: str
     name: str
+    role: str
     picture: Optional[str]
     session_token: str
 
