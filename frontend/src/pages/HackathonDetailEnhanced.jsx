@@ -428,10 +428,10 @@ export default function HackathonDetailEnhanced() {
                   {/* Solo participation - no teams needed */}
                   {hackathon.min_team_size === 1 && hackathon.max_team_size === 1 ? (
                     <>
-                      <div className="p-4 bg-gradient-to-br from-teal-900/20 to-teal-900/20 rounded-xl border border-teal-800/30">
-                        <p className="text-sm text-gray-400 mb-2">Participation Mode</p>
-                        <p className="font-bold text-white text-lg flex items-center gap-2">
-                          <User className="w-5 h-5 text-teal-400" />
+                      <div className="p-4 bg-teal-50 rounded-xl border border-teal-200">
+                        <p className="text-sm text-gray-600 mb-2">Participation Mode</p>
+                        <p className="font-bold text-gray-900 text-lg flex items-center gap-2">
+                          <User className="w-5 h-5 text-teal-600" />
                           Solo Participation
                         </p>
                         <p className="text-sm text-gray-400 mt-1">You're registered as an individual</p>
