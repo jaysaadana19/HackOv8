@@ -160,24 +160,12 @@ export default function HackathonDetailEnhanced() {
       </nav>
 
       {/* Enhanced Hero Section */}
-      <div className="relative h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
-        <img 
-          src={getHackathonBanner(hackathon)} 
-          alt={hackathon.title} 
-          className="absolute inset-0 w-full h-full object-cover" 
-          onError={(e) => {
-            e.target.style.display = 'none';
-            console.error('Failed to load banner image:', getHackathonBanner(hackathon));
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/80 to-transparent"></div>
-        
-        <div className="absolute inset-0 flex items-end">
-          <div className="container mx-auto px-4 sm:px-6 pb-6 sm:pb-12">
-            <div className="max-w-4xl">
-              <Badge className="status-badge status-live mb-3 sm:mb-4 text-xs sm:text-base px-4 sm:px-6 py-1.5 sm:py-2">{hackathon.status}</Badge>
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4 text-white drop-shadow-2xl">{hackathon.title}</h1>
-              <p className="text-gray-200 text-sm sm:text-lg md:text-xl max-w-3xl drop-shadow-lg leading-relaxed">{hackathon.description}</p>
+      <div className="relative bg-gradient-to-br from-teal-50 to-white border-b border-gray-200">
+        <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-16">
+          <div className="max-w-4xl">
+            <Badge className="status-badge status-live mb-3 sm:mb-4 text-xs sm:text-base px-4 sm:px-6 py-1.5 sm:py-2">{hackathon.status}</Badge>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4 text-gray-900">{hackathon.title}</h1>
+            <p className="text-gray-700 text-sm sm:text-lg md:text-xl max-w-3xl leading-relaxed mb-6">{hackathon.description}</p>
               
               {/* Quick Stats */}
               <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
