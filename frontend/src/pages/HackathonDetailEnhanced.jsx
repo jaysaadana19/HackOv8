@@ -331,19 +331,19 @@ export default function HackathonDetailEnhanced() {
               </TabsContent>
 
               <TabsContent value="prizes">
-                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 gradient-text">Prizes & Rewards</h2>
                   <div className="space-y-4">
                     {hackathon.prizes.map((prize, idx) => (
-                      <div key={idx} className="card-gradient p-4 sm:p-6 rounded-2xl hover-lift border border-purple-800/30">
+                      <div key={idx} className="card-gradient p-4 sm:p-6 rounded-2xl hover-lift border border-gray-200">
                         <div className="flex items-start gap-3 sm:gap-4">
                           <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${idx === 0 ? 'from-yellow-500 to-orange-500' : idx === 1 ? 'from-gray-400 to-gray-600' : 'from-orange-600 to-red-600'} flex items-center justify-center shadow-lg flex-shrink-0`}>
                             <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-bold text-xl sm:text-2xl text-white mb-1 sm:mb-2">{prize.place}</h3>
-                            <p className="text-purple-400 font-bold text-lg sm:text-xl mb-1 sm:mb-2">{prize.amount}</p>
-                            {prize.description && <p className="text-gray-400 text-sm sm:text-base">{prize.description}</p>}
+                            <h3 className="font-bold text-xl sm:text-2xl text-gray-900 mb-1 sm:mb-2">{prize.place}</h3>
+                            <p className="text-teal-600 font-bold text-lg sm:text-xl mb-1 sm:mb-2">{prize.amount}</p>
+                            {prize.description && <p className="text-gray-600 text-sm sm:text-base">{prize.description}</p>}
                           </div>
                         </div>
                       </div>
