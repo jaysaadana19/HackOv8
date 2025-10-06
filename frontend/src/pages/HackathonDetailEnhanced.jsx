@@ -374,6 +374,81 @@ export default function HackathonDetailEnhanced() {
                     </div>
                   </Card>
                 )}
+
+
+                {/* Sponsors Section */}
+                {hackathon.sponsors && hackathon.sponsors.length > 0 && (
+                  <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 gradient-text">Our Sponsors</h2>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                      {hackathon.sponsors.map((sponsor, idx) => (
+                        <a
+                          key={idx}
+                          href={sponsor.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group p-4 bg-white rounded-xl border border-gray-200 hover:border-teal-400 hover:shadow-lg transition-all flex flex-col items-center justify-center gap-3"
+                        >
+                          {sponsor.logo && (
+                            <img
+                              src={sponsor.logo}
+                              alt={sponsor.name}
+                              className="w-full h-16 object-contain"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          )}
+                          <p className="text-gray-900 font-semibold text-center text-sm">{sponsor.name}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </Card>
+                )}
+
+                {/* Judges Section */}
+                {hackathon.judges && hackathon.judges.length > 0 && (
+                  <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 gradient-text">Meet Our Judges</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {hackathon.judges.map((judge, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 bg-white rounded-xl border border-gray-200 hover:border-teal-400 hover:shadow-lg transition-all"
+                        >
+                          <div className="flex items-start gap-4">
+                            {judge.photo && (
+                              <img
+                                src={judge.photo}
+                                alt={judge.name}
+                                className="w-16 h-16 rounded-full object-cover border-2 border-teal-500"
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            <div className="flex-1">
+                              <h3 className="text-gray-900 font-bold text-lg">{judge.name}</h3>
+                              {judge.bio && <p className="text-gray-600 text-sm mt-1">{judge.bio}</p>}
+                              {judge.linkedin && (
+                                <a
+                                  href={judge.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 mt-2 text-teal-600 hover:text-teal-700 text-sm font-medium"
+                                >
+                                  <Linkedin className="w-4 h-4" />
+                                  LinkedIn
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                )}
+
               </TabsContent>
 
               <TabsContent value="prizes">
