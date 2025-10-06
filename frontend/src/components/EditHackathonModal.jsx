@@ -46,6 +46,8 @@ export default function EditHackathonModal({ hackathon, onClose, onSuccess }) {
   const [websiteUrl, setWebsiteUrl] = useState(hackathon.website_url || '');
   const [communityUrl, setCommunityUrl] = useState(hackathon.community_url || '');
   const [communityType, setCommunityType] = useState(hackathon.community_type || 'slack');
+  const [sponsors, setSponsors] = useState(hackathon.sponsors?.length > 0 ? hackathon.sponsors : [{ name: '', logo: '', website: '' }]);
+  const [judges, setJudges] = useState(hackathon.judges?.length > 0 ? hackathon.judges : [{ name: '', photo: '', bio: '', linkedin: '' }]);
 
   const handleAddPrize = () => {
     setPrizes([...prizes, { place: '', amount: '', description: '' }]);
