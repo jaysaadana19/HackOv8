@@ -504,6 +504,127 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
                 </div>
               </div>
             </div>
+
+
+            {/* Sponsors Section */}
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-3 block text-lg font-semibold">Sponsors</Label>
+              <div className="space-y-3">
+                {sponsors.map((sponsor, index) => (
+                  <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700">
+                    <div className="grid md:grid-cols-3 gap-3">
+                      <Input
+                        type="text"
+                        value={sponsor.name}
+                        onChange={(e) => handleSponsorChange(index, 'name', e.target.value)}
+                        className="bg-gray-900/50 border-gray-800 text-white"
+                        placeholder="Sponsor Name"
+                      />
+                      <Input
+                        type="url"
+                        value={sponsor.logo}
+                        onChange={(e) => handleSponsorChange(index, 'logo', e.target.value)}
+                        className="bg-gray-900/50 border-gray-800 text-white"
+                        placeholder="Logo URL"
+                      />
+                      <div className="flex gap-2">
+                        <Input
+                          type="url"
+                          value={sponsor.website}
+                          onChange={(e) => handleSponsorChange(index, 'website', e.target.value)}
+                          className="bg-gray-900/50 border-gray-800 text-white"
+                          placeholder="Website URL"
+                        />
+                        {sponsors.length > 1 && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => handleRemoveSponsor(index)}
+                            className="text-red-400 hover:text-red-300"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddSponsor}
+                  className="border-gray-700 text-gray-400"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Sponsor
+                </Button>
+              </div>
+            </div>
+
+            {/* Judges Section */}
+            <div className="md:col-span-2">
+              <Label className="text-gray-400 mb-3 block text-lg font-semibold">Judges</Label>
+              <div className="space-y-3">
+                {judges.map((judge, index) => (
+                  <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700">
+                    <div className="grid md:grid-cols-2 gap-3 mb-3">
+                      <Input
+                        type="text"
+                        value={judge.name}
+                        onChange={(e) => handleJudgeChange(index, 'name', e.target.value)}
+                        className="bg-gray-900/50 border-gray-800 text-white"
+                        placeholder="Judge Name"
+                      />
+                      <Input
+                        type="url"
+                        value={judge.photo}
+                        onChange={(e) => handleJudgeChange(index, 'photo', e.target.value)}
+                        className="bg-gray-900/50 border-gray-800 text-white"
+                        placeholder="Photo URL"
+                      />
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-3">
+                      <Input
+                        type="url"
+                        value={judge.linkedin}
+                        onChange={(e) => handleJudgeChange(index, 'linkedin', e.target.value)}
+                        className="bg-gray-900/50 border-gray-800 text-white"
+                        placeholder="LinkedIn URL"
+                      />
+                      <div className="flex gap-2">
+                        <Input
+                          type="text"
+                          value={judge.bio}
+                          onChange={(e) => handleJudgeChange(index, 'bio', e.target.value)}
+                          className="bg-gray-900/50 border-gray-800 text-white"
+                          placeholder="Short Bio"
+                        />
+                        {judges.length > 1 && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => handleRemoveJudge(index)}
+                            className="text-red-400 hover:text-red-300"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddJudge}
+                  className="border-gray-700 text-gray-400"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Judge
+                </Button>
+              </div>
+            </div>
+
           </div>
 
           <div className="flex gap-3 pt-6 border-t border-gray-800">
