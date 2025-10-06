@@ -33,6 +33,8 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [communityUrl, setCommunityUrl] = useState('');
   const [communityType, setCommunityType] = useState('slack');
+  const [sponsors, setSponsors] = useState([{ name: '', logo: '', website: '' }]);
+  const [judges, setJudges] = useState([{ name: '', photo: '', bio: '', linkedin: '' }]);
 
   const handleAddPrize = () => {
     setPrizes([...prizes, { place: '', amount: '', description: '' }]);
