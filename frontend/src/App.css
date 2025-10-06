@@ -40,7 +40,7 @@ body {
 
 /* Gradient Text - Teal to Navy Gradient */
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #a855f7 100%);
+  background: linear-gradient(135deg, #0D9488 0%, #14B8A6 50%, #0D9488 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -138,7 +138,7 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);
   color: white;
   padding: 14px 36px;
   border-radius: 12px;
@@ -176,11 +176,11 @@ body {
 
 .btn-secondary {
   background: transparent;
-  color: #a855f7;
+  color: #0D9488;
   padding: 14px 36px;
   border-radius: 12px;
   font-weight: 600;
-  border: 2px solid #a855f7;
+  border: 2px solid #0D9488;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
@@ -204,8 +204,8 @@ body {
 }
 
 .btn-secondary:hover {
-  border-color: #ec4899;
-  color: #ec4899;
+  border-color: #14B8A6;
+  color: #14B8A6;
   transform: translateY(-2px);
 }
 
@@ -235,7 +235,7 @@ body {
 
 .status-upcoming {
   background: rgba(168, 85, 247, 0.2);
-  color: #a855f7;
+  color: #0D9488;
   border: 1px solid rgba(168, 85, 247, 0.4);
 }
 
@@ -296,7 +296,7 @@ body {
   width: 50px;
   height: 50px;
   border: 4px solid rgba(168, 85, 247, 0.2);
-  border-top-color: #a855f7;
+  border-top-color: #0D9488;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -354,7 +354,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #a855f7;
+  border-color: #0D9488;
   box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
 }
 
@@ -369,12 +369,12 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
+  background: linear-gradient(135deg, #0D9488, #14B8A6);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #9333ea, #db2777);
+  background: linear-gradient(135deg, #0F766E, #db2777);
 }
 
 /* Glow Effects - Teal Glow */
@@ -406,7 +406,7 @@ select:focus {
   position: absolute;
   width: 3px;
   height: 3px;
-  background: #a855f7;
+  background: #0D9488;
   border-radius: 50%;
   opacity: 0.15;
   animation: particle-float 15s linear infinite;
@@ -718,12 +718,12 @@ h1, h2, h3, h4, h5, h6 {
 .bg-gradient-to-r.from-purple-600.to-pink-600,
 .bg-gradient-to-br.from-purple-600,
 .bg-gradient-to-br.from-purple-600.to-pink-600 {
-  background: linear-gradient(to right, #a855f7, #ec4899) !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
 }
 
 .hover\:from-purple-700:hover,
 .hover\:to-pink-700:hover {
-  background: linear-gradient(to right, #9333ea, #a855f7) !important;
+  background: linear-gradient(to right, #0F766E, #0D9488) !important;
 }
 
 /* All accent colors to Teal */
@@ -732,7 +732,7 @@ h1, h2, h3, h4, h5, h6 {
 .text-purple-300,
 .text-pink-500,
 .text-pink-400 {
-  color: #a855f7 !important;
+  color: #0D9488 !important;
 }
 
 .text-purple-600,
@@ -745,7 +745,7 @@ h1, h2, h3, h4, h5, h6 {
 .bg-purple-500,
 .bg-pink-600,
 .bg-pink-500 {
-  background-color: #a855f7 !important;
+  background-color: #0D9488 !important;
 }
 
 .bg-purple-700 {
@@ -762,7 +762,7 @@ h1, h2, h3, h4, h5, h6 {
 .border-purple-600,
 .border-purple-800,
 .border-pink-600 {
-  border-color: #a855f7 !important;
+  border-color: #0D9488 !important;
 }
 
 .border-purple-800\/30 {
@@ -772,7 +772,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Ring colors */
 .ring-purple-500,
 .ring-pink-500 {
-  --tw-ring-color: #a855f7 !important;
+  --tw-ring-color: #0D9488 !important;
 }
 
 /* Hover states - Teal Hovers */
@@ -780,7 +780,7 @@ h1, h2, h3, h4, h5, h6 {
 .hover\:text-purple-500:hover,
 .hover\:text-pink-400:hover,
 .hover\:text-pink-500:hover {
-  color: #9333ea !important;
+  color: #0F766E !important;
 }
 
 .hover\:bg-purple-500\/10:hover,
@@ -821,7 +821,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Status badges */
 .from-purple-500.to-pink-500,
 .from-indigo-500.to-purple-500 {
-  background: linear-gradient(to right, #a855f7, #ec4899) !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
 }
 
 /* White backgrounds for cards */
@@ -895,7 +895,7 @@ nav {
 }
 
 nav:hover {
-  border-bottom-color: #a855f7 !important;
+  border-bottom-color: #0D9488 !important;
 }
 
 /* Modern Card Styling */
@@ -909,7 +909,7 @@ nav:hover {
 
 .card:hover,
 [class*="card"]:hover {
-  border-color: #a855f7 !important;
+  border-color: #0D9488 !important;
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.1) !important;
 }
 
@@ -924,7 +924,7 @@ button {
 button.bg-gradient-to-r,
 button[class*="from-purple"],
 button[class*="from-pink"] {
-  background: linear-gradient(to right, #a855f7, #ec4899) !important;
+  background: linear-gradient(to right, #0D9488, #14B8A6) !important;
   color: #FFFFFF !important;
   border: none !important;
 }
@@ -932,7 +932,7 @@ button[class*="from-pink"] {
 button.bg-gradient-to-r:hover,
 button[class*="from-purple"]:hover,
 button[class*="from-pink"]:hover {
-  background: linear-gradient(to right, #9333ea, #a855f7) !important;
+  background: linear-gradient(to right, #0F766E, #0D9488) !important;
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25) !important;
 }
 
@@ -941,14 +941,14 @@ button[class*="border-purple"],
 button[class*="border-pink"],
 button.border-2 {
   background: transparent !important;
-  border: 2px solid #a855f7 !important;
-  color: #a855f7 !important;
+  border: 2px solid #0D9488 !important;
+  color: #0D9488 !important;
 }
 
 button[class*="border-purple"]:hover,
 button[class*="border-pink"]:hover,
 button.border-2:hover {
-  background: #a855f7 !important;
+  background: #0D9488 !important;
   color: #FFFFFF !important;
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2) !important;
 }
@@ -968,7 +968,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none !important;
-  border-color: #a855f7 !important;
+  border-color: #0D9488 !important;
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1) !important;
   background: #FFFFFF !important;
 }
@@ -1024,7 +1024,7 @@ p {
 
 /* Links */
 a {
-  color: #a855f7 !important;
+  color: #0D9488 !important;
   text-decoration: none !important;
   transition: color 0.3s ease !important;
 }
@@ -1053,12 +1053,12 @@ hr,
 
 hr:hover,
 .divider:hover {
-  border-color: #a855f7 !important;
+  border-color: #0D9488 !important;
 }
 
 /* Icons should be teal */
 svg {
-  color: #a855f7 !important;
+  color: #0D9488 !important;
   transition: color 0.3s ease !important;
 }
 
