@@ -505,10 +505,17 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
               </div>
             </div>
 
+            {/* Section Divider */}
+            <div className="md:col-span-2 border-t border-gray-700 pt-6 mt-4">
+              <h3 className="text-xl font-bold text-white mb-4">Event Partners</h3>
+            </div>
 
             {/* Sponsors Section */}
             <div className="md:col-span-2">
-              <Label className="text-gray-400 mb-3 block text-lg font-semibold">Sponsors</Label>
+              <Label className="text-gray-400 mb-3 block text-lg font-semibold">
+                🏢 Sponsors (Optional)
+              </Label>
+              <p className="text-sm text-gray-500 mb-3">Add sponsors who are supporting this hackathon</p>
               <div className="space-y-3">
                 {sponsors.map((sponsor, index) => (
                   <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700">
