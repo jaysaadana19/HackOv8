@@ -191,33 +191,39 @@ export default function HackathonDetailEnhanced() {
                     </div>
                   </div>
                 )}
-                <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
+                <div className="bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2">
-                    <Trophy className="w-5 h-5 text-yellow-500" />
-                    <span className="text-white font-semibold">{hackathon.prizes.length} Prizes</span>
+                    <Trophy className="w-5 h-5 text-yellow-600" />
+                    <span className="text-gray-900 font-semibold">{hackathon.prizes.length} Prizes</span>
                   </div>
                 </div>
-                <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
+                <div className="bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-green-500" />
-                    <span className="text-white font-semibold capitalize">{hackathon.location}</span>
+                    <MapPin className="w-5 h-5 text-teal-600" />
+                    <span className="text-gray-900 font-semibold capitalize">{hackathon.location}</span>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-              {/* Social Links & Community */}
-              {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
-                <div className="flex flex-wrap gap-3 mt-6">
-                  {hackathon.twitter_url && (
-                    <a
-                      href={hackathon.twitter_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="glass-effect px-4 py-2 rounded-xl border border-blue-400/30 hover:border-blue-400 transition-all flex items-center gap-2 text-white hover:bg-blue-500/10"
-                    >
-                      <Twitter className="w-4 h-4 text-blue-400" />
-                      <span className="text-sm font-medium">Twitter</span>
-                      <ExternalLink className="w-3 h-3 text-gray-400" />
+      {/* Social Links Bar - Moved outside hero */}
+      {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
+        <div className="bg-white border-b border-gray-200 py-4">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="flex flex-wrap gap-3">
+              {hackathon.twitter_url && (
+                <a
+                  href={hackathon.twitter_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg border border-gray-200 hover:border-teal-600 transition-all flex items-center gap-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50"
+                >
+                  <Twitter className="w-4 h-4" />
+                  <span className="text-sm font-medium">Twitter</span>
+                  <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
                   {hackathon.linkedin_url && (
