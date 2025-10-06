@@ -168,26 +168,26 @@ export default function HackathonDetailEnhanced() {
             <p className="text-gray-700 text-sm sm:text-lg md:text-xl max-w-3xl leading-relaxed mb-6">{hackathon.description}</p>
               
               {/* Quick Stats */}
-              <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
-                <div className="glass-effect px-4 py-2 rounded-xl border border-purple-800/30">
+              <div className="flex flex-wrap gap-2 sm:gap-4">
+                <div className="bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-purple-400" />
-                    <span className="text-white font-semibold">{registrationCount} Registered</span>
+                    <Users className="w-5 h-5 text-teal-600" />
+                    <span className="text-gray-900 font-semibold">{registrationCount} Registered</span>
                   </div>
                 </div>
                 {/* Show team size info */}
                 {hackathon.min_team_size === 1 && hackathon.max_team_size === 1 ? (
-                  <div className="glass-effect px-4 py-2 rounded-xl border border-teal-800/30">
+                  <div className="bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
                     <div className="flex items-center gap-2">
-                      <User className="w-5 h-5 text-teal-400" />
-                      <span className="text-white font-semibold">Solo Participation</span>
+                      <User className="w-5 h-5 text-teal-600" />
+                      <span className="text-gray-900 font-semibold">Solo Participation</span>
                     </div>
                   </div>
                 ) : (
-                  <div className="glass-effect px-4 py-2 rounded-xl border border-blue-800/30">
+                  <div className="bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
                     <div className="flex items-center gap-2">
-                      <Users className="w-5 h-5 text-blue-400" />
-                      <span className="text-white font-semibold">{hackathon.min_team_size}-{hackathon.max_team_size} Team Size</span>
+                      <Users className="w-5 h-5 text-teal-600" />
+                      <span className="text-gray-900 font-semibold">{hackathon.min_team_size}-{hackathon.max_team_size} Team Size</span>
                     </div>
                   </div>
                 )}
