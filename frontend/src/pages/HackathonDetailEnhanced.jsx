@@ -396,30 +396,30 @@ export default function HackathonDetailEnhanced() {
           {/* Sidebar */}
           <div className="space-y-6 lg:sticky lg:top-24">
             {/* Action Card */}
-            <Card className="glass-effect p-4 sm:p-6 border border-purple-800/30" data-testid="action-card">
+            <Card className="glass-effect p-4 sm:p-6 border border-gray-200 shadow-lg" data-testid="action-card">
               {!isAuthenticated() ? (
                 <div className="space-y-4">
                   <Button
-                    className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white py-6 text-lg font-bold shadow-xl"
+                    className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
                     onClick={() => setShowAuthModal(true)}
                     data-testid="signup-to-register-btn"
                   >
                     <User className="w-5 h-5 mr-2" />
                     Sign Up to Register
                   </Button>
-                  <p className="text-gray-400 text-sm text-center">Create a participant account to join this hackathon</p>
+                  <p className="text-gray-600 text-sm text-center">Create a participant account to join this hackathon</p>
                 </div>
               ) : !isRegistered ? (
                 <div className="space-y-4">
                   <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-6 text-lg font-bold shadow-xl"
+                    className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
                     onClick={handleRegister}
                     data-testid="register-hackathon-btn"
                   >
                     <Zap className="w-5 h-5 mr-2" />
                     Register Now
                   </Button>
-                  <p className="text-gray-400 text-sm text-center">Join and start building amazing projects!</p>
+                  <p className="text-gray-600 text-sm text-center">Join and start building amazing projects!</p>
                 </div>
               ) : (
                 <div className="space-y-4">
