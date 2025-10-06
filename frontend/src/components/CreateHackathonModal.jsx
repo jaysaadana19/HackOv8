@@ -50,6 +50,34 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
     setPrizes(updated);
   };
 
+  const handleAddSponsor = () => {
+    setSponsors([...sponsors, { name: '', logo: '', website: '' }]);
+  };
+
+  const handleRemoveSponsor = (index) => {
+    setSponsors(sponsors.filter((_, i) => i !== index));
+  };
+
+  const handleSponsorChange = (index, field, value) => {
+    const updated = [...sponsors];
+    updated[index][field] = value;
+    setSponsors(updated);
+  };
+
+  const handleAddJudge = () => {
+    setJudges([...judges, { name: '', photo: '', bio: '', linkedin: '' }]);
+  };
+
+  const handleRemoveJudge = (index) => {
+    setJudges(judges.filter((_, i) => i !== index));
+  };
+
+  const handleJudgeChange = (index, field, value) => {
+    const updated = [...judges];
+    updated[index][field] = value;
+    setJudges(updated);
+  };
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
