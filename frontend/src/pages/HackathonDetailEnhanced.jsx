@@ -353,9 +353,9 @@ export default function HackathonDetailEnhanced() {
               </TabsContent>
 
               <TabsContent value="rules">
-                <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 gradient-text">Rules & Guidelines</h2>
-                  <div className="text-gray-300 whitespace-pre-wrap leading-relaxed text-sm sm:text-lg">{hackathon.rules || 'No specific rules provided.'}</div>
+                  <div className="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm sm:text-lg">{hackathon.rules || 'No specific rules provided.'}</div>
                 </Card>
               </TabsContent>
 
