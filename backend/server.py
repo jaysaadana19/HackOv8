@@ -232,6 +232,9 @@ class HackathonCreate(BaseModel):
     website_url: Optional[str] = None
     community_url: Optional[str] = None
     community_type: Optional[str] = None
+    # Sponsors and Judges
+    sponsors: List[Dict[str, str]] = []  # [{name, logo, website}]
+    judges: List[Dict[str, str]] = []    # [{name, photo, bio, linkedin}]
 
 class TeamCreate(BaseModel):
     name: str
