@@ -207,7 +207,6 @@ export default function HackathonDetailEnhanced() {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Social Links Bar - Moved outside hero */}
       {(hackathon.twitter_url || hackathon.linkedin_url || hackathon.website_url || hackathon.community_url) && (
