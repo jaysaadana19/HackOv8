@@ -568,6 +568,7 @@ async def login(login_data: LoginRequest):
         id=user_doc["_id"],
         email=user_doc["email"],
         name=user_doc["name"],
+        role=user_doc.get("role", "participant"),
         picture=user_doc.get("picture"),
         session_token=session_token
     )
