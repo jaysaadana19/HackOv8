@@ -500,29 +500,29 @@ export default function HackathonDetailEnhanced() {
             </Card>
 
             {/* Info Card */}
-            <Card className="glass-effect p-4 sm:p-6 border border-purple-800/30">
+            <Card className="glass-effect p-4 sm:p-6 border border-gray-200 shadow-md">
               <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6 gradient-text">Details</h3>
               <div className="space-y-4">
-                <div className="flex items-start gap-3 p-3 bg-gray-900/30 rounded-lg">
-                  <MapPin className="w-5 h-5 text-purple-500 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                  <MapPin className="w-5 h-5 text-teal-600 mt-0.5" />
                   <div>
-                    <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white font-semibold capitalize">{hackathon.location}</p>
+                    <p className="text-gray-600 text-sm">Location</p>
+                    <p className="text-gray-900 font-semibold capitalize">{hackathon.location}</p>
                     {hackathon.venue && <p className="text-gray-500 text-xs mt-1">{hackathon.venue}</p>}
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-3 bg-gray-900/30 rounded-lg">
-                  <Users className="w-5 h-5 text-purple-500 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                  <Users className="w-5 h-5 text-teal-600 mt-0.5" />
                   <div>
-                    <p className="text-gray-400 text-sm">Team Size</p>
-                    <p className="text-white font-semibold">{hackathon.min_team_size}-{hackathon.max_team_size} members</p>
+                    <p className="text-gray-600 text-sm">Team Size</p>
+                    <p className="text-gray-900 font-semibold">{hackathon.min_team_size}-{hackathon.max_team_size} members</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-3 bg-gray-900/30 rounded-lg">
-                  <Code className="w-5 h-5 text-purple-500 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                  <Code className="w-5 h-5 text-teal-600 mt-0.5" />
                   <div>
-                    <p className="text-gray-400 text-sm">Category</p>
-                    <p className="text-white font-semibold capitalize">{hackathon.category}</p>
+                    <p className="text-gray-600 text-sm">Category</p>
+                    <p className="text-gray-900 font-semibold capitalize">{hackathon.category}</p>
                   </div>
                 </div>
               </div>
