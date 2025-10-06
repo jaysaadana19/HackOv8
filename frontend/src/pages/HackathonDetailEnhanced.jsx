@@ -259,15 +259,14 @@ export default function HackathonDetailEnhanced() {
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span className="text-sm font-medium">Join {hackathon.community_type === 'slack' ? 'Slack' : hackathon.community_type === 'discord' ? 'Discord' : 'Community'}</span>
-                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
 
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
