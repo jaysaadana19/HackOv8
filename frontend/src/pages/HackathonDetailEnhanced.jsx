@@ -316,12 +316,12 @@ export default function HackathonDetailEnhanced() {
                 </Card>
 
                 {hackathon.faqs.length > 0 && (
-                  <Card className="glass-effect p-4 sm:p-8 border border-purple-800/30 hover-lift">
+                  <Card className="glass-effect p-4 sm:p-8 border border-gray-200 hover-lift shadow-sm">
                     <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 gradient-text">FAQs</h2>
                     <div className="space-y-4">
                       {hackathon.faqs.map((faq, idx) => (
-                        <div key={idx} className="p-4 bg-gray-900/30 rounded-xl border border-gray-800">
-                          <p className="font-semibold text-white mb-2 text-base sm:text-lg">{faq.question}</p>
+                        <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                          <p className="font-semibold text-gray-900 mb-2 text-base sm:text-lg">{faq.question}</p>
                           <p className="text-gray-400">{faq.answer}</p>
                         </div>
                       ))}
