@@ -450,6 +450,7 @@ async def google_callback(code: str, redirect_uri: str):
         id=user_id,
         email=user_doc["email"],
         name=user_doc["name"],
+        role=user_doc.get("role", "participant"),
         picture=user_doc.get("picture"),
         session_token=session_token
     )
