@@ -569,8 +569,11 @@ export default function CreateHackathonModal({ onClose, onSuccess }) {
             </div>
 
             {/* Judges Section */}
-            <div className="md:col-span-2">
-              <Label className="text-gray-400 mb-3 block text-lg font-semibold">Judges</Label>
+            <div className="md:col-span-2 mt-6">
+              <Label className="text-gray-400 mb-3 block text-lg font-semibold">
+                👨‍⚖️ Judges (Optional)
+              </Label>
+              <p className="text-sm text-gray-500 mb-3">Add judges who will evaluate submissions</p>
               <div className="space-y-3">
                 {judges.map((judge, index) => (
                   <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700">
