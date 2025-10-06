@@ -125,20 +125,20 @@ export default function HackathonDetailEnhanced() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0b]">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="loading-spinner"></div>
       </div>
     );
   }
 
   if (!hackathon) {
-    return <div className="min-h-screen bg-[#0a0a0b] flex items-center justify-center text-white">Hackathon not found</div>;
+    return <div className="min-h-screen bg-white flex items-center justify-center text-gray-900">Hackathon not found</div>;
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b]">
+    <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
-      <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
+      <nav className="border-b border-gray-200 bg-white/95 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-4">
             <Button
