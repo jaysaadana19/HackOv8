@@ -20,7 +20,7 @@ export default function LandingEnhanced() {
   const [filterLocation, setFilterLocation] = useState('');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [counts, setCounts] = useState({ hackathons: 0, participants: 0, projects: 0 });
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const heroRef = useRef(null);
 
   useEffect(() => {
