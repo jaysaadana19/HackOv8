@@ -75,8 +75,7 @@ export default function AuthModal({ onClose, onSuccess }) {
     setLoading(true);
     try {
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
-        code: credential,
-        redirect_uri: window.location.origin,
+        credential: credential,
       });
 
       const { session_token, ...user } = response.data;
@@ -102,8 +101,7 @@ export default function AuthModal({ onClose, onSuccess }) {
     setLoading(true);
     try {
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
-        code: googleUserData.credential,
-        redirect_uri: window.location.origin,
+        credential: googleUserData.credential,
         role: googleRole,
         company_name: googleRole === 'organizer' ? googleCompanyName : undefined,
         company_website: googleRole === 'organizer' ? googleCompanyWebsite : undefined,
