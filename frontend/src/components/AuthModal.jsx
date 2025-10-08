@@ -641,7 +641,13 @@ export default function AuthModal({ onClose, onSuccess }) {
           <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[95vh] flex flex-col overflow-hidden relative z-[101]" onClick={(e) => e.stopPropagation()}>
             <div className="relative bg-gradient-to-br from-teal-500 to-teal-600 p-6 text-white flex-shrink-0">
               <button 
-                onClick={() => setShowGoogleRoleSelection(false)} 
+                onClick={() => {
+                  setShowGoogleRoleSelection(false);
+                  setGoogleUserData(null);
+                  setGoogleRole('participant');
+                  setGoogleCompanyName('');
+                  setGoogleCompanyWebsite('');
+                }} 
                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
                 disabled={loading}
               >
