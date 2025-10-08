@@ -141,7 +141,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       }
     } catch (error) {
       console.error('Google token callback error:', error);
-      toast.error('Google sign in failed');
+      toast.error(formatErrorMessage(error, 'Google sign in failed'));
     } finally {
       setLoading(false);
     }
