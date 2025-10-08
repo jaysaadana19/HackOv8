@@ -167,15 +167,18 @@ backend:
 
   - task: "Google OAuth Callback Endpoint"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "POST /api/auth/google/callback endpoint at line 387. Handles JWT tokens from Google Identity Services. Supports role selection (participant, organizer, judge) for new users and company creation for organizers. Verifies JWT audience against GOOGLE_CLIENT_ID."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED: ✅ POST /api/auth/google/callback endpoint working correctly with JWT token verification. ✅ Successfully decodes Google JWT tokens and validates audience against GOOGLE_CLIENT_ID. ✅ Creates new users with proper session tokens. ✅ Handles existing user login by updating last_login timestamp. ✅ Properly rejects invalid JWT tokens (400 Bad Request). ✅ Correctly validates JWT audience and rejects wrong client IDs. ✅ Returns SessionResponse with user details and session token. All JWT token handling working perfectly."
 
   - task: "Google OAuth Role-Based Registration"
     implemented: true
