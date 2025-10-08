@@ -106,7 +106,7 @@ export default function AuthModal({ onClose, onSuccess }) {
     
     if (response.error) {
       console.error('Google OAuth error:', response.error);
-      toast.error('Google sign in was cancelled or failed');
+      toast.error(formatErrorMessage(response.error, 'Google sign in was cancelled or failed'));
       return;
     }
 
