@@ -288,19 +288,15 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Google OAuth Check Email Endpoint"
-    - "Google OAuth Callback Endpoint"
-    - "Google OAuth Role-Based Registration"
-    - "Google OAuth Existing User Login"
-    - "Google OAuth Company Creation"
     - "Complete EditHackathonModal with All Fields"
     - "Team Creation Modal with Invite Code Display"
     - "Team Join Modal"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  backend_testing_complete: false
+  backend_testing_complete: true
   judge_dashboard_testing_complete: true
+  google_oauth_testing_complete: true
 
 agent_communication:
   - agent: "main"
