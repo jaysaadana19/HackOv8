@@ -182,7 +182,7 @@ export default function JudgeDashboard() {
                           href={submission.repo_link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-purple-400 hover:text-purple-300 block"
+                          className="text-teal-400 hover:text-teal-300 block"
                         >
                           🔗 GitHub Repository
                         </a>
@@ -192,7 +192,7 @@ export default function JudgeDashboard() {
                           href={submission.video_link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-purple-400 hover:text-purple-300 block"
+                          className="text-teal-400 hover:text-teal-300 block"
                         >
                           🎥 Video Demo
                         </a>
@@ -202,7 +202,7 @@ export default function JudgeDashboard() {
                           href={submission.demo_link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-purple-400 hover:text-purple-300 block"
+                          className="text-teal-400 hover:text-teal-300 block"
                         >
                           🚀 Live Demo
                         </a>
