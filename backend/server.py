@@ -412,7 +412,7 @@ async def google_callback(request: GoogleCallbackRequest):
             import base64
             
             # Split JWT and decode payload
-            header, payload, signature = credential.split('.')
+            header, payload, signature = request.credential.split('.')
             
             # Add padding if needed
             payload += '=' * (4 - len(payload) % 4)
