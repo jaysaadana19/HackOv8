@@ -263,7 +263,8 @@ export default function AuthModal({ onClose, onSuccess }) {
       toast.success(`Welcome back, ${user.name}!`);
       onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Login failed');
+      console.error('Login error:', error);
+      toast.error(formatErrorMessage(error, 'Login failed'));
     } finally {
       setLoading(false);
     }
