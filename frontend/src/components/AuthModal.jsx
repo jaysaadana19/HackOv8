@@ -12,6 +12,37 @@ import { setAuth } from '@/lib/auth';
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
+// Helper function to safely format error messages for display
+const formatErrorMessage = (error, defaultMessage) => {
+  if (typeof error === 'string') return error;
+  
+  if (error?.response?.data) {
+    const errorData = error.response.data;
+    
+    // Handle FastAPI validation errors
+    if (Array.isArray(errorData.detail)) {
+      return errorData.detail.map(err => err.msg || err.message || 'Validation error').join(', ');
+    }
+    
+    // Handle string detail
+    if (typeof errorData.detail === 'string') {
+      return errorData.detail;
+    }
+    
+    // Handle object detail
+    if (typeof errorData.detail === 'object' && errorData.detail.msg) {
+      return errorData.detail.msg;
+    }
+    
+    // Handle direct message
+    if (errorData.message) {
+      return errorData.message;
+    }
+  }
+  
+  return error?.message || defaultMessage;
+};
+
 export default function AuthModal({ onClose, onSuccess }) {
   const [activeTab, setActiveTab] = useState('login');
   const [loading, setLoading] = useState(false);
