@@ -349,15 +349,18 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Complete EditHackathonModal with All Fields"
-    - "Team Creation Modal with Invite Code Display"
-    - "Team Join Modal"
+    - "Google Sign In/Sign Up UI Implementation"
+    - "Google OAuth Flow and Role Selection"
+    - "Google Authentication Integration"
+    - "Google Identity Services Integration"
+    - "Google Callback Page"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
   backend_testing_complete: true
   judge_dashboard_testing_complete: true
-  google_oauth_testing_complete: true
+  google_oauth_backend_testing_complete: true
+  google_oauth_frontend_testing_needed: true
 
 agent_communication:
   - agent: "main"
