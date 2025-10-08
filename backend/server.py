@@ -454,11 +454,11 @@ async def google_callback(request: GoogleCallbackRequest):
         user_id = user_dict["_id"]
         
         # Create company if user is organizer
-        if user_role == "organizer" and company_name:
+        if user_role == "organizer" and request.company_name:
             company = Company(
-                name=company_name,
+                name=request.company_name,
                 email=user_info["email"],
-                website=company_website,
+                website=request.company_website,
                 admin_user_id=user_id
             )
             company_dict = company.dict(by_alias=True)
