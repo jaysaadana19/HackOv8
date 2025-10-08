@@ -196,19 +196,18 @@ export default function AuthModal({ onClose, onSuccess }) {
   const handleGoogleSignIn = () => {
     console.log('Google Sign In button clicked');
     
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      console.log('Google Identity Services available, prompting...');
+    if (window.googleOAuthClient) {
+      console.log('Starting Google OAuth2 popup...');
       try {
-        window.google.accounts.id.prompt();
+        // This will open the Google OAuth popup
+        window.googleOAuthClient.requestAccessToken();
       } catch (error) {
-        console.error('Error prompting Google Sign In:', error);
+        console.error('Error starting Google OAuth popup:', error);
         toast.error('Google Sign In failed to start');
       }
     } else {
-      console.error('Google Identity Services not available');
-      console.log('window.google:', typeof window.google);
-      console.log('window.google.accounts:', typeof window.google?.accounts);
-      toast.error('Google Sign In is not available. Please try again.');
+      console.error('Google OAuth2 client not initialized');
+      toast.error('Google Sign In is not ready. Please refresh and try again.');
     }
   };
 
