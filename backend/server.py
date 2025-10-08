@@ -212,6 +212,12 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
+class GoogleCallbackRequest(BaseModel):
+    credential: str
+    role: Optional[str] = None
+    company_name: Optional[str] = None
+    company_website: Optional[str] = None
+
 class HackathonCreate(BaseModel):
     title: str
     description: str
