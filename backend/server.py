@@ -911,6 +911,111 @@ async def get_co_organizers(hackathon_id: str, request: Request):
     if not (is_organizer or is_co_organizer or is_admin):
         raise HTTPException(status_code=403, detail="Not authorized")
     
+
+
+@api_router.post("/hackathons/{hackathon_id}/assign-judge")
+async def assign_judge(hackathon_id: str, email: str, request: Request):
+    """Assign a judge to a hackathon by email"""
+    user = await get_current_user(request)
+    
+    # Get hackathon
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check authorization (organizer, co-organizer, or admin)
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Find judge by email
+    judge = await db.users.find_one({"email": email})
+    if not judge:
+        raise HTTPException(status_code=404, detail="User not found with this email")
+    
+    judge_id = judge["_id"]
+    
+    # Check if user is actually a judge
+    if judge["role"] != "judge":
+        raise HTTPException(status_code=400, detail="User is not registered as a judge")
+    
+    # Check if already assigned
+    if judge_id in hackathon.get("assigned_judges", []):
+        raise HTTPException(status_code=400, detail="Judge is already assigned to this hackathon")
+    
+    # Assign judge
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$addToSet": {"assigned_judges": judge_id}}
+    )
+    
+    return {"message": f"Judge {judge['name']} assigned successfully", "judge": {
+        "id": judge_id,
+        "name": judge["name"],
+        "email": judge["email"]
+    }}
+
+@api_router.delete("/hackathons/{hackathon_id}/assign-judge/{judge_id}")
+async def remove_assigned_judge(hackathon_id: str, judge_id: str, request: Request):
+    """Remove an assigned judge from a hackathon"""
+    user = await get_current_user(request)
+    
+    # Get hackathon
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check authorization
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Remove judge assignment
+    await db.hackathons.update_one(
+        {"_id": hackathon_id},
+        {"$pull": {"assigned_judges": judge_id}}
+    )
+    
+    return {"message": "Judge assignment removed successfully"}
+
+@api_router.get("/hackathons/{hackathon_id}/assigned-judges")
+async def get_assigned_judges(hackathon_id: str, request: Request):
+    """Get list of assigned judges for a hackathon"""
+    user = await get_current_user(request)
+    
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Check authorization
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Get judge details
+    judge_ids = hackathon.get("assigned_judges", [])
+    judges = []
+    
+    for judge_id in judge_ids:
+        judge_user = await db.users.find_one({"_id": judge_id})
+        if judge_user:
+            judges.append({
+                "id": judge_user["_id"],
+                "name": judge_user["name"],
+                "email": judge_user["email"]
+            })
+    
+    return judges
+
     # Get co-organizer details
     co_organizer_ids = hackathon.get("co_organizers", [])
     co_organizers = []
