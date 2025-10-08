@@ -440,7 +440,7 @@ async def google_callback(request: GoogleCallbackRequest):
         )
     else:
         # Create new user with role selection
-        user_role = role if role and role in ["participant", "organizer", "judge"] else "participant"
+        user_role = request.role if request.role and request.role in ["participant", "organizer", "judge"] else "participant"
         
         user = User(
             email=user_info["email"],
