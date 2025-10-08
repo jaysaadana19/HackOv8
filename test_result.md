@@ -213,7 +213,6 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Judge Dashboard - Show Only Assigned Hackathons"
     - "Complete EditHackathonModal with All Fields"
     - "Team Creation Modal with Invite Code Display"
     - "Team Join Modal"
