@@ -233,6 +233,18 @@ export default function OrganizerDashboard() {
                       <UserPlus className="w-4 h-4 mr-2" />
                       Manage Co-organizers
                     </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-400 hover:text-purple-400 hover:bg-purple-900/20"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowJudgesModal(true);
+                      }}
+                    >
+                      <Users className="w-4 h-4 mr-2" />
+                      Assign Judges
+                    </Button>
                   </div>
 
                   <div className="flex gap-2 pt-4 border-t border-gray-800">
