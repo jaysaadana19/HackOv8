@@ -36,12 +36,28 @@ export default function AuthModal({ onClose, onSuccess }) {
 
   useEffect(() => {
     // Initialize Google Sign In
-    if (window.google && window.google.accounts) {
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleGoogleCallback,
-      });
-    }
+    const initializeGoogle = () => {
+      if (window.google && window.google.accounts) {
+        const clientId = import.meta.env.REACT_APP_GOOGLE_CLIENT_ID || process.env.REACT_APP_GOOGLE_CLIENT_ID;
+        console.log('Initializing Google OAuth with client ID:', clientId ? 'Found' : 'Missing');
+        
+        if (clientId) {
+          window.google.accounts.id.initialize({
+            client_id: clientId,
+            callback: handleGoogleCallback,
+          });
+        } else {
+          console.error('Google Client ID not found in environment variables');
+        }
+      } else {
+        console.log('Google Identity Services not loaded yet, retrying...');
+        // Retry after a short delay
+        setTimeout(initializeGoogle, 1000);
+      }
+    };
+    
+    // Start initialization
+    initializeGoogle();
   }, []);
 
   const handleGoogleCallback = async (response) => {
