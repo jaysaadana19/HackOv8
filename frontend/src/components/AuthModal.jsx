@@ -187,7 +187,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       return;
     }
     
-    if (googleRole === 'organizer' && !googleCompanyName.trim()) {
+    if (googleRole === 'organizer' && (!googleCompanyName || !googleCompanyName.trim())) {
       toast.error('Company name is required for organizers');
       return;
     }
