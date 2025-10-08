@@ -1481,6 +1481,17 @@ db.user_sessions.insertOne({{
             print(f"   ✅ Admin can access judge dashboard (returned {len(response)} hackathons)")
         
         # Test 10: Test judge assignment validation
+        # Get participant email for testing
+        success, participant_info = self.run_test(
+            "Get Participant Info for Assignment Test",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.participant_session_token
+        )
+        
+        participant_email = participant_info.get('email') if success else 'participant@example.com'
+        
         # Try to assign non-judge user
         success, response = self.run_test(
             "Try Assign Non-Judge User (Should Fail)",
