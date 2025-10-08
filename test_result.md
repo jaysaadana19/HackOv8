@@ -187,6 +187,18 @@ frontend:
         agent: "main"
         comment: "JoinTeamModal already exists with invite code input. Updated button colors to match teal theme. Backend validation handles: team exists, user registered, user not already in team, team not full."
 
+  - task: "Judge Dashboard - Show Only Assigned Hackathons"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/JudgeDashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Updated JudgeDashboard to use hackathonAPI.getJudgeHackathons() instead of getAll(). Now fetches only hackathons where the logged-in judge is assigned. Also updated theme colors from purple to teal to match White+Teal+Navy theme. Backend endpoint GET /api/hackathons/judge/my already exists and working."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
