@@ -70,21 +70,38 @@ export default function AuthModal({ onClose, onSuccess }) {
     setTimeout(initializeGoogle, 500);
   }, []);
 
-  const handleGoogleCallback = async (response) => {
+  const handleGoogleTokenCallback = async (response) => {
+    console.log('Google token callback received:', response);
+    
+    if (response.error) {
+      console.error('Google OAuth error:', response.error);
+      toast.error('Google sign in was cancelled or failed');
+      return;
+    }
+
     try {
-      // Decode JWT token to get user info
-      const userInfo = JSON.parse(atob(response.credential.split('.')[1]));
+      setLoading(true);
+      
+      // Use the access token to get user info from Google
+      const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+        headers: {
+          'Authorization': `Bearer ${response.access_token}`
+        }
+      });
+      
+      const userInfo = await userInfoResponse.json();
+      console.log('Google user info:', userInfo);
       
       // Check if user already exists
       const checkResponse = await axios.get(`${API_URL}/users/check-email?email=${userInfo.email}`);
       
       if (checkResponse.data.exists) {
-        // User exists, proceed with login
-        await handleGoogleLogin(response.credential);
+        // User exists, proceed with login - create a mock JWT for backend
+        await handleGoogleLoginWithUserInfo(userInfo);
       } else {
         // New user, show role selection
         setGoogleUserData({
-          credential: response.credential,
+          userInfo: userInfo,
           email: userInfo.email,
           name: userInfo.name,
           picture: userInfo.picture
@@ -92,8 +109,10 @@ export default function AuthModal({ onClose, onSuccess }) {
         setShowGoogleRoleSelection(true);
       }
     } catch (error) {
-      console.error('Google callback error:', error);
+      console.error('Google token callback error:', error);
       toast.error('Google sign in failed');
+    } finally {
+      setLoading(false);
     }
   };
 
