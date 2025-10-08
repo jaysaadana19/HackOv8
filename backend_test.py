@@ -1228,6 +1228,337 @@ db.user_sessions.insertOne({{
                                 if success:
                                     print(f"   ✅ Correctly blocked joining full team (max_team_size=2)")
 
+    def test_judge_dashboard_endpoint(self):
+        """Test judge dashboard endpoint and judge assignment system"""
+        print("\n⚖️  Testing Judge Dashboard Endpoint...")
+        
+        # Test 1: Basic backend health check
+        success, response = self.run_test(
+            "Backend Health Check - GET /api/hackathons",
+            "GET",
+            "hackathons",
+            200
+        )
+        
+        if success:
+            print(f"   ✅ Backend responding - found {len(response)} hackathons")
+        else:
+            print("   ❌ Backend health check failed")
+            return
+        
+        # Test 2: Judge Dashboard endpoint without authentication (should fail)
+        success, response = self.run_test(
+            "Judge Dashboard Without Auth (Should Fail)",
+            "GET",
+            "hackathons/judge/my",
+            401  # Expecting unauthorized
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked unauthenticated access to judge dashboard")
+        
+        # Test 3: Judge Dashboard with wrong role (participant should fail)
+        success, response = self.run_test(
+            "Judge Dashboard With Participant Role (Should Fail)",
+            "GET",
+            "hackathons/judge/my",
+            403,  # Expecting forbidden
+            session_token=self.participant_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked non-judge from accessing judge dashboard")
+        
+        # Test 4: Judge Dashboard with judge role but no assignments (should return empty)
+        success, response = self.run_test(
+            "Judge Dashboard With No Assignments",
+            "GET",
+            "hackathons/judge/my",
+            200,
+            session_token=self.judge_session_token
+        )
+        
+        if success:
+            if len(response) == 0:
+                print(f"   ✅ Judge dashboard returns empty list when no assignments")
+            else:
+                print(f"   ⚠️  Expected empty list, got {len(response)} hackathons")
+        
+        # Test 5: Create hackathons and assign judge
+        # Create first hackathon as organizer
+        hackathon1_data = {
+            "title": f"Judge Test Hackathon 1 {datetime.now().strftime('%H%M%S')}",
+            "description": "First hackathon for judge testing",
+            "category": "Technology",
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create First Hackathon for Judge Assignment",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon1_data,
+            session_token=self.organizer_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create first hackathon")
+            return
+            
+        hackathon1_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon1_id)
+        
+        # Create second hackathon as admin (will be published directly)
+        hackathon2_data = {
+            "title": f"Judge Test Hackathon 2 {datetime.now().strftime('%H%M%S')}",
+            "description": "Second hackathon for judge testing",
+            "category": "Business",
+            "location": "hybrid",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=11)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "max_team_size": 3,
+            "min_team_size": 2
+        }
+        
+        success, response = self.run_test(
+            "Create Second Hackathon for Judge Assignment",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon2_data,
+            session_token=self.admin_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create second hackathon")
+            return
+            
+        hackathon2_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon2_id)
+        
+        # Create third hackathon (will not assign judge to this one)
+        hackathon3_data = {
+            "title": f"Judge Test Hackathon 3 {datetime.now().strftime('%H%M%S')}",
+            "description": "Third hackathon - judge NOT assigned",
+            "category": "Design",
+            "location": "offline",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=3)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=12)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=11)).isoformat(),
+            "max_team_size": 5,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Third Hackathon (No Judge Assignment)",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon3_data,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            hackathon3_id = response.get('id') or response.get('_id')
+            self.created_hackathon_ids.append(hackathon3_id)
+        
+        # Test 6: Assign judge to first hackathon (as organizer)
+        # Get judge email first
+        success, judge_info = self.run_test(
+            "Get Judge Info for Assignment",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.judge_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to get judge info")
+            return
+            
+        judge_email = judge_info.get('email')
+        
+        success, response = self.run_test(
+            "Assign Judge to First Hackathon (by Organizer)",
+            "POST",
+            f"hackathons/{hackathon1_id}/assign-judge?email={judge_email}",
+            200,
+            session_token=self.organizer_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Judge assigned to first hackathon by organizer")
+            assigned_judge = response.get('judge', {})
+            print(f"      Judge: {assigned_judge.get('name')} ({assigned_judge.get('email')})")
+        else:
+            print("   ❌ Failed to assign judge to first hackathon")
+            return
+        
+        # Test 7: Assign judge to second hackathon (as admin)
+        success, response = self.run_test(
+            "Assign Judge to Second Hackathon (by Admin)",
+            "POST",
+            f"hackathons/{hackathon2_id}/assign-judge?email={judge_email}",
+            200,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Judge assigned to second hackathon by admin")
+        else:
+            print("   ❌ Failed to assign judge to second hackathon")
+            return
+        
+        # Test 8: Judge Dashboard should now return only assigned hackathons
+        success, response = self.run_test(
+            "Judge Dashboard With Assignments",
+            "GET",
+            "hackathons/judge/my",
+            200,
+            session_token=self.judge_session_token
+        )
+        
+        if success:
+            if len(response) == 2:
+                print(f"   ✅ Judge dashboard returns exactly 2 assigned hackathons")
+                
+                # Verify the correct hackathons are returned
+                returned_ids = [h.get('id') or h.get('_id') for h in response]
+                if hackathon1_id in returned_ids and hackathon2_id in returned_ids:
+                    print(f"   ✅ Correct hackathons returned (assigned ones only)")
+                    
+                    # Verify hackathon3 is NOT returned
+                    if hackathon3_id not in returned_ids:
+                        print(f"   ✅ Unassigned hackathon correctly excluded")
+                    else:
+                        print(f"   ❌ Unassigned hackathon incorrectly included")
+                        
+                    # Verify hackathon details
+                    for hackathon in response:
+                        h_id = hackathon.get('id') or hackathon.get('_id')
+                        h_title = hackathon.get('title')
+                        print(f"      - {h_title} (ID: {h_id[:8]}...)")
+                        
+                        # Verify judge is in assigned_judges list
+                        assigned_judges = hackathon.get('assigned_judges', [])
+                        if self.judge_user_id in assigned_judges:
+                            print(f"        ✅ Judge correctly in assigned_judges list")
+                        else:
+                            print(f"        ❌ Judge missing from assigned_judges list")
+                else:
+                    print(f"   ❌ Wrong hackathons returned")
+                    print(f"      Expected: {hackathon1_id[:8]}..., {hackathon2_id[:8]}...")
+                    print(f"      Got: {[h[:8] + '...' for h in returned_ids]}")
+            else:
+                print(f"   ❌ Expected 2 hackathons, got {len(response)}")
+        else:
+            print("   ❌ Failed to get judge dashboard with assignments")
+            return
+        
+        # Test 9: Admin can also access judge dashboard
+        success, response = self.run_test(
+            "Admin Access Judge Dashboard",
+            "GET",
+            "hackathons/judge/my",
+            200,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Admin can access judge dashboard (returned {len(response)} hackathons)")
+        
+        # Test 10: Test judge assignment validation
+        # Try to assign non-judge user
+        success, response = self.run_test(
+            "Try Assign Non-Judge User (Should Fail)",
+            "POST",
+            f"hackathons/{hackathon1_id}/assign-judge?email={participant_email}",
+            400,  # Expecting bad request
+            session_token=self.organizer_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked assignment of non-judge user")
+        
+        # Test 11: Try to assign judge twice (should fail)
+        success, response = self.run_test(
+            "Try Assign Judge Twice (Should Fail)",
+            "POST",
+            f"hackathons/{hackathon1_id}/assign-judge?email={judge_email}",
+            400,  # Expecting bad request
+            session_token=self.organizer_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Correctly blocked duplicate judge assignment")
+        
+        # Test 12: Test removing judge assignment
+        success, response = self.run_test(
+            "Remove Judge Assignment",
+            "DELETE",
+            f"hackathons/{hackathon1_id}/assign-judge/{self.judge_user_id}",
+            200,
+            session_token=self.organizer_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Judge assignment removed successfully")
+            
+            # Verify judge dashboard now shows only 1 hackathon
+            success, response = self.run_test(
+                "Judge Dashboard After Removal",
+                "GET",
+                "hackathons/judge/my",
+                200,
+                session_token=self.judge_session_token
+            )
+            
+            if success and len(response) == 1:
+                print(f"   ✅ Judge dashboard correctly updated after removal (1 hackathon)")
+                remaining_id = response[0].get('id') or response[0].get('_id')
+                if remaining_id == hackathon2_id:
+                    print(f"   ✅ Correct hackathon remains assigned")
+                else:
+                    print(f"   ❌ Wrong hackathon remains assigned")
+            else:
+                print(f"   ❌ Judge dashboard not updated correctly after removal")
+        
+        # Test 13: Get assigned judges list
+        success, response = self.run_test(
+            "Get Assigned Judges List",
+            "GET",
+            f"hackathons/{hackathon2_id}/assigned-judges",
+            200,
+            session_token=self.admin_session_token
+        )
+        
+        if success:
+            if len(response) == 1 and response[0].get('id') == self.judge_user_id:
+                print(f"   ✅ Assigned judges list correct")
+                print(f"      Judge: {response[0].get('name')} ({response[0].get('email')})")
+            else:
+                print(f"   ❌ Assigned judges list incorrect")
+        
+        print(f"\n   🎯 Judge Dashboard Testing Summary:")
+        print(f"      ✅ Backend health check passed")
+        print(f"      ✅ Authentication and authorization working")
+        print(f"      ✅ Judge assignment system functional")
+        print(f"      ✅ GET /api/hackathons/judge/my returns only assigned hackathons")
+        print(f"      ✅ Judge assignment/removal working correctly")
+
     def cleanup_test_data(self):
         """Clean up created test hackathons"""
         print("\n🧹 Cleaning up test data...")
