@@ -14,6 +14,8 @@ class AdminPanelAPITester:
         self.admin_user_id = None
         self.organizer_user_id = None
         self.participant_user_id = None
+        self.judge_user_id = None
+        self.judge_session_token = None
         self.tests_run = 0
         self.tests_passed = 0
         self.test_results = []
