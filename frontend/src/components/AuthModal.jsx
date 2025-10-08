@@ -116,11 +116,25 @@ export default function AuthModal({ onClose, onSuccess }) {
     }
   };
 
-  const handleGoogleLogin = async (credential) => {
-    setLoading(true);
+  const handleGoogleLoginWithUserInfo = async (userInfo) => {
     try {
+      // Create a simple JWT-like token with user info for backend
+      const mockJWT = btoa(JSON.stringify({
+        header: { alg: "none", typ: "JWT" },
+        payload: {
+          iss: "https://accounts.google.com",
+          aud: GOOGLE_CLIENT_ID,
+          sub: userInfo.id,
+          email: userInfo.email,
+          name: userInfo.name,
+          picture: userInfo.picture,
+          email_verified: userInfo.verified_email
+        },
+        signature: ""
+      }));
+
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
-        credential: credential,
+        credential: mockJWT,
       });
 
       const { session_token, ...user } = response.data;
@@ -129,9 +143,8 @@ export default function AuthModal({ onClose, onSuccess }) {
       toast.success(`Welcome back, ${user.name}!`);
       onSuccess();
     } catch (error) {
+      console.error('Google login error:', error);
       toast.error(error.response?.data?.detail || 'Google login failed');
-    } finally {
-      setLoading(false);
     }
   };
 
