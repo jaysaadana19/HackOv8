@@ -1787,12 +1787,8 @@ db.user_sessions.insertOne({{
         success, response = self.run_test(
             "Google OAuth - Wrong Audience JWT (Should Fail)",
             "POST",
-            "auth/google/callback",
-            400,  # Expecting bad request
-            data={
-                "credential": wrong_audience_jwt,
-                "role": "participant"
-            }
+            f"auth/google/callback?credential={wrong_audience_jwt}&role=participant",
+            400  # Expecting bad request
         )
         
         if success:
