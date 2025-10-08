@@ -299,7 +299,8 @@ export default function AuthModal({ onClose, onSuccess }) {
       toast.success(`Welcome to Hackov8, ${user.name}!`);
       onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Signup failed');
+      console.error('Signup error:', error);
+      toast.error(formatErrorMessage(error, 'Signup failed'));
     } finally {
       setLoading(false);
     }
