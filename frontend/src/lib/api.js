@@ -73,6 +73,11 @@ export const hackathonAPI = {
   addCoOrganizer: (id, email) => api.post(`/hackathons/${id}/co-organizers`, null, { params: { email } }),
   removeCoOrganizer: (id, userId) => api.delete(`/hackathons/${id}/co-organizers/${userId}`),
   getCoOrganizers: (id) => api.get(`/hackathons/${id}/co-organizers`),
+  // Judge assignment
+  assignJudge: (id, email) => api.post(`/hackathons/${id}/assign-judge`, null, { params: { email } }),
+  removeAssignedJudge: (id, judgeId) => api.delete(`/hackathons/${id}/assign-judge/${judgeId}`),
+  getAssignedJudges: (id) => api.get(`/hackathons/${id}/assigned-judges`),
+  getJudgeHackathons: () => api.get('/hackathons/judge/my'),
 };
 
 // Upload APIs
