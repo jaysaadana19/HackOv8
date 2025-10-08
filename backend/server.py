@@ -1011,7 +1011,10 @@ async def get_assigned_judges(hackathon_id: str, request: Request):
             judges.append({
                 "id": judge_user["_id"],
                 "name": judge_user["name"],
-
+                "email": judge_user["email"]
+            })
+    
+    return judges
 
 @api_router.get("/hackathons/judge/my")
 async def get_judge_hackathons(request: Request):
