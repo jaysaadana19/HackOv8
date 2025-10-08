@@ -1622,7 +1622,10 @@ db.user_sessions.insertOne({{
         # Step 11: Test team creation and joining
         self.test_team_join_endpoint()  # This calls test_team_creation_endpoint internally
         
-        # Step 12: Cleanup
+        # Step 12: Test judge dashboard endpoint (NEW TEST)
+        self.test_judge_dashboard_endpoint()
+        
+        # Step 13: Cleanup
         self.cleanup_test_data()
         
         # Print summary
