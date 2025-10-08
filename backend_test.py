@@ -1744,12 +1744,8 @@ db.user_sessions.insertOne({{
         success, response = self.run_test(
             "Google OAuth - Existing User Login",
             "POST",
-            "auth/google/callback",
-            200,
-            data={
-                "credential": participant_jwt
-                # No role needed for existing users
-            }
+            f"auth/google/callback?credential={participant_jwt}",
+            200
         )
         
         if success:
