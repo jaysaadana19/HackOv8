@@ -1029,12 +1029,7 @@ async def get_judge_hackathons(request: Request):
     
     return [{**h, "id": h.pop("_id")} for h in hackathons]
 
-                "email": judge_user["email"]
-            })
-    
-    return judges
-
-    # Get co-organizer details
+# Get co-organizer details
     co_organizer_ids = hackathon.get("co_organizers", [])
     co_organizers = []
     
