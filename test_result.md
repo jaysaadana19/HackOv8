@@ -152,15 +152,18 @@ backend:
 
   - task: "Google OAuth Check Email Endpoint"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "GET /api/users/check-email endpoint at line 481. Returns {exists: boolean} to check if user with given email exists. Used by frontend to determine if Google OAuth user is new or existing."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED: ✅ GET /api/users/check-email endpoint working correctly. ✅ Returns {exists: false} for non-existent emails. ✅ Returns {exists: true} for existing user emails. ✅ Properly handles various email formats. All email checking functionality working perfectly."
 
   - task: "Google OAuth Callback Endpoint"
     implemented: true
