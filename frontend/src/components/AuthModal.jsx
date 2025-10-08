@@ -27,6 +27,13 @@ export default function AuthModal({ onClose, onSuccess }) {
   const [companyName, setCompanyName] = useState('');
   const [companyWebsite, setCompanyWebsite] = useState('');
 
+  // Google OAuth state
+  const [showGoogleRoleSelection, setShowGoogleRoleSelection] = useState(false);
+  const [googleUserData, setGoogleUserData] = useState(null);
+  const [googleRole, setGoogleRole] = useState('participant');
+  const [googleCompanyName, setGoogleCompanyName] = useState('');
+  const [googleCompanyWebsite, setGoogleCompanyWebsite] = useState('');
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!loginEmail || !loginPassword) {
