@@ -27,13 +27,11 @@ export default function JudgeDashboard() {
   const fetchAssignedHackathons = async () => {
     setLoading(true);
     try {
-      // Get all hackathons where user is assigned as judge
-      const token = localStorage.getItem('session_token');
-      const response = await hackathonAPI.getAll({ status: 'published' });
-      // For MVP, show all published hackathons
+      // Get only hackathons where user is assigned as judge
+      const response = await hackathonAPI.getJudgeHackathons();
       setHackathons(response.data);
     } catch (error) {
-      toast.error('Failed to load hackathons');
+      toast.error('Failed to load assigned hackathons');
     } finally {
       setLoading(false);
     }
