@@ -182,15 +182,18 @@ backend:
 
   - task: "Google OAuth Role-Based Registration"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Google OAuth callback supports role selection during registration. New users can select participant, organizer, or judge roles. Organizers can provide company details (name, website) which creates a Company record and links it to the user."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED: ✅ Role-based registration working perfectly for all roles. ✅ Participant role: Creates user with role='participant' and proper user details. ✅ Organizer role: Creates user with role='organizer' and links to company if provided. ✅ Judge role: Creates user with role='judge' for hackathon evaluation. ✅ All roles properly set in user record and returned in SessionResponse. ✅ Role validation ensures only valid roles (participant, organizer, judge) are accepted. All role-based registration functionality working correctly."
 
   - task: "Google OAuth Existing User Login"
     implemented: true
