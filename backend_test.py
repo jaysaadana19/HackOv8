@@ -266,6 +266,21 @@ print('Judge session token: {judge_session_token}');
             
         print(f"   ✅ Participant authenticated: {response.get('name')} (Role: {response.get('role')})")
         
+        # Test judge authentication
+        success, response = self.run_test(
+            "Judge Auth Check",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.judge_session_token
+        )
+        
+        if not success or response.get('role') != 'judge':
+            print(f"   ❌ Judge auth failed: {response}")
+            return False
+            
+        print(f"   ✅ Judge authenticated: {response.get('name')} (Role: {response.get('role')})")
+        
         return True
 
     def test_admin_stats_analytics(self):
