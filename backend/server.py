@@ -476,6 +476,12 @@ async def google_callback(code: str, redirect_uri: str, role: Optional[str] = No
         session_token=session_token
     )
 
+@api_router.get("/users/check-email")
+async def check_email_exists(email: str):
+    """Check if user with given email exists"""
+    user = await db.users.find_one({"email": email})
+    return {"exists": user is not None}
+
 @api_router.get("/auth/me")
 async def get_current_user_info(request: Request):
     user = await get_current_user(request)
