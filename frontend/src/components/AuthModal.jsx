@@ -175,7 +175,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       onSuccess();
     } catch (error) {
       console.error('Google login error:', error);
-      toast.error(error.response?.data?.detail || 'Google login failed');
+      toast.error(formatErrorMessage(error, 'Google login failed'));
     }
   };
 
