@@ -150,6 +150,66 @@ backend:
         agent: "testing"
         comment: "COMPREHENSIVE TESTING COMPLETED: ✅ User successfully joins team using invite code and is added to members list. ✅ Registration updated with team_id. ✅ User CANNOT join if not registered for hackathon (400 Bad Request). ✅ User CANNOT join if already in a team for that hackathon (400 Bad Request). ✅ User CANNOT join if team is full - tested with max_team_size=2, correctly blocked 3rd member (400 Bad Request). All team size validation (1-4 members) working perfectly."
 
+  - task: "Google OAuth Check Email Endpoint"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "GET /api/users/check-email endpoint at line 481. Returns {exists: boolean} to check if user with given email exists. Used by frontend to determine if Google OAuth user is new or existing."
+
+  - task: "Google OAuth Callback Endpoint"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "POST /api/auth/google/callback endpoint at line 387. Handles JWT tokens from Google Identity Services. Supports role selection (participant, organizer, judge) for new users and company creation for organizers. Verifies JWT audience against GOOGLE_CLIENT_ID."
+
+  - task: "Google OAuth Role-Based Registration"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Google OAuth callback supports role selection during registration. New users can select participant, organizer, or judge roles. Organizers can provide company details (name, website) which creates a Company record and links it to the user."
+
+  - task: "Google OAuth Existing User Login"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Google OAuth callback handles existing users by finding them by email and updating last_login timestamp. Creates new session token and returns SessionResponse with user details."
+
+  - task: "Google OAuth Company Creation"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "When organizer role is selected during Google OAuth registration, system creates Company record with provided company_name and company_website. Company is linked to user via company_id field. Located in Google OAuth callback at line 450-458."
+
 frontend:
   - task: "Complete EditHackathonModal with All Fields"
     implemented: true
