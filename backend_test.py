@@ -1646,12 +1646,8 @@ db.user_sessions.insertOne({{
         success, response = self.run_test(
             "Google OAuth - New Participant Registration",
             "POST",
-            "auth/google/callback",
-            200,
-            data={
-                "credential": participant_jwt,
-                "role": "participant"
-            }
+            f"auth/google/callback?credential={participant_jwt}&role=participant",
+            200
         )
         
         participant_session_token = None
