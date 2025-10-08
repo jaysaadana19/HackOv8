@@ -112,7 +112,8 @@ class Hackathon(BaseModel):
     co_organizers: List[str] = []  # List of user IDs who can co-manage this hackathon
     # Sponsors and Judges
     sponsors: List[Dict[str, str]] = []  # [{name, logo, website}]
-    judges: List[Dict[str, str]] = []    # [{name, photo, bio, linkedin}]
+    judges: List[Dict[str, str]] = []    # [{name, photo, bio, linkedin}] - Display only
+    assigned_judges: List[str] = []  # List of user IDs (judges) assigned to evaluate this hackathon
     
     class Config:
         populate_by_name = True
