@@ -36,36 +36,37 @@ export default function AuthModal({ onClose, onSuccess }) {
   const [googleCompanyWebsite, setGoogleCompanyWebsite] = useState('');
 
   useEffect(() => {
-    // Initialize Google Sign In
+    // Initialize Google Sign In using OAuth2 popup method
     const initializeGoogle = () => {
-      console.log('Checking Google services...', {
+      console.log('Initializing Google OAuth2 popup...', {
         google: typeof window.google,
         accounts: typeof window.google?.accounts,
+        oauth2: typeof window.google?.accounts?.oauth2,
         clientId: GOOGLE_CLIENT_ID ? 'Found' : 'Missing'
       });
       
-      if (window.google && window.google.accounts && GOOGLE_CLIENT_ID) {
-        console.log('Initializing Google OAuth...');
-        try {
-          window.google.accounts.id.initialize({
-            client_id: GOOGLE_CLIENT_ID,
-            callback: handleGoogleCallback,
-          });
-          console.log('Google OAuth initialized successfully');
-        } catch (error) {
-          console.error('Error initializing Google OAuth:', error);
-        }
+      if (window.google && window.google.accounts && window.google.accounts.oauth2 && GOOGLE_CLIENT_ID) {
+        console.log('Google OAuth2 services available');
+        
+        // Initialize OAuth2 client for popup
+        window.googleOAuthClient = window.google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: 'openid email profile',
+          callback: handleGoogleTokenCallback,
+        });
+        
+        console.log('Google OAuth2 popup client initialized');
       } else {
         if (!GOOGLE_CLIENT_ID) {
           console.error('Google Client ID not found in environment variables');
         } else {
-          console.log('Google Identity Services not loaded yet, retrying...');
+          console.log('Google OAuth2 services not loaded yet, retrying...');
           setTimeout(initializeGoogle, 1000);
         }
       }
     };
     
-    // Start initialization after a short delay to ensure DOM is ready
+    // Start initialization after a short delay
     setTimeout(initializeGoogle, 500);
   }, []);
 
