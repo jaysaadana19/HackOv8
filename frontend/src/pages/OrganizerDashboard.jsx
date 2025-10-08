@@ -352,6 +352,19 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showJudgesModal && selectedHackathon && (
+        <ManageJudgesModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowJudgesModal(false);
+            setSelectedHackathon(null);
+          }}
+          onSuccess={() => {
+            fetchMyHackathons();
+          }}
+        />
+      )}
     </div>
   );
 }
