@@ -166,9 +166,28 @@ db.user_sessions.insertOne({{
   created_at: new Date()
 }});
 
+// Create judge user
+db.users.insertOne({{
+  _id: '{judge_user_id}',
+  email: '{judge_email}',
+  name: 'Test Judge User',
+  role: 'judge',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{judge_user_id}',
+  session_token: '{judge_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+
 print('Admin session token: {admin_session_token}');
 print('Organizer session token: {organizer_session_token}');
 print('Participant session token: {participant_session_token}');
+print('Judge session token: {judge_session_token}');
 """
         
         try:
