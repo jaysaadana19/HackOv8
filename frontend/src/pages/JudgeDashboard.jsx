@@ -211,7 +211,7 @@ export default function JudgeDashboard() {
 
                     <Button
                       onClick={() => handleScoreSubmission(submission)}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                      className="w-full bg-teal-600 hover:bg-teal-700 text-white"
                       data-testid={`score-btn-${submission.id}`}
                     >
                       <Star className="w-4 h-4 mr-2" />
