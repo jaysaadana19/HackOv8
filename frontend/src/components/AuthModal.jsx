@@ -204,11 +204,6 @@ export default function AuthModal({ onClose, onSuccess }) {
       }));
       const signature = "mock_signature";
       const mockJWT = `${header}.${payload}.${signature}`;
-      
-      console.log('Created JWT token for backend:', { header, payload: JSON.stringify({
-        email: googleUserData.userInfo.email,
-        name: googleUserData.userInfo.name
-      }) });
 
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
         credential: mockJWT,
