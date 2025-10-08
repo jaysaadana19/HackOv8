@@ -198,13 +198,16 @@ print('Judge session token: {judge_session_token}');
                 self.admin_session_token = admin_session_token
                 self.organizer_session_token = organizer_session_token
                 self.participant_session_token = participant_session_token
+                self.judge_session_token = judge_session_token
                 self.admin_user_id = admin_user_id
                 self.organizer_user_id = organizer_user_id
                 self.participant_user_id = participant_user_id
+                self.judge_user_id = judge_user_id
                 
                 print(f"   ✅ Created admin user: {admin_email}")
                 print(f"   ✅ Created organizer user: {organizer_email}")
                 print(f"   ✅ Created participant user: {participant_email}")
+                print(f"   ✅ Created judge user: {judge_email}")
                 return True
             else:
                 print(f"   ❌ MongoDB script failed: {result.stderr}")
