@@ -208,20 +208,24 @@ export default function AuthModal({ onClose, onSuccess }) {
     console.log('✅ All validations passed, proceeding with signup...');
     setLoading(true);
     try {
-      // Create a simple JWT-like token with user info for backend
-      const mockJWT = btoa(JSON.stringify({
-        header: { alg: "none", typ: "JWT" },
-        payload: {
-          iss: "https://accounts.google.com",
-          aud: GOOGLE_CLIENT_ID,
-          sub: googleUserData.userInfo.id,
-          email: googleUserData.userInfo.email,
-          name: googleUserData.userInfo.name,
-          picture: googleUserData.userInfo.picture,
-          email_verified: googleUserData.userInfo.verified_email
-        },
-        signature: ""
+      // Create a proper JWT-like token with user info for backend
+      const header = btoa(JSON.stringify({ alg: "none", typ: "JWT" }));
+      const payload = btoa(JSON.stringify({
+        iss: "https://accounts.google.com",
+        aud: GOOGLE_CLIENT_ID,
+        sub: googleUserData.userInfo.id,
+        email: googleUserData.userInfo.email,
+        name: googleUserData.userInfo.name,
+        picture: googleUserData.userInfo.picture,
+        email_verified: googleUserData.userInfo.verified_email
       }));
+      const signature = "mock_signature";
+      const mockJWT = `${header}.${payload}.${signature}`;
+      
+      console.log('Created JWT token for backend:', { header, payload: JSON.stringify({
+        email: googleUserData.userInfo.email,
+        name: googleUserData.userInfo.name
+      }) });
 
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
         credential: mockJWT,
