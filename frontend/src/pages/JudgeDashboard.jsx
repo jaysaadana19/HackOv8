@@ -146,8 +146,8 @@ export default function JudgeDashboard() {
                 <h3 className="font-bold text-lg text-white mb-4">Judging Criteria</h3>
                 <div className="flex gap-4 flex-wrap">
                   {selectedHackathon.judging_rubric.map((rubric, idx) => (
-                    <div key={idx} className="flex items-center gap-2 bg-purple-900/20 px-4 py-2 rounded-lg">
-                      <Star className="w-4 h-4 text-purple-500" />
+                    <div key={idx} className="flex items-center gap-2 bg-teal-900/20 px-4 py-2 rounded-lg">
+                      <Star className="w-4 h-4 text-teal-500" />
                       <span className="text-white">{rubric.criteria}</span>
                       <span className="text-gray-400 text-sm">({rubric.max_score} pts)</span>
                     </div>
