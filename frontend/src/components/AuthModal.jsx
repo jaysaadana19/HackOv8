@@ -651,7 +651,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       {/* Google Role Selection Modal */}
       {showGoogleRoleSelection && googleUserData && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] p-4" data-testid="google-role-selection-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[95vh] flex flex-col overflow-hidden">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[95vh] flex flex-col overflow-hidden relative z-[101]" onClick={(e) => e.stopPropagation()}>
             <div className="relative bg-gradient-to-br from-teal-500 to-teal-600 p-6 text-white flex-shrink-0">
               <button 
                 onClick={() => setShowGoogleRoleSelection(false)} 
