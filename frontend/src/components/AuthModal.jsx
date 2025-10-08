@@ -137,10 +137,21 @@ export default function AuthModal({ onClose, onSuccess }) {
   };
 
   const handleGoogleSignIn = () => {
-    if (window.google && window.google.accounts) {
-      window.google.accounts.id.prompt();
+    console.log('Google Sign In button clicked');
+    
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      console.log('Google Identity Services available, prompting...');
+      try {
+        window.google.accounts.id.prompt();
+      } catch (error) {
+        console.error('Error prompting Google Sign In:', error);
+        toast.error('Google Sign In failed to start');
+      }
     } else {
-      toast.error('Google Sign In is not available');
+      console.error('Google Identity Services not available');
+      console.log('window.google:', typeof window.google);
+      console.log('window.google.accounts:', typeof window.google?.accounts);
+      toast.error('Google Sign In is not available. Please try again.');
     }
   };
 
