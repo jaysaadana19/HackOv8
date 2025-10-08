@@ -71,7 +71,7 @@ export default function JudgeDashboard() {
           <Button variant="ghost" onClick={() => navigate('/dashboard')} className="text-gray-400">
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <Rocket className="w-6 h-6 text-purple-500" />
+          <Rocket className="w-6 h-6 text-teal-500" />
           <span className="text-xl font-bold gradient-text">Judge Dashboard</span>
         </div>
       </nav>
