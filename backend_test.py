@@ -1764,12 +1764,8 @@ db.user_sessions.insertOne({{
         success, response = self.run_test(
             "Google OAuth - Invalid JWT Token (Should Fail)",
             "POST",
-            "auth/google/callback",
-            400,  # Expecting bad request
-            data={
-                "credential": invalid_jwt,
-                "role": "participant"
-            }
+            f"auth/google/callback?credential={invalid_jwt}&role=participant",
+            400  # Expecting bad request
         )
         
         if success:
