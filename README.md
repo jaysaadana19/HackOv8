@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://hackov8.emergent.host
+**Live Demo:** https://hackov8.preview.emergentagent.com
