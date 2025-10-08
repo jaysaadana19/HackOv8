@@ -451,11 +451,18 @@ async def google_callback(credential: str, role: Optional[str] = None, company_n
         if user_role == "organizer" and company_name:
             company = Company(
                 name=company_name,
+                email=user_info["email"],
                 website=company_website,
-                owner_id=user_id
+                admin_user_id=user_id
             )
             company_dict = company.dict(by_alias=True)
             await db.companies.insert_one(company_dict)
+            
+            # Update user with company_id
+            await db.users.update_one(
+                {"_id": user_id},
+                {"$set": {"company_id": company_dict["_id"]}}
+            )
     
     # Create session
     session_token = secrets.token_urlsafe(32)
