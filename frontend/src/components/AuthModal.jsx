@@ -624,32 +624,10 @@ export default function AuthModal({ onClose, onSuccess }) {
                 Sign up with Google
               </Button>
 
-              {/* Debug button with exact user data from screenshot */}
-              <Button
-                onClick={() => {
-                  console.log('Testing with Jay Saadana data...');
-                  setGoogleUserData({
-                    userInfo: {
-                      id: '12345',
-                      email: 'community@gonx.in',
-                      name: 'Jay Saadana',
-                      picture: 'https://lh3.googleusercontent.com/a/default-user',
-                      verified_email: true
-                    },
-                    email: 'community@gonx.in',
-                    name: 'Jay Saadana',
-                    picture: 'https://lh3.googleusercontent.com/a/default-user'
-                  });
-                  setGoogleRole('participant'); // Set to participant explicitly
-                  setGoogleCompanyName(''); // Clear company fields
-                  setGoogleCompanyWebsite('');
-                  setShowGoogleRoleSelection(true);
-                }}
-                variant="outline"
-                className="w-full h-11 border-2 border-blue-200 bg-blue-50 hover:border-blue-300 rounded-xl font-semibold transition-all text-blue-800"
-              >
-                🧪 Debug: Test Jay's Data
-              </Button>
+              <div className="text-center text-xs text-gray-400 mt-2">
+                Note: Google OAuth popup requires domain authorization in Google Cloud Console.
+                <br />Add hackov8-manage.preview.emergentagent.com to authorized domains.
+              </div>
 
               <div className="text-center text-sm text-gray-500 mt-4">
                 Already have an account?{' '}
