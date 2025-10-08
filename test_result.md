@@ -212,15 +212,18 @@ backend:
 
   - task: "Google OAuth Company Creation"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "When organizer role is selected during Google OAuth registration, system creates Company record with provided company_name and company_website. Company is linked to user via company_id field. Located in Google OAuth callback at line 450-458."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED: ✅ Company creation during Google OAuth organizer registration working perfectly. ✅ Creates Company record with provided company_name and company_website parameters. ✅ Sets company email to user's Google email and admin_user_id to user ID. ✅ Links company to user via company_id field in user record. ✅ Company accessible via GET /api/companies/my endpoint. ✅ Company details correctly stored (name, website, admin_user_id). ✅ Fixed Company model validation issue (admin_user_id vs owner_id). All company creation functionality working correctly."
 
 frontend:
   - task: "Complete EditHackathonModal with All Fields"
