@@ -180,20 +180,33 @@ export default function AuthModal({ onClose, onSuccess }) {
   };
 
   const handleGoogleSignup = async () => {
-    console.log('handleGoogleSignup called', { googleUserData, googleRole, googleCompanyName });
+    console.log('=== handleGoogleSignup DEBUG ===');
+    console.log('googleUserData:', googleUserData);
+    console.log('googleRole:', googleRole);
+    console.log('googleCompanyName:', googleCompanyName);
+    console.log('googleCompanyWebsite:', googleCompanyWebsite);
     
+    // Validation checks
     if (!googleUserData) {
+      console.log('❌ Validation failed: No googleUserData');
       toast.error('Google user data not found. Please try again.');
       return;
     }
     
+    if (!googleUserData.userInfo) {
+      console.log('❌ Validation failed: No userInfo in googleUserData');
+      toast.error('Google user information incomplete. Please try again.');
+      return;
+    }
+    
     if (googleRole === 'organizer' && (!googleCompanyName || !googleCompanyName.trim())) {
+      console.log('❌ Validation failed: Organizer role without company name');
       toast.error('Company name is required for organizers');
       return;
     }
 
+    console.log('✅ All validations passed, proceeding with signup...');
     setLoading(true);
-    console.log('Starting Google signup process...');
     try {
       // Create a simple JWT-like token with user info for backend
       const mockJWT = btoa(JSON.stringify({
