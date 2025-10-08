@@ -1668,17 +1668,15 @@ db.user_sessions.insertOne({{
             print("   ❌ Failed to create participant via Google OAuth")
         
         # Test 4: Google OAuth - New Organizer Registration with Company
+        import urllib.parse
+        company_name = urllib.parse.quote("Google Test Company")
+        company_website = urllib.parse.quote("https://googletestcompany.com")
+        
         success, response = self.run_test(
             "Google OAuth - New Organizer Registration with Company",
             "POST",
-            "auth/google/callback",
-            200,
-            data={
-                "credential": organizer_jwt,
-                "role": "organizer",
-                "company_name": "Google Test Company",
-                "company_website": "https://googletestcompany.com"
-            }
+            f"auth/google/callback?credential={organizer_jwt}&role=organizer&company_name={company_name}&company_website={company_website}",
+            200
         )
         
         organizer_session_token = None
