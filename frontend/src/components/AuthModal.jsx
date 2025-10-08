@@ -218,7 +218,8 @@ export default function AuthModal({ onClose, onSuccess }) {
       setShowGoogleRoleSelection(false);
       onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Google signup failed');
+      console.error('Google signup error:', error);
+      toast.error(formatErrorMessage(error, 'Google signup failed'));
     } finally {
       setLoading(false);
     }
