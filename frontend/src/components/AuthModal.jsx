@@ -158,8 +158,23 @@ export default function AuthModal({ onClose, onSuccess }) {
 
     setLoading(true);
     try {
+      // Create a simple JWT-like token with user info for backend
+      const mockJWT = btoa(JSON.stringify({
+        header: { alg: "none", typ: "JWT" },
+        payload: {
+          iss: "https://accounts.google.com",
+          aud: GOOGLE_CLIENT_ID,
+          sub: googleUserData.userInfo.id,
+          email: googleUserData.userInfo.email,
+          name: googleUserData.userInfo.name,
+          picture: googleUserData.userInfo.picture,
+          email_verified: googleUserData.userInfo.verified_email
+        },
+        signature: ""
+      }));
+
       const response = await axios.post(`${API_URL}/auth/google/callback`, {
-        credential: googleUserData.credential,
+        credential: mockJWT,
         role: googleRole,
         company_name: googleRole === 'organizer' ? googleCompanyName : undefined,
         company_website: googleRole === 'organizer' ? googleCompanyWebsite : undefined,
