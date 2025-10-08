@@ -10,6 +10,7 @@ import axios from 'axios';
 import { setAuth } from '@/lib/auth';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export default function AuthModal({ onClose, onSuccess }) {
   const [activeTab, setActiveTab] = useState('login');
