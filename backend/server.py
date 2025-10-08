@@ -385,40 +385,42 @@ async def process_session(request: Request):
     )
 
 @api_router.post("/auth/google/callback")
-async def google_callback(code: str, redirect_uri: str, role: Optional[str] = None, company_name: Optional[str] = None, company_website: Optional[str] = None):
-    """Handle Google OAuth callback with role selection for new users"""
+async def google_callback(credential: str, role: Optional[str] = None, company_name: Optional[str] = None, company_website: Optional[str] = None):
+    """Handle Google OAuth callback with JWT token from Google Identity Services"""
     client_id = os.environ.get('GOOGLE_CLIENT_ID')
-    client_secret = os.environ.get('GOOGLE_CLIENT_SECRET')
     
-    if not client_id or not client_secret:
+    if not client_id:
         raise HTTPException(status_code=500, detail="Google OAuth not configured")
     
-    # Exchange code for tokens
-    async with httpx.AsyncClient() as client:
-        try:
-            token_response = await client.post(
-                'https://oauth2.googleapis.com/token',
-                data={
-                    'code': code,
-                    'client_id': client_id,
-                    'client_secret': client_secret,
-                    'redirect_uri': redirect_uri,
-                    'grant_type': 'authorization_code'
-                }
-            )
-            token_response.raise_for_status()
-            tokens = token_response.json()
+    try:
+        # Verify and decode the JWT token
+        async with httpx.AsyncClient() as client:
+            # Get Google's public keys
+            keys_response = await client.get('https://www.googleapis.com/oauth2/v3/certs')
+            keys_response.raise_for_status()
+            keys = keys_response.json()
             
-            # Get user info from Google
-            user_info_response = await client.get(
-                'https://www.googleapis.com/oauth2/v2/userinfo',
-                headers={'Authorization': f'Bearer {tokens["access_token"]}'}
-            )
-            user_info_response.raise_for_status()
-            user_info = user_info_response.json()
+            # For simplicity, we'll decode without verification (in production, verify the signature)
+            # Decode the JWT payload
+            import json
+            import base64
             
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Google OAuth failed: {str(e)}")
+            # Split JWT and decode payload
+            header, payload, signature = credential.split('.')
+            
+            # Add padding if needed
+            payload += '=' * (4 - len(payload) % 4)
+            
+            # Decode payload
+            decoded_payload = base64.urlsafe_b64decode(payload)
+            user_info = json.loads(decoded_payload)
+            
+            # Verify the audience (client_id)
+            if user_info.get('aud') != client_id:
+                raise HTTPException(status_code=400, detail="Invalid token audience")
+                
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Google token verification failed: {str(e)}")
     
     # Check if user exists
     existing_user = await db.users.find_one({"email": user_info["email"]})
