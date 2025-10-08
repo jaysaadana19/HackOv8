@@ -602,6 +602,31 @@ export default function AuthModal({ onClose, onSuccess }) {
                 Sign up with Google
               </Button>
 
+              {/* TEST BUTTON - Remove after Google domain is authorized */}
+              <Button
+                onClick={() => {
+                  // Simulate successful Google OAuth for testing
+                  console.log('Testing Google role selection...');
+                  setGoogleUserData({
+                    userInfo: {
+                      id: '12345',
+                      email: 'test@example.com',
+                      name: 'Test User',
+                      picture: 'https://via.placeholder.com/150',
+                      verified_email: true
+                    },
+                    email: 'test@example.com',
+                    name: 'Test User',
+                    picture: 'https://via.placeholder.com/150'
+                  });
+                  setShowGoogleRoleSelection(true);
+                }}
+                variant="outline"
+                className="w-full h-11 border-2 border-yellow-200 bg-yellow-50 hover:border-yellow-300 rounded-xl font-semibold transition-all text-yellow-800"
+              >
+                🧪 Test Google Role Selection
+              </Button>
+
               <div className="text-center text-sm text-gray-500 mt-4">
                 Already have an account?{' '}
                 <button 
