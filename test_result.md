@@ -197,15 +197,18 @@ backend:
 
   - task: "Google OAuth Existing User Login"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Google OAuth callback handles existing users by finding them by email and updating last_login timestamp. Creates new session token and returns SessionResponse with user details."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED: ✅ Existing user login via Google OAuth working perfectly. ✅ Finds existing user by email from JWT token. ✅ Updates last_login timestamp for retention tracking. ✅ Creates new session token for the login session. ✅ Returns same user ID and details as previous registration. ✅ No role parameter needed for existing users. ✅ Session token authentication works correctly after login. All existing user login functionality working correctly."
 
   - task: "Google OAuth Company Creation"
     implemented: true
