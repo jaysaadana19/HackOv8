@@ -1011,6 +1011,21 @@ async def get_assigned_judges(hackathon_id: str, request: Request):
             judges.append({
                 "id": judge_user["_id"],
                 "name": judge_user["name"],
+
+
+@api_router.get("/hackathons/judge/my")
+async def get_judge_hackathons(request: Request):
+    """Get hackathons assigned to the current judge"""
+    user = await get_current_user(request)
+    await require_role(user, ["judge", "admin"])
+    
+    # Get hackathons where this judge is assigned
+    hackathons = await db.hackathons.find({
+        "assigned_judges": user.id
+    }).sort("created_at", -1).to_list(100)
+    
+    return [{**h, "id": h.pop("_id")} for h in hackathons]
+
                 "email": judge_user["email"]
             })
     
