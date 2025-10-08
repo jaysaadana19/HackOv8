@@ -1929,7 +1929,10 @@ db.user_sessions.insertOne({{
         # Step 12: Test judge dashboard endpoint (NEW TEST)
         self.test_judge_dashboard_endpoint()
         
-        # Step 13: Cleanup
+        # Step 13: Test Google OAuth authentication system (NEW TEST)
+        self.test_google_oauth_system()
+        
+        # Step 14: Cleanup
         self.cleanup_test_data()
         
         # Print summary
