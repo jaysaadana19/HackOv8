@@ -34,6 +34,102 @@ export default function AuthModal({ onClose, onSuccess }) {
   const [googleCompanyName, setGoogleCompanyName] = useState('');
   const [googleCompanyWebsite, setGoogleCompanyWebsite] = useState('');
 
+  useEffect(() => {
+    // Initialize Google Sign In
+    if (window.google && window.google.accounts) {
+      window.google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        callback: handleGoogleCallback,
+      });
+    }
+  }, []);
+
+  const handleGoogleCallback = async (response) => {
+    try {
+      // Decode JWT token to get user info
+      const userInfo = JSON.parse(atob(response.credential.split('.')[1]));
+      
+      // Check if user already exists
+      const checkResponse = await axios.get(`${API_URL}/users/check-email?email=${userInfo.email}`);
+      
+      if (checkResponse.data.exists) {
+        // User exists, proceed with login
+        await handleGoogleLogin(response.credential);
+      } else {
+        // New user, show role selection
+        setGoogleUserData({
+          credential: response.credential,
+          email: userInfo.email,
+          name: userInfo.name,
+          picture: userInfo.picture
+        });
+        setShowGoogleRoleSelection(true);
+      }
+    } catch (error) {
+      console.error('Google callback error:', error);
+      toast.error('Google sign in failed');
+    }
+  };
+
+  const handleGoogleLogin = async (credential) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/auth/google/callback`, {
+        code: credential,
+        redirect_uri: window.location.origin,
+      });
+
+      const { session_token, ...user } = response.data;
+      setAuth(session_token, user);
+      
+      toast.success(`Welcome back, ${user.name}!`);
+      onSuccess();
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Google login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    if (!googleUserData) return;
+    
+    if (googleRole === 'organizer' && !googleCompanyName) {
+      toast.error('Company name is required for organizers');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/auth/google/callback`, {
+        code: googleUserData.credential,
+        redirect_uri: window.location.origin,
+        role: googleRole,
+        company_name: googleRole === 'organizer' ? googleCompanyName : undefined,
+        company_website: googleRole === 'organizer' ? googleCompanyWebsite : undefined,
+      });
+
+      const { session_token, ...user } = response.data;
+      setAuth(session_token, user);
+      
+      toast.success(`Welcome to Hackov8, ${user.name}!`);
+      setShowGoogleRoleSelection(false);
+      onSuccess();
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Google signup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    if (window.google && window.google.accounts) {
+      window.google.accounts.id.prompt();
+    } else {
+      toast.error('Google Sign In is not available');
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!loginEmail || !loginPassword) {
