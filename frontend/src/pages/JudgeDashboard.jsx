@@ -107,13 +107,13 @@ export default function JudgeDashboard() {
                       </div>
 
                       <div className="flex items-center gap-2 text-sm">
-                        <FileText className="w-4 h-4 text-purple-500" />
+                        <FileText className="w-4 h-4 text-teal-500" />
                         <span className="text-gray-400">View submissions to score</span>
                       </div>
 
                       <Button
                         onClick={() => handleViewSubmissions(hackathon)}
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                        className="w-full bg-teal-600 hover:bg-teal-700 text-white"
                         data-testid={`view-submissions-${hackathon.id}`}
                       >
                         View Submissions
