@@ -391,7 +391,7 @@ async def process_session(request: Request):
     )
 
 @api_router.post("/auth/google/callback")
-async def google_callback(credential: str, role: Optional[str] = None, company_name: Optional[str] = None, company_website: Optional[str] = None):
+async def google_callback(request: GoogleCallbackRequest):
     """Handle Google OAuth callback with JWT token from Google Identity Services"""
     client_id = os.environ.get('GOOGLE_CLIENT_ID')
     
