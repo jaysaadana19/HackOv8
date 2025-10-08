@@ -104,6 +104,11 @@ class AdminPanelAPITester:
         participant_session_token = f"participant_session_{timestamp}"
         participant_email = f"participant.{timestamp}@example.com"
         
+        # Create judge user
+        judge_user_id = f"judge-user-{timestamp}"
+        judge_session_token = f"judge_session_{timestamp}"
+        judge_email = f"judge.{timestamp}@example.com"
+        
         mongo_script = f"""
 use('test_database');
 
