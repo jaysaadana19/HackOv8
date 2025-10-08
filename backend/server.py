@@ -385,11 +385,12 @@ async def process_session(request: Request):
     )
 
 @api_router.post("/auth/google/callback")
-async def google_callback(code: str, redirect_uri: str):
-    """Handle Google OAuth callback"""
+async def google_callback(code: str, redirect_uri: str, role: Optional[str] = None, company_name: Optional[str] = None, company_website: Optional[str] = None):
+    """Handle Google OAuth callback with role selection for new users"""
     client_id = os.environ.get('GOOGLE_CLIENT_ID')
+    client_secret = os.environ.get('GOOGLE_CLIENT_SECRET')
     
-    if not client_id:
+    if not client_id or not client_secret:
         raise HTTPException(status_code=500, detail="Google OAuth not configured")
     
     # Exchange code for tokens
@@ -400,6 +401,7 @@ async def google_callback(code: str, redirect_uri: str):
                 data={
                     'code': code,
                     'client_id': client_id,
+                    'client_secret': client_secret,
                     'redirect_uri': redirect_uri,
                     'grant_type': 'authorization_code'
                 }
@@ -429,17 +431,29 @@ async def google_callback(code: str, redirect_uri: str):
             {"$set": {"last_login": datetime.now(timezone.utc)}}
         )
     else:
-        # Create new user
+        # Create new user with role selection
+        user_role = role if role and role in ["participant", "organizer", "judge"] else "participant"
+        
         user = User(
             email=user_info["email"],
             name=user_info.get("name", user_info["email"].split("@")[0]),
             picture=user_info.get("picture"),
-            role="participant",
+            role=user_role,
             last_login=datetime.now(timezone.utc)
         )
         user_dict = user.dict(by_alias=True)
         await db.users.insert_one(user_dict)
         user_id = user_dict["_id"]
+        
+        # Create company if user is organizer
+        if user_role == "organizer" and company_name:
+            company = Company(
+                name=company_name,
+                website=company_website,
+                owner_id=user_id
+            )
+            company_dict = company.dict(by_alias=True)
+            await db.companies.insert_one(company_dict)
     
     # Create session
     session_token = secrets.token_urlsafe(32)
