@@ -1718,12 +1718,8 @@ db.user_sessions.insertOne({{
         success, response = self.run_test(
             "Google OAuth - New Judge Registration",
             "POST",
-            "auth/google/callback",
-            200,
-            data={
-                "credential": judge_jwt,
-                "role": "judge"
-            }
+            f"auth/google/callback?credential={judge_jwt}&role=judge",
+            200
         )
         
         judge_session_token = None
