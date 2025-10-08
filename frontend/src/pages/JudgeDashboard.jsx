@@ -96,8 +96,8 @@ export default function JudgeDashboard() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {hackathons.map((hackathon) => (
                   <Card key={hackathon.id} className="glass-effect hover-lift overflow-hidden" data-testid={`judge-hackathon-${hackathon.id}`}>
-                    <div className="h-32 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center">
-                      <Award className="w-12 h-12 text-purple-500" />
+                    <div className="h-32 bg-gradient-to-br from-teal-600/30 to-teal-900/30 flex items-center justify-center">
+                      <Award className="w-12 h-12 text-teal-500" />
                     </div>
 
                     <div className="p-6 space-y-4">
