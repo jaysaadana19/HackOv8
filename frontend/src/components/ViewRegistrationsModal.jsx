@@ -166,7 +166,7 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
             <div className="flex items-center justify-center py-20">
               <div className="w-8 h-8 border-3 border-purple-300 border-t-purple-600 rounded-full animate-spin"></div>
             </div>
-          ) : registrations.length === 0 ? (
+          ) : filteredRegistrations.length === 0 ? (
             <div className="text-center py-20">
               <Users className="w-16 h-16 text-gray-600 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">
