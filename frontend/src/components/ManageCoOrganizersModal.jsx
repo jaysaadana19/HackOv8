@@ -122,33 +122,36 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
 
           {/* Co-organizers List */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Current Co-organizers</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Current Co-organizers</h3>
             {loadingList ? (
-              <div className="text-center py-8 text-gray-400">Loading...</div>
+              <div className="text-center py-8">
+                <div className="w-8 h-8 border-3 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-3" />
+                <p className="text-gray-500">Loading co-organizers...</p>
+              </div>
             ) : coOrganizers.length === 0 ? (
               <div className="text-center py-8">
-                <User className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-400">No co-organizers yet</p>
+                <User className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                <p className="text-gray-600">No co-organizers yet</p>
                 <p className="text-gray-500 text-sm mt-1">Add co-organizers to collaborate on this event</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {coOrganizers.map((coOrg) => (
-                  <Card key={coOrg.id} className="bg-gray-900/30 border-gray-800 p-4 flex items-center justify-between">
+                  <Card key={coOrg.id} className="bg-gray-50 border-gray-200 p-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
                         <User className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white">{coOrg.name}</p>
-                        <p className="text-sm text-gray-400">{coOrg.email}</p>
+                        <p className="font-semibold text-gray-900">{coOrg.name}</p>
+                        <p className="text-sm text-gray-600">{coOrg.email}</p>
                       </div>
                     </div>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleRemoveCoOrganizer(coOrg.id)}
-                      className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                      className="text-red-500 hover:text-red-600 hover:bg-red-50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
