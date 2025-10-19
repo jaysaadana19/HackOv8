@@ -169,8 +169,26 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
           ) : registrations.length === 0 ? (
             <div className="text-center py-20">
               <Users className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">No registrations yet</h3>
-              <p className="text-gray-400">Participants will appear here once they register</p>
+              <h3 className="text-xl font-bold text-white mb-2">
+                {registrations.length === 0 ? 'No registrations yet' : 'No matching registrations'}
+              </h3>
+              <p className="text-gray-400">
+                {registrations.length === 0 
+                  ? 'Participants will appear here once they register'
+                  : 'Try adjusting your search or filter criteria'
+                }
+              </p>
+              {filteredRegistrations.length === 0 && registrations.length > 0 && (
+                <button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setStatusFilter('all');
+                  }}
+                  className="mt-4 text-teal-400 hover:text-teal-300 text-sm underline"
+                >
+                  Show all registrations
+                </button>
+              )}
             </div>
           ) : (
             <>
