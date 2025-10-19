@@ -483,12 +483,11 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Complete EditHackathonModal with All Fields"
+    - "Team Creation Modal with Invite Code Display"
+    - "Team Join Modal"
     - "Dashboard Referral Section"
-    - "Non-Registered User Share & Earn Button"
     - "Registered User Multiple Share & Earn Buttons"
-    - "Referral Modal Implementation"
-    - "Co-organizer Management Modal"
-    - "Referral Analytics Modal"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -497,6 +496,7 @@ test_plan:
   google_oauth_backend_testing_complete: true
   google_oauth_frontend_testing_complete: true
   referral_system_testing_needed: true
+  viewregistrationsmodal_testing_complete: true
 
 agent_communication:
   - agent: "main"
