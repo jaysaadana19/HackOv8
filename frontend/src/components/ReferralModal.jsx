@@ -11,9 +11,17 @@ export default function ReferralModal({ hackathon, onClose }) {
   const [referralData, setReferralData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
   useEffect(() => {
-    fetchReferralLink();
+    const authenticated = isAuthenticated();
+    setIsUserAuthenticated(authenticated);
+    
+    if (authenticated) {
+      fetchReferralLink();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const fetchReferralLink = async () => {
