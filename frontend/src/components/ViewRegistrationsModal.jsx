@@ -86,7 +86,7 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
 
-    toast.success('CSV downloaded successfully!');
+    toast.success(`CSV downloaded! (${dataToExport.length} registration${dataToExport.length !== 1 ? 's' : ''})`);
   };
 
   return (
