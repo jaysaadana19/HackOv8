@@ -247,6 +247,18 @@ export default function OrganizerDashboard() {
                       <Users className="w-4 h-4 mr-2" />
                       Assign Judges
                     </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-400 hover:text-blue-400 hover:bg-blue-900/20"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowReferralAnalytics(true);
+                      }}
+                    >
+                      <TrendingUp className="w-4 h-4 mr-2" />
+                      Referral Analytics
+                    </Button>
                   </div>
 
                   <div className="flex gap-2 pt-4 border-t border-gray-800">
