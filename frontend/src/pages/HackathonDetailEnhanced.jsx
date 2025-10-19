@@ -826,10 +826,10 @@ export default function HackathonDetailEnhanced() {
           }}
         />
       )}
-      {showSubmit && myTeam && (
+      {showSubmit && myTeam && hackathon && (
         <SubmitProjectModal
           teamId={myTeam.id}
-          hackathonId={id}
+          hackathonId={hackathon.id}
           onClose={() => setShowSubmit(false)}
           onSuccess={() => {
             setShowSubmit(false);
