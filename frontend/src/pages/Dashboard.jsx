@@ -147,7 +147,7 @@ export default function Dashboard() {
                 </Button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 glass-effect rounded-xl p-4 max-h-96 overflow-y-auto shadow-2xl border border-purple-800/30 animate-fadeIn">
+                  <div className="absolute right-0 mt-2 w-72 sm:w-80 glass-effect rounded-xl p-4 max-h-96 overflow-y-auto shadow-2xl border border-teal-800/30 animate-fadeIn z-50">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="font-semibold text-white">Notifications</h3>
                       {unreadCount > 0 && (
