@@ -10,6 +10,8 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userDetails, setUserDetails] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     fetchRegistrations();
