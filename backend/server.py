@@ -579,6 +579,83 @@ async def get_referral_link(hackathon_id: str, request: Request):
         }
     }
 
+@api_router.get("/hackathons/{hackathon_id}/referral-analytics")
+async def get_hackathon_referral_analytics(hackathon_id: str, request: Request):
+    """Get referral analytics for organizers"""
+    user = await get_current_user(request)
+    
+    # Check if user is organizer or admin
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon.get("organizer_id") == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Get referral statistics
+    pipeline = [
+        {"$match": {"hackathon_id": hackathon_id, "referred_by": {"$ne": None}}},
+        {"$lookup": {
+            "from": "users",
+            "localField": "referred_by",
+            "foreignField": "_id",
+            "as": "referrer"
+        }},
+        {"$lookup": {
+            "from": "users", 
+            "localField": "user_id",
+            "foreignField": "_id",
+            "as": "referred_user"
+        }},
+        {"$project": {
+            "registered_at": 1,
+            "utm_source": 1,
+            "utm_campaign": 1, 
+            "utm_medium": 1,
+            "referrer_name": {"$arrayElemAt": ["$referrer.name", 0]},
+            "referrer_email": {"$arrayElemAt": ["$referrer.email", 0]},
+            "referrer_code": {"$arrayElemAt": ["$referrer.referral_code", 0]},
+            "referred_user_name": {"$arrayElemAt": ["$referred_user.name", 0]},
+            "referred_user_email": {"$arrayElemAt": ["$referred_user.email", 0]}
+        }},
+        {"$sort": {"registered_at": -1}}
+    ]
+    
+    referrals = await db.registrations.aggregate(pipeline).to_list(length=None)
+    
+    # Count by referrer
+    referrer_stats = {}
+    for referral in referrals:
+        referrer_email = referral.get("referrer_email")
+        if referrer_email:
+            if referrer_email not in referrer_stats:
+                referrer_stats[referrer_email] = {
+                    "name": referral.get("referrer_name"),
+                    "email": referrer_email,
+                    "referral_code": referral.get("referrer_code"),
+                    "count": 0,
+                    "recent_referrals": []
+                }
+            referrer_stats[referrer_email]["count"] += 1
+            referrer_stats[referrer_email]["recent_referrals"].append({
+                "user_name": referral.get("referred_user_name"),
+                "registered_at": referral.get("registered_at")
+            })
+    
+    # Sort by count
+    top_referrers = sorted(referrer_stats.values(), key=lambda x: x["count"], reverse=True)[:10]
+    
+    return {
+        "total_referrals": len(referrals),
+        "total_referrers": len(referrer_stats),
+        "top_referrers": top_referrers,
+        "recent_referrals": referrals[:20]
+    }
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
