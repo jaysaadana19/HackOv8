@@ -276,6 +276,62 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {/* Referral Section */}
+        {myReferralStats && (
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+              Share & <span className="gradient-text">Earn</span>
+            </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+              {/* Referral Stats Card */}
+              <Card className="glass-effect border border-gray-800 p-4 sm:p-6 lg:col-span-2">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <TrendingUp className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Your Referral Impact</h3>
+                    <p className="text-sm text-gray-400">Share hackathons and grow the community</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="text-center p-3 bg-gray-900/30 rounded-lg">
+                    <div className="text-2xl font-bold text-teal-400">{myReferralStats.total_referrals || 0}</div>
+                    <div className="text-xs text-gray-500">Successful Referrals</div>
+                  </div>
+                  <div className="text-center p-3 bg-gray-900/30 rounded-lg">
+                    <div className="text-lg font-bold text-gray-300 font-mono">{myReferralStats.referral_code}</div>
+                    <div className="text-xs text-gray-500">Your Referral Code</div>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <p className="text-sm text-gray-400 mb-3">
+                    Get your personalized referral link for any hackathon you're registered for
+                  </p>
+                </div>
+              </Card>
+
+              {/* Quick Share Card */}
+              <Card className="glass-effect border border-gray-800 p-4 sm:p-6">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Share2 className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Share Any Event</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    Click "Share & Earn" on any hackathon page to get your referral link
+                  </p>
+                  <Badge className="bg-teal-900/50 text-teal-300 border-teal-700">
+                    Available on all event pages
+                  </Badge>
+                </div>
+              </Card>
+            </div>
+          </div>
+        )}
+
         {/* My Registrations */}
         {myRegistrations.length > 0 && (
           <div className="mb-8 sm:mb-12">
