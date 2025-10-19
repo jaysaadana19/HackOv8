@@ -29,6 +29,7 @@ export default function HackathonDetailEnhanced() {
   const [showCreateTeam, setShowCreateTeam] = useState(false);
   const [showJoinTeam, setShowJoinTeam] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
+  const [showReferral, setShowReferral] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const user = getUser();
 
