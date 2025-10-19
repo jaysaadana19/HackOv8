@@ -107,8 +107,16 @@ export const companyAPI = {
 
 // Registration APIs
 export const registrationAPI = {
-  register: (hackathonId, teamId) => api.post('/registrations', null, { params: { hackathon_id: hackathonId, team_id: teamId } }),
+  register: (hackathonId, teamId = null, referralData = {}) => {
+    const params = { 
+      hackathon_id: hackathonId, 
+      team_id: teamId,
+      ...referralData
+    };
+    return api.post('/registrations', null, { params });
+  },
   getMyRegistrations: () => api.get('/registrations/my'),
+  cancel: (registrationId) => api.delete(`/registrations/${registrationId}`),
 };
 
 // Team APIs
