@@ -82,8 +82,8 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
-      <Card className="bg-white border-gray-200 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-2 sm:p-4">
+      <Card className="bg-white border-gray-200 rounded-2xl sm:rounded-3xl shadow-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-auto">
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-teal-500 to-teal-600 backdrop-blur-md p-6 border-b border-teal-200 flex items-center justify-between z-10">
           <div>
