@@ -559,6 +559,17 @@ export default function HackathonDetailEnhanced() {
                     <Zap className="w-5 h-5 mr-2" />
                     Register Now
                   </Button>
+                  
+                  {/* Share & Earn Button */}
+                  <Button
+                    variant="outline"
+                    className="w-full border-2 border-teal-200 text-teal-700 hover:bg-teal-50 py-3 font-semibold"
+                    onClick={() => setShowReferral(true)}
+                  >
+                    <Share2 className="w-4 h-4 mr-2" />
+                    Share & Earn
+                  </Button>
+                  
                   <p className="text-gray-600 text-sm text-center">Join and start building amazing projects!</p>
                 </div>
               ) : (
