@@ -137,6 +137,11 @@ class Registration(BaseModel):
     team_id: Optional[str] = None
     status: str = "registered"  # registered, cancelled
     registered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    # Referral tracking
+    referred_by: Optional[str] = None  # User ID who referred this registration
+    utm_source: Optional[str] = None
+    utm_campaign: Optional[str] = None
+    utm_medium: Optional[str] = None
     
     class Config:
         populate_by_name = True
