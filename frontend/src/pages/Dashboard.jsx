@@ -20,6 +20,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [showReferralModal, setShowReferralModal] = useState(false);
+  const [selectedHackathonForReferral, setSelectedHackathonForReferral] = useState(null);
+  const [myReferralStats, setMyReferralStats] = useState(null);
 
   useEffect(() => {
     if (theme === 'light') {
