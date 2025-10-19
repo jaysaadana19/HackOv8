@@ -547,6 +547,18 @@ export default function HackathonDetailEnhanced() {
                     <User className="w-5 h-5 mr-2" />
                     Sign Up to Register
                   </Button>
+                  
+                  {/* Share & Earn Button for Non-Registered Users */}
+                  <Button
+                    variant="outline"
+                    className="w-full border-2 border-teal-200 text-teal-700 hover:bg-teal-50 py-3 font-semibold"
+                    onClick={() => setShowReferral(true)}
+                    data-testid="share-earn-non-registered-btn"
+                  >
+                    <Share2 className="w-4 h-4 mr-2" />
+                    Share & Earn
+                  </Button>
+                  
                   <p className="text-gray-600 text-sm text-center">Create a participant account to join this hackathon</p>
                 </div>
               ) : !isRegistered ? (
