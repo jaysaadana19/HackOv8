@@ -1300,7 +1300,15 @@ async def upload_image(file: UploadFile = File(...), request: Request = None):
 # ==================== REGISTRATION ROUTES ====================
 
 @api_router.post("/registrations")
-async def register_for_hackathon(hackathon_id: str, team_id: Optional[str] = None, request: Request = None):
+async def register_for_hackathon(
+    hackathon_id: str, 
+    team_id: Optional[str] = None,
+    ref: Optional[str] = None,  # Referral code
+    utm_source: Optional[str] = None,
+    utm_campaign: Optional[str] = None,
+    utm_medium: Optional[str] = None,
+    request: Request = None
+):
     user = await get_current_user(request)
     
     # Check if already registered
@@ -1311,14 +1319,25 @@ async def register_for_hackathon(hackathon_id: str, team_id: Optional[str] = Non
     if existing:
         raise HTTPException(status_code=400, detail="Already registered")
     
+    # Find referring user if referral code provided
+    referred_by_user_id = None
+    if ref:
+        referring_user = await db.users.find_one({"referral_code": ref})
+        if referring_user:
+            referred_by_user_id = referring_user["_id"]
+    
     registration = Registration(
         user_id=user.id,
         hackathon_id=hackathon_id,
-        team_id=team_id
+        team_id=team_id,
+        referred_by=referred_by_user_id,
+        utm_source=utm_source,
+        utm_campaign=utm_campaign,
+        utm_medium=utm_medium
     )
     await db.registrations.insert_one(registration.dict(by_alias=True))
     
-    # Create notification
+    # Create notification for registrant
     notification = Notification(
         user_id=user.id,
         type="registration",
@@ -1327,7 +1346,18 @@ async def register_for_hackathon(hackathon_id: str, team_id: Optional[str] = Non
     )
     await db.notifications.insert_one(notification.dict(by_alias=True))
     
-    return {"message": "Registered successfully"}
+    # Create notification for referrer if applicable
+    if referred_by_user_id:
+        hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+        referrer_notification = Notification(
+            user_id=referred_by_user_id,
+            type="referral",
+            title="Referral Success! 🎉",
+            message=f"Someone registered for {hackathon.get('title', 'a hackathon')} using your referral link!"
+        )
+        await db.notifications.insert_one(referrer_notification.dict(by_alias=True))
+    
+    return {"message": "Registered successfully", "referred_by": referred_by_user_id is not None}
 
 @api_router.get("/registrations/my")
 async def get_my_registrations(request: Request):
