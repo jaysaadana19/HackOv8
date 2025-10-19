@@ -239,7 +239,7 @@ export default function Dashboard() {
           <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-teal-700/20"></div>
           <div className="relative glass-effect p-4 sm:p-10 border border-teal-800/30">
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-2xl flex-shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center shadow-2xl flex-shrink-0">
                 <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
               <div className="text-center sm:text-left">
