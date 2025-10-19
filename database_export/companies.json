@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "6d6eb539-91c1-4318-b8ca-ea9838f5da5c",
+    "name": "TechCorp",
+    "email": "organizer@tech.com",
+    "website": "https://techcorp.com",
+    "logo": null,
+    "description": null,
+    "admin_user_id": "fcff5d75-c572-43bf-a59c-880e0300e57a",
+    "created_at": "2025-10-04T08:49:29.101000"
+  },
+  {
+    "_id": "417c8db1-28ba-4769-9589-2aa41c6a378d",
+    "name": "Test",
+    "email": "testing1@gmail.com",
+    "website": "",
+    "logo": null,
+    "description": null,
+    "admin_user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "created_at": "2025-10-04T09:04:37.525000"
+  },
+  {
+    "_id": "8b024beb-85f8-43f4-893a-479644821a5d",
+    "name": "Social Winter Of Code",
+    "email": "socialwinterofcode@gmail.com",
+    "website": "",
+    "logo": null,
+    "description": null,
+    "admin_user_id": "ec4f9158-842c-4b6e-9129-3bc9550960ce",
+    "created_at": "2025-10-04T14:42:08.400000"
+  },
+  {
+    "_id": "060a758d-85fb-4daa-895e-1c263f51620a",
+    "name": "Google Test Company",
+    "email": "google.organizer.1759947731@gmail.com",
+    "website": "https://googletestcompany.com",
+    "logo": null,
+    "description": null,
+    "admin_user_id": "f9345eae-a726-4a1d-8bde-99b0a9c08dc0",
+    "created_at": "2025-10-08T18:22:11.169000"
+  }
+]

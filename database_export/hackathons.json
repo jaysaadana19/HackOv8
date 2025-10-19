@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "c68a72b9-907c-4fa0-8358-30b022890913",
+    "title": "Social Winter Of Code Season 6",
+    "slug": "social-winter-of-code-season-6",
+    "description": "Social Winter of Code (SWoC) is a flagship open-source contribution program that empowers students to step into the world of real-world software development. Over the past five editions, SWoC has built a thriving community of passionate developers, mentors, and maintainers who believe in the power of collaboration and open innovation.",
+    "cover_image": "https://media.licdn.com/dms/image/v2/D4D3DAQFsndpRdl66cw/image-scale_191_1128/image-scale_191_1128/0/1725159338221/socialwinterofcode_cover?e=1760194800&v=beta&t=HKCCFNKKfqDHw2J10Yg6WRkbVTn2Ynf0TQK1X0kaCDQ",
+    "organizer_id": "ec4f9158-842c-4b6e-9129-3bc9550960ce",
+    "organizer_name": "Social Winter Of Code",
+    "category": "Open Source",
+    "location": "online",
+    "venue": null,
+    "registration_start": "2025-10-19T22:00:00.000Z",
+    "registration_end": "2025-12-25T01:00:00.000Z",
+    "event_start": "2026-01-01T01:00:00.000Z",
+    "event_end": "2026-03-01T01:00:00.000Z",
+    "submission_deadline": "2026-03-01T01:00:00.000Z",
+    "max_team_size": 1,
+    "min_team_size": 1,
+    "prizes": [],
+    "rules": "",
+    "judging_rubric": [
+      {
+        "criteria": "Innovation",
+        "max_score": 10
+      },
+      {
+        "criteria": "Technical Implementation",
+        "max_score": 10
+      },
+      {
+        "criteria": "Design & UX",
+        "max_score": 10
+      },
+      {
+        "criteria": "Impact",
+        "max_score": 10
+      }
+    ],
+    "faqs": [],
+    "status": "published",
+    "created_at": "2025-10-04T14:49:36.253000",
+    "approved_at": "2025-10-04T14:56:09.710000",
+    "approved_by": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "featured": true,
+    "featured_at": "2025-10-04T15:01:50.938000",
+    "twitter_url": null,
+    "linkedin_url": null,
+    "website_url": null,
+    "community_url": "https://discord.gg/jvXYWnde9d",
+    "community_type": "discord",
+    "co_organizers": [],
+    "registration_count": 304,
+    "updated_at": "2025-10-19T12:25:10.152000"
+  }
+]

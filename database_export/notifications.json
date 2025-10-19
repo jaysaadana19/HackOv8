@@ -1,0 +1,2675 @@
+[
+  {
+    "_id": "f971fb08-6e14-42d9-b718-4dfa5dc43cdf",
+    "user_id": "admin-user-1",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T08:41:56.061000"
+  },
+  {
+    "_id": "e36f09f9-75cf-4d07-8843-5ddd76b07edd",
+    "user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T09:07:47.365000"
+  },
+  {
+    "_id": "d2cfdc6a-6cdc-4e79-bc79-714a1fe584fe",
+    "user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "type": "submission",
+    "title": "Project Submitted",
+    "message": "Your team has submitted the project: test",
+    "read": false,
+    "created_at": "2025-10-04T09:41:27.911000"
+  },
+  {
+    "_id": "b1b9fc0b-c7d4-4cbb-b00b-e83f61eb427d",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 095606' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.521000"
+  },
+  {
+    "_id": "0e42672d-3c3f-444d-8fb1-7e86bbae8963",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 095606' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.522000"
+  },
+  {
+    "_id": "0260ee1e-d067-414d-b3a2-4de74e94f55d",
+    "user_id": "organizer-user-1759571765",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 095606' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.761000"
+  },
+  {
+    "_id": "cd024608-3b43-4c05-9edb-ac68554c7ff7",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 095606' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.832000"
+  },
+  {
+    "_id": "70908819-91c3-4a08-bf98-e9255b9b20fb",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 095606' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.832000"
+  },
+  {
+    "_id": "95844ec8-624f-48ad-b136-9e58b717a8c4",
+    "user_id": "organizer-user-1759571765",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 095606' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-04T09:56:06.865000"
+  },
+  {
+    "_id": "0495b786-0ab7-4adc-b8c4-87e46b2a8075",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T10:19:41.624000"
+  },
+  {
+    "_id": "f2472b60-1e5d-40dc-8ffe-95446f3a6d5a",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T10:19:41.624000"
+  },
+  {
+    "_id": "cdebfc18-fe26-4e3d-a03d-394debb7e8ef",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T10:19:41.624000"
+  },
+  {
+    "_id": "32745312-5a10-4f83-8794-31c60b98b754",
+    "user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'test' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-04T10:21:08.345000"
+  },
+  {
+    "_id": "4107d927-7f00-43b1-bdb7-35496f1b8c3e",
+    "user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T10:22:21.551000"
+  },
+  {
+    "_id": "b1289fa6-893b-44fd-81ef-9c6c69dfc810",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.364000"
+  },
+  {
+    "_id": "b81ea88e-888c-4abb-bdae-5563ca51e6f1",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.366000"
+  },
+  {
+    "_id": "2dd2e3b4-2659-4bf5-a4b5-9ed36bc8b466",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T11:41:42.366000"
+  },
+  {
+    "_id": "16e1a068-49e7-4164-a6fe-c894cc7d57b3",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.367000"
+  },
+  {
+    "_id": "f8ccfbfe-73db-430d-beda-a34cced8a0b4",
+    "user_id": "organizer-user-1759578100",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 114142' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.550000"
+  },
+  {
+    "_id": "0d943409-6753-4ee6-a346-169908e815af",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.664000"
+  },
+  {
+    "_id": "c14cb397-2935-4c7d-8f77-ec162b81aace",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.664000"
+  },
+  {
+    "_id": "b264cece-61f4-4371-aa62-518e5f41c60f",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T11:41:42.665000"
+  },
+  {
+    "_id": "62276f0a-15d0-495f-ad44-66666bc6d351",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 114142' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.665000"
+  },
+  {
+    "_id": "c36ec96e-423a-4a41-a2d8-4f8a5c19a04d",
+    "user_id": "organizer-user-1759578100",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 114142' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-04T11:41:42.705000"
+  },
+  {
+    "_id": "1cac88ca-9319-4c10-9da1-1a7282d5d0f5",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 114143' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:43.488000"
+  },
+  {
+    "_id": "ac228eee-7d69-4e48-b1b0-12d0deb4da05",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 114143' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:43.488000"
+  },
+  {
+    "_id": "f83f1b42-a985-4d9e-9ec3-db1640311979",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 114143' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T11:41:43.488000"
+  },
+  {
+    "_id": "ec14ce11-fb24-43eb-982d-339d1b20cea4",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 114143' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T11:41:43.489000"
+  },
+  {
+    "_id": "be626dab-305f-4379-9d81-11523db0dda6",
+    "user_id": "participant-user-1759578100",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T11:41:43.817000"
+  },
+  {
+    "_id": "94bc4006-9515-4c44-8b46-4e702e7ff612",
+    "user_id": "participant2-user-1759578103",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T11:41:44.325000"
+  },
+  {
+    "_id": "08d907da-a2cb-494f-948c-e877925a36b4",
+    "user_id": "organizer-user-1759578100",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T11:41:44.505000"
+  },
+  {
+    "_id": "ca4a83c5-fc00-4119-816a-58d9bc25f059",
+    "user_id": "admin-user-1759578100",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T11:41:44.616000"
+  },
+  {
+    "_id": "3db5c037-ff5b-4453-877a-3f12d7a61ea9",
+    "user_id": "participant-user-1759578100",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-04T11:41:44.689000"
+  },
+  {
+    "_id": "5fd290ee-8361-435c-bb80-6b16046f70d9",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test 1' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T12:48:42.740000"
+  },
+  {
+    "_id": "d70bb816-1245-497a-b282-bb4ba1210378",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test 1' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T12:48:42.740000"
+  },
+  {
+    "_id": "ecbb733f-63aa-42ec-8f20-b4d98f860735",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test 1' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T12:48:42.740000"
+  },
+  {
+    "_id": "398e4872-8992-4fc8-89fe-91e03b776586",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'test 1' by Test is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T12:48:42.741000"
+  },
+  {
+    "_id": "0ad74e68-2ed2-4fab-96b1-e38144865962",
+    "user_id": "aee74875-e6be-406f-94a1-638a1095c93e",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'test 1' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-04T12:49:47.252000"
+  },
+  {
+    "_id": "9f72122e-4134-4c80-899e-1161029e7a94",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Social Winter Of Code Season 6' by Social Winter Of Code is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T14:49:36.254000"
+  },
+  {
+    "_id": "5dfc4768-cb12-45d3-bbe7-bf7c8ef28e75",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Social Winter Of Code Season 6' by Social Winter Of Code is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T14:49:36.254000"
+  },
+  {
+    "_id": "dbe62833-ad3c-42cd-b067-6c4f7d8d978e",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Social Winter Of Code Season 6' by Social Winter Of Code is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-04T14:49:36.254000"
+  },
+  {
+    "_id": "baab488b-2bf5-412c-920a-e9037035ce54",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Social Winter Of Code Season 6' by Social Winter Of Code is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-04T14:49:36.254000"
+  },
+  {
+    "_id": "366e676c-f599-4e2e-9793-660583c03256",
+    "user_id": "ec4f9158-842c-4b6e-9129-3bc9550960ce",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Social Winter Of Code Season 6' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": true,
+    "created_at": "2025-10-04T14:56:09.711000"
+  },
+  {
+    "_id": "29bb05df-e43b-4040-a46d-aa7bbc445a35",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": true,
+    "created_at": "2025-10-05T07:31:48.754000"
+  },
+  {
+    "_id": "d9d2d9aa-d779-4831-9ce4-e6cd223430a1",
+    "user_id": "ec4f9158-842c-4b6e-9129-3bc9550960ce",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": true,
+    "created_at": "2025-10-06T15:45:47.036000"
+  },
+  {
+    "_id": "f044c635-c68f-4a64-9799-5eee8d463c2e",
+    "user_id": "c1c42550-38ec-4695-ac9c-8220191c18a5",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-06T15:55:46.032000"
+  },
+  {
+    "_id": "6befb2b3-c5cc-4e7c-ab29-a73aed455d7e",
+    "user_id": "856c87d2-8b90-428e-bce5-c4ebd94b8fac",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": true,
+    "created_at": "2025-10-06T15:57:48.466000"
+  },
+  {
+    "_id": "15d761af-25f4-4e1f-ab44-f96237a507ca",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.291000"
+  },
+  {
+    "_id": "0879d376-4017-488f-9888-3dc3607ada85",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.295000"
+  },
+  {
+    "_id": "b2a12ad9-4a03-49ac-95c7-505bb565bd82",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:20.295000"
+  },
+  {
+    "_id": "41aeb88a-76cd-4762-93c2-ff66e88448a4",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.295000"
+  },
+  {
+    "_id": "4f62671e-8b36-4bfc-bbaa-ca3cf2847bcc",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.296000"
+  },
+  {
+    "_id": "2ffeb7d1-5e46-4b5f-aca1-96d7abafa34c",
+    "user_id": "organizer-user-1759946358",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 175920' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.496000"
+  },
+  {
+    "_id": "6dd123ca-db6f-4082-9f79-9809f2a8e04a",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.573000"
+  },
+  {
+    "_id": "224a9b81-a09a-49d8-8e85-c5e8d93cb4d0",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.574000"
+  },
+  {
+    "_id": "1b2412a8-f52c-4e2b-bec8-e5096fe36455",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:20.574000"
+  },
+  {
+    "_id": "0a12c3e2-76cf-4c72-99b1-c88541e1aab6",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.574000"
+  },
+  {
+    "_id": "b23fe8a9-fe0b-48e8-9c96-b7706f81432c",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175920' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.574000"
+  },
+  {
+    "_id": "d6366969-6ad6-4b9d-a376-01615873cb27",
+    "user_id": "organizer-user-1759946358",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 175920' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-08T17:59:20.612000"
+  },
+  {
+    "_id": "86a75c1a-218a-4c0b-84b2-ddcaae51870c",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175921' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:21.428000"
+  },
+  {
+    "_id": "2e0f9927-4c20-42b3-9736-1b12b70bf612",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175921' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:21.429000"
+  },
+  {
+    "_id": "9645a7f9-9ee9-4af4-8501-61cdbfbe4d43",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175921' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:21.429000"
+  },
+  {
+    "_id": "9b27201f-af23-4fa7-a297-0766620e27b7",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175921' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:21.429000"
+  },
+  {
+    "_id": "5db826dd-019b-4c7b-9623-3606070dd363",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175921' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:21.429000"
+  },
+  {
+    "_id": "1e89435e-54bc-4023-9b68-b5f30e71660e",
+    "user_id": "participant-user-1759946358",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:21.728000"
+  },
+  {
+    "_id": "a6151a74-cc07-451f-9868-779b17a047a5",
+    "user_id": "participant2-user-1759946361",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:22.266000"
+  },
+  {
+    "_id": "d7d98a2b-43d4-4eba-b50e-212412c61203",
+    "user_id": "organizer-user-1759946358",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:22.499000"
+  },
+  {
+    "_id": "ac5175a1-a069-45f9-acce-63a7ce8c15c3",
+    "user_id": "admin-user-1759946358",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:23.468000"
+  },
+  {
+    "_id": "11bc3520-20ab-4ddc-9ee7-f50ad2e7383a",
+    "user_id": "participant-user-1759946358",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:24.357000"
+  },
+  {
+    "_id": "bb164029-00aa-4cb3-9c6e-e723819cb72d",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175924' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:24.642000"
+  },
+  {
+    "_id": "deffa32c-b65b-4d53-8113-e335c6292bd7",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175924' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:24.642000"
+  },
+  {
+    "_id": "3e88cb5b-4981-4d40-9ba0-41a7a95917f0",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175924' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:24.642000"
+  },
+  {
+    "_id": "ab167b39-d0b6-4dad-b661-1482eed7f96f",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175924' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:24.642000"
+  },
+  {
+    "_id": "8a3f82f7-4805-41d7-9509-40820013aff7",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175924' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:24.642000"
+  },
+  {
+    "_id": "b9107441-b657-47ab-82df-87731810a6e2",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.194000"
+  },
+  {
+    "_id": "bb515b60-39f5-4a7b-9697-48b5ad936a4c",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.194000"
+  },
+  {
+    "_id": "b8eb42e5-cd6c-4b7d-8853-93f72c44b406",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:38.195000"
+  },
+  {
+    "_id": "e3ab4651-f298-4c23-a90a-a17c46945197",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.195000"
+  },
+  {
+    "_id": "61bff946-ed2e-44e5-8880-71a5b716778d",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.195000"
+  },
+  {
+    "_id": "e56ad84f-63c8-40da-8ee8-49b977248562",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.195000"
+  },
+  {
+    "_id": "85e92cf7-feb7-4ffe-832c-573b26fda7a2",
+    "user_id": "organizer-user-1759946377",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 175938' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.419000"
+  },
+  {
+    "_id": "febcfcb9-ecd8-4a39-8052-b749d18eef2a",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.502000"
+  },
+  {
+    "_id": "32f11d14-ceba-4b9d-825c-06a5c3f05f7d",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.502000"
+  },
+  {
+    "_id": "3888541c-792b-4db5-add9-be8fe67ec990",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:38.503000"
+  },
+  {
+    "_id": "acc14f58-9243-435a-9608-1454f346854f",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.503000"
+  },
+  {
+    "_id": "a1984e3e-3248-49d7-8e4f-36a5c8446a23",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.503000"
+  },
+  {
+    "_id": "2b7413e9-b198-4103-b657-3efb04e83364",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 175938' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.504000"
+  },
+  {
+    "_id": "2393716d-cc4b-40fa-8aac-908934a4491b",
+    "user_id": "organizer-user-1759946377",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 175938' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-08T17:59:38.545000"
+  },
+  {
+    "_id": "f164db28-f286-452f-a682-b20d7cfe08a1",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.396000"
+  },
+  {
+    "_id": "9912d8af-e9c1-4548-b3a3-012603306de9",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.396000"
+  },
+  {
+    "_id": "da609a19-d11b-4727-8f81-3cb43660ccf1",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:39.397000"
+  },
+  {
+    "_id": "2c6b3271-381b-48b9-86f6-6e522fe1589a",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.397000"
+  },
+  {
+    "_id": "78f3a6b2-0f05-435a-a6e1-7a293416c324",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.397000"
+  },
+  {
+    "_id": "0c57020c-de6b-4836-907c-1b7920d39aab",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 175939' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.398000"
+  },
+  {
+    "_id": "e96f86fa-ea64-4b95-b7d4-623187cf67cb",
+    "user_id": "participant-user-1759946377",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:39.776000"
+  },
+  {
+    "_id": "8dea5d0a-1898-4dcc-b82a-093200e008a0",
+    "user_id": "participant2-user-1759946379",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:40.394000"
+  },
+  {
+    "_id": "2aadb09a-63e8-4c60-83c6-3e766236cf62",
+    "user_id": "organizer-user-1759946377",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:40.622000"
+  },
+  {
+    "_id": "eebd7c2c-9ffd-406e-b541-433f37ea66ec",
+    "user_id": "admin-user-1759946377",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:40.700000"
+  },
+  {
+    "_id": "442da4ab-cf6f-4367-9148-45b1c1364fdc",
+    "user_id": "participant-user-1759946377",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T17:59:40.823000"
+  },
+  {
+    "_id": "a75d7e32-eaea-4335-8d80-658a97d3c084",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:41.065000"
+  },
+  {
+    "_id": "1ccc41ef-d3ad-4ea4-a390-b30cc9d81e2f",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:41.065000"
+  },
+  {
+    "_id": "2473b76e-8f68-4cdb-82fa-2de1122155fc",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T17:59:41.065000"
+  },
+  {
+    "_id": "8958c259-877f-4cba-9da6-61bd850e5862",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:41.066000"
+  },
+  {
+    "_id": "516843d6-8e04-4765-a240-dc35c362e70b",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:41.066000"
+  },
+  {
+    "_id": "d2765e86-7233-42e9-9ca2-9b3498dbc88b",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 175941' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T17:59:41.066000"
+  },
+  {
+    "_id": "7278dca7-08fe-41ab-a0b0-71d22e20987f",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.099000"
+  },
+  {
+    "_id": "744be8f3-64e6-42a5-a19d-6ad51e11d33a",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.099000"
+  },
+  {
+    "_id": "cc823c51-dc60-47f0-86f1-de88e8d408fd",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T18:20:39.100000"
+  },
+  {
+    "_id": "dff25a1e-32c6-4b1f-b39c-82d1d9f90240",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.100000"
+  },
+  {
+    "_id": "35b03510-8cba-46cf-9c89-c8e18631fe63",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.100000"
+  },
+  {
+    "_id": "9bdd6c71-89f6-418f-a59e-f8be5dddffbc",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.101000"
+  },
+  {
+    "_id": "0ef60cab-9b3b-4270-a7c9-d45ec5e5ce41",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.101000"
+  },
+  {
+    "_id": "933b34d6-936a-4ee6-8a86-fad968188c33",
+    "user_id": "organizer-user-1759947637",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 182039' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.315000"
+  },
+  {
+    "_id": "42a0f76e-d8ad-445b-8847-1e155b6ad6a9",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.435000"
+  },
+  {
+    "_id": "3e61bb78-07ef-419a-8cdc-7974e4f1da05",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.436000"
+  },
+  {
+    "_id": "44478a37-c6a7-49c4-9b24-a43d3ab90c3f",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T18:20:39.436000"
+  },
+  {
+    "_id": "b675daf1-5628-42b9-b1ff-02fd4edf1397",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.437000"
+  },
+  {
+    "_id": "a042f6fe-e16b-4b60-9d87-e07f1c768f9c",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.437000"
+  },
+  {
+    "_id": "0a6b5538-9b75-4829-89a1-34fe8767cd02",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.438000"
+  },
+  {
+    "_id": "a2d2ba91-b88e-48cf-937e-17acc4523663",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 182039' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.438000"
+  },
+  {
+    "_id": "ceaa1eb5-5ca9-42b7-b0cf-6e79de2e65f1",
+    "user_id": "organizer-user-1759947637",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 182039' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-08T18:20:39.480000"
+  },
+  {
+    "_id": "a68769b9-bd7d-456e-a3a0-e269fa2ced6a",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.440000"
+  },
+  {
+    "_id": "e9298851-7070-4728-adac-4379df00faaa",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.440000"
+  },
+  {
+    "_id": "2c0c2bcc-e97a-4b1b-98bf-a3d79a0d64cb",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T18:20:40.441000"
+  },
+  {
+    "_id": "ca45f508-84c4-43ff-8e09-4070b7ca361c",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.441000"
+  },
+  {
+    "_id": "db6ff9f5-f6b4-4439-859d-29598fec8e12",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.442000"
+  },
+  {
+    "_id": "c34d5274-f073-4c8a-9a83-2967ce018ef7",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.442000"
+  },
+  {
+    "_id": "cdfb455d-f31d-479d-a106-83d94d0388ce",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 182040' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.443000"
+  },
+  {
+    "_id": "cbecf34c-1f0a-449d-b125-75caf8a9ccda",
+    "user_id": "participant-user-1759947637",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T18:20:40.791000"
+  },
+  {
+    "_id": "19b2a597-4e89-43dd-8199-c7df1a078fa4",
+    "user_id": "participant2-user-1759947640",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T18:20:41.408000"
+  },
+  {
+    "_id": "2b7cf0d2-b166-4f33-9cee-7fe2c75616dc",
+    "user_id": "organizer-user-1759947637",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T18:20:41.604000"
+  },
+  {
+    "_id": "16ba27de-185f-464a-9897-60f6a9eecc1b",
+    "user_id": "admin-user-1759947637",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T18:20:41.688000"
+  },
+  {
+    "_id": "34bc211d-3edd-4207-85ad-7d32b741afca",
+    "user_id": "participant-user-1759947637",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-08T18:20:41.809000"
+  },
+  {
+    "_id": "2ef37bad-39a5-48d5-86c5-72b83ba0802d",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.057000"
+  },
+  {
+    "_id": "0bffdd35-b7b0-4092-bc62-8be9e5f438c7",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.058000"
+  },
+  {
+    "_id": "498bd083-bd3f-43d7-b648-56a77574557f",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-08T18:20:42.058000"
+  },
+  {
+    "_id": "a1a8393b-8c24-4f7b-ad6f-ac14fbc3427e",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.059000"
+  },
+  {
+    "_id": "e5b42afa-d5a9-4dd2-8182-548236f043d8",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.059000"
+  },
+  {
+    "_id": "d876fad9-90f5-4c9d-b313-7835a1ea561a",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.060000"
+  },
+  {
+    "_id": "a503ceb8-cf75-4d24-ac1a-9b18324faed3",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 182042' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-08T18:20:42.060000"
+  },
+  {
+    "_id": "fd64df96-c15d-481b-aaff-34f159863e7b",
+    "user_id": "ef6d845b-9b29-41e7-8339-d173f4b95d26",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": true,
+    "created_at": "2025-10-08T19:42:05.431000"
+  },
+  {
+    "_id": "1afb56c5-da11-46cd-b870-e3e5c3d6ae8d",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.020000"
+  },
+  {
+    "_id": "e3ac08fd-aa09-4ffb-8c8f-11072baa1b67",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.023000"
+  },
+  {
+    "_id": "175b6f6b-bbbb-416c-a8d2-d39e67105ee4",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:52:42.023000"
+  },
+  {
+    "_id": "ca18fdbd-3657-4941-a714-c267a070cf21",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.024000"
+  },
+  {
+    "_id": "d4a31dee-9479-4cd9-bd3f-84044acc520f",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.024000"
+  },
+  {
+    "_id": "d80ca425-8147-40a7-9871-cf22ac90688f",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.024000"
+  },
+  {
+    "_id": "ac64cb97-84d3-4b5d-8f9f-7fef33dd71fb",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.025000"
+  },
+  {
+    "_id": "e8cec3fa-fd2c-4f4c-a292-e460890a7048",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.025000"
+  },
+  {
+    "_id": "769f8ae8-1293-47ed-bfb4-d339b8ae9343",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.025000"
+  },
+  {
+    "_id": "d0ab1a01-582f-47f7-85ff-71e5ee821e2c",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 045241' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.025000"
+  },
+  {
+    "_id": "8c8ef306-4c0c-4d3f-865d-9fb8fe1bef94",
+    "user_id": "organizer-user-1760849559",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 045241' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.255000"
+  },
+  {
+    "_id": "38c22cc4-2f29-447d-a1f8-a42dd231a666",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.330000"
+  },
+  {
+    "_id": "d9db3468-9f57-4fd6-9dce-2ab5793ee56f",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.331000"
+  },
+  {
+    "_id": "b4bd72e7-80d4-4288-8f23-8da757c54c93",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:52:42.331000"
+  },
+  {
+    "_id": "ed2027c7-7f4e-4c26-a90e-1cc3f36f19a2",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.331000"
+  },
+  {
+    "_id": "09425084-929e-4931-a999-3c7f3c513b88",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.331000"
+  },
+  {
+    "_id": "db370a0e-67a5-4cd2-909c-de20b40cf155",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.332000"
+  },
+  {
+    "_id": "5219b837-1322-4306-b30e-c0e656c492d5",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.332000"
+  },
+  {
+    "_id": "3385d4e3-a5d7-443a-bbb8-ca87c33b1d71",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.332000"
+  },
+  {
+    "_id": "e10d6cf2-9781-492b-ac70-1b506753150a",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.333000"
+  },
+  {
+    "_id": "593997cd-1979-4bcf-89be-d3653a901723",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 045242' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.333000"
+  },
+  {
+    "_id": "e2de2cbb-6350-4c1e-944e-da86f5932067",
+    "user_id": "organizer-user-1760849559",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 045242' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-19T04:52:42.411000"
+  },
+  {
+    "_id": "d635663d-e348-449a-a0b3-4d302f4988c6",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.260000"
+  },
+  {
+    "_id": "c04d0dda-4539-4395-8ee1-336efa77e064",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.260000"
+  },
+  {
+    "_id": "66de9fe8-1721-4c1f-816f-1b5ebbffdc25",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:52:43.261000"
+  },
+  {
+    "_id": "23920fbd-117e-46b5-b967-4efd8ce4946f",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.261000"
+  },
+  {
+    "_id": "8a94ed72-b936-42cf-8ca2-2a7bd7260022",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.261000"
+  },
+  {
+    "_id": "8c6be6a1-f961-4299-bc32-83bcf307a00d",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.262000"
+  },
+  {
+    "_id": "8755d318-1459-4850-98d8-655a7189052b",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.262000"
+  },
+  {
+    "_id": "f4ea530d-92d6-43be-a1a6-8405cfca7e18",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.262000"
+  },
+  {
+    "_id": "364434ff-6644-4ee1-bee8-f36a2200011c",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.262000"
+  },
+  {
+    "_id": "b29c67aa-a198-432e-8d58-9e038502cc9a",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 045243' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.263000"
+  },
+  {
+    "_id": "e2792600-7bb6-424a-a6eb-45cdd9e5c9a5",
+    "user_id": "participant-user-1760849559",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:52:43.639000"
+  },
+  {
+    "_id": "9946d0a4-a176-4c80-bf89-2b18734ceb6f",
+    "user_id": "participant2-user-1760849563",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.137000"
+  },
+  {
+    "_id": "19f6f3fa-b8f1-4b5a-8379-22cca5d1feaa",
+    "user_id": "organizer-user-1760849559",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.333000"
+  },
+  {
+    "_id": "b05e2ce7-5131-48f9-8136-1c625c04fca5",
+    "user_id": "admin-user-1760849559",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.489000"
+  },
+  {
+    "_id": "f7541dd2-49e2-4de5-9b85-9c7bf8041a9e",
+    "user_id": "participant-user-1760849559",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.562000"
+  },
+  {
+    "_id": "4aee8f15-d251-44b0-8f0a-6b17759ef249",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.815000"
+  },
+  {
+    "_id": "babb5ed4-2159-4599-8e02-1ecd90bc3d23",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.815000"
+  },
+  {
+    "_id": "f6e531e8-11f9-444f-a7be-b8b25a31ccac",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:52:44.816000"
+  },
+  {
+    "_id": "d9414ee8-f882-4e87-b6ab-7cd6b39ac5f4",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.816000"
+  },
+  {
+    "_id": "1ed1bc8d-d858-4493-9380-27cc2a7cff72",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.816000"
+  },
+  {
+    "_id": "3265ed39-f4d7-44d6-b532-b7352ffd2bf2",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.817000"
+  },
+  {
+    "_id": "1d798fc4-6ab0-4b35-9e8e-c76209e39282",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.817000"
+  },
+  {
+    "_id": "32627471-055d-4215-aef0-7c1088d2a524",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.817000"
+  },
+  {
+    "_id": "ca5c612b-45ea-4015-af04-cc03e76dfdbf",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.818000"
+  },
+  {
+    "_id": "c28c7aab-9cc3-4b44-bd6d-95fb306be137",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 045244' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:44.818000"
+  },
+  {
+    "_id": "eb9d083c-93d3-47d5-ac8c-e99592e89459",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.042000"
+  },
+  {
+    "_id": "4d306803-b585-4023-baef-72ec2de02f77",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.042000"
+  },
+  {
+    "_id": "1a9fa791-3bf6-47ca-acea-5566d1ce7fcf",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:52:46.042000"
+  },
+  {
+    "_id": "f2892df0-e173-40db-8175-a32beb675882",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.043000"
+  },
+  {
+    "_id": "5cedfe9b-38db-4284-bc7f-402266af146a",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.043000"
+  },
+  {
+    "_id": "154630a9-bfdf-4c51-a428-eb1aee091c6b",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.043000"
+  },
+  {
+    "_id": "c08bcba7-cb74-4d12-961e-a232e748ea34",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.044000"
+  },
+  {
+    "_id": "62e55f50-804e-496a-b13f-e4eef92c9115",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.044000"
+  },
+  {
+    "_id": "20d80430-8731-4a5d-af72-9151d1d880c3",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.044000"
+  },
+  {
+    "_id": "4a7857bb-3ba1-4b12-8f41-08afd0ef93b7",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045246' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:52:46.044000"
+  },
+  {
+    "_id": "4501893b-7d87-4816-a50d-ce0e44fd0b05",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.328000"
+  },
+  {
+    "_id": "0ef53630-013e-4d1b-b9a1-c1d230ac4af3",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.328000"
+  },
+  {
+    "_id": "71d50709-6e56-4214-a703-81e54fe114e4",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T04:57:31.328000"
+  },
+  {
+    "_id": "361d4fa8-7c67-43c0-9616-9a582f14d454",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "71f80c08-47d6-498d-a24f-b02558af94f0",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "72eb49dc-9174-4b0d-8275-29e054feb57a",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "5bc73608-11ec-4eeb-adbd-d54a1e8b0f95",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "706712e6-c2a6-4563-9d9a-e375d0165c91",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "435bcc63-b2d9-454e-8831-5afd0d030438",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.329000"
+  },
+  {
+    "_id": "85e0e579-21fc-43a2-997c-f4aca0858017",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.330000"
+  },
+  {
+    "_id": "b6173be2-d073-4871-88ab-8d89bd1638ef",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 045731' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T04:57:31.330000"
+  },
+  {
+    "_id": "f003ed20-bc90-4b65-acb8-1412b415a059",
+    "user_id": "referee-user-1760849961",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T04:59:22.510000"
+  },
+  {
+    "_id": "21251ddf-8977-4ab1-bd78-bc0eee93c66c",
+    "user_id": "referrer-user-1760849961",
+    "type": "referral",
+    "title": "Referral Success! 🎉",
+    "message": "Someone registered for Referral Flow Test Hackathon 045922 using your referral link!",
+    "read": false,
+    "created_at": "2025-10-19T04:59:22.510000"
+  },
+  {
+    "_id": "5f35c964-71aa-42cc-9211-f019fcbe742c",
+    "user_id": "2ebf4f61-00b4-4591-b98c-724a6c600cf7",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": true,
+    "created_at": "2025-10-19T05:04:17.394000"
+  },
+  {
+    "_id": "50df3eb5-159e-4558-81e9-6852f8c90050",
+    "user_id": "65cc0a7f-1160-4ff1-a83e-1b1659690fd0",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:08:48.255000"
+  },
+  {
+    "_id": "011eddf1-57e1-484e-9a5e-3adbd5e37eee",
+    "user_id": "2ebf4f61-00b4-4591-b98c-724a6c600cf7",
+    "type": "referral",
+    "title": "Referral Success! 🎉",
+    "message": "Someone registered for Social Winter Of Code Season 6 using your referral link!",
+    "read": true,
+    "created_at": "2025-10-19T05:08:48.256000"
+  },
+  {
+    "_id": "63592788-c0bf-432e-be67-829875c3e10c",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.131000"
+  },
+  {
+    "_id": "0b102a9b-2a5b-4552-ad90-4e803ee0f75a",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.131000"
+  },
+  {
+    "_id": "f946eefd-ec90-4987-abf8-620f0c37e605",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T05:44:35.132000"
+  },
+  {
+    "_id": "4e26cc0b-c06c-4a92-81cc-8d65fc3b95ba",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.132000"
+  },
+  {
+    "_id": "b2e91950-5d21-4937-9c76-a3ab63868a36",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.132000"
+  },
+  {
+    "_id": "30407e05-d849-42c6-9eae-e65662b83bd3",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.132000"
+  },
+  {
+    "_id": "59a2ff85-321c-4cb3-bd1b-d65f12e6a694",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.132000"
+  },
+  {
+    "_id": "1886c73c-09f0-4f42-8c09-0330888f695a",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.133000"
+  },
+  {
+    "_id": "cf166ce2-6e19-4c7e-a4b8-195526f62154",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.133000"
+  },
+  {
+    "_id": "7372cb7f-23c9-4cef-b83e-0f0859654fb8",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.133000"
+  },
+  {
+    "_id": "c6f4e2e3-bbb1-4724-8957-81aa58c65de5",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.133000"
+  },
+  {
+    "_id": "2ff1985b-fdc6-4e5b-ae73-86848199408b",
+    "user_id": "test-user-1760849909",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.133000"
+  },
+  {
+    "_id": "e1d48829-8262-44cc-83d1-67cbf601ed74",
+    "user_id": "admin-user-1760849961",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.134000"
+  },
+  {
+    "_id": "13831c94-38d8-4d2c-8ee8-f69cb34be101",
+    "user_id": "admin-user-1760852673",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Organizer Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.134000"
+  },
+  {
+    "_id": "71ad6bcd-6f0d-44c8-88ee-ed9f2717b30f",
+    "user_id": "organizer-user-1760852673",
+    "title": "Hackathon Approved!",
+    "message": "Your hackathon 'Organizer Test Hackathon 054435' has been approved and published.",
+    "type": "hackathon_approved",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.318000"
+  },
+  {
+    "_id": "eec55bb8-c9fc-4275-9ed2-5c7b801c180e",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.429000"
+  },
+  {
+    "_id": "d2983774-e07a-49df-a159-a4a9ba48ec07",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.429000"
+  },
+  {
+    "_id": "6089ae07-11d1-478f-82d7-9481a1317625",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T05:44:35.430000"
+  },
+  {
+    "_id": "f34291bc-fee5-4ebd-be72-97112cd12769",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.430000"
+  },
+  {
+    "_id": "e26a3e51-48fc-4982-bd9a-44b764b55f0f",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.430000"
+  },
+  {
+    "_id": "86ee2b6d-6ca0-4cc5-b4d8-4e47f7ceaa5b",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.430000"
+  },
+  {
+    "_id": "bff60dd5-4e47-4f71-a365-3eb7219bf702",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "4310425d-2bc1-430e-8c04-c8326867d5c4",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "2d591388-a314-4b19-9971-0d4947ced3a2",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "b9a932b2-5ca9-4130-9f80-64c29af86b74",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "26226c54-b2f7-4b3c-8ebe-b6ed4ed4eb40",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "d84d0bc2-6dd7-4409-b828-a7fb7fc2e583",
+    "user_id": "test-user-1760849909",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.431000"
+  },
+  {
+    "_id": "b76cd7af-b69d-4a2f-88ea-c0effdf25649",
+    "user_id": "admin-user-1760849961",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.432000"
+  },
+  {
+    "_id": "afe5a209-e697-4687-b84c-9929d17f2eba",
+    "user_id": "admin-user-1760852673",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Reject Test Hackathon 054435' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.432000"
+  },
+  {
+    "_id": "229e85e8-8c6a-4e31-b991-48f46ee9e2d3",
+    "user_id": "organizer-user-1760852673",
+    "title": "Hackathon Rejected",
+    "message": "Your hackathon 'Reject Test Hackathon 054435' was not approved. Reason: Test rejection reason",
+    "type": "hackathon_rejected",
+    "read": false,
+    "created_at": "2025-10-19T05:44:35.469000"
+  },
+  {
+    "_id": "69f51219-4af6-4060-88ae-dccd6965874f",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.335000"
+  },
+  {
+    "_id": "8a862570-686d-44a8-9322-105849d8275b",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.336000"
+  },
+  {
+    "_id": "ccb5d4cd-c96e-4575-bd24-4cff30a1baea",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T05:44:36.336000"
+  },
+  {
+    "_id": "07d89637-4d43-47e0-8ea1-9b5e90d7bd33",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.336000"
+  },
+  {
+    "_id": "52b73c00-1636-406f-8d58-e877bc33b3ac",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.336000"
+  },
+  {
+    "_id": "341f9d55-5e92-4c15-ad9f-2390fa7cc845",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.336000"
+  },
+  {
+    "_id": "22fbb2c8-7352-4ec4-ab61-d9b045778f7f",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.337000"
+  },
+  {
+    "_id": "f3a40041-7bea-481f-992e-a5be0e5bba4f",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.337000"
+  },
+  {
+    "_id": "63a93c80-181a-4474-8a63-e746eba65fde",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.337000"
+  },
+  {
+    "_id": "b2dbca92-9330-45ab-b4b9-ba0d62e4cc4c",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.337000"
+  },
+  {
+    "_id": "181a4950-baf2-4852-8f05-0f15a0694a32",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.338000"
+  },
+  {
+    "_id": "ccd30ecf-42a7-49e0-abd6-96b678446e16",
+    "user_id": "test-user-1760849909",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.338000"
+  },
+  {
+    "_id": "47058933-4129-4edf-a90b-2d97763ae83c",
+    "user_id": "admin-user-1760849961",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.338000"
+  },
+  {
+    "_id": "024ee2c6-85cc-4da7-b4fe-6de7cb287bb4",
+    "user_id": "admin-user-1760852673",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Edit Test Hackathon 054436' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.338000"
+  },
+  {
+    "_id": "4b999b07-ae55-43dd-85bd-841aae19f647",
+    "user_id": "participant-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:36.704000"
+  },
+  {
+    "_id": "cdc357c0-ec9b-411a-b99e-d65831c9eb9a",
+    "user_id": "participant2-user-1760852676",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.236000"
+  },
+  {
+    "_id": "e81e02b0-074d-45a5-b56e-2ff98fb9d7bf",
+    "user_id": "organizer-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.464000"
+  },
+  {
+    "_id": "ca47ef71-7da6-4373-81d1-b75c659ee53d",
+    "user_id": "admin-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.537000"
+  },
+  {
+    "_id": "f941d5a1-45d2-494d-a107-969fd947b7dc",
+    "user_id": "participant-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.613000"
+  },
+  {
+    "_id": "6fc6de56-f6a1-4529-8bd7-4335770e135b",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.904000"
+  },
+  {
+    "_id": "e4d67a73-fae6-48ce-8d79-33db8fc72624",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.904000"
+  },
+  {
+    "_id": "d9174030-a042-4142-b4ef-eaaebb2141aa",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T05:44:37.904000"
+  },
+  {
+    "_id": "68002cc0-900e-447f-96e1-5ed1a39bc502",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.905000"
+  },
+  {
+    "_id": "e3689f89-6a6a-455a-b148-95dd1ba42297",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.905000"
+  },
+  {
+    "_id": "a76baa43-8ecd-4112-9608-e88728cd2732",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.905000"
+  },
+  {
+    "_id": "17cdfd4f-40b3-4f33-b14e-ebfddfadac80",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.905000"
+  },
+  {
+    "_id": "0811ea2b-87d4-4ff9-a392-8b9320baf61f",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.906000"
+  },
+  {
+    "_id": "95ab818f-a093-4b98-aa7e-23d25c8d1524",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.906000"
+  },
+  {
+    "_id": "52af4c6e-4e0d-4dae-b7a5-b9ac8eadb02e",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.906000"
+  },
+  {
+    "_id": "6e534587-30fb-42f3-8e6b-fd875c04b728",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.906000"
+  },
+  {
+    "_id": "6ec58f27-d472-4733-bf42-2c875f0412e3",
+    "user_id": "test-user-1760849909",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.906000"
+  },
+  {
+    "_id": "11d54926-2699-462b-9e9e-4a16536dd9e2",
+    "user_id": "admin-user-1760849961",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.907000"
+  },
+  {
+    "_id": "aa561546-6d64-43f4-b5ae-ad3e4fe7055f",
+    "user_id": "admin-user-1760852673",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Judge Test Hackathon 1 054437' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:37.907000"
+  },
+  {
+    "_id": "09d98182-df25-44f6-ba32-381b2dcb63fe",
+    "user_id": "admin-user-1",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.997000"
+  },
+  {
+    "_id": "983e05b3-f98d-4fc5-8641-961515d1447c",
+    "user_id": "admin-user-1759571765",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.997000"
+  },
+  {
+    "_id": "57d7c1fb-25d3-48e2-88b2-5a4859c1dd29",
+    "user_id": "2ab47c00-a7ce-444d-b416-c3b18e908dbc",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": true,
+    "created_at": "2025-10-19T05:44:38.998000"
+  },
+  {
+    "_id": "9409777f-acdd-4767-aa07-a31a93866266",
+    "user_id": "admin-user-1759578100",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.998000"
+  },
+  {
+    "_id": "c635f150-f15e-4c0b-aa38-5627cb1425c0",
+    "user_id": "admin-user-1759946358",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.998000"
+  },
+  {
+    "_id": "0a616d6a-5d08-457e-ba78-1e3f4f6a914a",
+    "user_id": "admin-user-1759946377",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.998000"
+  },
+  {
+    "_id": "e9a093f4-b2da-425d-8698-a9553f4b5e43",
+    "user_id": "admin-user-1759947637",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.999000"
+  },
+  {
+    "_id": "6e1507f4-8303-421e-81a4-f52fd4451c2a",
+    "user_id": "admin-user-1759947700",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.999000"
+  },
+  {
+    "_id": "d191d7b5-5450-4990-9978-a5f1be2047af",
+    "user_id": "admin-user-1759947730",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:38.999000"
+  },
+  {
+    "_id": "c80a5bf3-8e17-42b1-8f61-dd5ec755b515",
+    "user_id": "admin-user-1760849559",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.001000"
+  },
+  {
+    "_id": "b2ba2c63-c779-43cd-a163-fad406346c5e",
+    "user_id": "admin-user-1760849850",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.002000"
+  },
+  {
+    "_id": "b7f6aa03-869d-4517-b323-4ae0b39a8f75",
+    "user_id": "test-user-1760849909",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.002000"
+  },
+  {
+    "_id": "5e8befc3-5460-4486-b30f-201506d82e1c",
+    "user_id": "admin-user-1760849961",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.003000"
+  },
+  {
+    "_id": "2770d636-2584-4a51-911b-723c8b3b6768",
+    "user_id": "admin-user-1760852673",
+    "title": "New Hackathon Pending Approval",
+    "message": "'Referral Test Hackathon 054438' by Test Organizer User is awaiting your approval.",
+    "type": "hackathon_pending",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.003000"
+  },
+  {
+    "_id": "126d8099-564b-47a5-82ce-b4c6a456842e",
+    "user_id": "participant-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.114000"
+  },
+  {
+    "_id": "8d4f45cd-6de4-4fbe-bc4b-bd8b94f1c002",
+    "user_id": "participant-user-1760852673",
+    "type": "submission",
+    "title": "Project Submitted",
+    "message": "Your team has submitted the project: Innovative AI Solution",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.189000"
+  },
+  {
+    "_id": "9cae8fe5-4aba-4c7f-abb7-183a0c3207d4",
+    "user_id": "participant-user-1760852673",
+    "type": "submission",
+    "title": "Project Submitted",
+    "message": "Your team has submitted the project: Advanced ML Platform",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.222000"
+  },
+  {
+    "_id": "65c06107-84b4-4818-b5bf-4f40222fcee0",
+    "user_id": "organizer-user-1760852673",
+    "type": "registration",
+    "title": "Registration Successful",
+    "message": "You have successfully registered for the hackathon",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.295000"
+  },
+  {
+    "_id": "ba943fee-4cf9-4821-bc1b-5af0d9f37096",
+    "user_id": "participant-user-1760852673",
+    "type": "submission",
+    "title": "Project Submitted",
+    "message": "Your team has submitted the project: Updated Project Name",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.475000"
+  },
+  {
+    "_id": "cfc906f0-ea99-46d6-a79a-d4dfb1433eb0",
+    "user_id": "participant-user-1760852673",
+    "type": "submission",
+    "title": "Project Submitted",
+    "message": "Your team has submitted the project: Project with Special Chars: !@#$%^&*()_+-=[]{}|;':\",./<>?",
+    "read": false,
+    "created_at": "2025-10-19T05:44:39.512000"
+  }
+]

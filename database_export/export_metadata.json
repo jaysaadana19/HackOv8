@@ -1,0 +1,21 @@
+{
+  "export_date": "2025-10-19T13:04:15.232490",
+  "database_name": "test_database",
+  "mongo_url": "mongodb://localhost:27017",
+  "total_collections": 8,
+  "total_documents": 1105,
+  "collections": {
+    "hackathons": 1,
+    "users": 400,
+    "user_sessions": 98,
+    "registrations": 305,
+    "companies": 4,
+    "teams": 0,
+    "submissions": 0,
+    "notifications": 297
+  },
+  "instructions": {
+    "import_command": "mongoimport --uri='YOUR_DEPLOYED_MONGO_URL' --db=YOUR_DB_NAME --collection=COLLECTION_NAME --file=COLLECTION_NAME.json --jsonArray",
+    "note": "Replace YOUR_DEPLOYED_MONGO_URL and YOUR_DB_NAME with your production values"
+  }
+}
