@@ -1,0 +1,409 @@
+================================================================================
+HACKOV8 USER IMPORT SCRIPT
+================================================================================
+MongoDB: mongodb://localhost:27017/test_database
+CSV File: /app/users_import.csv
+Default Password: Welcome@123
+================================================================================
+
+Starting import...
+
+⏭️  Skipped: test@gmail.com (already exists)
+⏭️  Skipped: testing1@gmail.com (already exists)
+⏭️  Skipped: admin.1759571765@example.com (already exists)
+⏭️  Skipped: login.test.1759571766@example.com (already exists)
+⏭️  Skipped: admin.1759578100@example.com (already exists)
+⏭️  Skipped: organizer.1759578100@example.com (already exists)
+⏭️  Skipped: participant.1759578100@example.com (already exists)
+⏭️  Skipped: participant2.1759578103@example.com (already exists)
+⏭️  Skipped: test11@gmail.com (already exists)
+⏭️  Skipped: test12@gmail.com (already exists)
+⏭️  Skipped: admin.1759946358@example.com (already exists)
+⏭️  Skipped: judge.1759946358@example.com (already exists)
+⏭️  Skipped: participant2.1759946361@example.com (already exists)
+⏭️  Skipped: login.test.1759946378@example.com (already exists)
+⏭️  Skipped: participant2.1759946379@example.com (already exists)
+⏭️  Skipped: login.test.1759947639@example.com (already exists)
+⏭️  Skipped: google.participant.1759947700@gmail.com (already exists)
+⏭️  Skipped: admin.1759947730@example.com (already exists)
+⏭️  Skipped: participant.1759947730@example.com (already exists)
+⏭️  Skipped: google.organizer.1759947731@gmail.com (already exists)
+⏭️  Skipped: test.query.1759952161@example.com (already exists)
+⏭️  Skipped: admin@hackov8.com (already exists)
+⏭️  Skipped: test.user.1759566855900@example.com (already exists)
+⏭️  Skipped: organizer@tech.com (already exists)
+⏭️  Skipped: test123@example.com (already exists)
+⏭️  Skipped: organizer.1759571765@example.com (already exists)
+⏭️  Skipped: participant.1759571765@example.com (already exists)
+⏭️  Skipped: jaysaadana@gmail.com (already exists)
+⏭️  Skipped: login.test.1759578102@example.com (already exists)
+⏭️  Skipped: socialwinterofcode@gmail.com (already exists)
+⏭️  Skipped: test13@gmail.com (already exists)
+⏭️  Skipped: organizer.1759946358@example.com (already exists)
+⏭️  Skipped: participant.1759946358@example.com (already exists)
+⏭️  Skipped: login.test.1759946360@example.com (already exists)
+⏭️  Skipped: admin.1759946377@example.com (already exists)
+⏭️  Skipped: organizer.1759946377@example.com (already exists)
+⏭️  Skipped: participant.1759946377@example.com (already exists)
+⏭️  Skipped: judge.1759946377@example.com (already exists)
+⏭️  Skipped: test16@gmail.com (already exists)
+⏭️  Skipped: admin.1759947637@example.com (already exists)
+⏭️  Skipped: organizer.1759947637@example.com (already exists)
+⏭️  Skipped: participant.1759947637@example.com (already exists)
+⏭️  Skipped: judge.1759947637@example.com (already exists)
+⏭️  Skipped: participant2.1759947640@example.com (already exists)
+⏭️  Skipped: admin.1759947700@example.com (already exists)
+⏭️  Skipped: organizer.1759947700@example.com (already exists)
+⏭️  Skipped: participant.1759947700@example.com (already exists)
+⏭️  Skipped: judge.1759947700@example.com (already exists)
+⏭️  Skipped: google.organizer.1759947700@gmail.com (already exists)
+⏭️  Skipped: google.judge.1759947700@gmail.com (already exists)
+⏭️  Skipped: organizer.1759947730@example.com (already exists)
+⏭️  Skipped: judge.1759947730@example.com (already exists)
+⏭️  Skipped: google.participant.1759947731@gmail.com (already exists)
+⏭️  Skipped: google.judge.1759947731@gmail.com (already exists)
+⏭️  Skipped: test.body.1759952219@example.com (already exists)
+⏭️  Skipped: jay@porix.in (already exists)
+⏭️  Skipped: jaisadana19@gmail.com (already exists)
+✅ Imported: Jay Saadana (jaysaadana@porix.in) - participant
+✅ Imported: Dhara Pandya (dharapandya2020@gmail.com) - participant
+✅ Imported: Janavi Pandole (janavipandole@gmail.com) - participant
+✅ Imported: Eswaramuthu M (meswaramuthu@gmail.com) - participant
+✅ Imported: Aaqeeb Pinjari (aaqeebpinjari163@gmail.com) - participant
+✅ Imported: Hitha Harish (hitha22harish@gmail.com) - participant
+✅ Imported: Jaydeep Sardar (jaydeep.sardar.official@gmail.com) - participant
+✅ Imported: Akshaj Tiwari (akshajtiwari9a@gmail.com) - participant
+✅ Imported: Harshavardhan (harshath3018@gmail.com) - participant
+✅ Imported: Archangel (26.archangel@gmail.com) - participant
+✅ Imported: Hitesh Saini (sainihitesh1123@gmail.com) - participant
+✅ Imported: Parth Yogesh Kulkarni (parth.kulkarni24@pccoepune.org) - participant
+✅ Imported: Annul (annul27.aa05@gmail.com) - participant
+✅ Imported: Shobha Kumari (kumari3103shobha@gmail.com) - participant
+✅ Imported: Ajay (ajaykdn7@gmail.com) - participant
+✅ Imported: Kritika Benjwal (ananya.benjwal@gmail.com) - participant
+✅ Imported: Hnin Wutt Yi (hninwuttyi.mgn@gmail.com) - participant
+✅ Imported: Pragati veer (veer.pragati99@gmail.com) - participant
+✅ Imported: Krishna Choudhary (krishna.p.choudhary.20@gmail.com) - participant
+✅ Imported: Mahesh (rajpurohitmahesh816@gmail.com) - participant
+✅ Imported: Ajay Kumar (ajay.rcf5@gmail.com) - participant
+✅ Imported: Dhanesh Shingade (shingadedhanesh1234@gmail.com) - participant
+✅ Imported: Yashpriya Dwivedi (yashpriyadwivedi@gmail.com) - participant
+✅ Imported: Ujjwal Bajpayee (ujjwalprakash02@gmail.com) - participant
+✅ Imported: Ritika pal (palritika79@gmail.com) - participant
+✅ Imported: Vikas Verma (vikasverma172005@gmail.com) - participant
+✅ Imported: Aayush Gupta (sanayush1357@gmail.com) - participant
+✅ Imported: Durga Pavani (thebommareddy@gmail.com) - participant
+✅ Imported: Anika Jha (jhaanika03@gmail.com) - participant
+✅ Imported: Ayush Verma (ayushverma19171051@gmail.com) - participant
+✅ Imported: sakshi sonawane (sakshi28112@gmail.com) - participant
+✅ Imported: Raj Kishor Yadav (rajkishoryadav8318@gmail.com) - participant
+✅ Imported: Rishima (rishima2512@gmail.com) - participant
+✅ Imported: Spandan Das (sd672483@gmail.com) - participant
+✅ Imported: Tanvi Sanjay Ghadge (tanvighadge27@gmail.com) - participant
+✅ Imported: Vanshika Khator (vanshikakhator06@gmail.com) - participant
+✅ Imported: Mayank Choudhary (mayankchoudhary9941@gmail.com) - participant
+✅ Imported: Yashasvi Goswami (goswamiyashasvi24@gmail.com) - participant
+✅ Imported: Akshay (akshaykmfilms@gmail.com) - participant
+✅ Imported: Vishal Gaikwad (gaikwad8vishal@gmail.com) - participant
+✅ Imported: Vicky Kumar (babushiva763282@gmail.com) - participant
+✅ Imported: Utkarsh yadav (utkarsh880023@gmail.com) - participant
+✅ Imported: Digvijay Yeware (yewaredigvijay@gmail.com) - participant
+✅ Imported: Madhu Rajawat (madhurajawat0708@gmail.com) - participant
+✅ Imported: NIRAJ KARNAWAT (karnawatniraj@gmail.com) - participant
+✅ Imported: Aasha Sharma (aasha.chess123@gmail.com) - participant
+✅ Imported: ethereal eyes (tetherealeyes0@gmail.com) - participant
+✅ Imported: Yajnesh K (wildpegasus96@gmail.com) - participant
+✅ Imported: Kartikey Pandey (kartikaypandey1234@gmail.com) - participant
+✅ Imported: Keerthana Shenoy (keerthanashenoy05@gmail.com) - participant
+✅ Imported: Gayathri (karumurigayathri79@gmail.com) - participant
+✅ Imported: Shashank RM (shashankreddy0608@gmail.com) - participant
+✅ Imported: Paras (parash2004abc@gmail.com) - participant
+✅ Imported: Prateek Sharma (123pkbros25@gmail.com) - participant
+✅ Imported: Aryan Madhusudhanan (dotdev262@gmail.com) - participant
+✅ Imported: Isha (patelisha065@gmail.com) - participant
+✅ Imported: Saurav Dinkar Devhare (sauravdewhare123@gmail.com) - participant
+✅ Imported: Aastha Yadav (yadavaastha00@gmail.com) - participant
+✅ Imported: Gunjan Ghate (ghategunjan@gmail.com) - participant
+✅ Imported: Purbarun Gupta (purbarungupta217@gmail.com) - participant
+✅ Imported: Prerna Mishra (prernam2004bts@gmail.com) - participant
+✅ Imported: Ayoosh Karekar (karekarayoosh@gmail.com) - participant
+✅ Imported: Ayush (ayushbhadgare106@gmail.com) - participant
+✅ Imported: Soundarya R (soundaryaramachandra2003@gmail.com) - participant
+✅ Imported: Prabhat Mishra (www.prabhatmishra1234@gmail.com) - participant
+✅ Imported: Yamuna (yamuna.bsvy@gmail.com) - participant
+✅ Imported: Kunal Das (das840kunal@gmail.com) - participant
+✅ Imported: Aryan (shakyaaryan7147@gmail.com) - participant
+✅ Imported: Suyash Ghanshyam Padole (25padolesg@rbunagpur.in) - participant
+✅ Imported: Tanisha Sharma (officialtanisha20@gmail.com) - participant
+✅ Imported: Rutuja Pable (pablerutuja06@gmail.com) - participant
+✅ Imported: Ishika Casley (ishikacasley764@gmail.com) - participant
+✅ Imported: Nilanshu Kumar Singh (nilanshukumarsingh2005@gmail.com) - participant
+✅ Imported: Ishu (crushindeed@gmail.com) - participant
+✅ Imported: Hemant Lad (hemantlad48@gmail.com) - participant
+✅ Imported: Sneha Arora (snehaarora68791@gmail.com) - participant
+✅ Imported: Huda Naaz (naazhuda2000@gmail.com) - participant
+✅ Imported: Devansh Thaware (devanshthaware0@gmail.com) - participant
+✅ Imported: Dipanita Mondal (suparnamondal1909@gmail.com) - participant
+✅ Imported: Sai Omkar (saiomkar475@gmail.com) - participant
+✅ Imported: PRIYA PRIYA (124103040@nitkkr.ac.in) - participant
+✅ Imported: Kothakapu Vishnu Kiran (kothakapuvishnukiran@gmail.com) - participant
+✅ Imported: Shubham Bisht (contact.shubhambisht@gmail.com) - participant
+✅ Imported: Anushka A (03ataanushka@gmail.com) - participant
+✅ Imported: Hamza (hamzakhan174722@gmail.com) - participant
+✅ Imported: Swayam Chaudhary (swayamchaudhari123@gmail.com) - participant
+✅ Imported: Sakshi Parashar (sakshiparashar2910@gmail.com) - participant
+✅ Imported: Thamidu Nadun (nadunrz101@gmail.com) - participant
+✅ Imported: Deepesh Ahlawat (deepeshahlawat001@gmail.com) - participant
+✅ Imported: Soham Mukherjee (sohamaxpauli@gmail.com) - participant
+✅ Imported: Ujjwal Agarwal (ujjwalagarwal3639@gmail.com) - participant
+✅ Imported: Anuj Upadhayay (anujupadhayay0306@gmail.com) - participant
+✅ Imported: AASHISH SAGAR (sagaraashish25@gmail.com) - participant
+✅ Imported: Thanuja Malla (thanujamalla123@gmail.com) - participant
+✅ Imported: Sameer Desai (sameerdesai.dev@outlook.com) - participant
+✅ Imported: Shreyoshi Chakraborty (chakrabortyshreyoshi721@gmail.com) - participant
+✅ Imported: Chirag (chiragbhatia18012005@gmail.com) - participant
+✅ Imported: Yash Jain (yashjainjg3014@gmail.com) - participant
+✅ Imported: Prachi Patel (prachi.techwork@gmail.com) - participant
+✅ Imported: Reddi Abhinaya Sai (abhinayasai.reddi@gmail.com) - participant
+✅ Imported: Arpit Tripathi (arpittripathiayo@gmail.com) - participant
+✅ Imported: Mohammed Thaha (mohammedthahacse@gmail.com) - participant
+✅ Imported: Om Utkarsh (omutkarsh2005@gmail.com) - participant
+✅ Imported: Shriya Nayak (shriyanayak44@gmail.com) - participant
+✅ Imported: Ashritha Akkinepally (akkinepallyashritha@gmail.com) - participant
+✅ Imported: Disha Baghel (bagheldisha708@gmail.com) - participant
+✅ Imported: Aayush Kumar Gupta (ayushkmr2509@gmail.com) - participant
+✅ Imported: Shrirang Vaidya (shrirangvaidya88.80@gmail.com) - participant
+✅ Imported: Ankan Roy (codeankan@gmail.com) - participant
+✅ Imported: Ankan Ghosh (aghosh198126@gmail.com) - participant
+✅ Imported: Anamta Mazahir (anamtamazahir@gmail.com) - participant
+✅ Imported: Anil Kumar Chakali (anilkumarchakali19@gmail.com) - participant
+✅ Imported: Diya Raghuvanshi (diya.raghuvanshi12@gmail.com) - participant
+✅ Imported: Kittu Priya 23mei10034 (kittu.23mei10034@vitbhopal.ac.in) - participant
+✅ Imported: Minu Kumari (minukumari102004@gmail.com) - participant
+✅ Imported: Shravan Ningot (ningotshravan@gmail.com) - participant
+✅ Imported: Zikra Shaikh (zikra200905@gmail.com) - participant
+✅ Imported: Vinay kumar (vinaykumar.kajjapu@gmail.com) - participant
+✅ Imported: Ayush Kumar (akofficial1330@gmail.com) - participant
+✅ Imported: Lokesh Jakhar (jakharlokesh2@gmail.com) - participant
+✅ Imported: Dibika Internship (dibikainternship@gmail.com) - participant
+✅ Imported: Mahi Kr (kumarmahi8758@gmail.com) - participant
+✅ Imported: Susmitha (susmithanaidurajana@gmail.com) - participant
+✅ Imported: Suraj Productivity (surajsproductivitymail@gmail.com) - participant
+✅ Imported: Sulesh (suleshwaghmare7875@gmail.com) - participant
+✅ Imported: Akshita (vijayakshita4@gmail.com) - participant
+✅ Imported: Abhinav Singh (abhinavkrsingh3016@gmail.com) - participant
+✅ Imported: sultan khan (mobasshirkhan9931@gmail.com) - participant
+✅ Imported: Dhruv Alpeshbhai Panchal (killerxd1511@gmail.com) - participant
+✅ Imported: Kush Mantoo (kushmantoo495@gmail.com) - participant
+✅ Imported: Shreshta Poojari (spsr2802@gmail.com) - participant
+✅ Imported: Tanvi Satija (tanvisatija8@gmail.com) - participant
+✅ Imported: Yasir Akhlaque (yasirakhlaque9@gmail.com) - participant
+✅ Imported: Kaysav Piranav (kaysavpiranav2006@gmail.com) - participant
+✅ Imported: Anuj Chaudhary (7anujch2811@gmail.com) - participant
+✅ Imported: Bharath Kumar P (bharath2003kumarp@gmail.com) - participant
+✅ Imported: Khushi Panghal (khushipanghal08@gmail.com) - participant
+✅ Imported: Rahul Singh (singhrahul161104@gmail.com) - participant
+✅ Imported: Atulya Jaiswal (jaiswalatulya741@gmail.com) - participant
+✅ Imported: Sunaini Raghuwanshi (raghuwanshisunaini@gmail.com) - participant
+✅ Imported: Suhani (suhanikaushal62@gmail.com) - participant
+✅ Imported: Nidhi Tiwari S (nidhitiwari.feb01@gmail.com) - participant
+✅ Imported: Rass_XT Rass_XT (traj96111@gmail.com) - participant
+✅ Imported: Archita yadav (architay147@gmail.com) - participant
+✅ Imported: Tanya Purwar (tanyapurwar122@gmail.com) - participant
+✅ Imported: Priya Kushwaha (priyakushwaha11m01@gmail.com) - participant
+✅ Imported: Chaya Lokesh (chayalokesh71@gmail.com) - participant
+✅ Imported: Sonali Bhanudas Mali (sonalibhanudasmali101@gmail.com) - participant
+✅ Imported: PARTH GUPTA (parth.2428cs1264@kiet.edu) - participant
+✅ Imported: Abhishek Topno (abhishektopno649@gmail.com) - participant
+✅ Imported: Aarchana Nichani (aarchananichani12@gmail.com) - participant
+✅ Imported: S Uma Shankar Reddy (umeshreddyumesh420@gmail.com) - participant
+✅ Imported: Daksh Srivastava -IIITK (dakshsrivastava24bcy62@iiitkottayam.ac.in) - participant
+✅ Imported: Dhruv Goel (dhruvgoel1100@gmail.com) - participant
+✅ Imported: Yash Pal (yashpal2104@gmail.com) - participant
+✅ Imported: Arpita (arpitabouri43@gmail.com) - participant
+✅ Imported: Rachit Singhal (rachitsinghal106@gmail.com) - participant
+✅ Imported: Hasini Tadikonda (hasinitadikonda0708@gmail.com) - participant
+✅ Imported: Swati Mohapatra (swati1372004@gmail.com) - participant
+✅ Imported: Kavin Prakash T (tkavinprakash@gmail.com) - participant
+✅ Imported: Priyanshi Singh (priyanshisingh.99581@gmail.com) - participant
+✅ Imported: Aayush Sharma (msa24005@iiitl.ac.in) - participant
+✅ Imported: Krishna saini (krishnaasaini644@gmail.com) - participant
+✅ Imported: Kashish (kash26ish@gmail.com) - participant
+✅ Imported: Aakriti Rajhans (rajhansaakriti@gmail.com) - participant
+✅ Imported: Akshaya B (ganeshachu1309@gmail.com) - participant
+✅ Imported: Somashekar N (4mh24ci046@gmail.com) - participant
+✅ Imported: Nikhil Agrawal (nikhilagrawal6448@gmail.com) - participant
+✅ Imported: Chaitanya Gidwani (chaitanya13197@gmail.com) - participant
+✅ Imported: Priyanshi Rawat (tiyarawat2000@gmail.com) - participant
+✅ Imported: Nehakumari Nehakumari (nn5083442@gmail.com) - participant
+✅ Imported: Aditya Narayan (adityasidd08@gmail.com) - participant
+✅ Imported: Aditya NV (adityanv4@gmail.com) - participant
+✅ Imported: Aman Khan (amanjkhan21@gmail.com) - participant
+✅ Imported: aksharadondeti (aksharadondeti@gmail.com) - participant
+✅ Imported: Anjali Kumari (anjalithakur102004@gmail.com) - participant
+✅ Imported: Hridya Sadanand (hridyasadanand0@gmail.com) - participant
+✅ Imported: Charchit Gangwar (charchitg9457@gmail.com) - participant
+✅ Imported: Hiba (hibakhn58@gmail.com) - participant
+✅ Imported: Anandha (viharianandha@gmail.com) - participant
+✅ Imported: Neelendra pratap (npsy1811@gmail.com) - participant
+✅ Imported: Raj Roy (royabhisek083@gmail.com) - participant
+✅ Imported: Ishan Agrawal (iagrawal9990@gmail.com) - participant
+✅ Imported: Rahul Rawat (rahulrawat4060@gmail.com) - participant
+✅ Imported: Raj Dwivedi (rajiaf202704@gmail.com) - participant
+✅ Imported: Pratyush Pragyey (pratyushpragyey@gmail.com) - participant
+✅ Imported: Bavisha TJ (bavishatj@gmail.com) - participant
+✅ Imported: Nikhil Singh (nikhillsinghh1020@gmail.com) - participant
+✅ Imported: Kaivalya Beohar (kaivalya.beohar@gmail.com) - participant
+✅ Imported: AANYA BADGAIYAN (sureindrabadgiyan@gmail.com) - participant
+✅ Imported: Yashraj Zagade (yashrajzagade07@gmail.com) - participant
+✅ Imported: Raju Sharma (rajusharmadata123@gmail.com) - participant
+✅ Imported: Riya Rani (johan.liebert.19750407@gmail.com) - participant
+✅ Imported: Tanishq Shinde (tanishqshinde777@gmail.com) - participant
+✅ Imported: Utkarsha Sinha (utkarsha20005@gmail.com) - participant
+✅ Imported: MINHA FAROOK (minhafarook1@gmail.com) - participant
+✅ Imported: Jeiya Shivani (jeiyashivani.ss2023cce@sece.ac.in) - participant
+✅ Imported: Fidha Nawal (fidhunawal9746@gmail.com) - participant
+✅ Imported: Jashwanth Allenki (jashwanthallenki16@gmail.com) - participant
+✅ Imported: Tanishka (mtanishka33@gmail.com) - participant
+✅ Imported: Saanvi Gupta (saanvigupta372@gmail.com) - participant
+✅ Imported: Dev Bhuva (devbhuva077@gmail.com) - participant
+✅ Imported: Atharva (kulkarniatharva422@gmail.com) - participant
+✅ Imported: Ratnadia Saha (ratnadia6504@gmail.com) - participant
+✅ Imported: Arpan Sarkar (contact.arpan.sarkar@gmail.com) - participant
+✅ Imported: Rishita (rishitadevrari0@gmail.com) - participant
+✅ Imported: Tek Bahadur Budhathoki (shanu.chhetri529@gmail.com) - participant
+✅ Imported: Stuti Gupta (stutigupta817@gmail.com) - participant
+✅ Imported: Shreya Arya (shreya.workbv29@gmail.com) - participant
+✅ Imported: Smit Parmar (smithparmar9999@gmail.com) - participant
+✅ Imported: Harsh Mohan (harshmohan009@gmail.com) - participant
+✅ Imported: Shruti (shrutibarua5@gmail.com) - participant
+✅ Imported: Renu Kumari Prajapati (renu89857@gmail.com) - participant
+✅ Imported: Riddhi Jathar (riddhijathar7@gmail.com) - participant
+✅ Imported: Mekala Vamshi yadav (mekalavamshiyadav46@gmail.com) - participant
+✅ Imported: Yash Sikarwar (yashsikarwar005@gmail.com) - participant
+✅ Imported: Kavyansh Khandelwal (kavyanshkhandelwal1@gmail.com) - participant
+✅ Imported: Sunil Thati (sunilthati27cs@gmail.com) - participant
+✅ Imported: Garv Changrani (garvchangrani1@gmail.com) - participant
+✅ Imported: Divika Thota (divikathota@gmail.com) - participant
+✅ Imported: MD Kaif Khan (kaifkhan5540@gmail.com) - participant
+✅ Imported: ROSHINI D (drroshini16@gmail.com) - participant
+✅ Imported: Ankur Ranjan Chanda (ankurchanda.ind@gmail.com) - participant
+✅ Imported: Sai Kannadkar (saikannadkar@gmail.com) - participant
+✅ Imported: Khushi Kumari (khushiekghara92@gmail.com) - participant
+✅ Imported: Sanjana Chennupati (sanjana.chennupati@gmail.com) - participant
+✅ Imported: Ishwari Shinde (ishwarishinde2006@gmail.com) - participant
+✅ Imported: Shreshtha Jha (jobs.shreshtha@gmail.com) - participant
+✅ Imported: Nisshitha (rnisshitha@gmail.com) - participant
+✅ Imported: Gokulaprasad (gokulaprasad2004@gmail.com) - participant
+✅ Imported: Priyanshu Chawda (hellopriyanshu4@gmail.com) - participant
+✅ Imported: Harshit Pal (harshit13082006.pal@gmail.com) - participant
+✅ Imported: Siya Gholap (siyagholap2@gmail.com) - participant
+✅ Imported: Himanshu Heda (himanshuheda123@gmail.com) - participant
+✅ Imported: Arshad Zama (arshadzamaaz@gmail.com) - participant
+✅ Imported: Koushik Reddy (koushik.yeruva02@gmail.com) - participant
+✅ Imported: ANVITA RAYAPATI (bcs_2024009@iiitm.ac.in) - participant
+✅ Imported: Himanshi Pathak (pathakhimanshi071@gmail.com) - participant
+✅ Imported: yashika sinha (yashikasinha309@gmail.com) - participant
+✅ Imported: Rijusmit Biswas (rijusmit22400@iiitd.ac.in) - participant
+✅ Imported: Palak (palaksood708@gmail.com) - participant
+✅ Imported: Akash Gite (akashgite550@gmail.com) - participant
+✅ Imported: Prem Kumar (premkumar7516751@gmail.com) - participant
+✅ Imported: Yashasvi (walker53148@gmail.com) - participant
+✅ Imported: Lavisha Mahajan (lavishamahajan2005@gmail.com) - participant
+✅ Imported: Aahant Kumar (royaahantbhardwaj@gmail.com) - participant
+✅ Imported: Keshav Gupta (ddunresident202@gmail.com) - participant
+✅ Imported: Adnan Irfan (adnanirfanr734@gmail.com) - participant
+✅ Imported: Radha Rani Basak (radharanibasak2003@gmail.com) - participant
+✅ Imported: Shreya Mittal (shreyamittal1002@gmail.com) - participant
+✅ Imported: Shreya Tiwari (shreya1505tiwari@gmail.com) - participant
+✅ Imported: Mahad Iqbal (mahadiqbal70@gmail.com) - participant
+✅ Imported: Abhirup Nandi (abhirupn2004@gmail.com) - participant
+✅ Imported: Mukesh Gautam (gmukesh843@gmail.com) - participant
+✅ Imported: Samiran Samanta (samiran.samanta.dev@gmail.com) - participant
+✅ Imported: Gopal Dwivedi (gopal02112004@gmail.com) - participant
+✅ Imported: Kanishka Arora (kanishkaarora194@gmail.com) - participant
+✅ Imported: Khushi Agrawal (khushiagrawal0196@gmail.com) - participant
+✅ Imported: Satyaranjan Nayak (satyaranjannayak799@gmail.com) - participant
+✅ Imported: Sameeksha M Shrouthy (shrouthysam@gmail.com) - participant
+✅ Imported: Pratiksha Khare (pratikshakhare042006@gmail.com) - participant
+✅ Imported: Shreyansh Srivastava (shreyanshsri06@gmail.com) - participant
+✅ Imported: Divya Gupta (divyagupt72@gmail.com) - participant
+✅ Imported: Dhinakaran T (dinastdhinast@gmail.com) - participant
+✅ Imported: Tanya Sharma (tamsharma1010@gmail.com) - participant
+✅ Imported: Samridhi Shree (samridhi0424@gmail.com) - participant
+✅ Imported: Vaishnavi Narvekar (vaishnavinarvekar428@gmail.com) - participant
+✅ Imported: Syed Khaja Moinuddin (syedkhajamoinuddin293@gmail.com) - participant
+✅ Imported: Bhavana Gupta (gupta.bhavana6@gmail.com) - participant
+✅ Imported: Sritama Chatterjee (sritamachatterjee422@gmail.com) - participant
+✅ Imported: K Ayesha (ayesha389922@gmail.com) - participant
+✅ Imported: Tejaswini Yathapu (tejaswani2007@gmail.com) - participant
+✅ Imported: Korrapati Naga Hasmitha (nagahasmithakorrapati@gmail.com) - participant
+✅ Imported: Harshita Patel (harshitapatel8103@gmail.com) - participant
+✅ Imported: Chandana Koduru (srichandanakoduru@gmail.com) - participant
+✅ Imported: Archak Khandayit (archakkhandayit@gmail.com) - participant
+✅ Imported: Shanidhya kumar (luckykumar0011s@gmail.com) - participant
+✅ Imported: Niharika Mente (menteniharika@gmail.com) - participant
+✅ Imported: Ayush Jaiswal (aj85163@gmail.com) - participant
+✅ Imported: Umesh Kumar (umeshkumar54949@gmail.com) - participant
+✅ Imported: aditi chauhan (chauhan28724@gmail.com) - participant
+✅ Imported: Mithradevi K (mithradevik.cse2023@gmail.com) - participant
+✅ Imported: Vishesh Kumar (visheshkumar392004@gmail.com) - participant
+✅ Imported: Arnab Ghosh (garnab559@gmail.com) - participant
+✅ Imported: Avani Avani (avaniche007@gmail.com) - participant
+✅ Imported: Keerthi Venkata Naga Jyothi (jyothikarumuri97@gmail.com) - participant
+✅ Imported: Sri datta sidhardha Kondeti (Siddu) (sridatta.k99@gmail.com) - participant
+✅ Imported: Priyanshi Singh (singhpriyanshi102@gmail.com) - participant
+✅ Imported: Dande Lakshmi Prasanna (dande.lakshmiprasanna666@gmail.com) - participant
+✅ Imported: Ayaan Shaikh (ayaanmaths04@gmail.com) - participant
+✅ Imported: MD NAYAJ MONDAL (md.n.m.pius18@gmail.com) - participant
+✅ Imported: Shifana R (rshifana2005@gmail.com) - participant
+✅ Imported: Aditi Jaiswal (aditi.8.vr@gmail.com) - participant
+✅ Imported: Abhishek Mankuskar (mankuskarabhi2@gmail.com) - organizer
+✅ Imported: VIVEK YADAV (yadavvivek58778@gmail.com) - participant
+✅ Imported: Palchhin (palchhinparihar@gmail.com) - participant
+✅ Imported: Crish Malsm (malsmcrish19@gmail.com) - participant
+✅ Imported: PriTesh Keshri (priteshkeshri468@gmail.com) - participant
+✅ Imported: Yogaprasad M K (yogaprasadf12@gmail.com) - participant
+✅ Imported: Harshi gupta (gharshi089@gmail.com) - participant
+✅ Imported: Prateek Kumar (prateekkumarid@gmail.com) - participant
+✅ Imported: Prateek Kumar (prateek.cse23@bgsbu.ac.in) - participant
+✅ Imported: Vivek Maurya (vivekmaurya936984@gmail.com) - participant
+✅ Imported: Deepansh Arora (deepansharora14@gmail.com) - participant
+✅ Imported: Syeda Alizah (syeda.alizah06@gmail.com) - participant
+✅ Imported: Roshan Suthar (roshansuthar2023@gmail.com) - participant
+✅ Imported: Kashee Keswani (kasheekeswani@gmail.com) - participant
+✅ Imported: Prem (prempiyush29@gmail.com) - participant
+✅ Imported: MOHAMMED ARIF S (smohammedarifarif3@gmail.com) - participant
+✅ Imported: Anshul Kuthe (anshulkuthe02@gmail.com) - participant
+✅ Imported: Yeshwanth Sunkara (yeshwanthsunkara2006@gmail.com) - participant
+✅ Imported: Subarna Maity (subarnamaity10i@gmail.com) - participant
+✅ Imported: mohammed abdul wahab (abdulwahabm221@gmail.com) - participant
+✅ Imported: Somisetty Sai Akshitha Sandra (akshithasomisetty@gmail.com) - participant
+✅ Imported: Mahak (mahak.goswami2050@gmail.com) - participant
+✅ Imported: Harshika Saxena (harshikasaxena01@gmail.com) - participant
+✅ Imported: Rutul Patel (githubrp@gmail.com) - participant
+✅ Imported: Deepanshi Shrivastava (deepanshi.gwl@gmail.com) - participant
+✅ Imported: Kirthi (its.me.jckirthi@gmail.com) - participant
+✅ Imported: Praveen r (rp9313952@gmail.com) - participant
+
+================================================================================
+IMPORT SUMMARY
+================================================================================
+✅ Newly imported:         320
+🔄 Updated (role changed): 0
+⏭️  Skipped (exists):       57
+❌ Errors:                 0
+📊 Total processed:        377
+================================================================================
+
+ROLE BREAKDOWN:
+  Admin: 14
+  Judge: 11
+  Organizer: 16
+  Participant: 359
+
+================================================================================
+⚠️  IMPORTANT: Default password for all new users is 'Welcome@123'
+   Users should change their password after first login.
+================================================================================
+
