@@ -56,9 +56,10 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
   };
 
   const handleDownloadCSV = () => {
-    // Create CSV content
+    // Create CSV content from filtered results
     const headers = ['Name', 'Email', 'Registration Date', 'Status'];
-    const rows = registrations.map(reg => {
+    const dataToExport = filteredRegistrations.length > 0 ? filteredRegistrations : registrations;
+    const rows = dataToExport.map(reg => {
       const user = userDetails[reg.user_id] || {};
       return [
         user.name || 'Unknown',
