@@ -56,6 +56,7 @@ export default function Dashboard() {
         registrationAPI.getMyRegistrations(),
         teamAPI.getMy(),
         notificationAPI.getAll(),
+        referralAPI.getMyStats(),
       ]);
 
       setUser(userRes.data);
@@ -63,6 +64,7 @@ export default function Dashboard() {
       setMyRegistrations(regsRes.data);
       setMyTeams(teamsRes.data);
       setNotifications(notifsRes.data);
+      setMyReferralStats(referralRes.data);
     } catch (error) {
       toast.error('Failed to load dashboard data');
     } finally {
