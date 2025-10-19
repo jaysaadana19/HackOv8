@@ -134,7 +134,7 @@ export default function Dashboard() {
               <div className="relative">
                 <Button
                   variant="ghost"
-                  className="relative text-gray-400 hover:text-white hover:bg-purple-900/20"
+                  className="relative text-gray-400 hover:text-white hover:bg-teal-900/20"
                   onClick={() => setShowNotifications(!showNotifications)}
                   data-testid="notifications-btn"
                 >
