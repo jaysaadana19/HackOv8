@@ -13,6 +13,20 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
+  // Filter and search registrations
+  const filteredRegistrations = useMemo(() => {
+    return registrations.filter(reg => {
+      const user = userDetails[reg.user_id] || {};
+      const matchesSearch = searchTerm === '' || 
+        (user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (user.email && user.email.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesStatus = statusFilter === 'all' || reg.status === statusFilter;
+      
+      return matchesSearch && matchesStatus;
+    });
+  }, [registrations, userDetails, searchTerm, statusFilter]);
+
   useEffect(() => {
     fetchRegistrations();
   }, []);
