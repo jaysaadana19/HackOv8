@@ -260,12 +260,12 @@ export default function Dashboard() {
             { icon: Code, label: 'Available', value: hackathons.length, gradient: 'from-blue-500 to-cyan-500' },
             { icon: Star, label: 'Notifications', value: unreadCount, gradient: 'from-green-500 to-emerald-500' },
           ].map((stat, idx) => (
-            <Card key={idx} className="glass-effect hover-lift p-6 border border-gray-800">
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-4 shadow-lg`}>
-                <stat.icon className="w-6 h-6 text-white" />
+            <Card key={idx} className="glass-effect hover-lift p-4 sm:p-6 border border-gray-800">
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
+                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
+              <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
+              <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
             </Card>
           ))}
         </div>
