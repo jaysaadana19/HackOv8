@@ -256,7 +256,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {[
             { icon: Trophy, label: 'Registered', value: myRegistrations.length, gradient: 'from-yellow-500 to-orange-500' },
-            { icon: Users, label: 'Teams', value: myTeams.length, gradient: 'from-purple-500 to-pink-500' },
+            { icon: Users, label: 'Teams', value: myTeams.length, gradient: 'from-teal-500 to-teal-600' },
             { icon: Code, label: 'Available', value: hackathons.length, gradient: 'from-blue-500 to-cyan-500' },
             { icon: Star, label: 'Notifications', value: unreadCount, gradient: 'from-green-500 to-emerald-500' },
           ].map((stat, idx) => (
