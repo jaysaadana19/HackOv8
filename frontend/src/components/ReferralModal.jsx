@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { X, Share2, Copy, Twitter, Facebook, Linkedin, MessageCircle, CheckCircle, ExternalLink, TrendingUp } from 'lucide-react';
+import { X, Share2, Copy, Twitter, Facebook, Linkedin, MessageCircle, CheckCircle, ExternalLink, TrendingUp, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { referralAPI } from '@/lib/api';
+import { isAuthenticated } from '@/lib/auth';
 
 export default function ReferralModal({ hackathon, onClose }) {
   const [referralData, setReferralData] = useState(null);
