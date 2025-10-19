@@ -2246,6 +2246,42 @@ db.user_sessions.insertOne({{
             print(f"\n🎉 All tests passed!")
         
         return self.tests_passed == self.tests_run
+    def run_referral_tests_only(self):
+        """Run only referral system tests for focused testing"""
+        print("🔗 Starting Referral System Testing...")
+        print(f"   Base URL: {self.base_url}")
+        
+        # Create test users
+        if not self.create_test_users():
+            print("❌ Failed to create test users. Exiting.")
+            return False
+        
+        # Test authentication
+        if not self.test_authentication():
+            print("❌ Authentication tests failed. Exiting.")
+            return False
+        
+        # Run referral system tests
+        self.test_referral_system()
+        
+        # Cleanup
+        self.cleanup_test_data()
+        
+        # Print final results
+        print(f"\n{'='*60}")
+        print(f"🎯 REFERRAL SYSTEM TEST RESULTS")
+        print(f"{'='*60}")
+        print(f"Total Tests: {self.tests_run}")
+        print(f"Passed: {self.tests_passed}")
+        print(f"Failed: {self.tests_run - self.tests_passed}")
+        print(f"Success Rate: {(self.tests_passed/self.tests_run*100):.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print(f"🎉 ALL REFERRAL TESTS PASSED!")
+            return True
+        else:
+            print(f"⚠️  Some referral tests failed. Check logs above.")
+            return False
 
 def main():
     tester = AdminPanelAPITester()
