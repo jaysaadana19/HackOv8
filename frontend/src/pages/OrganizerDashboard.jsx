@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { hackathonAPI } from '@/lib/api';
+import { hackathonAPI, referralAPI } from '@/lib/api';
 import CreateHackathonModal from '@/components/CreateHackathonModal';
 import EditHackathonModal from '@/components/EditHackathonModal';
 import ViewRegistrationsModal from '@/components/ViewRegistrationsModal';
