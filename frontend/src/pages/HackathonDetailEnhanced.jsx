@@ -805,6 +805,12 @@ export default function HackathonDetailEnhanced() {
           }}
         />
       )}
+      {showReferral && hackathon && (
+        <ReferralModal
+          hackathon={hackathon}
+          onClose={() => setShowReferral(false)}
+        />
+      )}
     </div>
   );
 }
