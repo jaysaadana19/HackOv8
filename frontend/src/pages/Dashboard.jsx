@@ -494,6 +494,17 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      
+      {/* Referral Modal */}
+      {showReferralModal && selectedHackathonForReferral && (
+        <ReferralModal
+          hackathon={selectedHackathonForReferral}
+          onClose={() => {
+            setShowReferralModal(false);
+            setSelectedHackathonForReferral(null);
+          }}
+        />
+      )}
     </div>
   );
 }
