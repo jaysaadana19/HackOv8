@@ -509,6 +509,76 @@ async def get_current_user_info(request: Request):
     user = await get_current_user(request)
     return user
 
+@api_router.get("/referrals/my-stats")
+async def get_my_referral_stats(request: Request):
+    """Get current user's referral statistics"""
+    user = await get_current_user(request)
+    
+    # Count successful referrals (registrations made by referred users)
+    referrals = await db.registrations.count_documents({"referred_by": user.id})
+    
+    # Get referral details with hackathon info
+    pipeline = [
+        {"$match": {"referred_by": user.id}},
+        {"$lookup": {
+            "from": "hackathons",
+            "localField": "hackathon_id", 
+            "foreignField": "_id",
+            "as": "hackathon"
+        }},
+        {"$lookup": {
+            "from": "users",
+            "localField": "user_id",
+            "foreignField": "_id", 
+            "as": "user"
+        }},
+        {"$project": {
+            "hackathon_id": 1,
+            "registered_at": 1,
+            "utm_source": 1,
+            "utm_campaign": 1,
+            "hackathon_name": {"$arrayElemAt": ["$hackathon.title", 0]},
+            "user_name": {"$arrayElemAt": ["$user.name", 0]},
+            "user_email": {"$arrayElemAt": ["$user.email", 0]}
+        }},
+        {"$sort": {"registered_at": -1}},
+        {"$limit": 50}
+    ]
+    
+    referral_details = await db.registrations.aggregate(pipeline).to_list(length=None)
+    
+    return {
+        "referral_code": user.referral_code,
+        "total_referrals": referrals,
+        "referral_details": referral_details
+    }
+
+@api_router.get("/referrals/link/{hackathon_id}")
+async def get_referral_link(hackathon_id: str, request: Request):
+    """Generate referral link for a specific hackathon"""
+    user = await get_current_user(request)
+    
+    # Verify hackathon exists
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    # Generate referral link with UTM parameters
+    base_url = os.environ.get('FRONTEND_URL', 'https://hackov8-manage.preview.emergentagent.com')
+    referral_link = f"{base_url}/hackathon/{hackathon.get('slug', hackathon_id)}?utm_source=referral&utm_campaign={hackathon_id}&utm_medium=user_share&ref={user.referral_code}"
+    
+    return {
+        "referral_link": referral_link,
+        "referral_code": user.referral_code,
+        "hackathon_title": hackathon.get("title"),
+        "utm_params": {
+            "utm_source": "referral",
+            "utm_campaign": hackathon_id,
+            "utm_medium": "user_share",
+            "ref": user.referral_code
+        }
+    }
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
