@@ -181,7 +181,7 @@ export default function Dashboard() {
               {(user?.role === 'admin' || user?.role === 'organizer' || user?.role === 'judge') && (
                 <Button
                   onClick={navigateByRole}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg"
+                  className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white border-0 shadow-lg"
                   data-testid="role-dashboard-btn"
                 >
                   <Settings className="w-4 h-4 mr-2" />
