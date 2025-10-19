@@ -20,7 +20,7 @@ db.users.insertOne({{
   _id: '{user_id}',
   email: '{email}',
   name: 'Test User',
-  role: 'participant',
+  role: 'admin',
   referral_code: 'TEST123CODE',
   created_at: new Date(),
   last_login: null
