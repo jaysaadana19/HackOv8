@@ -196,20 +196,27 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
               <div className="sticky top-0 bg-gray-900/95 backdrop-blur-sm z-10 mb-6 p-4 rounded-lg border border-teal-800/30">
                 <div className="grid grid-cols-2 sm:flex sm:items-center gap-4 sm:gap-6">
                   <div className="text-center sm:text-left">
-                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">{registrations.length}</div>
-                    <div className="text-xs sm:text-sm text-gray-400">Total Registrations</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
+                      {filteredRegistrations.length}
+                      {filteredRegistrations.length !== registrations.length && (
+                        <span className="text-base text-gray-400">/{registrations.length}</span>
+                      )}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-400">
+                      {filteredRegistrations.length !== registrations.length ? 'Filtered' : 'Total'} Registrations
+                    </div>
                   </div>
                   <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
                   <div className="text-center sm:text-left">
                     <div className="text-2xl sm:text-3xl font-bold text-teal-400">
-                      {registrations.filter(r => r.status === 'registered').length}
+                      {filteredRegistrations.filter(r => r.status === 'registered').length}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-400">Active</div>
                   </div>
                   <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
                   <div className="text-center sm:text-left col-span-2 sm:col-span-1">
                     <div className="text-xs text-gray-400 mb-1">Export ready • CSV format</div>
-                    <div className="text-xs text-green-400">✓ {registrations.length} records available</div>
+                    <div className="text-xs text-green-400">✓ {filteredRegistrations.length} records available</div>
                   </div>
                 </div>
               </div>
