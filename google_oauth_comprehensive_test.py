@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone, timedelta
 
 class GoogleOAuthComprehensiveTester:
-    def __init__(self, base_url="https://hackov8-manage.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hackov8-1.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.test_results = []
         

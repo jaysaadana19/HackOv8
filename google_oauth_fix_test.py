@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone, timedelta
 
 class GoogleOAuthFixTester:
-    def __init__(self, base_url="https://hackov8-manage.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hackov8-1.preview.emergentagent.com/api"):
         self.base_url = base_url
         
     def create_mock_jwt_token(self, payload_data):
