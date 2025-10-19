@@ -664,6 +664,16 @@ export default function HackathonDetailEnhanced() {
                           <p className="text-sm text-gray-300">{submission.project_name}</p>
                         </div>
                       )}
+                      
+                      {/* Share & Earn for Team Members */}
+                      <Button
+                        variant="outline"
+                        className="w-full border-2 border-teal-200 text-teal-700 hover:bg-teal-50 py-3 font-semibold"
+                        onClick={() => setShowReferral(true)}
+                      >
+                        <Share2 className="w-4 h-4 mr-2" />
+                        Share & Earn
+                      </Button>
                     </>
                   )}
                 </div>
