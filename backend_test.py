@@ -2499,7 +2499,10 @@ db.user_sessions.insertOne({{
         # Step 14: Test referral system (NEW TEST)
         self.test_referral_system()
         
-        # Step 15: Cleanup
+        # Step 15: Test project submission functionality (NEW TEST)
+        self.test_project_submission_functionality()
+        
+        # Step 16: Cleanup
         self.cleanup_test_data()
         
         # Print summary
