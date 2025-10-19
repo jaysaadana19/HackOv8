@@ -106,7 +106,7 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
               <Label htmlFor="email" className="text-gray-700 mb-2 block font-semibold">
                 Add Co-organizer by Email
               </Label>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <div className="relative flex-1">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <Input
