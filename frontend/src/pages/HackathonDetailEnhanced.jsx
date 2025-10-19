@@ -12,6 +12,7 @@ import CreateTeamModal from '@/components/CreateTeamModal';
 import JoinTeamModal from '@/components/JoinTeamModal';
 import SubmitProjectModal from '@/components/SubmitProjectModal';
 import AuthModal from '@/components/AuthModal';
+import ReferralModal from '@/components/ReferralModal';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
 export default function HackathonDetailEnhanced() {
