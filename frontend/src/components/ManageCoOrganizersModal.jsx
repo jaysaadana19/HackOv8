@@ -69,12 +69,12 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-teal-500 to-teal-600 backdrop-blur-md p-6 border-b border-teal-200 flex items-center justify-between z-10">
           <div>
-            <h2 className="text-2xl font-bold gradient-text">Manage Co-organizers</h2>
-            <p className="text-gray-400 text-sm mt-1">{hackathon.title}</p>
+            <h2 className="text-2xl font-bold text-white">Manage Co-organizers</h2>
+            <p className="text-teal-100 text-sm mt-1">{hackathon?.title}</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-teal-100 hover:text-white transition-colors"
             disabled={loading}
           >
             <X className="w-6 h-6" />
