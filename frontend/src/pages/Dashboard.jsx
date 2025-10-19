@@ -192,7 +192,7 @@ export default function Dashboard() {
               {/* Theme Toggle */}
               <Button
                 variant="ghost"
-                className="text-gray-400 hover:text-white hover:bg-purple-900/20"
+                className="text-gray-400 hover:text-white hover:bg-teal-900/20"
                 onClick={toggleTheme}
                 title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               >
@@ -202,7 +202,7 @@ export default function Dashboard() {
               {/* Profile Button */}
               <Button
                 variant="ghost"
-                className="text-gray-400 hover:text-white hover:bg-purple-900/20"
+                className="text-gray-400 hover:text-white hover:bg-teal-900/20"
                 onClick={() => navigate('/profile')}
                 data-testid="profile-btn"
               >
