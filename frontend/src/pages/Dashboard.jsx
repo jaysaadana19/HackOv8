@@ -155,7 +155,7 @@ export default function Dashboard() {
                           variant="ghost"
                           size="sm"
                           onClick={handleMarkAllRead}
-                          className="text-xs text-purple-400 hover:text-purple-300 hover:bg-purple-900/20"
+                          className="text-xs text-teal-400 hover:text-teal-300 hover:bg-teal-900/20"
                         >
                           Mark all read
                         </Button>
