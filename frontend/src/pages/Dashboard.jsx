@@ -50,7 +50,7 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [userRes, hackathonsRes, regsRes, teamsRes, notifsRes] = await Promise.all([
+      const [userRes, hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.all([
         authAPI.getCurrentUser(),
         hackathonAPI.getAll({ status: 'published' }),
         registrationAPI.getMyRegistrations(),
