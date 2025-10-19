@@ -85,28 +85,32 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
           {/* Add Co-organizer Form */}
           <form onSubmit={handleAddCoOrganizer} className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-white mb-2 block">
+              <Label htmlFor="email" className="text-gray-700 mb-2 block font-semibold">
                 Add Co-organizer by Email
               </Label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="organizer@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-gray-900/50 border-gray-700 text-white"
+                    className="pl-10 bg-gray-50 border-gray-300 text-gray-900 focus:border-teal-500 focus:ring-teal-500"
                     disabled={loading}
                   />
                 </div>
                 <Button
                   type="submit"
                   disabled={loading || !email}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                  className="bg-teal-600 hover:bg-teal-700 text-white"
                 >
-                  <Plus className="w-4 h-4 mr-2" />
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                  ) : (
+                    <Plus className="w-4 h-4 mr-2" />
+                  )}
                   Add
                 </Button>
               </div>
