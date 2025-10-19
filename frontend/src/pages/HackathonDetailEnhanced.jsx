@@ -30,10 +30,27 @@ export default function HackathonDetailEnhanced() {
   const [showJoinTeam, setShowJoinTeam] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
+  const [referralData, setReferralData] = useState({});
   const [showAuthModal, setShowAuthModal] = useState(false);
   const user = getUser();
 
   useEffect(() => {
+    // Parse URL parameters for referral tracking
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    const utm_source = urlParams.get('utm_source');
+    const utm_campaign = urlParams.get('utm_campaign'); 
+    const utm_medium = urlParams.get('utm_medium');
+    
+    if (ref || utm_source) {
+      setReferralData({
+        ref,
+        utm_source,
+        utm_campaign,
+        utm_medium
+      });
+    }
+    
     fetchData();
   }, [slug]);
 
