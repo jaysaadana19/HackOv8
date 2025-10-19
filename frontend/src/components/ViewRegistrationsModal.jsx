@@ -279,10 +279,13 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
 
               {/* Scroll Indicator */}
               <div className="text-center py-4 text-xs text-gray-500">
-                Showing {registrations.length} registration{registrations.length !== 1 ? 's' : ''}
+                Showing {filteredRegistrations.length} registration{filteredRegistrations.length !== 1 ? 's' : ''}
+                {filteredRegistrations.length !== registrations.length && (
+                  <span className="text-gray-400"> (filtered from {registrations.length} total)</span>
+                )}
                 {registrations.length >= 100 && (
                   <div className="mt-1 text-teal-400">
-                    💡 Tip: Use Download CSV for better data management with large lists
+                    💡 Tip: Use search/filter and Download CSV for better data management
                   </div>
                 )}
               </div>
