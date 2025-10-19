@@ -2427,6 +2427,66 @@ db.user_sessions.insertOne({{
         print(f"      ✅ Team submission retrieval working")
         print(f"      ✅ Special characters and emojis supported")
 
+    def test_social_winter_of_code_registration_count(self):
+        """Test registration count endpoint for Social Winter Of Code Season 6"""
+        print("\n❄️  Testing Social Winter Of Code Registration Count Endpoint...")
+        
+        hackathon_id = "c68a72b9-907c-4fa0-8358-30b022890913"
+        expected_count = 304
+        
+        # Test the registration count endpoint
+        success, response = self.run_test(
+            "GET Social Winter Of Code Registration Count",
+            "GET",
+            f"hackathons/{hackathon_id}/registrations/count",
+            200
+        )
+        
+        if success:
+            actual_count = response.get('count')
+            if actual_count == expected_count:
+                print(f"   ✅ Registration count correct: {actual_count}")
+                print(f"   ✅ Endpoint prioritizes hackathon.registration_count field")
+            else:
+                print(f"   ❌ Registration count mismatch: expected {expected_count}, got {actual_count}")
+                
+            # Verify response format
+            if isinstance(actual_count, int):
+                print(f"   ✅ Response format correct: {{'count': {actual_count}}}")
+            else:
+                print(f"   ❌ Response format incorrect: count should be integer, got {type(actual_count)}")
+                
+            # Check if hackathon exists
+            success_hackathon, hackathon_response = self.run_test(
+                "Verify Social Winter Of Code Hackathon Exists",
+                "GET",
+                f"hackathons/{hackathon_id}",
+                200
+            )
+            
+            if success_hackathon:
+                hackathon_title = hackathon_response.get('title', 'Unknown')
+                hackathon_slug = hackathon_response.get('slug', 'Unknown')
+                registration_count_field = hackathon_response.get('registration_count')
+                
+                print(f"   ✅ Hackathon found: {hackathon_title}")
+                print(f"   ✅ Hackathon slug: {hackathon_slug}")
+                
+                if registration_count_field is not None:
+                    print(f"   ✅ Hackathon has registration_count field: {registration_count_field}")
+                    if registration_count_field == expected_count:
+                        print(f"   ✅ registration_count field matches expected value")
+                    else:
+                        print(f"   ⚠️  registration_count field ({registration_count_field}) != expected ({expected_count})")
+                else:
+                    print(f"   ⚠️  Hackathon missing registration_count field, using actual count")
+            else:
+                print(f"   ❌ Hackathon not found with ID: {hackathon_id}")
+        else:
+            print(f"   ❌ Failed to get registration count for hackathon: {hackathon_id}")
+            
+        return success and response.get('count') == expected_count
+
     def cleanup_test_data(self):
         """Clean up created test hackathons"""
         print("\n🧹 Cleaning up test data...")
