@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { hackathonAPI, authAPI, registrationAPI, teamAPI, notificationAPI } from '@/lib/api';
+import { hackathonAPI, registrationAPI, teamAPI, authAPI, notificationAPI, referralAPI } from '@/lib/api';
+import ReferralModal from '@/components/ReferralModal';
 import { isAuthenticated, getUser, clearAuth } from '@/lib/auth';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
