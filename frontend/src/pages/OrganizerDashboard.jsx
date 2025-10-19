@@ -379,6 +379,16 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showReferralAnalytics && selectedHackathon && (
+        <ReferralAnalyticsModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowReferralAnalytics(false);
+            setSelectedHackathon(null);
+          }}
+        />
+      )}
     </div>
   );
 }
