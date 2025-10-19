@@ -98,89 +98,108 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8">
 
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="loading-spinner"></div>
-          </div>
-        ) : registrations.length === 0 ? (
-          <div className="text-center py-20">
-            <Users className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">No registrations yet</h3>
-            <p className="text-gray-400">Participants will appear here once they register</p>
-          </div>
-        ) : (
-          <>
-            <div className="mb-6 p-4 bg-purple-900/20 rounded-lg border border-purple-800/30">
-              <div className="flex items-center gap-6">
-                <div>
-                  <div className="text-3xl font-bold gradient-text">{registrations.length}</div>
-                  <div className="text-sm text-gray-400">Total Registrations</div>
-                </div>
-                <div className="h-12 w-px bg-gray-700"></div>
-                <div>
-                  <div className="text-3xl font-bold gradient-text">
-                    {registrations.filter(r => r.status === 'registered').length}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="w-8 h-8 border-3 border-purple-300 border-t-purple-600 rounded-full animate-spin"></div>
+            </div>
+          ) : registrations.length === 0 ? (
+            <div className="text-center py-20">
+              <Users className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">No registrations yet</h3>
+              <p className="text-gray-400">Participants will appear here once they register</p>
+            </div>
+          ) : (
+            <>
+              {/* Stats Section - Fixed at top of content */}
+              <div className="sticky top-0 bg-gray-900/95 backdrop-blur-sm z-10 mb-6 p-4 rounded-lg border border-teal-800/30">
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-4 sm:gap-6">
+                  <div className="text-center sm:text-left">
+                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">{registrations.length}</div>
+                    <div className="text-xs sm:text-sm text-gray-400">Total Registrations</div>
                   </div>
-                  <div className="text-sm text-gray-400">Active</div>
+                  <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
+                  <div className="text-center sm:text-left">
+                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
+                      {registrations.filter(r => r.status === 'registered').length}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-400">Active</div>
+                  </div>
+                  <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
+                  <div className="text-center sm:text-left col-span-2 sm:col-span-1">
+                    <div className="text-xs text-gray-400 mb-1">Export ready • CSV format</div>
+                    <div className="text-xs text-green-400">✓ {registrations.length} records available</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-800">
-                    <th className="text-left py-4 px-4 text-gray-400 font-semibold">#</th>
-                    <th className="text-left py-4 px-4 text-gray-400 font-semibold">Participant</th>
-                    <th className="text-left py-4 px-4 text-gray-400 font-semibold">Email</th>
-                    <th className="text-left py-4 px-4 text-gray-400 font-semibold">Registered</th>
-                    <th className="text-left py-4 px-4 text-gray-400 font-semibold">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {registrations.map((reg, idx) => {
-                    const user = userDetails[reg.user_id] || {};
-                    return (
-                      <tr key={reg.id} className="border-b border-gray-800/50 hover:bg-gray-900/30" data-testid={`registration-row-${idx}`}>
-                        <td className="py-4 px-4 text-gray-400">{idx + 1}</td>
-                        <td className="py-4 px-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                              <User className="w-5 h-5 text-white" />
+              {/* Scrollable Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="sticky top-24 bg-gray-900/95 backdrop-blur-sm z-10">
+                    <tr className="border-b border-gray-800">
+                      <th className="text-left py-3 px-2 sm:py-4 sm:px-4 text-gray-400 font-semibold text-xs sm:text-sm">#</th>
+                      <th className="text-left py-3 px-2 sm:py-4 sm:px-4 text-gray-400 font-semibold text-xs sm:text-sm">Participant</th>
+                      <th className="text-left py-3 px-2 sm:py-4 sm:px-4 text-gray-400 font-semibold text-xs sm:text-sm hidden sm:table-cell">Email</th>
+                      <th className="text-left py-3 px-2 sm:py-4 sm:px-4 text-gray-400 font-semibold text-xs sm:text-sm">Registered</th>
+                      <th className="text-left py-3 px-2 sm:py-4 sm:px-4 text-gray-400 font-semibold text-xs sm:text-sm">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registrations.map((reg, idx) => {
+                      const user = userDetails[reg.user_id] || {};
+                      return (
+                        <tr key={reg.id} className="border-b border-gray-800/50 hover:bg-gray-900/30 transition-colors" data-testid={`registration-row-${idx}`}>
+                          <td className="py-3 px-2 sm:py-4 sm:px-4 text-gray-400 text-sm">{idx + 1}</td>
+                          <td className="py-3 px-2 sm:py-4 sm:px-4">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="font-semibold text-white text-sm truncate">{user.name || 'Unknown'}</div>
+                                <div className="text-xs text-gray-500 sm:hidden truncate">{user.email || 'N/A'}</div>
+                                {user.role && (
+                                  <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                                )}
+                              </div>
                             </div>
-                            <div>
-                              <div className="font-semibold text-white">{user.name || 'Unknown'}</div>
-                              {user.role && (
-                                <div className="text-xs text-gray-500 capitalize">{user.role}</div>
-                              )}
+                          </td>
+                          <td className="py-3 px-2 sm:py-4 sm:px-4 hidden sm:table-cell">
+                            <div className="flex items-center gap-2 text-gray-300 text-sm">
+                              <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                              <span className="truncate">{user.email || 'N/A'}</span>
                             </div>
-                          </div>
-                        </td>
-                        <td className="py-4 px-4">
-                          <div className="flex items-center gap-2 text-gray-300">
-                            <Mail className="w-4 h-4 text-gray-500" />
-                            <span>{user.email || 'N/A'}</span>
-                          </div>
-                        </td>
-                        <td className="py-4 px-4">
-                          <div className="flex items-center gap-2 text-gray-300">
-                            <Calendar className="w-4 h-4 text-gray-500" />
-                            <span>{new Date(reg.registered_at).toLocaleDateString()}</span>
-                          </div>
-                        </td>
-                        <td className="py-4 px-4">
-                          <Badge className={`status-badge ${reg.status === 'registered' ? 'status-live' : 'status-completed'}`}>
-                            {reg.status}
-                          </Badge>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </>
-        )}
+                          </td>
+                          <td className="py-3 px-2 sm:py-4 sm:px-4">
+                            <div className="flex items-center gap-2 text-gray-300 text-sm">
+                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" />
+                              <span className="text-xs sm:text-sm">{new Date(reg.registered_at).toLocaleDateString()}</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 sm:py-4 sm:px-4">
+                            <Badge className={`text-xs ${reg.status === 'registered' ? 'bg-green-900/50 text-green-300 border-green-700' : 'bg-gray-900/50 text-gray-300 border-gray-700'}`}>
+                              {reg.status}
+                            </Badge>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Scroll Indicator */}
+              <div className="text-center py-4 text-xs text-gray-500">
+                Showing {registrations.length} registration{registrations.length !== 1 ? 's' : ''}
+                {registrations.length >= 100 && (
+                  <div className="mt-1 text-teal-400">
+                    💡 Tip: Use Download CSV for better data management with large lists
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
