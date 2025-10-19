@@ -2284,8 +2284,16 @@ db.user_sessions.insertOne({{
             return False
 
 def main():
-    tester = AdminPanelAPITester()
-    success = tester.run_all_tests()
+    import sys
+    
+    # Check if we should run only referral tests
+    if len(sys.argv) > 1 and sys.argv[1] == "referral":
+        tester = AdminPanelAPITester()
+        success = tester.run_referral_tests_only()
+    else:
+        tester = AdminPanelAPITester()
+        success = tester.run_all_tests()
+    
     return 0 if success else 1
 
 if __name__ == "__main__":
