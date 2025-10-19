@@ -39,20 +39,30 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
 
   const handleAddCoOrganizer = async (e) => {
     e.preventDefault();
-    if (!email) {
-      toast.error('Please enter an email');
+    
+    if (!email?.trim()) {
+      toast.error('Please enter a valid email');
+      return;
+    }
+
+    if (!hackathon?.id) {
+      toast.error('Invalid hackathon data');
       return;
     }
 
     setLoading(true);
     try {
-      const response = await hackathonAPI.addCoOrganizer(hackathon.id, email);
-      toast.success(response.data.message);
+      const response = await hackathonAPI.addCoOrganizer(hackathon.id, email.trim());
+      toast.success(response.data?.message || 'Co-organizer added successfully');
       setEmail('');
-      fetchCoOrganizers();
-      onSuccess();
+      await fetchCoOrganizers();
+      if (onSuccess) onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Failed to add co-organizer');
+      console.error('Failed to add co-organizer:', error);
+      const errorMessage = error.response?.data?.detail || 
+                          error.response?.data?.message || 
+                          'Failed to add co-organizer';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
