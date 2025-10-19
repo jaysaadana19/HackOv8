@@ -69,7 +69,113 @@ export default function ReferralModal({ hackathon, onClose }) {
         <Card className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
           <div className="text-center">
             <div className="w-8 h-8 border-3 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray-600">Generating your referral link...</p>
+            <p className="text-gray-600">
+              {isUserAuthenticated ? 'Generating your referral link...' : 'Loading...'}
+            </p>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  // Non-authenticated user modal
+  if (!isUserAuthenticated) {
+    return (
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <Card className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-teal-500 to-teal-600 p-6 text-white rounded-t-3xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  <Share2 className="w-7 h-7" />
+                  Share & Earn
+                </h2>
+                <p className="text-teal-100 text-sm mt-1">Join {hackathon.title} and start earning</p>
+              </div>
+              <button 
+                onClick={onClose}
+                className="text-teal-100 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          <div className="p-6 space-y-6">
+            {/* Sign Up Prompt */}
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <User className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3">Join to Share & Earn!</h3>
+              <p className="text-gray-600 text-lg mb-6">
+                Create your account to get your personalized referral link and start earning recognition for bringing friends to {hackathon.title}
+              </p>
+              
+              <Button
+                onClick={onClose}
+                className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              >
+                <User className="w-5 h-5 mr-2" />
+                Sign Up to Get Started
+              </Button>
+            </div>
+
+            {/* How it Works */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">How Referrals Work</h3>
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold text-sm">1</div>
+                  <div>
+                    <p className="font-semibold text-gray-800">Sign up as a participant</p>
+                    <p className="text-sm text-gray-600">Create your account and get your unique referral code</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold text-sm">2</div>
+                  <div>
+                    <p className="font-semibold text-gray-800">Share your link</p>
+                    <p className="text-sm text-gray-600">Send your referral link to friends and colleagues</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold text-sm">3</div>
+                  <div>
+                    <p className="font-semibold text-gray-800">Earn recognition</p>
+                    <p className="text-sm text-gray-600">Get credit when they register and join the hackathon!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Benefits */}
+            <div className="bg-gradient-to-r from-teal-50 to-teal-100 border border-teal-200 rounded-xl p-4">
+              <h4 className="font-semibold text-teal-800 mb-2">Why Share?</h4>
+              <ul className="text-sm text-teal-700 space-y-1">
+                <li>• Build a stronger community</li>
+                <li>• Get recognition for your contributions</li>
+                <li>• Help friends discover amazing opportunities</li>
+                <li>• Track your referral impact</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="bg-gray-50 p-6 rounded-b-3xl border-t border-gray-200">
+            <div className="flex justify-between items-center">
+              <p className="text-sm text-gray-600">
+                Ready to start sharing? 🚀
+              </p>
+              <Button
+                onClick={onClose}
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-100"
+              >
+                Close
+              </Button>
+            </div>
           </div>
         </Card>
       </div>
