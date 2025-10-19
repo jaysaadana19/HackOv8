@@ -225,6 +225,21 @@ backend:
         agent: "testing"
         comment: "COMPREHENSIVE TESTING COMPLETED: ✅ Company creation during Google OAuth organizer registration working perfectly. ✅ Creates Company record with provided company_name and company_website parameters. ✅ Sets company email to user's Google email and admin_user_id to user ID. ✅ Links company to user via company_id field in user record. ✅ Company accessible via GET /api/companies/my endpoint. ✅ Company details correctly stored (name, website, admin_user_id). ✅ Fixed Company model validation issue (admin_user_id vs owner_id). All company creation functionality working correctly."
 
+  - task: "Referral System with Link Generation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added FRONTEND_URL environment variable to backend .env file. Referral link generation endpoint GET /api/referrals/link/{hackathon_id} now uses FRONTEND_URL to generate proper referral links with UTM parameters."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE REFERRAL SYSTEM TESTING COMPLETED: ✅ GET /api/referrals/link/{hackathon_id} working perfectly with FRONTEND_URL environment variable. ✅ Generates correct referral link format: https://hackov8-manage.preview.emergentagent.com/hackathon/{slug}?utm_source=referral&utm_campaign={hackathon_id}&utm_medium=user_share&ref={referral_code}. ✅ Complete referral flow tested end-to-end: User A generates referral link → User B registers using referral link → User A receives referral credit → Referral analytics working for organizers. ✅ All UTM parameters correctly formatted. ✅ Referral tracking working (referred_by field set correctly). ✅ GET /api/referrals/my-stats returns referral statistics. ✅ GET /api/hackathons/{id}/referral-analytics working for organizers/admins. ✅ Authentication and authorization properly implemented. All referral system functionality working perfectly."
+
 frontend:
   - task: "Complete EditHackathonModal with All Fields"
     implemented: true
