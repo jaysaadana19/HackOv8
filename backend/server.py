@@ -52,6 +52,8 @@ class User(BaseModel):
     last_login: Optional[datetime] = None  # Track user logins for retention
     email_verified: bool = False
     verification_token: Optional[str] = None
+    # Referral system
+    referral_code: str = Field(default_factory=lambda: secrets.token_urlsafe(8))  # Unique referral code
     
     class Config:
         populate_by_name = True
