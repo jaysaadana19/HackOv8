@@ -234,7 +234,7 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {registrations.map((reg, idx) => {
+                    {filteredRegistrations.map((reg, idx) => {
                       const user = userDetails[reg.user_id] || {};
                       return (
                         <tr key={reg.id} className="border-b border-gray-800/50 hover:bg-gray-900/30 transition-colors" data-testid={`registration-row-${idx}`}>
