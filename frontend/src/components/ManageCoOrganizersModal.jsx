@@ -18,12 +18,20 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
   }, []);
 
   const fetchCoOrganizers = async () => {
+    if (!hackathon?.id) {
+      toast.error('Invalid hackathon data');
+      setLoadingList(false);
+      return;
+    }
+
     setLoadingList(true);
     try {
       const response = await hackathonAPI.getCoOrganizers(hackathon.id);
-      setCoOrganizers(response.data);
+      setCoOrganizers(response.data || []);
     } catch (error) {
-      toast.error('Failed to load co-organizers');
+      console.error('Failed to fetch co-organizers:', error);
+      toast.error(error.response?.data?.detail || 'Failed to load co-organizers');
+      setCoOrganizers([]);
     } finally {
       setLoadingList(false);
     }
