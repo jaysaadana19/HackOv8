@@ -48,6 +48,12 @@ export const authAPI = {
   logout: () => api.post('/auth/logout'),
 };
 
+export const referralAPI = {
+  getMyStats: () => api.get('/referrals/my-stats'),
+  getReferralLink: (hackathonId) => api.get(`/referrals/link/${hackathonId}`),
+  getHackathonAnalytics: (hackathonId) => api.get(`/hackathons/${hackathonId}/referral-analytics`)
+};
+
 // User APIs
 export const userAPI = {
   updateProfile: (data) => api.put('/users/profile', data),
