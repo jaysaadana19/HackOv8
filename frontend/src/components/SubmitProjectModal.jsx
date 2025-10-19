@@ -5,15 +5,17 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { submissionAPI } from '@/lib/api';
+import { submissionAPI, teamAPI } from '@/lib/api';
+import { getUser } from '@/lib/auth';
 
-export default function SubmitProjectModal({ teamId, hackathonId, onClose, onSuccess }) {
+export default function SubmitProjectModal({ teamId, hackathonId, isTeamRequired, onClose, onSuccess }) {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [repoLink, setRepoLink] = useState('');
   const [videoLink, setVideoLink] = useState('');
   const [demoLink, setDemoLink] = useState('');
   const [loading, setLoading] = useState(false);
+  const user = getUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +26,21 @@ export default function SubmitProjectModal({ teamId, hackathonId, onClose, onSuc
 
     setLoading(true);
     try {
+      let finalTeamId = teamId;
+      
+      // If no team (solo participant), create one automatically
+      if (!finalTeamId && isTeamRequired) {
+        toast.info('Creating solo team...');
+        const teamResponse = await teamAPI.create({
+          name: `${user.name}'s Solo Team`,
+          hackathon_id: hackathonId
+        });
+        finalTeamId = teamResponse.data.id;
+        toast.success('Solo team created!');
+      }
+      
       await submissionAPI.create({
-        team_id: teamId,
+        team_id: finalTeamId,
         hackathon_id: hackathonId,
         project_name: projectName,
         description,
