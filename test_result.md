@@ -508,8 +508,9 @@ test_plan:
   judge_dashboard_testing_complete: true
   google_oauth_backend_testing_complete: true
   google_oauth_frontend_testing_complete: true
-  referral_system_testing_needed: true
+  referral_system_testing_complete: true
   viewregistrationsmodal_testing_complete: true
+  project_submission_testing_complete: true
 
 agent_communication:
   - agent: "main"
