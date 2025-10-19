@@ -114,6 +114,51 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
           </div>
         </div>
 
+        {/* Search and Filter Section */}
+        {!loading && registrations.length > 0 && (
+          <div className="flex-shrink-0 px-6 sm:px-8 py-4 border-b border-gray-800/30 bg-gray-900/50">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  placeholder="Search by name or email..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 bg-gray-900/50 border-gray-700 text-white placeholder-gray-500 focus:border-teal-500"
+                />
+              </div>
+              <div className="flex gap-2">
+                <select 
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-3 py-2 bg-gray-900/50 border border-gray-700 text-white text-sm rounded-md focus:border-teal-500 focus:outline-none"
+                >
+                  <option value="all">All Status</option>
+                  <option value="registered">Registered</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+                {(searchTerm || statusFilter !== 'all') && (
+                  <button
+                    onClick={() => {
+                      setSearchTerm('');
+                      setStatusFilter('all');
+                    }}
+                    className="px-3 py-2 text-xs text-gray-400 hover:text-white transition-colors"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+            
+            {filteredRegistrations.length !== registrations.length && (
+              <div className="mt-2 text-xs text-gray-400">
+                Showing {filteredRegistrations.length} of {registrations.length} registrations
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8">
 
