@@ -372,12 +372,15 @@ frontend:
     working: "NA"
     file: "/app/frontend/src/pages/Dashboard.jsx"
     stuck_count: 0
-    priority: "high"
+    priority: "medium"
     needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented comprehensive referral section in Dashboard showing referral stats, impact cards, and quick share functionality. Displays total referrals, referral code, and provides guidance on sharing referral links."
+      - working: "NA"
+        agent: "testing"
+        comment: "TESTING BLOCKED: Dashboard requires authentication to access. Could not test referral section as user authentication is needed. Dashboard redirects to homepage when accessed without valid session. Referral section implementation exists in code but needs authenticated user testing to verify functionality."
 
   - task: "Non-Registered User Share & Earn Button"
     implemented: true
