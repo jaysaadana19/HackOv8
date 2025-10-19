@@ -2224,7 +2224,10 @@ db.user_sessions.insertOne({{
         # Step 13: Test Google OAuth authentication system (NEW TEST)
         self.test_google_oauth_system()
         
-        # Step 14: Cleanup
+        # Step 14: Test referral system (NEW TEST)
+        self.test_referral_system()
+        
+        # Step 15: Cleanup
         self.cleanup_test_data()
         
         # Print summary
