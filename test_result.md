@@ -508,11 +508,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Complete EditHackathonModal with All Fields"
-    - "Team Creation Modal with Invite Code Display"
-    - "Team Join Modal"
-    - "Dashboard Referral Section"
-    - "Registered User Multiple Share & Earn Buttons"
+    - "Submit Project Modal Frontend Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -523,6 +519,7 @@ test_plan:
   referral_system_testing_complete: true
   viewregistrationsmodal_testing_complete: true
   project_submission_testing_complete: true
+  submit_project_modal_needs_frontend_testing: true
 
 agent_communication:
   - agent: "main"
