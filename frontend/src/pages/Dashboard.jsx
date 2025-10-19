@@ -166,7 +166,7 @@ export default function Dashboard() {
                     ) : (
                       <div className="space-y-2">
                         {notifications.map((notif) => (
-                          <div key={notif.id} className={`p-3 rounded-lg ${notif.read ? 'bg-gray-900/30' : 'bg-purple-900/20 border border-purple-800/30'}`}>
+                          <div key={notif.id} className={`p-3 rounded-lg ${notif.read ? 'bg-gray-900/30' : 'bg-teal-900/20 border border-teal-800/30'}`}>
                             <p className="text-sm font-semibold text-white">{notif.title}</p>
                             <p className="text-xs text-gray-400 mt-1">{notif.message}</p>
                           </div>
