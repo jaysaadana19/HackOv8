@@ -3,7 +3,7 @@ import csv
 import os
 from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorClient
-import bcrypt
+from passlib.context import CryptContext
 import secrets
 import string
 
@@ -11,14 +11,17 @@ import string
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 DB_NAME = os.environ.get('DB_NAME', 'test_database')
 
+# Password hashing
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 def generate_referral_code(length=10):
     """Generate a unique referral code"""
     chars = string.ascii_letters + string.digits
     return ''.join(secrets.choice(chars) for _ in range(length))
 
 def hash_password(password: str) -> str:
-    """Hash a password using bcrypt"""
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    """Hash a password using passlib (compatible with server.py)"""
+    return pwd_context.hash(password)
 
 async def import_users_from_csv(csv_file_path='/app/users_import.csv'):
     """Import users from CSV file into MongoDB"""
