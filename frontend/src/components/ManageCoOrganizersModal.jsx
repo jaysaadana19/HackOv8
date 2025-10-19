@@ -163,11 +163,11 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-gray-900/80 backdrop-blur-md p-6 border-t border-gray-800 flex justify-end gap-3">
+        <div className="sticky bottom-0 bg-gray-50 backdrop-blur-md p-6 border-t border-gray-200 flex justify-end gap-3">
           <Button
             variant="outline"
             onClick={onClose}
-            className="border-gray-700 text-gray-400 hover:text-white hover:bg-gray-800"
+            className="border-gray-300 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
           >
             Close
           </Button>
