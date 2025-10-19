@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { X, Download, Users, Mail, Calendar, User } from 'lucide-react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { X, Download, Users, Mail, Calendar, User, Search, Filter } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
