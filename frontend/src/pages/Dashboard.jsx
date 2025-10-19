@@ -123,7 +123,7 @@ export default function Dashboard() {
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer" onClick={() => navigate('/dashboard')}>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg glow-purple">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center shadow-lg">
                 <Rocket className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <span className="text-lg sm:text-2xl font-bold gradient-text">Hackov8</span>
