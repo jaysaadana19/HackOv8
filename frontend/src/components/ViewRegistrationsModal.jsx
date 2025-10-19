@@ -71,28 +71,32 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="glass-effect rounded-2xl p-8 max-w-5xl w-full my-8">
-        <div className="flex items-center justify-between mb-6">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="glass-effect rounded-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden">
+        {/* Fixed Header */}
+        <div className="flex-shrink-0 flex items-center justify-between p-6 sm:p-8 border-b border-gray-800/50">
           <div>
-            <h2 className="text-2xl font-bold text-white">Registrations</h2>
-            <p className="text-gray-400 text-sm mt-1">{hackathon.title}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">Registrations</h2>
+            <p className="text-gray-400 text-sm mt-1 truncate max-w-xs sm:max-w-none">{hackathon.title}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Button
               onClick={handleDownloadCSV}
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2"
               disabled={registrations.length === 0}
               data-testid="download-csv-btn"
             >
-              <Download className="w-4 h-4 mr-2" />
-              Download CSV
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Download </span>CSV
             </Button>
-            <button onClick={onClose} className="text-gray-400 hover:text-white">
-              <X className="w-6 h-6" />
+            <button onClick={onClose} className="text-gray-400 hover:text-white p-1">
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6 sm:p-8">
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
