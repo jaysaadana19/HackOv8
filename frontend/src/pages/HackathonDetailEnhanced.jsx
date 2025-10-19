@@ -178,7 +178,7 @@ export default function HackathonDetailEnhanced() {
       }
       
       try {
-        await registrationAPI.register(pendingHackathonId);
+        await registrationAPI.register(pendingHackathonId, null, referralData);
         toast.success('Successfully registered for the hackathon!');
         localStorage.removeItem('pendingHackathonRegistration');
         setIsRegistered(true);
