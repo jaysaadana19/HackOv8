@@ -122,7 +122,7 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
                 <Button
                   type="submit"
                   disabled={loading || !email}
-                  className="bg-teal-600 hover:bg-teal-700 text-white"
+                  className="bg-teal-600 hover:bg-teal-700 text-white w-full sm:w-auto"
                 >
                   {loading ? (
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
