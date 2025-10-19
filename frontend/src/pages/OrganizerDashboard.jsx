@@ -12,6 +12,7 @@ import ViewRegistrationsModal from '@/components/ViewRegistrationsModal';
 import NotifyParticipantsModal from '@/components/NotifyParticipantsModal';
 import ManageCoOrganizersModal from '@/components/ManageCoOrganizersModal';
 import ManageJudgesModal from '@/components/ManageJudgesModal';
+import ReferralAnalyticsModal from '@/components/ReferralAnalyticsModal';
 import axios from 'axios';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
