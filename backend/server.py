@@ -1464,6 +1464,12 @@ async def get_hackathon_registrations(hackathon_id: str, request: Request):
 @api_router.get("/hackathons/{hackathon_id}/registrations/count")
 async def get_hackathon_registration_count(hackathon_id: str):
     """Get registration count for a hackathon (public endpoint)"""
+    # First try to get the count from the hackathon document (allows manual count updates)
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if hackathon and "registration_count" in hackathon and hackathon["registration_count"] is not None:
+        return {"count": hackathon["registration_count"]}
+    
+    # Fallback to counting actual registration documents
     count = await db.registrations.count_documents({"hackathon_id": hackathon_id})
     return {"count": count}
 
