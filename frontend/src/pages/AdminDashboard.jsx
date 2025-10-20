@@ -208,7 +208,7 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-20 sm:pb-12">
         {/* Period Selector */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0 mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-4xl font-bold">
