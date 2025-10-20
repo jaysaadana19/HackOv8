@@ -334,12 +334,12 @@ export default function Dashboard() {
 
         {/* My Registrations */}
         {myRegistrations.length > 0 && (
-          <div className="mb-8 sm:mb-12">
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl font-bold">My <span className="gradient-text">Registrations</span></h2>
-              <Badge className="status-badge status-live px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">Active</Badge>
+          <div className="mb-6 sm:mb-12">
+            <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">My <span className="gradient-text">Registrations</span></h2>
+              <Badge className="status-badge status-live px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 text-xs sm:text-sm flex-shrink-0">Active</Badge>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
               {myRegistrations.map((reg) => {
                 const hackathon = hackathons.find(h => h.id === reg.hackathon_id);
                 if (!hackathon) return null;
