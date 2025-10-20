@@ -257,50 +257,50 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
 
               {/* Desktop Table View */}
               <div className="hidden sm:block">
-                <div className="overflow-x-auto rounded-lg border border-gray-800/50">
+                <div className="overflow-x-auto rounded-xl border border-gray-700/50 shadow-2xl">
                   <table className="w-full">
-                    <thead className="bg-gray-900/80 border-b border-gray-800">
+                    <thead className="bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
                       <tr>
-                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-16">#</th>
-                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm">Participant</th>
-                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm">Email</th>
-                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-40">Registered</th>
-                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-32">Status</th>
+                        <th className="text-left py-4 px-4 text-gray-300 font-semibold text-sm w-16">#</th>
+                        <th className="text-left py-4 px-4 text-gray-300 font-semibold text-sm">Participant</th>
+                        <th className="text-left py-4 px-4 text-gray-300 font-semibold text-sm">Email</th>
+                        <th className="text-left py-4 px-4 text-gray-300 font-semibold text-sm w-40">Registered</th>
+                        <th className="text-left py-4 px-4 text-gray-300 font-semibold text-sm w-32">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="bg-gray-950/30">
+                    <tbody className="bg-gray-900/50">
                       {filteredRegistrations.map((reg, idx) => {
                         const user = userDetails[reg.user_id] || {};
                         return (
-                          <tr key={reg.id} className="border-b border-gray-800/30 hover:bg-gray-900/40 transition-colors" data-testid={`registration-row-${idx}`}>
-                            <td className="py-4 px-4 text-gray-400 text-sm">{idx + 1}</td>
+                          <tr key={reg.id} className="border-b border-gray-800/50 hover:bg-gray-800/60 transition-all duration-200" data-testid={`registration-row-${idx}`}>
+                            <td className="py-4 px-4 text-gray-300 text-sm font-medium">{idx + 1}</td>
                             <td className="py-4 px-4">
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                                   <User className="w-5 h-5 text-white" />
                                 </div>
                                 <div className="min-w-0">
                                   <div className="font-semibold text-white text-sm truncate">{user.name || 'Unknown'}</div>
                                   {user.role && (
-                                    <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                                    <div className="text-xs text-teal-400 capitalize font-medium">{user.role}</div>
                                   )}
                                 </div>
                               </div>
                             </td>
                             <td className="py-4 px-4">
-                              <div className="flex items-center gap-2 text-gray-300 text-sm">
-                                <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                              <div className="flex items-center gap-2 text-gray-200 text-sm">
+                                <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
                                 <span className="truncate">{user.email || 'N/A'}</span>
                               </div>
                             </td>
                             <td className="py-4 px-4">
-                              <div className="flex items-center gap-2 text-gray-300 text-sm whitespace-nowrap">
-                                <Calendar className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                              <div className="flex items-center gap-2 text-gray-200 text-sm whitespace-nowrap">
+                                <Calendar className="w-4 h-4 text-teal-400 flex-shrink-0" />
                                 <span>{new Date(reg.registered_at).toLocaleDateString()}</span>
                               </div>
                             </td>
                             <td className="py-4 px-4">
-                              <Badge className={`text-xs ${reg.status === 'registered' ? 'bg-green-900/50 text-green-300 border-green-700' : 'bg-gray-900/50 text-gray-300 border-gray-700'}`}>
+                              <Badge className={`text-xs font-medium ${reg.status === 'registered' ? 'bg-green-500/20 text-green-300 border-green-500/50' : 'bg-gray-700/50 text-gray-300 border-gray-600'}`}>
                                 {reg.status}
                               </Badge>
                             </td>
