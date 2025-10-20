@@ -361,11 +361,11 @@ export default function Dashboard() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                       <Badge className="absolute top-3 right-3 status-badge status-live">Registered</Badge>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">{hackathon.title}</h3>
-                      <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <Calendar className="w-4 h-4 text-purple-500" />
-                        <span>{new Date(hackathon.event_start).toLocaleDateString()}</span>
+                    <div className="p-4 sm:p-5 lg:p-6">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors line-clamp-2">{hackathon.title}</h3>
+                      <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500 flex-shrink-0" />
+                        <span className="truncate">{new Date(hackathon.event_start).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </Card>
