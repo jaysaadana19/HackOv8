@@ -182,20 +182,20 @@ export default function OrganizerDashboard() {
                   <img src={getHackathonBanner(hackathon)} alt={hackathon.title} className="w-full h-full object-cover" />
                 </div>
 
-                <div className="p-6 space-y-4">
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-lg font-bold text-white">{hackathon.title}</h3>
-                    <Badge className={`status-badge ${hackathon.status === 'published' ? 'status-live' : 'status-completed'}`}>
+                <div className="p-4 sm:p-5 lg:p-6 space-y-3 sm:space-y-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-base sm:text-lg font-bold text-white line-clamp-2 flex-1">{hackathon.title}</h3>
+                    <Badge className={`status-badge ${hackathon.status === 'published' ? 'status-live' : 'status-completed'} text-xs flex-shrink-0`}>
                       {hackathon.status}
                     </Badge>
                   </div>
 
-                  <p className="text-gray-400 text-sm line-clamp-2">{hackathon.description}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm line-clamp-2">{hackathon.description}</p>
                   
                   {/* Registration Count */}
-                  <div className="flex items-center gap-2 text-sm bg-purple-900/20 px-3 py-2 rounded-lg border border-purple-800/30">
-                    <Users className="w-4 h-4 text-purple-400" />
-                    <span className="text-white font-semibold">{registrationCounts[hackathon.id] || 0} Registrations</span>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm bg-purple-900/20 px-2 sm:px-3 py-2 rounded-lg border border-purple-800/30">
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400 flex-shrink-0" />
+                    <span className="text-white font-semibold truncate">{registrationCounts[hackathon.id] || 0} Registrations</span>
                   </div>
 
                   <div className="space-y-2">
