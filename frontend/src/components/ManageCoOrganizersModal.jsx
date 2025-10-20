@@ -53,7 +53,23 @@ export default function ManageCoOrganizersModal({ hackathon, onClose, onSuccess 
     setLoading(true);
     try {
       const response = await hackathonAPI.addCoOrganizer(hackathon.id, email.trim());
-      toast.success(response.data?.message || 'Co-organizer added successfully');
+      
+      // Show detailed success message
+      const addedUser = response.data?.user;
+      if (addedUser) {
+        toast.success(
+          <div className="flex flex-col gap-1">
+            <div className="font-semibold">Co-organizer added successfully!</div>
+            <div className="text-sm">
+              <strong>{addedUser.name || 'User'}</strong> ({addedUser.email}) has been added as co-organizer
+            </div>
+          </div>,
+          { duration: 5000 }
+        );
+      } else {
+        toast.success(response.data?.message || 'Co-organizer added successfully');
+      }
+      
       setEmail('');
       await fetchCoOrganizers();
       if (onSuccess) onSuccess();
