@@ -450,24 +450,24 @@ export default function Dashboard() {
                     )}
                   </div>
 
-                  <div className="p-6 space-y-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">{hackathon.title}</h3>
-                    <p className="text-gray-400 text-sm line-clamp-2">{hackathon.description}</p>
+                  <div className="p-4 sm:p-5 lg:p-6 space-y-3 sm:space-y-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-400 transition-colors line-clamp-2">{hackathon.title}</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm line-clamp-2">{hackathon.description}</p>
 
-                    <div className="space-y-2 text-sm text-gray-400">
+                    <div className="space-y-2 text-xs sm:text-sm text-gray-400">
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-purple-500" />
-                        <span className="capitalize">{hackathon.location}</span>
+                        <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500 flex-shrink-0" />
+                        <span className="capitalize truncate">{hackathon.location}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-purple-500" />
-                        <span>{new Date(hackathon.event_start).toLocaleDateString()}</span>
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500 flex-shrink-0" />
+                        <span className="truncate">{new Date(hackathon.event_start).toLocaleDateString()}</span>
                       </div>
                     </div>
 
-                    <div className="flex gap-2 pt-4 border-t border-gray-800">
+                    <div className="flex gap-2 pt-3 sm:pt-4 border-t border-gray-800">
                       <Button
-                        className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                        className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xs sm:text-sm"
                         onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
                         data-testid={`view-details-btn-${hackathon.id}`}
                       >
@@ -476,7 +476,8 @@ export default function Dashboard() {
                       {!isRegistered && (
                         <Button
                           variant="outline"
-                          className="border-purple-600 text-purple-400 hover:bg-purple-600/10"
+                          size="icon"
+                          className="border-purple-600 text-purple-400 hover:bg-purple-600/10 flex-shrink-0"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleRegister(hackathon.id);
