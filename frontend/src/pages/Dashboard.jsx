@@ -239,91 +239,91 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 pb-20 sm:pb-12">
         {/* Enhanced Welcome Section */}
-        <div className="relative mb-8 sm:mb-12 overflow-hidden rounded-2xl sm:rounded-3xl">
+        <div className="relative mb-6 sm:mb-12 overflow-hidden rounded-2xl sm:rounded-3xl">
           <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-teal-700/20"></div>
-          <div className="relative glass-effect p-4 sm:p-10 border border-teal-800/30">
+          <div className="relative glass-effect p-4 sm:p-8 lg:p-10 border border-teal-800/30">
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center shadow-2xl flex-shrink-0">
                 <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
-              <div className="text-center sm:text-left">
-                <h1 className="text-2xl sm:text-4xl font-bold mb-1 sm:mb-2">
+              <div className="text-center sm:text-left w-full">
+                <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 break-words">
                   Welcome back, <span className="gradient-text">{user?.name}</span>! 👋
                 </h1>
-                <p className="text-gray-400 text-sm sm:text-lg">Ready to build something amazing?</p>
+                <p className="text-gray-400 text-sm sm:text-base lg:text-lg">Ready to build something amazing?</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-12">
           {[
             { icon: Trophy, label: 'Registered', value: myRegistrations.length, gradient: 'from-yellow-500 to-orange-500' },
             { icon: Users, label: 'Teams', value: myTeams.length, gradient: 'from-teal-500 to-teal-600' },
             { icon: Code, label: 'Available', value: hackathons.length, gradient: 'from-blue-500 to-cyan-500' },
             { icon: Star, label: 'Notifications', value: unreadCount, gradient: 'from-green-500 to-emerald-500' },
           ].map((stat, idx) => (
-            <Card key={idx} className="glass-effect hover-lift p-4 sm:p-6 border border-gray-800">
-              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
-                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <Card key={idx} className="glass-effect hover-lift p-3 sm:p-4 lg:p-6 border border-gray-800">
+              <div className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-2 sm:mb-3 lg:mb-4 shadow-lg`}>
+                <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
               </div>
-              <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-              <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
+              <div className="text-xs sm:text-sm text-gray-400 truncate">{stat.label}</div>
             </Card>
           ))}
         </div>
 
         {/* Referral Section */}
         {myReferralStats && (
-          <div className="mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+          <div className="mb-6 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6">
               Share & <span className="gradient-text">Earn</span>
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Referral Stats Card */}
-              <Card className="glass-effect border border-gray-800 p-4 sm:p-6 lg:col-span-2">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <TrendingUp className="w-6 h-6 text-white" />
+              <Card className="glass-effect border border-gray-800 p-4 sm:p-5 lg:p-6 lg:col-span-2">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                    <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">Your Referral Impact</h3>
-                    <p className="text-sm text-gray-400">Share hackathons and grow the community</p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-white truncate">Your Referral Impact</h3>
+                    <p className="text-xs sm:text-sm text-gray-400">Share hackathons and grow the community</p>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
                   <div className="text-center p-3 bg-gray-900/30 rounded-lg">
-                    <div className="text-2xl font-bold text-teal-400">{myReferralStats.total_referrals || 0}</div>
+                    <div className="text-xl sm:text-2xl font-bold text-teal-400">{myReferralStats.total_referrals || 0}</div>
                     <div className="text-xs text-gray-500">Successful Referrals</div>
                   </div>
                   <div className="text-center p-3 bg-gray-900/30 rounded-lg">
-                    <div className="text-lg font-bold text-gray-300 font-mono">{myReferralStats.referral_code}</div>
+                    <div className="text-sm sm:text-lg font-bold text-gray-300 font-mono truncate px-2">{myReferralStats.referral_code}</div>
                     <div className="text-xs text-gray-500">Your Referral Code</div>
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-3">
+                  <p className="text-xs sm:text-sm text-gray-400 mb-3">
                     Get your personalized referral link for any hackathon you're registered for
                   </p>
                 </div>
               </Card>
 
               {/* Quick Share Card */}
-              <Card className="glass-effect border border-gray-800 p-4 sm:p-6">
+              <Card className="glass-effect border border-gray-800 p-4 sm:p-5 lg:p-6">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Share2 className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
+                    <Share2 className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">Share Any Event</h3>
-                  <p className="text-sm text-gray-400 mb-4">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2">Share Any Event</h3>
+                  <p className="text-xs sm:text-sm text-gray-400 mb-4">
                     Click "Share & Earn" on any hackathon page to get your referral link
                   </p>
-                  <Badge className="bg-teal-900/50 text-teal-300 border-teal-700">
+                  <Badge className="bg-teal-900/50 text-teal-300 border-teal-700 text-xs">
                     Available on all event pages
                   </Badge>
                 </div>
