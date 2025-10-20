@@ -192,31 +192,31 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
             </div>
           ) : (
             <>
-              {/* Stats Section */}
-              <div className="sticky top-0 bg-gray-900/95 backdrop-blur-sm z-10 mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg border border-teal-800/30">
-                <div className="grid grid-cols-2 sm:flex sm:items-center gap-3 sm:gap-4 lg:gap-6">
+              {/* Stats Section - Not sticky, just at top */}
+              <div className="mb-6 p-4 sm:p-6 rounded-lg border border-teal-800/30 bg-gray-900/80">
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-4 sm:gap-6">
                   <div className="text-center sm:text-left">
-                    <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-teal-400">
+                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
                       {filteredRegistrations.length}
                       {filteredRegistrations.length !== registrations.length && (
-                        <span className="text-sm sm:text-base text-gray-400">/{registrations.length}</span>
+                        <span className="text-base text-gray-400 ml-1">/{registrations.length}</span>
                       )}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-400">
+                    <div className="text-xs sm:text-sm text-gray-400 mt-1">
                       {filteredRegistrations.length !== registrations.length ? 'Filtered' : 'Total'} Registrations
                     </div>
                   </div>
                   <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
                   <div className="text-center sm:text-left">
-                    <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-teal-400">
+                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
                       {filteredRegistrations.filter(r => r.status === 'registered').length}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-400">Active</div>
+                    <div className="text-xs sm:text-sm text-gray-400 mt-1">Active</div>
                   </div>
                   <div className="hidden lg:block h-12 w-px bg-gray-700"></div>
-                  <div className="hidden lg:block text-left col-span-2 sm:col-span-1">
-                    <div className="text-xs text-gray-400 mb-1">Export ready • CSV format</div>
-                    <div className="text-xs text-green-400">✓ {filteredRegistrations.length} records available</div>
+                  <div className="hidden lg:block text-left flex-1">
+                    <div className="text-xs text-gray-400">Export ready • CSV format</div>
+                    <div className="text-xs text-green-400 mt-1">✓ {filteredRegistrations.length} records available</div>
                   </div>
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
                 {filteredRegistrations.map((reg, idx) => {
                   const user = userDetails[reg.user_id] || {};
                   return (
-                    <div key={reg.id} className="glass-effect p-4 rounded-lg border border-gray-800" data-testid={`registration-card-${idx}`}>
+                    <div key={reg.id} className="glass-effect p-4 rounded-lg border border-gray-800/50 hover:border-teal-800/50 transition-colors" data-testid={`registration-card-${idx}`}>
                       <div className="flex items-start gap-3 mb-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
                           <User className="w-5 h-5 text-white" />
@@ -246,65 +246,67 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
                           {reg.status}
                         </Badge>
                       </div>
-                      <div className="text-xs text-gray-500">#{idx + 1}</div>
+                      <div className="text-xs text-gray-500">Registration #{idx + 1}</div>
                     </div>
                   );
                 })}
               </div>
 
               {/* Desktop Table View */}
-              <div className="hidden sm:block overflow-x-auto -mx-6 sm:-mx-0">
-                <table className="w-full">
-                  <thead className="sticky top-20 lg:top-24 bg-gray-900/95 backdrop-blur-sm z-10">
-                    <tr className="border-b border-gray-800">
-                      <th className="text-left py-3 px-3 lg:py-4 lg:px-4 text-gray-400 font-semibold text-xs lg:text-sm">#</th>
-                      <th className="text-left py-3 px-3 lg:py-4 lg:px-4 text-gray-400 font-semibold text-xs lg:text-sm">Participant</th>
-                      <th className="text-left py-3 px-3 lg:py-4 lg:px-4 text-gray-400 font-semibold text-xs lg:text-sm">Email</th>
-                      <th className="text-left py-3 px-3 lg:py-4 lg:px-4 text-gray-400 font-semibold text-xs lg:text-sm">Registered</th>
-                      <th className="text-left py-3 px-3 lg:py-4 lg:px-4 text-gray-400 font-semibold text-xs lg:text-sm">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredRegistrations.map((reg, idx) => {
-                      const user = userDetails[reg.user_id] || {};
-                      return (
-                        <tr key={reg.id} className="border-b border-gray-800/50 hover:bg-gray-900/30 transition-colors" data-testid={`registration-row-${idx}`}>
-                          <td className="py-3 px-3 lg:py-4 lg:px-4 text-gray-400 text-xs lg:text-sm">{idx + 1}</td>
-                          <td className="py-3 px-3 lg:py-4 lg:px-4">
-                            <div className="flex items-center gap-2 lg:gap-3">
-                              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
-                                <User className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+              <div className="hidden sm:block">
+                <div className="overflow-x-auto rounded-lg border border-gray-800/50">
+                  <table className="w-full">
+                    <thead className="bg-gray-900/80 border-b border-gray-800">
+                      <tr>
+                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-16">#</th>
+                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm">Participant</th>
+                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm">Email</th>
+                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-40">Registered</th>
+                        <th className="text-left py-4 px-4 text-gray-400 font-semibold text-sm w-32">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-gray-950/30">
+                      {filteredRegistrations.map((reg, idx) => {
+                        const user = userDetails[reg.user_id] || {};
+                        return (
+                          <tr key={reg.id} className="border-b border-gray-800/30 hover:bg-gray-900/40 transition-colors" data-testid={`registration-row-${idx}`}>
+                            <td className="py-4 px-4 text-gray-400 text-sm">{idx + 1}</td>
+                            <td className="py-4 px-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                  <User className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="font-semibold text-white text-sm truncate">{user.name || 'Unknown'}</div>
+                                  {user.role && (
+                                    <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                                  )}
+                                </div>
                               </div>
-                              <div className="min-w-0 flex-1">
-                                <div className="font-semibold text-white text-xs lg:text-sm truncate">{user.name || 'Unknown'}</div>
-                                {user.role && (
-                                  <div className="text-xs text-gray-500 capitalize">{user.role}</div>
-                                )}
+                            </td>
+                            <td className="py-4 px-4">
+                              <div className="flex items-center gap-2 text-gray-300 text-sm">
+                                <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                <span className="truncate">{user.email || 'N/A'}</span>
                               </div>
-                            </div>
-                          </td>
-                          <td className="py-3 px-3 lg:py-4 lg:px-4">
-                            <div className="flex items-center gap-2 text-gray-300 text-xs lg:text-sm">
-                              <Mail className="w-3 h-3 lg:w-4 lg:h-4 text-gray-500 flex-shrink-0" />
-                              <span className="truncate max-w-[150px] lg:max-w-none">{user.email || 'N/A'}</span>
-                            </div>
-                          </td>
-                          <td className="py-3 px-3 lg:py-4 lg:px-4">
-                            <div className="flex items-center gap-2 text-gray-300 text-xs lg:text-sm whitespace-nowrap">
-                              <Calendar className="w-3 h-3 lg:w-4 lg:h-4 text-gray-500 flex-shrink-0" />
-                              <span>{new Date(reg.registered_at).toLocaleDateString()}</span>
-                            </div>
-                          </td>
-                          <td className="py-3 px-3 lg:py-4 lg:px-4">
-                            <Badge className={`text-xs ${reg.status === 'registered' ? 'bg-green-900/50 text-green-300 border-green-700' : 'bg-gray-900/50 text-gray-300 border-gray-700'}`}>
-                              {reg.status}
-                            </Badge>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            </td>
+                            <td className="py-4 px-4">
+                              <div className="flex items-center gap-2 text-gray-300 text-sm whitespace-nowrap">
+                                <Calendar className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                <span>{new Date(reg.registered_at).toLocaleDateString()}</span>
+                              </div>
+                            </td>
+                            <td className="py-4 px-4">
+                              <Badge className={`text-xs ${reg.status === 'registered' ? 'bg-green-900/50 text-green-300 border-green-700' : 'bg-gray-900/50 text-gray-300 border-gray-700'}`}>
+                                {reg.status}
+                              </Badge>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               {/* Scroll Indicator */}
