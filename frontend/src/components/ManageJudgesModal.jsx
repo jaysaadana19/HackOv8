@@ -39,7 +39,23 @@ export default function ManageJudgesModal({ hackathon, onClose, onSuccess }) {
     setLoading(true);
     try {
       const response = await hackathonAPI.assignJudge(hackathon.id, email);
-      toast.success(response.data.message);
+      
+      // Show detailed success message
+      const assignedUser = response.data?.user || response.data?.judge;
+      if (assignedUser) {
+        toast.success(
+          <div className="flex flex-col gap-1">
+            <div className="font-semibold">Judge assigned successfully!</div>
+            <div className="text-sm">
+              <strong>{assignedUser.name || 'Judge'}</strong> ({assignedUser.email}) has been assigned to this hackathon
+            </div>
+          </div>,
+          { duration: 5000 }
+        );
+      } else {
+        toast.success(response.data?.message || 'Judge assigned successfully');
+      }
+      
       setEmail('');
       fetchAssignedJudges();
       onSuccess();
