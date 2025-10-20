@@ -160,19 +160,19 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
         )}
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
 
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <div className="w-8 h-8 border-3 border-purple-300 border-t-purple-600 rounded-full animate-spin"></div>
             </div>
           ) : filteredRegistrations.length === 0 ? (
-            <div className="text-center py-20">
-              <Users className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">
+            <div className="text-center py-12 sm:py-20">
+              <Users className="w-12 h-12 sm:w-16 sm:h-16 text-gray-600 mx-auto mb-4" />
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                 {registrations.length === 0 ? 'No registrations yet' : 'No matching registrations'}
               </h3>
-              <p className="text-gray-400">
+              <p className="text-sm sm:text-base text-gray-400 px-4">
                 {registrations.length === 0 
                   ? 'Participants will appear here once they register'
                   : 'Try adjusting your search or filter criteria'
