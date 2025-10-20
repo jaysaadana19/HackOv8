@@ -129,6 +129,7 @@ export default function Dashboard() {
       <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50" data-testid="dashboard-navbar">
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
+            {/* Logo */}
             <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer" onClick={() => navigate('/dashboard')}>
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center shadow-lg">
                 <Rocket className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -136,7 +137,8 @@ export default function Dashboard() {
               <span className="text-lg sm:text-2xl font-bold gradient-text">Hackov8</span>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-2 sm:gap-4">
               {/* Notifications */}
               <div className="relative">
                 <Button
@@ -236,7 +238,105 @@ export default function Dashboard() {
                 <LogOut className="w-5 h-5" />
               </Button>
             </div>
+
+            {/* Mobile Menu Button & Notification Badge */}
+            <div className="flex md:hidden items-center gap-2">
+              {/* Notification Badge - Mobile */}
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative text-gray-400 hover:text-white hover:bg-teal-900/20"
+                  onClick={() => setShowNotifications(!showNotifications)}
+                >
+                  <Bell className="w-5 h-5" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-gradient-to-r from-teal-600 to-teal-700 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Button>
+              </div>
+
+              {/* Hamburger Menu Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-gray-400 hover:text-white hover:bg-teal-900/20"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+              >
+                {showMobileMenu ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </Button>
+            </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {showMobileMenu && (
+            <div className="md:hidden mt-4 pb-4 border-t border-gray-800 pt-4 space-y-2 animate-fadeIn">
+              {/* Role Dashboard Link */}
+              {(user?.role === 'admin' || user?.role === 'organizer' || user?.role === 'judge') && (
+                <button
+                  onClick={() => {
+                    navigateByRole();
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full flex items-center gap-3 p-3 rounded-lg text-left text-gray-300 hover:text-white hover:bg-teal-900/20 transition-colors"
+                >
+                  <Settings className="w-5 h-5 text-teal-400" />
+                  <span className="font-medium">
+                    {user.role === 'admin' ? 'Admin Panel' : user.role === 'organizer' ? 'Organizer Panel' : 'Judge Panel'}
+                  </span>
+                </button>
+              )}
+
+              {/* Profile */}
+              <button
+                onClick={() => {
+                  navigate('/profile');
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg text-left text-gray-300 hover:text-white hover:bg-teal-900/20 transition-colors"
+              >
+                <User className="w-5 h-5 text-teal-400" />
+                <span className="font-medium">My Profile</span>
+              </button>
+
+              {/* Settings */}
+              <button
+                onClick={() => {
+                  navigate('/settings');
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg text-left text-gray-300 hover:text-white hover:bg-teal-900/20 transition-colors"
+              >
+                <Settings className="w-5 h-5 text-teal-400" />
+                <span className="font-medium">Settings</span>
+              </button>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={() => {
+                  toggleTheme();
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg text-left text-gray-300 hover:text-white hover:bg-teal-900/20 transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5 text-teal-400" /> : <Moon className="w-5 h-5 text-teal-400" />}
+                <span className="font-medium">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+              </button>
+
+              {/* Logout */}
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg text-left text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors"
+              >
+                <LogOut className="w-5 h-5" />
+                <span className="font-medium">Logout</span>
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
