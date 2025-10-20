@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [showReferralModal, setShowReferralModal] = useState(false);
   const [selectedHackathonForReferral, setSelectedHackathonForReferral] = useState(null);
   const [myReferralStats, setMyReferralStats] = useState(null);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     if (theme === 'light') {
