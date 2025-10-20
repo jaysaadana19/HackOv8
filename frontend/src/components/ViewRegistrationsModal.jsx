@@ -192,31 +192,34 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
             </div>
           ) : (
             <>
-              {/* Stats Section - Not sticky, just at top */}
-              <div className="mb-6 p-4 sm:p-6 rounded-lg border border-teal-800/30 bg-gray-900/80">
-                <div className="grid grid-cols-2 sm:flex sm:items-center gap-4 sm:gap-6">
+              {/* Stats Section - Improved Visibility */}
+              <div className="mb-6 p-6 rounded-xl border border-teal-500/30 bg-gradient-to-br from-gray-800/80 to-gray-900/80 shadow-xl">
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-6">
                   <div className="text-center sm:text-left">
-                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
+                    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
                       {filteredRegistrations.length}
                       {filteredRegistrations.length !== registrations.length && (
-                        <span className="text-base text-gray-400 ml-1">/{registrations.length}</span>
+                        <span className="text-xl text-gray-300 ml-1">/{registrations.length}</span>
                       )}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-400 mt-1">
+                    <div className="text-sm text-gray-300 mt-2 font-medium">
                       {filteredRegistrations.length !== registrations.length ? 'Filtered' : 'Total'} Registrations
                     </div>
                   </div>
-                  <div className="hidden sm:block h-12 w-px bg-gray-700"></div>
+                  <div className="hidden sm:block h-16 w-px bg-gradient-to-b from-transparent via-teal-500/50 to-transparent"></div>
                   <div className="text-center sm:text-left">
-                    <div className="text-2xl sm:text-3xl font-bold text-teal-400">
+                    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                       {filteredRegistrations.filter(r => r.status === 'registered').length}
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-400 mt-1">Active</div>
+                    <div className="text-sm text-gray-300 mt-2 font-medium">Active Participants</div>
                   </div>
-                  <div className="hidden lg:block h-12 w-px bg-gray-700"></div>
-                  <div className="hidden lg:block text-left flex-1">
-                    <div className="text-xs text-gray-400">Export ready • CSV format</div>
-                    <div className="text-xs text-green-400 mt-1">✓ {filteredRegistrations.length} records available</div>
+                  <div className="hidden lg:block h-16 w-px bg-gradient-to-b from-transparent via-teal-500/50 to-transparent"></div>
+                  <div className="hidden lg:block text-left flex-1 bg-teal-900/20 p-3 rounded-lg border border-teal-700/30">
+                    <div className="text-sm text-gray-300 font-medium flex items-center gap-2">
+                      <Download className="w-4 h-4 text-teal-400" />
+                      Export ready • CSV format
+                    </div>
+                    <div className="text-sm text-green-400 mt-1 font-medium">✓ {filteredRegistrations.length} records available</div>
                   </div>
                 </div>
               </div>
