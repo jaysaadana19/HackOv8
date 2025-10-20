@@ -90,25 +90,25 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="glass-effect rounded-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-0 sm:p-4">
+      <div className="glass-effect rounded-none sm:rounded-2xl w-full h-full sm:h-auto sm:max-w-6xl sm:max-h-[90vh] flex flex-col overflow-hidden">
         {/* Fixed Header */}
-        <div className="flex-shrink-0 flex items-center justify-between p-6 sm:p-8 border-b border-gray-800/50">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white">Registrations</h2>
-            <p className="text-gray-400 text-sm mt-1 truncate max-w-xs sm:max-w-none">{hackathon.title}</p>
+        <div className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 lg:p-8 border-b border-gray-800/50 bg-gray-950/80 backdrop-blur-sm">
+          <div className="min-w-0 flex-1 mr-4">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white truncate">Registrations</h2>
+            <p className="text-gray-400 text-xs sm:text-sm mt-1 truncate">{hackathon.title}</p>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Button
               onClick={handleDownloadCSV}
-              className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2"
+              className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2 lg:px-4"
               disabled={registrations.length === 0}
               data-testid="download-csv-btn"
             >
-              <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Download </span>CSV
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-1 lg:mr-2" />
+              <span className="hidden sm:inline">CSV</span>
             </Button>
-            <button onClick={onClose} className="text-gray-400 hover:text-white p-1">
+            <button onClick={onClose} className="text-gray-400 hover:text-white p-2">
               <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
@@ -116,22 +116,22 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
 
         {/* Search and Filter Section */}
         {!loading && registrations.length > 0 && (
-          <div className="flex-shrink-0 px-6 sm:px-8 py-4 border-b border-gray-800/30 bg-gray-900/50">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex-shrink-0 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border-b border-gray-800/30 bg-gray-900/50">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
                 <Input
                   placeholder="Search by name or email..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-gray-900/50 border-gray-700 text-white placeholder-gray-500 focus:border-teal-500"
+                  className="pl-8 sm:pl-10 bg-gray-900/50 border-gray-700 text-white placeholder-gray-500 focus:border-teal-500 text-sm h-9 sm:h-10"
                 />
               </div>
               <div className="flex gap-2">
                 <select 
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-3 py-2 bg-gray-900/50 border border-gray-700 text-white text-sm rounded-md focus:border-teal-500 focus:outline-none"
+                  className="px-2 sm:px-3 py-2 bg-gray-900/50 border border-gray-700 text-white text-xs sm:text-sm rounded-md focus:border-teal-500 focus:outline-none"
                 >
                   <option value="all">All Status</option>
                   <option value="registered">Registered</option>
@@ -143,7 +143,7 @@ export default function ViewRegistrationsModal({ hackathon, onClose }) {
                       setSearchTerm('');
                       setStatusFilter('all');
                     }}
-                    className="px-3 py-2 text-xs text-gray-400 hover:text-white transition-colors"
+                    className="px-2 sm:px-3 py-2 text-xs text-gray-400 hover:text-white transition-colors whitespace-nowrap"
                   >
                     Clear
                   </button>
