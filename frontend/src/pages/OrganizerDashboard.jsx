@@ -162,20 +162,20 @@ export default function OrganizerDashboard() {
         </div>
 
         {myHackathons.length === 0 ? (
-          <Card className="glass-effect p-12 text-center">
-            <Rocket className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">No hackathons yet</h3>
-            <p className="text-gray-400 mb-6">Create your first hackathon to get started</p>
+          <Card className="glass-effect p-8 sm:p-12 text-center">
+            <Rocket className="w-12 h-12 sm:w-16 sm:h-16 text-gray-600 mx-auto mb-4" />
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">No hackathons yet</h3>
+            <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">Create your first hackathon to get started</p>
             <Button
               onClick={() => setShowCreateModal(true)}
-              className="bg-purple-600 hover:bg-purple-700 text-white"
+              className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white text-sm sm:text-base"
             >
-              <Plus className="w-5 h-5 mr-2" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Create Your First Hackathon
             </Button>
           </Card>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {myHackathons.map((hackathon) => (
               <Card key={hackathon.id} className="glass-effect hover-lift overflow-hidden" data-testid={`hackathon-card-${hackathon.id}`}>
                 <div className="h-32 bg-gradient-to-br from-purple-600/30 to-purple-900/30 flex items-center justify-center relative overflow-hidden">
