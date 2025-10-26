@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, ArrowLeft, Plus, Edit, Trash2, Users, FileText, Eye, Bell, Sun, Moon, Settings, UserPlus, TrendingUp } from 'lucide-react';
+import { Rocket, ArrowLeft, Plus, Edit, Trash2, Users, FileText, Eye, Bell, Sun, Moon, Settings, UserPlus, TrendingUp, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ import NotifyParticipantsModal from '@/components/NotifyParticipantsModal';
 import ManageCoOrganizersModal from '@/components/ManageCoOrganizersModal';
 import ManageJudgesModal from '@/components/ManageJudgesModal';
 import ReferralAnalyticsModal from '@/components/ReferralAnalyticsModal';
+import ManageCertificatesModal from '@/components/ManageCertificatesModal';
 import axios from 'axios';
 import { getHackathonBanner } from '@/lib/bannerImages';
 
