@@ -686,6 +686,18 @@ export default function HackathonDetailEnhanced() {
                         <Share2 className="w-4 h-4 mr-2" />
                         Share & Earn
                       </Button>
+                      
+                      {/* Get Certificate Button */}
+                      <Button
+                        className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white py-3 font-semibold shadow-md"
+                        onClick={() => {
+                          localStorage.setItem(`hackathon_${slug}_id`, hackathon.id);
+                          navigate(`/hackathon/${slug}/certificate`);
+                        }}
+                      >
+                        <Award className="w-4 h-4 mr-2" />
+                        Get My Certificate
+                      </Button>
                     </>
                   )}
                 </div>
