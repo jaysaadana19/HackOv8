@@ -154,10 +154,11 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
     const csv = `Name,Email,Role\nJohn Doe,john@example.com,participation\nJane Smith,jane@example.com,judge\nBob Wilson,bob@example.com,organizer`;
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.create('a');
+    const a = document.createElement('a');
     a.href = url;
     a.download = 'certificate_sample.csv';
     a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
