@@ -162,3 +162,33 @@ export const adminAPI = {
   exportUsers: () => api.get('/admin/export/users', { responseType: 'blob' }),
   exportHackathons: () => api.get('/admin/export/hackathons', { responseType: 'blob' }),
 };
+
+
+// Certificate APIs
+export const certificateAPI = {
+  uploadTemplate: (hackathonId, file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post(`/hackathons/${hackathonId}/certificate-template`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  },
+  updatePositions: (hackathonId, positions) => 
+    api.put(`/hackathons/${hackathonId}/certificate-template/positions`, positions),
+  getTemplate: (hackathonId) => 
+    api.get(`/hackathons/${hackathonId}/certificate-template`),
+  bulkGenerate: (hackathonId, file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post(`/hackathons/${hackathonId}/certificates/bulk-generate`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  },
+  retrieve: (name, email, hackathonId) => 
+    api.get('/certificates/retrieve', { params: { name, email, hackathon_id: hackathonId } }),
+  verify: (certificateId) => 
+    api.get(`/certificates/verify/${certificateId}`),
+  getHackathonCertificates: (hackathonId) => 
+    api.get(`/hackathons/${hackathonId}/certificates`),
+};
+
