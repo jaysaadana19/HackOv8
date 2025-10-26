@@ -13,6 +13,8 @@ import Settings from '@/pages/Settings';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfService from '@/pages/TermsOfService';
 import GoogleCallback from '@/pages/GoogleCallback';
+import MyCertificate from '@/pages/MyCertificate';
+import VerifyCertificate from '@/pages/VerifyCertificate';
 import '@/App.css';
 
 function App() {
