@@ -26,6 +26,8 @@ function App() {
           <Route path="/auth/google/callback" element={<GoogleCallback />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
+          <Route path="/hackathon/:hackathonSlug/certificate" element={<MyCertificate />} />
+          <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/judge" element={<JudgeDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
