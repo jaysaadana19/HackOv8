@@ -403,6 +403,19 @@ export default function OrganizerDashboard() {
           }}
         />
       )}
+
+      {showCertificatesModal && selectedHackathon && (
+        <ManageCertificatesModal
+          hackathon={selectedHackathon}
+          onClose={() => {
+            setShowCertificatesModal(false);
+            setSelectedHackathon(null);
+          }}
+          onSuccess={() => {
+            fetchMyHackathons();
+          }}
+        />
+      )}
     </div>
   );
 }
