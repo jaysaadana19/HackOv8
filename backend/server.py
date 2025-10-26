@@ -198,6 +198,32 @@ class Notification(BaseModel):
     class Config:
         populate_by_name = True
 
+
+class CertificateTemplate(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    hackathon_id: str
+    template_url: str  # Path to uploaded template image
+    text_positions: Dict[str, Any] = {}  # {field_name: {x, y, fontSize, color}}
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    
+    class Config:
+        populate_by_name = True
+
+class Certificate(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
+    certificate_id: str = Field(default_factory=lambda: str(uuid.uuid4())[:12].upper())  # Unique 12-char ID
+    hackathon_id: str
+    user_name: str
+    user_email: EmailStr
+    role: str  # participation, judge, organizer, or custom role
+    issued_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    certificate_url: Optional[str] = None  # Generated certificate image URL
+    verified: bool = True
+    
+    class Config:
+        populate_by_name = True
+
 # Request/Response Models
 class SessionResponse(BaseModel):
     id: str
