@@ -64,7 +64,8 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
     }
 
     setTemplateFile(file);
-    setTemplatePreview(URL.createObjectURL(file));
+    const previewUrl = URL.createObjectURL(file);
+    setTemplatePreview(previewUrl);
     
     setLoading(true);
     try {
@@ -73,33 +74,30 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
       setTemplate(response.data);
       setStep(2);
     } catch (error) {
-      toast.error('Failed to upload template');
+      console.error('Upload error:', error);
+      toast.error(error.response?.data?.detail || 'Failed to upload template');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDragStart = (field) => {
-    setDraggedField(field);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
+  const handleImageClick = (e) => {
     if (!draggedField) return;
-
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
 
     setPositions({
       ...positions,
       [draggedField]: {
         ...positions[draggedField],
-        x: Math.round(x),
-        y: Math.round(y)
+        x: x,
+        y: y
       }
     });
+    
+    toast.success(`${draggedField} positioned at (${x}, ${y})`);
     setDraggedField(null);
   };
 
