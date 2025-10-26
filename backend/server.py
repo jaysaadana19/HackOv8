@@ -682,6 +682,365 @@ async def get_hackathon_referral_analytics(hackathon_id: str, request: Request):
         "recent_referrals": referrals[:20]
     }
 
+
+# ==================== CERTIFICATE ROUTES ====================
+
+@api_router.post("/hackathons/{hackathon_id}/certificate-template")
+async def upload_certificate_template(
+    hackathon_id: str,
+    file: UploadFile = File(...),
+    request: Request = None
+):
+    """Upload certificate template for a hackathon"""
+    user = await get_current_user(request)
+    
+    # Check authorization (organizer, co-organizer, or admin)
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Validate file type
+    if not file.content_type in ["image/png", "image/jpeg", "image/jpg"]:
+        raise HTTPException(status_code=400, detail="Only PNG and JPG images are allowed")
+    
+    # Save template file
+    template_dir = Path("/app/backend/uploads/certificate_templates")
+    template_dir.mkdir(parents=True, exist_ok=True)
+    
+    file_extension = file.filename.split(".")[-1]
+    template_filename = f"{hackathon_id}_template.{file_extension}"
+    template_path = template_dir / template_filename
+    
+    with open(template_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    # Check if template already exists
+    existing_template = await db.certificate_templates.find_one({"hackathon_id": hackathon_id})
+    
+    if existing_template:
+        # Update existing template
+        await db.certificate_templates.update_one(
+            {"hackathon_id": hackathon_id},
+            {"$set": {
+                "template_url": f"/uploads/certificate_templates/{template_filename}",
+                "updated_at": datetime.now(timezone.utc)
+            }}
+        )
+        template_id = existing_template["_id"]
+    else:
+        # Create new template
+        template = CertificateTemplate(
+            hackathon_id=hackathon_id,
+            template_url=f"/uploads/certificate_templates/{template_filename}",
+            text_positions={}
+        )
+        result = await db.certificate_templates.insert_one(template.dict(by_alias=True))
+        template_id = str(result.inserted_id)
+    
+    return {
+        "message": "Template uploaded successfully",
+        "template_id": template_id,
+        "template_url": f"/uploads/certificate_templates/{template_filename}"
+    }
+
+@api_router.put("/hackathons/{hackathon_id}/certificate-template/positions")
+async def update_certificate_positions(
+    hackathon_id: str,
+    positions: Dict[str, Any],
+    request: Request = None
+):
+    """Update text positions on certificate template"""
+    user = await get_current_user(request)
+    
+    # Check authorization
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Update positions
+    result = await db.certificate_templates.update_one(
+        {"hackathon_id": hackathon_id},
+        {"$set": {
+            "text_positions": positions,
+            "updated_at": datetime.now(timezone.utc)
+        }}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+    return {"message": "Positions updated successfully"}
+
+@api_router.get("/hackathons/{hackathon_id}/certificate-template")
+async def get_certificate_template(hackathon_id: str, request: Request = None):
+    """Get certificate template for a hackathon"""
+    template = await db.certificate_templates.find_one({"hackathon_id": hackathon_id})
+    if not template:
+        return None
+    
+    template["id"] = template.pop("_id")
+    return template
+
+@api_router.post("/hackathons/{hackathon_id}/certificates/bulk-generate")
+async def bulk_generate_certificates(
+    hackathon_id: str,
+    file: UploadFile = File(...),
+    request: Request = None
+):
+    """Bulk generate certificates from CSV file"""
+    from PIL import Image, ImageDraw, ImageFont
+    import qrcode
+    from io import BytesIO
+    
+    user = await get_current_user(request)
+    
+    # Check authorization
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Check if template exists
+    template = await db.certificate_templates.find_one({"hackathon_id": hackathon_id})
+    if not template:
+        raise HTTPException(status_code=400, detail="Please upload a certificate template first")
+    
+    # Validate CSV file
+    if not file.content_type == "text/csv":
+        raise HTTPException(status_code=400, detail="Only CSV files are allowed")
+    
+    # Read CSV content
+    content = await file.read()
+    csv_content = content.decode("utf-8")
+    
+    # Parse CSV
+    import csv as csv_module
+    from io import StringIO
+    
+    csv_reader = csv_module.DictReader(StringIO(csv_content))
+    
+    # Validate CSV columns
+    required_columns = {"name", "email", "role"}
+    csv_columns = set([col.lower().strip() for col in csv_reader.fieldnames])
+    
+    if not required_columns.issubset(csv_columns):
+        raise HTTPException(
+            status_code=400,
+            detail=f"CSV must contain columns: Name, Email, Role"
+        )
+    
+    certificates_generated = 0
+    errors = []
+    
+    # Load template image
+    template_path = Path(f"/app/backend{template['template_url']}")
+    if not template_path.exists():
+        raise HTTPException(status_code=404, detail="Template image not found")
+    
+    base_image = Image.open(template_path)
+    
+    # Get text positions
+    positions = template.get("text_positions", {})
+    
+    for row_num, row in enumerate(csv_reader, start=2):
+        try:
+            name = row.get("name", row.get("Name", "")).strip()
+            email = row.get("email", row.get("Email", "")).strip().lower()
+            role = row.get("role", row.get("Role", "")).strip()
+            
+            if not name or not email or not role:
+                errors.append(f"Row {row_num}: Missing required fields")
+                continue
+            
+            # Check if certificate already exists
+            existing_cert = await db.certificates.find_one({
+                "hackathon_id": hackathon_id,
+                "user_email": email
+            })
+            
+            if existing_cert:
+                errors.append(f"Row {row_num}: Certificate already exists for {email}")
+                continue
+            
+            # Generate certificate
+            cert_image = base_image.copy()
+            draw = ImageDraw.Draw(cert_image)
+            
+            # Try to load a font (fallback to default)
+            try:
+                font_name = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+                font_role = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+                font_date = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
+            except:
+                font_name = ImageFont.load_default()
+                font_role = ImageFont.load_default()
+                font_date = ImageFont.load_default()
+            
+            # Draw name
+            if "name" in positions:
+                pos = positions["name"]
+                draw.text(
+                    (pos.get("x", 500), pos.get("y", 400)),
+                    name,
+                    fill=pos.get("color", "#000000"),
+                    font=font_name
+                )
+            
+            # Draw role
+            if "role" in positions:
+                pos = positions["role"]
+                draw.text(
+                    (pos.get("x", 500), pos.get("y", 500)),
+                    f"{role.capitalize()} Certificate",
+                    fill=pos.get("color", "#000000"),
+                    font=font_role
+                )
+            
+            # Draw hackathon name
+            if "hackathon" in positions:
+                pos = positions["hackathon"]
+                draw.text(
+                    (pos.get("x", 500), pos.get("y", 300)),
+                    hackathon.get("title", ""),
+                    fill=pos.get("color", "#000000"),
+                    font=font_role
+                )
+            
+            # Draw date
+            if "date" in positions:
+                pos = positions["date"]
+                draw.text(
+                    (pos.get("x", 500), pos.get("y", 600)),
+                    datetime.now(timezone.utc).strftime("%B %d, %Y"),
+                    fill=pos.get("color", "#000000"),
+                    font=font_date
+                )
+            
+            # Generate certificate ID
+            cert_id = str(uuid.uuid4())[:12].upper()
+            
+            # Generate QR code
+            if "qr" in positions:
+                qr = qrcode.QRCode(version=1, box_size=10, border=2)
+                verify_url = f"https://hackov8-1.emergent.host/verify-certificate/{cert_id}"
+                qr.add_data(verify_url)
+                qr.make(fit=True)
+                qr_img = qr.make_image(fill_color="black", back_color="white")
+                
+                # Resize QR code
+                qr_size = positions["qr"].get("size", 100)
+                qr_img = qr_img.resize((qr_size, qr_size))
+                
+                # Paste QR code on certificate
+                pos = positions["qr"]
+                cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
+            
+            # Save certificate
+            cert_dir = Path("/app/backend/uploads/certificates")
+            cert_dir.mkdir(parents=True, exist_ok=True)
+            
+            cert_filename = f"{hackathon_id}_{cert_id}.png"
+            cert_path = cert_dir / cert_filename
+            cert_image.save(cert_path)
+            
+            # Create certificate record
+            certificate = Certificate(
+                certificate_id=cert_id,
+                hackathon_id=hackathon_id,
+                user_name=name,
+                user_email=email,
+                role=role,
+                certificate_url=f"/uploads/certificates/{cert_filename}"
+            )
+            
+            await db.certificates.insert_one(certificate.dict(by_alias=True))
+            certificates_generated += 1
+            
+        except Exception as e:
+            errors.append(f"Row {row_num}: {str(e)}")
+    
+    return {
+        "message": f"Certificates generated successfully",
+        "certificates_generated": certificates_generated,
+        "errors": errors if errors else None
+    }
+
+@api_router.get("/certificates/retrieve")
+async def retrieve_certificate(name: str, email: str, hackathon_id: str):
+    """Retrieve certificate by name and email"""
+    certificate = await db.certificates.find_one({
+        "hackathon_id": hackathon_id,
+        "user_email": email.lower().strip(),
+        "user_name": {"$regex": f"^{name.strip()}$", "$options": "i"}
+    })
+    
+    if not certificate:
+        raise HTTPException(status_code=404, detail="Certificate not found. Please verify your name and email.")
+    
+    certificate["id"] = certificate.pop("_id")
+    return certificate
+
+@api_router.get("/certificates/verify/{certificate_id}")
+async def verify_certificate(certificate_id: str):
+    """Verify certificate by ID"""
+    certificate = await db.certificates.find_one({"certificate_id": certificate_id})
+    
+    if not certificate:
+        raise HTTPException(status_code=404, detail="Certificate not found or invalid")
+    
+    # Get hackathon details
+    hackathon = await db.hackathons.find_one({"_id": certificate["hackathon_id"]})
+    
+    certificate["id"] = certificate.pop("_id")
+    certificate["hackathon_name"] = hackathon.get("title") if hackathon else "Unknown"
+    
+    return certificate
+
+@api_router.get("/hackathons/{hackathon_id}/certificates")
+async def get_hackathon_certificates(hackathon_id: str, request: Request = None):
+    """Get all certificates for a hackathon (organizer only)"""
+    user = await get_current_user(request)
+    
+    # Check authorization
+    hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    is_organizer = hackathon["organizer_id"] == user.id
+    is_co_organizer = user.id in hackathon.get("co_organizers", [])
+    is_admin = user.role == "admin"
+    
+    if not (is_organizer or is_co_organizer or is_admin):
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    certificates = await db.certificates.find({"hackathon_id": hackathon_id}).to_list(1000)
+    
+    return {
+        "total": len(certificates),
+        "certificates": [{**cert, "id": cert.pop("_id")} for cert in certificates]
+    }
+
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
