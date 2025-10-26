@@ -252,6 +252,18 @@ export default function OrganizerDashboard() {
                     <Button
                       variant="ghost"
                       size="sm"
+                      className="w-full justify-start text-gray-400 hover:text-yellow-400 hover:bg-yellow-900/20"
+                      onClick={() => {
+                        setSelectedHackathon(hackathon);
+                        setShowCertificatesModal(true);
+                      }}
+                    >
+                      <Award className="w-4 h-4 mr-2" />
+                      Manage Certificates
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="w-full justify-start text-gray-400 hover:text-blue-400 hover:bg-blue-900/20"
                       onClick={() => {
                         setSelectedHackathon(hackathon);
