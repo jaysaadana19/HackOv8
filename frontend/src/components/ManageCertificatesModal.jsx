@@ -230,16 +230,23 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
                 <Card className="glass-effect p-4 border border-gray-800">
-                  <h3 className="text-lg font-bold text-white mb-4">Position Fields on Template</h3>
-                  <div className="relative border border-gray-700 rounded-lg overflow-hidden" style={{ maxHeight: '600px' }}>
-                    <canvas
-                      ref={canvasRef}
-                      onDrop={handleDrop}
-                      onDragOver={(e) => e.preventDefault()}
-                      className="w-full h-auto cursor-crosshair"
-                    >
-                      <img ref={imageRef} src={templatePreview} alt="Template" className="w-full h-auto" />
-                    </canvas>
+                  <h3 className="text-lg font-bold text-white mb-2">Click to Position Fields</h3>
+                  <p className="text-gray-400 text-sm mb-4">
+                    {draggedField ? 
+                      `Click on the template where you want to place "${draggedField}"` : 
+                      'Select a field from the right panel, then click on the template'
+                    }
+                  </p>
+                  <div className="relative border-2 border-dashed border-gray-700 rounded-lg overflow-hidden bg-gray-900/30"
+                       style={{ cursor: draggedField ? 'crosshair' : 'default' }}>
+                    <img 
+                      src={templatePreview} 
+                      alt="Template"
+                      className="w-full h-auto"
+                      onClick={handleImageClick}
+                      style={{ display: 'block' }}
+                    />
+                    {/* Position Indicators */}
                     {Object.keys(positions).map((field) => (
                       <div
                         key={field}
@@ -249,15 +256,17 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                           top: `${positions[field].y}px`,
                           transform: 'translate(-50%, -50%)',
                           padding: '4px 8px',
-                          background: 'rgba(20, 184, 166, 0.8)',
+                          background: 'rgba(20, 184, 166, 0.9)',
                           color: 'white',
                           borderRadius: '4px',
                           fontSize: '12px',
-                          cursor: 'move',
-                          pointerEvents: 'none'
+                          fontWeight: 'bold',
+                          pointerEvents: 'none',
+                          border: '2px solid #14b8a6',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
                         }}
                       >
-                        {field}
+                        {field.toUpperCase()}
                       </div>
                     ))}
                   </div>
@@ -266,32 +275,46 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
 
               <div>
                 <Card className="glass-effect p-4 border border-gray-800 sticky top-4">
-                  <h3 className="text-lg font-bold text-white mb-4">Draggable Fields</h3>
-                  <div className="space-y-2">
+                  <h3 className="text-lg font-bold text-white mb-4">Select Field to Position</h3>
+                  <div className="space-y-2 mb-6">
                     {Object.keys(positions).map((field) => (
-                      <div
+                      <button
                         key={field}
-                        draggable
-                        onDragStart={() => handleDragStart(field)}
-                        className="p-3 bg-gray-800 hover:bg-gray-700 rounded-lg cursor-move border border-gray-700 transition-colors"
+                        onClick={() => {
+                          setDraggedField(field);
+                          toast.info(`Click on template to place "${field}"`);
+                        }}
+                        className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                          draggedField === field
+                            ? 'bg-teal-900/50 border-teal-500 shadow-lg'
+                            : 'bg-gray-800 border-gray-700 hover:bg-gray-700 hover:border-gray-600'
+                        }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-white capitalize">{field}</span>
-                          <Award className="w-4 h-4 text-teal-400" />
+                          <span className="text-white capitalize font-medium">{field}</span>
+                          <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
                         </div>
                         <div className="text-xs text-gray-400 mt-1">
-                          X: {positions[field].x}, Y: {positions[field].y}
+                          Position: ({positions[field].x}, {positions[field].y})
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                   
                   <Button
                     onClick={handleSavePositions}
                     disabled={loading}
-                    className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white"
+                    className="w-full bg-teal-600 hover:bg-teal-700 text-white"
                   >
                     {loading ? 'Saving...' : 'Save Positions & Continue'}
+                  </Button>
+                  
+                  <Button
+                    onClick={() => setStep(1)}
+                    variant="outline"
+                    className="w-full mt-2 border-gray-700 text-gray-300"
+                  >
+                    Change Template
                   </Button>
                 </Card>
               </div>
