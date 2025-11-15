@@ -146,6 +146,29 @@ export default function OrganizerDashboard() {
       </nav>
 
       <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 pb-20 sm:pb-12">
+        {/* Certificate Service Banner */}
+        <div className="mb-6">
+          <Card className="glass-effect border border-teal-700/30 bg-gradient-to-r from-teal-900/20 to-teal-800/10 p-4 sm:p-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-teal-600/20 flex items-center justify-center">
+                  <Award className="w-6 h-6 text-teal-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold text-lg">Certificate Service</h3>
+                  <p className="text-gray-400 text-sm">Generate certificates for any event or purpose</p>
+                </div>
+              </div>
+              <Button
+                onClick={() => navigate('/certificate-service')}
+                className="bg-teal-600 hover:bg-teal-700 text-white whitespace-nowrap"
+              >
+                Launch Service
+              </Button>
+            </div>
+          </Card>
+        </div>
+
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
           <div className="w-full sm:w-auto">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 break-words">
