@@ -103,10 +103,10 @@ export default function GetCertificate() {
       </nav>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-12">
         <div className="max-w-3xl mx-auto">
           {/* Search Form */}
-          <Card className="glass-effect p-8 border border-gray-800 mb-8">
+          <Card className="glass-effect p-4 sm:p-8 border border-gray-800 mb-6 sm:mb-8">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-white" />
