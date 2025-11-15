@@ -26,6 +26,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
   const fileInputRef = useRef(null);
+  const [imageScale, setImageScale] = useState({ x: 1, y: 1 });
 
   useEffect(() => {
     fetchTemplate();
