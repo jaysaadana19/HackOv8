@@ -711,7 +711,7 @@ async def upload_certificate_template(
         raise HTTPException(status_code=400, detail="Only PNG and JPG images are allowed")
     
     # Save template file
-    template_dir = Path("/app/backend/uploads/certificate_templates")
+    template_dir = Path("/app/uploads/certificate_templates")
     template_dir.mkdir(parents=True, exist_ok=True)
     
     file_extension = file.filename.split(".")[-1]
@@ -1081,7 +1081,7 @@ async def generate_standalone_certificates(
         raise HTTPException(status_code=400, detail="Invalid positions format")
     
     # Save template temporarily
-    template_dir = Path("/app/backend/uploads/certificate_templates")
+    template_dir = Path("/app/uploads/certificate_templates")
     template_dir.mkdir(parents=True, exist_ok=True)
     
     template_filename = f"standalone_{user.id}_{uuid.uuid4()}.png"
