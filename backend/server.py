@@ -2696,12 +2696,12 @@ async def export_hackathons(request: Request):
     
     return Response(content=csv_data, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=hackathons.csv"})
 
+# Mount static files BEFORE including router (order matters!)
+# Mount under /api prefix so Kubernetes ingress routes to backend
+app.mount("/api/uploads", StaticFiles(directory="/app/uploads"), name="uploads")
+
 # Include the router in the main app
 app.include_router(api_router)
-
-# Mount static files for uploads
-# Mount static files under /api prefix so ingress routes correctly to backend
-app.mount("/api/uploads", StaticFiles(directory="/app/uploads"), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,
