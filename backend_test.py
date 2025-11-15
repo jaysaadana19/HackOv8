@@ -3406,10 +3406,18 @@ db.user_sessions.insertOne({{
 def main():
     import sys
     
-    # Check if we should run only referral tests
-    if len(sys.argv) > 1 and sys.argv[1] == "referral":
-        tester = AdminPanelAPITester()
-        success = tester.run_referral_tests_only()
+    # Check command line arguments
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "referral":
+            tester = AdminPanelAPITester()
+            success = tester.run_referral_tests_only()
+        elif sys.argv[1] == "certificate-failure":
+            tester = AdminPanelAPITester()
+            success = tester.run_certificate_failure_test()
+        else:
+            print(f"Unknown test type: {sys.argv[1]}")
+            print("Available options: referral, certificate-failure")
+            return 1
     else:
         tester = AdminPanelAPITester()
         success = tester.run_all_tests()
