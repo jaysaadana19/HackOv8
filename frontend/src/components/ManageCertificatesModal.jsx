@@ -391,8 +391,8 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                               }}
                               className={`w-full text-xs ${
                                 draggedField === field
-                                  ? 'bg-teal-600 hover:bg-teal-700'
-                                  : 'bg-gray-700 hover:bg-gray-600'
+                                  ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                                  : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
                               }`}
                             >
                               {draggedField === field ? '📍 Positioning...' : 'Set Position'}
