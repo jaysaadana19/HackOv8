@@ -2833,9 +2833,284 @@ Bob Wilson,bob.wilson@example.com,organizer"""
 
     # Old test methods removed - replaced with comprehensive admin panel tests
 
+    def test_certificate_download_flow(self):
+        """Test complete certificate generation and download flow as requested"""
+        print("\n📜 Testing Certificate Download Flow (User Request)...")
+        
+        # Step 1: Create organizer and hackathon
+        print("   Step 1: Creating organizer and hackathon...")
+        
+        # Create test organizer
+        timestamp = int(datetime.now().timestamp())
+        cert_organizer_id = f"cert-organizer-{timestamp}"
+        cert_organizer_token = f"cert_organizer_session_{timestamp}"
+        cert_organizer_email = f"certtest.{timestamp}@test.com"
+        
+        mongo_script = f"""
+use('test_database');
+
+// Create certificate test organizer
+db.users.insertOne({{
+  _id: '{cert_organizer_id}',
+  email: '{cert_organizer_email}',
+  name: 'Certificate Test Organizer',
+  role: 'organizer',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{cert_organizer_id}',
+  session_token: '{cert_organizer_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+"""
+        
+        try:
+            result = subprocess.run(['mongosh', '--eval', mongo_script], 
+                                  capture_output=True, text=True, timeout=30)
+            
+            if result.returncode != 0:
+                print(f"   ❌ Failed to create certificate test organizer: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"   ❌ Failed to create certificate test organizer: {str(e)}")
+            return False
+        
+        # Create hackathon
+        hackathon_data = {
+            "title": "Certificate Test Event",
+            "description": "Testing certificate generation and download",
+            "category": "Technology",
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Certificate Test Hackathon",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon_data,
+            session_token=cert_organizer_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create hackathon for certificate test")
+            return False
+            
+        hackathon_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon_id)
+        print(f"   ✅ Created hackathon: {hackathon_id}")
+        
+        # Step 2: Upload template to /app/uploads/certificate_templates/
+        print("   Step 2: Uploading certificate template...")
+        
+        # Create a simple test template image
+        from PIL import Image, ImageDraw
+        import io
+        
+        # Create a simple certificate template
+        template_img = Image.new('RGB', (800, 600), color='white')
+        draw = ImageDraw.Draw(template_img)
+        draw.rectangle([50, 50, 750, 550], outline='black', width=3)
+        draw.text((400, 100), "CERTIFICATE", fill='black', anchor='mm')
+        draw.text((400, 200), "This is to certify that", fill='black', anchor='mm')
+        draw.text((400, 300), "[NAME]", fill='blue', anchor='mm')
+        draw.text((400, 400), "has participated in", fill='black', anchor='mm')
+        draw.text((400, 500), "[EVENT]", fill='blue', anchor='mm')
+        
+        # Save template to uploads directory
+        template_path = f"/app/uploads/certificate_templates/{hackathon_id}_template.png"
+        import os
+        os.makedirs("/app/uploads/certificate_templates", exist_ok=True)
+        template_img.save(template_path)
+        
+        print(f"   ✅ Template saved to: {template_path}")
+        
+        # Upload template via API
+        import requests
+        
+        with open(template_path, 'rb') as f:
+            files = {'file': ('template.png', f, 'image/png')}
+            headers = {'Authorization': f'Bearer {cert_organizer_token}'}
+            
+            upload_response = requests.post(
+                f"{self.base_url}/hackathons/{hackathon_id}/certificate-template",
+                files=files,
+                headers=headers
+            )
+        
+        if upload_response.status_code == 200:
+            template_data = upload_response.json()
+            template_url = template_data.get('template_url')
+            print(f"   ✅ Template uploaded via API: {template_url}")
+        else:
+            print(f"   ❌ Template upload failed: {upload_response.status_code} - {upload_response.text}")
+            return False
+        
+        # Step 3: Set positions
+        print("   Step 3: Setting field positions...")
+        
+        positions = {
+            "name": {"x": 400, "y": 300, "enabled": True, "color": "#000000"},
+            "date": {"x": 400, "y": 450, "enabled": True, "color": "#000000"}
+        }
+        
+        success, response = self.run_test(
+            "Set Certificate Field Positions",
+            "PUT",
+            f"hackathons/{hackathon_id}/certificate-template/positions",
+            200,
+            data=positions,
+            session_token=cert_organizer_token
+        )
+        
+        if success:
+            print(f"   ✅ Field positions set successfully")
+        else:
+            print("   ❌ Failed to set field positions")
+            return False
+        
+        # Step 4: Generate 1 certificate via CSV
+        print("   Step 4: Generating certificate via CSV...")
+        
+        csv_content = "Name,Email,Role\nJohn Test,john@test.com,participant"
+        
+        # Create CSV file
+        csv_file_path = "/tmp/test_certificates.csv"
+        with open(csv_file_path, 'w') as f:
+            f.write(csv_content)
+        
+        # Upload CSV and generate certificates
+        with open(csv_file_path, 'rb') as f:
+            files = {'file': ('certificates.csv', f, 'text/csv')}
+            headers = {'Authorization': f'Bearer {cert_organizer_token}'}
+            
+            generate_response = requests.post(
+                f"{self.base_url}/hackathons/{hackathon_id}/certificates/bulk-generate",
+                files=files,
+                headers=headers
+            )
+        
+        if generate_response.status_code == 200:
+            generate_data = generate_response.json()
+            certificates_generated = generate_data.get('certificates_generated', 0)
+            print(f"   ✅ Generated {certificates_generated} certificate(s)")
+        else:
+            print(f"   ❌ Certificate generation failed: {generate_response.status_code} - {generate_response.text}")
+            return False
+        
+        # Step 5: Verify backend returns certificate_url starting with /api/uploads/certificates/
+        print("   Step 5: Verifying certificate URL format...")
+        
+        success, cert_list = self.run_test(
+            "Get Generated Certificates",
+            "GET",
+            f"hackathons/{hackathon_id}/certificates",
+            200,
+            session_token=cert_organizer_token
+        )
+        
+        if success and cert_list.get('certificates'):
+            certificate = cert_list['certificates'][0]
+            certificate_url = certificate.get('certificate_url')
+            
+            if certificate_url and certificate_url.startswith('/api/uploads/certificates/'):
+                print(f"   ✅ Certificate URL format correct: {certificate_url}")
+            else:
+                print(f"   ❌ Certificate URL format incorrect: {certificate_url}")
+                return False
+        else:
+            print("   ❌ Failed to get generated certificates")
+            return False
+        
+        # Step 6: Test accessing the certificate URL from production
+        print("   Step 6: Testing certificate URL access...")
+        
+        # Test with production backend URL
+        backend_url = "https://certificate-hub-4.preview.emergentagent.com"
+        full_certificate_url = f"{backend_url}{certificate_url}"
+        
+        print(f"   🔍 Testing URL: {full_certificate_url}")
+        
+        cert_response = requests.get(full_certificate_url)
+        print(f"   📊 Response Status: {cert_response.status_code}")
+        print(f"   📊 Content-Type: {cert_response.headers.get('Content-Type', 'Not set')}")
+        print(f"   📊 Content-Length: {len(cert_response.content)} bytes")
+        
+        if cert_response.status_code == 200:
+            content_type = cert_response.headers.get('Content-Type', '')
+            if 'image' in content_type:
+                print(f"   ✅ Certificate accessible as image: {content_type}")
+            else:
+                print(f"   ❌ Certificate not served as image: {content_type}")
+                print(f"   📄 Response preview: {cert_response.text[:200]}...")
+        else:
+            print(f"   ❌ Certificate not accessible: {cert_response.status_code}")
+        
+        # Step 7: Test the retrieval API
+        print("   Step 7: Testing certificate retrieval API...")
+        
+        success, retrieved_cert = self.run_test(
+            "Retrieve Certificate by Name/Email",
+            "GET",
+            f"certificates/retrieve?name=John Test&email=john@test.com&hackathon_id={hackathon_id}",
+            200
+        )
+        
+        if success:
+            retrieved_url = retrieved_cert.get('certificate_url')
+            if retrieved_url and retrieved_url.startswith('/api/uploads/certificates/'):
+                print(f"   ✅ Retrieval API returns correct URL: {retrieved_url}")
+            else:
+                print(f"   ❌ Retrieval API URL incorrect: {retrieved_url}")
+                return False
+        else:
+            print("   ❌ Certificate retrieval API failed")
+            return False
+        
+        # Step 8: Test if image is accessible at: {BACKEND_URL} + certificate_url
+        print("   Step 8: Testing final certificate access...")
+        
+        final_url = f"{backend_url}{retrieved_url}"
+        print(f"   🔍 Final URL: {final_url}")
+        
+        final_response = requests.get(final_url)
+        print(f"   📊 Final Response Status: {final_response.status_code}")
+        print(f"   📊 Final Content-Type: {final_response.headers.get('Content-Type', 'Not set')}")
+        print(f"   📊 Final Content-Length: {len(final_response.content)} bytes")
+        
+        # Summary
+        print(f"\n   🎯 Certificate Download Test Summary:")
+        print(f"      ✅ Organizer and hackathon created")
+        print(f"      ✅ Template uploaded to /app/uploads/certificate_templates/")
+        print(f"      ✅ Field positions set")
+        print(f"      ✅ Certificate generated via CSV for 'John Test,john@test.com,participant'")
+        print(f"      ✅ Backend returns certificate_url starting with /api/uploads/certificates/")
+        print(f"      ✅ Retrieval API working: GET /api/certificates/retrieve?name=John Test&email=john@test.com&hackathon_id={hackathon_id}")
+        print(f"      ✅ Certificate URL format verified")
+        
+        if final_response.status_code == 200 and 'image' in final_response.headers.get('Content-Type', ''):
+            print(f"      ✅ Certificate image accessible at production URL")
+            return True
+        else:
+            print(f"      ❌ Certificate image NOT accessible at production URL")
+            print(f"         Status: {final_response.status_code}")
+            print(f"         Content-Type: {final_response.headers.get('Content-Type')}")
+            return False
+
     def run_all_tests(self):
-        """Run certificate download debugging tests"""
-        print("🚀 Starting Certificate Download Debugging Tests...")
+        """Run certificate download test as requested by user"""
+        print("🚀 Starting Certificate Download Test...")
         print(f"Base URL: {self.base_url}")
         
         # Step 1: Create test users
@@ -2848,8 +3123,17 @@ Bob Wilson,bob.wilson@example.com,organizer"""
             print("❌ Authentication failed - stopping tests")
             return False
         
-        # Step 3: Run certificate download debugging
-        self.test_certificate_download_debugging()
+        # Step 3: Run certificate download test as requested
+        print("\n" + "="*60)
+        print("🎯 RUNNING CERTIFICATE DOWNLOAD TEST (USER REQUEST)")
+        print("="*60)
+        
+        cert_test_success = self.test_certificate_download_flow()
+        
+        if cert_test_success:
+            print("\n🎉 CERTIFICATE DOWNLOAD TEST PASSED!")
+        else:
+            print("\n❌ CERTIFICATE DOWNLOAD TEST FAILED!")
         
         # Step 4: Cleanup
         self.cleanup_test_data()
