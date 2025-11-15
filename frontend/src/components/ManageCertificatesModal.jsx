@@ -399,7 +399,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                             </Button>
 
                             {/* Position Display */}
-                            <div className="text-xs text-gray-400">
+                            <div className="text-xs text-gray-600">
                               Position: ({positions[field].x}, {positions[field].y})
                             </div>
 
