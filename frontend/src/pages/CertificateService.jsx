@@ -469,6 +469,17 @@ export default function CertificateService() {
                 </div>
                 <h2 className="text-3xl font-bold text-white mb-2">Certificates Generated!</h2>
                 <p className="text-gray-400">Successfully generated {generatedCertificates.length} certificates</p>
+                <div className="mt-4 p-4 bg-teal-900/20 border border-teal-700/30 rounded-lg">
+                  <p className="text-sm text-teal-300 mb-2">
+                    ✓ Users can retrieve their certificates at:
+                  </p>
+                  <code className="text-xs text-teal-400 bg-teal-950/50 px-3 py-2 rounded block">
+                    {window.location.origin}/get-certificate
+                  </code>
+                  <p className="text-xs text-gray-400 mt-2">
+                    Share this link with participants to download their certificates
+                  </p>
+                </div>
               </div>
 
               <div className="flex gap-4 mb-6">
