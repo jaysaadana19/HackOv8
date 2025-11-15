@@ -372,7 +372,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                               />
                               <div className="w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
                             </label>
-                            <span className="text-white font-medium capitalize">{field}</span>
+                            <span className="text-gray-900 font-medium capitalize">{field}</span>
                           </div>
                           {positions[field].enabled && (
                             <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
