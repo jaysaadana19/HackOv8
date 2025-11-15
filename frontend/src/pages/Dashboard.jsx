@@ -78,6 +78,8 @@ export default function Dashboard() {
   };
 
   const fetchMyCertificates = async (userEmail) => {
+    if (!userEmail) return;
+    
     try {
       const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
       const response = await fetch(`${API_URL}/certificates/my?email=${encodeURIComponent(userEmail)}`);
