@@ -1,0 +1,92 @@
+<analysis>
+The trajectory details an iterative development process on the Hackov8 platform, primarily focused on building and refining a complex **Certificate Issuance System**. The work was driven by a continuous loop of user requests, bug reports, and feature enhancements.
+
+The AI engineer started by exploring the existing codebase and fixing initial bugs related to the certificate modal. A major pivot occurred when the user requested the certificate feature to function as a **standalone service**, separate from hackathons. This led to the creation of new frontend pages (, ) and corresponding backend APIs.
+
+A significant portion of the work involved debugging critical, recurring issues:
+1.  **Certificate Download Failures:** This was traced to a Kubernetes ingress configuration issue where static file routes () were not being directed to the backend. The final fix involved moving all static assets under the  path, which required careful ordering of middleware in .
+2.  **Bulk Generation Timeouts (504/520 errors):** Generating large batches of certificates caused server timeouts. The AI implemented several optimizations, including chunked CSV processing, batch database inserts, and image compression. However, this issue recurred, indicating the synchronous approach was fundamentally flawed for large-scale tasks.
+3.  **Google OAuth Failures:** A persistent invalid_client error was debugged. The AI correctly identified it as a Google Cloud Console configuration problem, guiding the user to update Authorized JavaScript origins and providing new client credentials.
+
+The engineer also implemented numerous UI/UX improvements, such as making the certificate editor more intuitive with real-time previews and fixing mobile responsiveness. The final user request before this summary was to fix a recurring  error during certificate generation, indicating the backend is still crashing under load.
+
+The user's primary language is English. The next agent must respond in English only.
+</analysis>
+<product_requirements>
+The project is to build and enhance the Hackov8 hackathon management platform.
+
+**Core Feature: Certificate Issuance System**
+The primary requirement is a robust certificate system with two main modes:
+1.  **Hackathon-Integrated:** Organizers can issue certificates to participants of a specific hackathon.
+2.  **Standalone Service:** Organizers can generate certificates for any event, independent of a hackathon, by providing an event name.
+
+**Functional Requirements:**
+-   **Template Management:** Organizers must be able to upload a JPG/PNG template.
+-   **Dynamic Field Placement:** A user-friendly UI to visually place, enable/disable, and preview dynamic fields (e.g., Name, Role, QR Code, Date) on the template. The placement must be accurate, and the preview should show sample text.
+-   **Bulk Generation:** Ability to upload a CSV of recipients (Name, Email, Role) to generate hundreds of certificates at once without server timeouts.
+-   **User Retrieval:**
+    -   A public page where anyone can retrieve their certificate using their name and email/event name.
+    -   A My Certificates section in the authenticated participant dashboard.
+-   **Verification:** All certificates must have a unique QR code linking to a public verification page.
+-   **UI/UX:** The entire platform, especially certificate features, must be mobile-responsive and have a clean, visible light-theme UI.
+
+**Other Key Requirements:**
+-   Functional Google Sign-in.
+-   A fast, responsive user experience with minimal loading/buffering.
+</product_requirements>
+<key_technical_concepts>
+- **Full-Stack:** React frontend, FastAPI (Python) backend, MongoDB database.
+- **API & Routing:** FastAPI with APIRouter. Critical learning about Kubernetes Ingress routing all API traffic via an  prefix.
+- **Authentication:** JWT for sessions, with Google OAuth (using the popup-based Token Client).
+- **Asynchronous Processing:** Attempts to optimize long-running tasks (certificate generation) by chunking data within a single synchronous request.
+- **Image & PDF:**  for image manipulation,  for QR code generation,  for PDF creation.
+- **Styling:** Tailwind CSS and Shadcn UI components.
+</key_technical_concepts>
+<code_architecture>
+The application is a monorepo with a React frontend and a FastAPI backend.
+
+
+
+-   ****
+    -   **Importance:** This is the monolithic backend file containing all API logic, Pydantic models, database interactions, and certificate generation code. It's the most critical and most frequently modified file.
+    -   **Summary of Changes:** Extensively modified to add certificate generation endpoints (for hackathons and standalone), user certificate retrieval, and file upload routes. It was repeatedly patched to fix infrastructure-related issues, such as changing static file paths to  to comply with ingress rules. Major optimizations for bulk generation (chunking, batch inserts) and bug fixes (syntax errors, import order) were implemented here.
+
+-   ****
+    -   **Importance:** A new page created to provide the standalone certificate generation service, a key user requirement. It contains the full UI for template upload, field placement, and CSV-based bulk generation.
+    -   **Summary of Changes:** Created from scratch. Later modified to improve the field placement UI with scaling logic for accurate positioning and a live preview of sample text. Also updated to handle API error messages more gracefully.
+
+-   ****
+    -   **Importance:** The original UI for managing certificates within a hackathon. It shares much of the same functionality as .
+    -   **Summary of Changes:** The initial file-upload bug was fixed here. It was then significantly refactored to add a more intuitive field placement editor with toggles, scaling logic, and live previews, mirroring the changes in .
+
+-   ****
+    -   **Importance:** The main landing page for authenticated participants.
+    -   **Summary of Changes:** A My Certificates section was added, including state management and an API call () to list certificates issued to the logged-in user. Error handling for its data fetching was improved to prevent the entire page from failing.
+
+-   ** & **
+    -   **Importance:** User-facing pages for certificate retrieval and display.
+    -   **Summary of Changes:**  was newly created for public retrieval. Both pages were modified to fix mobile responsiveness issues and ensure certificate images/downloads used the correct, full backend URL ( + url from API).
+
+-   ** (frontend & backend)**
+    -   **Importance:** Stores environment-specific variables, including API keys.
+    -   **Summary of Changes:** Both files were updated with new  and  values provided by the user to debug the OAuth invalid_client error. The backend  was also updated to use the production .
+</code_architecture>
+<pending_tasks>
+-   **Fix Google Sign-in:** The invalid_client or a related error persists despite updating credentials and configuration. This remains the most prominent unresolved user-facing issue.
+-   **Improve Site Performance:** The user complained about the site buffering a lot, indicating a need for general performance optimization (e.g., code splitting, lazy loading, API response optimization).
+-   **Resolve 520 Error on Certificate Generation:** The most recent user request is to fix a  error, indicating a server crash, when generating batches of 50-100 certificates. This suggests the current synchronous, chunked approach is still not robust enough.
+</pending_tasks>
+<current_work>
+Immediately before this summary, the user reported a **** error when generating certificates in batches of 50-100 for a single event. This is a critical issue, as a  error indicates the web server received an invalid response from the origin server, which in this context almost always means the backend application crashed.
+
+This is a regression or an unhandled edge case of a previously fixed problem. The AI had already implemented several optimizations to prevent  (Gateway Timeout) errors for bulk generation, including:
+1.  Limiting the CSV to 200 rows.
+2.  Processing the CSV in chunks.
+3.  Inserting generated certificate records into the database in batches.
+4.  Optimizing image quality and compression.
+
+However, a  error is more severe than a  timeout; it points to a fatal runtime error in the backend process. The AI's last action was to begin investigating this by initiating a check of the backend logs to diagnose the cause of the crash. The error is occurring during the certificate generation process, likely within the loops in the  or  endpoints in .
+</current_work>
+<optional_next_step>
+Check the backend logs to identify the specific runtime error causing the  crash during certificate generation.
+</optional_next_step>

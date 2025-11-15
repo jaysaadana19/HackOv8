@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://certificate-hub-4.preview.emergentagent.com
+**Live Demo:** https://badgeflow-1.preview.emergentagent.com
