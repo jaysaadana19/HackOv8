@@ -493,6 +493,66 @@ frontend:
         agent: "main"
         comment: "SubmitProjectModal redesigned with teal theme, improved UI/UX. Modal includes: 1) Required fields (project name, description) with validation, 2) Optional links (GitHub repo, video demo, live demo) with URL inputs, 3) Submission tips section, 4) Loading states and error handling, 5) Mobile responsive design with max-height constraints, 6) Integration with submissionAPI.create endpoint. Backend testing shows 10/11 tests passed (90.9% success). Ready for comprehensive frontend testing to verify: modal open/close, form field inputs, submission flow, validation, error handling, and mobile responsiveness."
 
+  - task: "Certificate Management Modal - Template Upload"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ManageCertificatesModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Fixed file upload button in ManageCertificatesModal. Issue was nested Button inside label preventing file input trigger. Applied fix using useRef and programmatic click. Modal has 3-step wizard: 1) Upload template (PNG/JPG), 2) Position editor (drag/drop fields), 3) Bulk certificate generation via CSV. Organizers/Admins can access from their dashboard. Backend API fully implemented."
+
+  - task: "Certificate Management Modal - Position Editor"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ManageCertificatesModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Position editor allows organizers to visually place dynamic fields (name, role, hackathon, date, QR code) on certificate template by selecting field then clicking on template image. Visual indicators show current positions. Save positions and continue to CSV generation step."
+
+  - task: "Certificate Management Modal - CSV Bulk Generation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ManageCertificatesModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "CSV bulk generation allows organizers to upload CSV with columns: Name, Email, Role. Supports predefined roles (participation, judge, organizer) and custom roles. Backend generates certificate images with positioned text and QR codes. Sample CSV download provided. Works for both registered participants AND non-registered event attendees."
+
+  - task: "User Certificate Retrieval Page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/MyCertificate.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "MyCertificate.jsx page allows anyone (registered or non-registered) to retrieve their certificate by entering name and email. Route: /hackathon/:hackathonSlug/certificate. Fetches hackathon data from slug, searches for certificate, displays certificate image with download and social sharing options (LinkedIn, Twitter). Accessible from 'Get My Certificate' button on hackathon detail page."
+
+  - task: "Public Certificate Verification Page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/VerifyCertificate.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "VerifyCertificate.jsx page allows public verification of certificates via QR code or direct link. Route: /verify-certificate/:certificateId. Displays certificate details (ID, recipient, date, role, hackathon) with visual verification badge. Shows certificate image. Handles invalid certificates with error message."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
