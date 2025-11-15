@@ -493,6 +493,77 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* My Certificates */}
+        {myCertificates.length > 0 && (
+          <div className="mb-6 sm:mb-12">
+            <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">My <span className="gradient-text">Certificates</span></h2>
+              <Button
+                onClick={() => navigate('/get-certificate')}
+                variant="outline"
+                className="border-teal-700 text-teal-400 hover:bg-teal-900/20 text-xs sm:text-sm"
+              >
+                Get Certificate
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+              {myCertificates.map((cert) => (
+                <Card
+                  key={cert.id}
+                  className="glass-effect hover-lift border border-teal-800/30 group"
+                >
+                  <div className="p-4 sm:p-5 lg:p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-teal-600/20 flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-teal-400" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg font-bold text-white truncate group-hover:text-teal-400 transition-colors">
+                          {cert.event_name || 'Certificate'}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-400 capitalize truncate">{cert.role}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center gap-2 text-xs text-gray-400">
+                        <Calendar className="w-3 h-3 text-teal-500 flex-shrink-0" />
+                        <span className="truncate">Issued: {new Date(cert.issued_date).toLocaleDateString()}</span>
+                      </div>
+                      <div className="text-xs text-teal-400 font-mono truncate">
+                        ID: {cert.certificate_id}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = process.env.REACT_APP_BACKEND_URL + cert.certificate_url;
+                          link.download = `Certificate_${cert.user_name.replace(/\s+/g, '_')}.png`;
+                          link.click();
+                          toast.success('Certificate downloaded!');
+                        }}
+                        className="flex-1 bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm"
+                      >
+                        <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                        Download
+                      </Button>
+                      <Button
+                        onClick={() => navigate(`/verify-certificate/${cert.certificate_id}`)}
+                        variant="outline"
+                        className="flex-1 border-gray-700 text-gray-300 text-xs sm:text-sm"
+                      >
+                        View
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* My Teams */}
         {myTeams.length > 0 && (
           <div className="mb-6 sm:mb-12">
