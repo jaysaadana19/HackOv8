@@ -1225,7 +1225,7 @@ async def generate_standalone_certificates(
                 "user_email": email,
                 "role": role,
                 "certificate_id": cert_id,
-                "certificate_url": f"/uploads/certificates/{cert_filename}"
+                "certificate_url": f"/backend-uploads/certificates/{cert_filename}"
             })
             
         except Exception as e:
