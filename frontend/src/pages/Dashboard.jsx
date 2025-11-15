@@ -52,7 +52,8 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [userRes, hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.all([
+      // Fetch data with individual error handling
+      const [userRes, hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.allSettled([
         authAPI.getCurrentUser(),
         hackathonAPI.getAll({ status: 'published' }),
         registrationAPI.getMyRegistrations(),
@@ -61,22 +62,32 @@ export default function Dashboard() {
         referralAPI.getMyStats(),
       ]);
 
-      setUser(userRes.data);
-      setHackathons(hackathonsRes.data);
-      setMyRegistrations(regsRes.data);
-      setMyTeams(teamsRes.data);
-      setNotifications(notifsRes.data);
-      setMyReferralStats(referralRes.data);
+      // Handle user data
+      if (userRes.status === 'fulfilled') {
+        setUser(userRes.value.data);
+      } else {
+        console.error('Failed to fetch user:', userRes.reason);
+        toast.error('Failed to load user data');
+        return; // Can't continue without user
+      }
+
+      // Handle other data with fallbacks
+      setHackathons(hackathonsRes.status === 'fulfilled' ? hackathonsRes.value.data : []);
+      setMyRegistrations(regsRes.status === 'fulfilled' ? regsRes.value.data : []);
+      setMyTeams(teamsRes.status === 'fulfilled' ? teamsRes.value.data : []);
+      setNotifications(notifsRes.status === 'fulfilled' ? notifsRes.value.data : []);
+      setMyReferralStats(referralRes.status === 'fulfilled' ? referralRes.value.data : null);
       
       // Fetch certificates (non-blocking)
       try {
-        if (userRes.data && userRes.data.email) {
-          await fetchMyCertificates(userRes.data.email);
+        if (userRes.status === 'fulfilled' && userRes.value.data && userRes.value.data.email) {
+          await fetchMyCertificates(userRes.value.data.email);
         }
       } catch (certError) {
         console.log('Could not fetch certificates:', certError);
       }
     } catch (error) {
+      console.error('Dashboard error:', error);
       toast.error('Failed to load dashboard data');
     } finally {
       setLoading(false);
