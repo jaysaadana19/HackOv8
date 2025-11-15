@@ -11,13 +11,14 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
   const [templateFile, setTemplateFile] = useState(null);
   const [templatePreview, setTemplatePreview] = useState(null);
   const [positions, setPositions] = useState({
-    name: { x: 500, y: 400, color: '#000000', fontSize: 48 },
-    role: { x: 500, y: 500, color: '#333333', fontSize: 32 },
-    hackathon: { x: 500, y: 300, color: '#000000', fontSize: 32 },
-    date: { x: 500, y: 600, color: '#666666', fontSize: 24 },
-    qr: { x: 50, y: 50, size: 100 }
+    name: { enabled: true, x: 500, y: 400, color: '#000000', fontSize: 48 },
+    role: { enabled: true, x: 500, y: 500, color: '#333333', fontSize: 32 },
+    hackathon: { enabled: true, x: 500, y: 300, color: '#000000', fontSize: 32 },
+    date: { enabled: true, x: 500, y: 600, color: '#666666', fontSize: 24 },
+    qr: { enabled: true, x: 50, y: 50, size: 100 }
   });
   const [draggedField, setDraggedField] = useState(null);
+  const [selectedField, setSelectedField] = useState(null);
   const [csvFile, setCsvFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [certificates, setCertificates] = useState([]);
