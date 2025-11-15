@@ -257,7 +257,7 @@ export default function GetCertificate() {
 
           {/* Not Found Message */}
           {searched && !certificate && !loading && (
-            <Card className="glass-effect p-8 border border-gray-800 text-center">
+            <Card className="glass-effect p-4 sm:p-8 border border-gray-800 text-center">
               <div className="w-16 h-16 bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-red-400" />
               </div>
