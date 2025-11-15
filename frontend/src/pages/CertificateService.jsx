@@ -623,7 +623,7 @@ export default function CertificateService() {
                         size="sm"
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = cert.certificate_url;
+                          link.href = process.env.REACT_APP_BACKEND_URL + cert.certificate_url;
                           link.download = `Certificate_${cert.user_name.replace(/\s+/g, '_')}.png`;
                           link.click();
                         }}
