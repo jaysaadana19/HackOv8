@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Rocket, ArrowLeft, Users, Trophy, FileDown, TrendingUp, 
   CheckCircle, XCircle, Trash2, Activity, BarChart3, 
-  Clock, UserCheck, RefreshCw, AlertCircle, Eye, Calendar, Star 
+  Clock, UserCheck, RefreshCw, AlertCircle, Eye, Calendar, Star, Award 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
