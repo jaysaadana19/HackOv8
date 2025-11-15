@@ -853,7 +853,13 @@ async def bulk_generate_certificates(
     errors = []
     
     # Load template image
-    template_path = Path(f"/app/backend{template['template_url']}")
+    # Convert /backend-uploads/ URL to actual file path
+    template_url = template['template_url']
+    if template_url.startswith('/backend-uploads/'):
+        template_path = Path(f"/app/backend/uploads/{template_url[17:]}")  # Remove '/backend-uploads/' prefix
+    else:
+        template_path = Path(f"/app/backend{template_url}")
+    
     if not template_path.exists():
         raise HTTPException(status_code=404, detail="Template image not found")
     
