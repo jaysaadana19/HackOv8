@@ -373,21 +373,21 @@ export default function CertificateService() {
             <Card className="glass-effect p-6 border border-gray-800">
               <h2 className="text-2xl font-bold text-white mb-4">Generate Certificates</h2>
               
-              {/* Organization Name */}
+              {/* Event Name */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Organization Name <span className="text-red-400">*</span>
+                  Event Name <span className="text-red-400">*</span>
                 </label>
                 <Input
                   type="text"
-                  placeholder="e.g., TechCorp Academy, DevCon 2024"
+                  placeholder="e.g., AI Workshop 2024, Tech Conference, Training Program"
                   value={organizationName}
                   onChange={(e) => setOrganizationName(e.target.value)}
                   className="bg-gray-900/50 border-gray-700 text-white"
                   required
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  This will appear on the certificates
+                  This event name will appear on all certificates. Users can retrieve their certificates using this event name.
                 </p>
               </div>
 
