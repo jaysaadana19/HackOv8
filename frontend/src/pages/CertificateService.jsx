@@ -114,13 +114,20 @@ export default function CertificateService() {
   };
 
   const handleGenerateCertificates = async () => {
+    // Validation
+    if (!templateFile) {
+      toast.error('Please upload a certificate template first (Step 1)');
+      setStep(1);
+      return;
+    }
+
     if (!csvFile) {
       toast.error('Please upload a CSV file');
       return;
     }
 
     if (!organizationName.trim()) {
-      toast.error('Please enter your organization name');
+      toast.error('Please enter your event name');
       return;
     }
 
@@ -137,7 +144,8 @@ export default function CertificateService() {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
-        }
+        },
+        timeout: 300000  // 5 minutes timeout for large batches
       });
 
       setGeneratedCertificates(response.data.certificates || []);
@@ -152,7 +160,11 @@ export default function CertificateService() {
       );
       setStep(4);
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Failed to generate certificates');
+      console.error('Certificate generation error:', error);
+      const errorMessage = error.response?.data?.detail 
+        || error.message 
+        || 'Failed to generate certificates. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
