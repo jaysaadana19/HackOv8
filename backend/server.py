@@ -738,7 +738,7 @@ async def upload_certificate_template(
         # Create new template
         template = CertificateTemplate(
             hackathon_id=hackathon_id,
-            template_url=f"/uploads/certificate_templates/{template_filename}",
+            template_url=f"/backend-uploads/certificate_templates/{template_filename}",
             text_positions={}
         )
         result = await db.certificate_templates.insert_one(template.dict(by_alias=True))
