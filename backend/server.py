@@ -376,7 +376,7 @@ async def process_session(request: Request):
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(
-                "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
+                "            f"{os.environ.get('EMERGENT_AUTH_BACKEND_URL', 'https://demobackend.emergentagent.com')}/auth/v1/env/oauth/session-data"",
                 headers={"X-Session-ID": session_id}
             )
             response.raise_for_status()
