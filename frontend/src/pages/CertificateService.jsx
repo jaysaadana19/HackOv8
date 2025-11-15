@@ -277,13 +277,17 @@ export default function CertificateService() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <Card className="glass-effect p-4 border border-gray-800">
-                <h3 className="text-lg font-bold text-white mb-2">Click to Position Fields</h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  {draggedField ? 
-                    `Click on the template where you want to place "${draggedField}"` : 
-                    'Select a field from the right panel, then click on the template'
-                  }
-                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Position Certificate Fields</h3>
+                    <p className="text-sm text-gray-400 mt-1">
+                      {draggedField ? 
+                        `Click on template to place "${draggedField}"` : 
+                        'Enable fields and click to position them'
+                      }
+                    </p>
+                  </div>
+                </div>
                 <div className="relative border-2 border-dashed border-gray-700 rounded-lg overflow-hidden bg-gray-900/30"
                      style={{ cursor: draggedField ? 'crosshair' : 'default' }}>
                   <img 
@@ -293,8 +297,8 @@ export default function CertificateService() {
                     onClick={handleImageClick}
                     style={{ display: 'block' }}
                   />
-                  {/* Position Indicators */}
-                  {Object.keys(positions).map((field) => (
+                  {/* Position Indicators - Only show enabled fields */}
+                  {Object.keys(positions).filter(field => positions[field].enabled).map((field) => (
                     <div
                       key={field}
                       style={{
@@ -302,15 +306,16 @@ export default function CertificateService() {
                         left: `${positions[field].x}px`,
                         top: `${positions[field].y}px`,
                         transform: 'translate(-50%, -50%)',
-                        padding: '4px 8px',
-                        background: 'rgba(20, 184, 166, 0.9)',
+                        padding: '6px 12px',
+                        background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.9)',
                         color: 'white',
-                        borderRadius: '4px',
+                        borderRadius: '6px',
                         fontSize: '12px',
                         fontWeight: 'bold',
                         pointerEvents: 'none',
-                        border: '2px solid #14b8a6',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+                        border: `2px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
+                        boxShadow: draggedField === field ? '0 4px 12px rgba(20, 184, 166, 0.5)' : '0 2px 8px rgba(0,0,0,0.3)',
+                        transition: 'all 0.2s'
                       }}
                     >
                       {field.toUpperCase()}
