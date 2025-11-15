@@ -1147,10 +1147,10 @@ async def generate_standalone_certificates(
     rows = list(csv_reader)
     total_rows = len(rows)
     
-    if total_rows > 500:
+    if total_rows > 200:
         raise HTTPException(
             status_code=400,
-            detail=f"Maximum 500 certificates per batch. You have {total_rows} rows. Please split your CSV into smaller files."
+            detail=f"Maximum 200 certificates per batch to prevent timeouts. You have {total_rows} rows. Please split your CSV into smaller files (200 rows each)."
         )
     
     # Reset reader with the list
