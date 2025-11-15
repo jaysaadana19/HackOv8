@@ -1040,6 +1040,204 @@ async def get_hackathon_certificates(hackathon_id: str, request: Request = None)
         "certificates": [{**cert, "id": cert.pop("_id")} for cert in certificates]
     }
 
+@api_router.post("/certificates/standalone/generate")
+async def generate_standalone_certificates(
+    template: UploadFile = File(...),
+    csv: UploadFile = File(...),
+    organization: str = Form(...),
+    positions: str = Form(...),
+    request: Request = None
+):
+    """Generate certificates for standalone use (not tied to hackathon)"""
+    from PIL import Image, ImageDraw, ImageFont
+    import qrcode
+    from io import BytesIO
+    import json as json_lib
+    
+    user = await get_current_user(request)
+    
+    # Only organizers and admins can use this service
+    if user.role not in ["organizer", "admin"]:
+        raise HTTPException(status_code=403, detail="Only organizers and admins can generate certificates")
+    
+    # Validate template file
+    if not template.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Template must be an image file")
+    
+    # Validate CSV file
+    if not csv.content_type == "text/csv":
+        raise HTTPException(status_code=400, detail="Only CSV files are allowed")
+    
+    # Parse positions
+    try:
+        text_positions = json_lib.loads(positions)
+    except:
+        raise HTTPException(status_code=400, detail="Invalid positions format")
+    
+    # Save template temporarily
+    template_dir = Path("/app/backend/uploads/certificate_templates")
+    template_dir.mkdir(parents=True, exist_ok=True)
+    
+    template_filename = f"standalone_{user.id}_{uuid.uuid4()}.png"
+    template_path = template_dir / template_filename
+    
+    with open(template_path, "wb") as f:
+        f.write(await template.read())
+    
+    # Read CSV content
+    csv_content = await csv.read()
+    csv_text = csv_content.decode("utf-8")
+    
+    # Parse CSV
+    import csv as csv_module
+    from io import StringIO
+    
+    csv_reader = csv_module.DictReader(StringIO(csv_text))
+    
+    # Validate CSV columns
+    required_columns = {"name", "email", "role"}
+    csv_columns = set([col.lower().strip() for col in csv_reader.fieldnames])
+    
+    if not required_columns.issubset(csv_columns):
+        raise HTTPException(
+            status_code=400,
+            detail=f"CSV must contain columns: Name, Email, Role"
+        )
+    
+    certificates_generated = 0
+    errors = []
+    generated_certs = []
+    
+    # Load template image
+    if not template_path.exists():
+        raise HTTPException(status_code=404, detail="Template image not found")
+    
+    base_image = Image.open(template_path)
+    
+    for row_num, row in enumerate(csv_reader, start=2):
+        try:
+            name = row.get("name", row.get("Name", "")).strip()
+            email = row.get("email", row.get("Email", "")).strip().lower()
+            role = row.get("role", row.get("Role", "")).strip()
+            
+            if not name or not email or not role:
+                errors.append(f"Row {row_num}: Missing required fields")
+                continue
+            
+            # Generate certificate
+            cert_image = base_image.copy()
+            draw = ImageDraw.Draw(cert_image)
+            
+            # Try to load fonts
+            try:
+                font_name = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+                font_role = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+                font_org = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+                font_date = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
+            except:
+                font_name = ImageFont.load_default()
+                font_role = ImageFont.load_default()
+                font_org = ImageFont.load_default()
+                font_date = ImageFont.load_default()
+            
+            # Draw name
+            if "name" in text_positions:
+                pos = text_positions["name"]
+                draw.text(
+                    (pos.get("x", 400), pos.get("y", 350)),
+                    name,
+                    fill=pos.get("color", "#000000"),
+                    font=font_name
+                )
+            
+            # Draw role
+            if "role" in text_positions:
+                pos = text_positions["role"]
+                draw.text(
+                    (pos.get("x", 400), pos.get("y", 450)),
+                    f"{role.capitalize()} Certificate",
+                    fill=pos.get("color", "#000000"),
+                    font=font_role
+                )
+            
+            # Draw organization
+            if "organization" in text_positions:
+                pos = text_positions["organization"]
+                draw.text(
+                    (pos.get("x", 400), pos.get("y", 250)),
+                    organization,
+                    fill=pos.get("color", "#000000"),
+                    font=font_org
+                )
+            
+            # Draw date
+            if "date" in text_positions:
+                pos = text_positions["date"]
+                draw.text(
+                    (pos.get("x", 400), pos.get("y", 550)),
+                    datetime.now(timezone.utc).strftime("%B %d, %Y"),
+                    fill=pos.get("color", "#000000"),
+                    font=font_date
+                )
+            
+            # Generate certificate ID
+            cert_id = str(uuid.uuid4())[:12].upper()
+            
+            # Generate QR code
+            if "qr" in text_positions:
+                qr = qrcode.QRCode(version=1, box_size=10, border=2)
+                verify_url = f"{os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')}/verify-certificate/{cert_id}"
+                qr.add_data(verify_url)
+                qr.make(fit=True)
+                qr_img = qr.make_image(fill_color="black", back_color="white")
+                
+                # Resize QR code
+                qr_size = text_positions["qr"].get("size", 100)
+                qr_img = qr_img.resize((qr_size, qr_size))
+                
+                # Paste QR code on certificate
+                pos = text_positions["qr"]
+                cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
+            
+            # Save certificate
+            cert_dir = Path("/app/backend/uploads/certificates")
+            cert_dir.mkdir(parents=True, exist_ok=True)
+            
+            cert_filename = f"standalone_{user.id}_{cert_id}.png"
+            cert_path = cert_dir / cert_filename
+            cert_image.save(cert_path)
+            
+            # Create certificate record
+            certificate = Certificate(
+                certificate_id=cert_id,
+                hackathon_id=f"standalone_{user.id}_{organization.replace(' ', '_')}",
+                user_name=name,
+                user_email=email,
+                role=role,
+                certificate_url=f"/uploads/certificates/{cert_filename}"
+            )
+            
+            await db.certificates.insert_one(certificate.dict(by_alias=True))
+            certificates_generated += 1
+            
+            generated_certs.append({
+                "user_name": name,
+                "user_email": email,
+                "role": role,
+                "certificate_id": cert_id,
+                "certificate_url": f"/uploads/certificates/{cert_filename}"
+            })
+            
+        except Exception as e:
+            errors.append(f"Row {row_num}: {str(e)}")
+    
+    return {
+        "message": f"Certificates generated successfully",
+        "certificates_generated": certificates_generated,
+        "certificates": generated_certs,
+        "errors": errors if errors else None
+    }
+
 
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
