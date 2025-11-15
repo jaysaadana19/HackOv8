@@ -459,7 +459,7 @@ export default function CertificateService() {
                 <Button
                   onClick={() => setStep(1)}
                   variant="outline"
-                  className="w-full mt-2 border-gray-700 text-gray-300"
+                  className="w-full mt-2 border-gray-300 text-gray-700 hover:bg-gray-50"
                 >
                   Change Template
                 </Button>
