@@ -67,12 +67,21 @@ export default function JudgeDashboard() {
   return (
     <div className="min-h-screen bg-[#0a0a0b]">
       <nav className="border-b border-gray-900 bg-gray-950/50">
-        <div className="container mx-auto px-6 py-4 flex items-center gap-4">
-          <Button variant="ghost" onClick={() => navigate('/dashboard')} className="text-gray-400">
-            <ArrowLeft className="w-5 h-5" />
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => navigate('/dashboard')} className="text-gray-400">
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <Rocket className="w-6 h-6 text-teal-500" />
+            <span className="text-xl font-bold gradient-text">Judge Dashboard</span>
+          </div>
+          <Button
+            onClick={() => navigate('/get-certificate')}
+            className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white border-0 shadow-lg"
+          >
+            <Award className="w-4 h-4 mr-2" />
+            Find My Certificate
           </Button>
-          <Rocket className="w-6 h-6 text-teal-500" />
-          <span className="text-xl font-bold gradient-text">Judge Dashboard</span>
         </div>
       </nav>
 
