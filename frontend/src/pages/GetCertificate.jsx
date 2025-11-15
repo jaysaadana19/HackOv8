@@ -177,7 +177,7 @@ export default function GetCertificate() {
 
           {/* Certificate Display */}
           {certificate && (
-            <Card className="glass-effect p-8 border border-gray-800">
+            <Card className="glass-effect p-4 sm:p-8 border border-gray-800">
               <div className="text-center mb-6">
                 <div className="inline-block px-4 py-2 bg-green-900/20 border border-green-700/30 rounded-full mb-4">
                   <span className="text-green-400 text-sm font-medium">✓ Certificate Found</span>
