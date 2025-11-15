@@ -108,11 +108,11 @@ export default function GetCertificate() {
           {/* Search Form */}
           <Card className="glass-effect p-4 sm:p-8 border border-gray-800 mb-6 sm:mb-8">
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Award className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h1 className="text-3xl font-bold text-white mb-2">Get Your Certificate</h1>
-              <p className="text-gray-400">Enter your details to retrieve your certificate</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Get Your Certificate</h1>
+              <p className="text-sm sm:text-base text-gray-400">Enter your details to retrieve your certificate</p>
             </div>
 
             <form onSubmit={handleSearch} className="space-y-4">
