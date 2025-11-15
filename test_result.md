@@ -568,7 +568,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Submit Project Modal Frontend Testing"
+    - "Certificate Management Modal - Template Upload"
+    - "Certificate Management Modal - Position Editor"
+    - "Certificate Management Modal - CSV Bulk Generation"
+    - "User Certificate Retrieval Page"
+    - "Public Certificate Verification Page"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -580,6 +584,7 @@ test_plan:
   viewregistrationsmodal_testing_complete: true
   project_submission_testing_complete: true
   submit_project_modal_needs_frontend_testing: true
+  certificate_system_needs_testing: true
 
 agent_communication:
   - agent: "main"
