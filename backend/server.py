@@ -590,7 +590,7 @@ async def get_referral_link(hackathon_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Hackathon not found")
     
     # Generate referral link with UTM parameters
-    base_url = os.environ.get('FRONTEND_URL', 'https://certificate-hub-4.preview.emergentagent.com')
+    base_url = os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')
     referral_link = f"{base_url}/hackathon/{hackathon.get('slug', hackathon_id)}?utm_source=referral&utm_campaign={hackathon_id}&utm_medium=user_share&ref={user.referral_code}"
     
     return {
