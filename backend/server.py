@@ -981,10 +981,10 @@ async def bulk_generate_certificates(
                 pos = positions["qr"]
                 cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
             
-            # Save certificate with optimized format
+            # Save certificate with fast compression
             cert_filename = f"{hackathon_id}_{cert_id}.png"
             cert_path = cert_dir / cert_filename
-            cert_image.save(cert_path, optimize=True, quality=85)
+            cert_image.save(cert_path, optimize=False, compress_level=1)  # Fast compression
             
             # Create certificate record (add to batch)
             certificate = {
