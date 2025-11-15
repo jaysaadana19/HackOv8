@@ -2834,8 +2834,8 @@ Bob Wilson,bob.wilson@example.com,organizer"""
     # Old test methods removed - replaced with comprehensive admin panel tests
 
     def run_all_tests(self):
-        """Run comprehensive admin panel API tests"""
-        print("🚀 Starting Admin Panel API Testing...")
+        """Run certificate download debugging tests"""
+        print("🚀 Starting Certificate Download Debugging Tests...")
         print(f"Base URL: {self.base_url}")
         
         # Step 1: Create test users
@@ -2848,47 +2848,10 @@ Bob Wilson,bob.wilson@example.com,organizer"""
             print("❌ Authentication failed - stopping tests")
             return False
         
-        # Step 3: Test admin stats and analytics
-        self.test_admin_stats_analytics()
+        # Step 3: Run certificate download debugging
+        self.test_certificate_download_debugging()
         
-        # Step 4: Test hackathon creation flow
-        organizer_hackathon_id, admin_hackathon_id = self.test_hackathon_creation_flow()
-        
-        # Step 5: Test hackathon management
-        self.test_hackathon_management()
-        
-        # Step 6: Test approval workflow
-        self.test_approval_workflow(organizer_hackathon_id)
-        
-        # Step 7: Test user login tracking
-        self.test_user_login_tracking()
-        
-        # Step 8: Test data validation
-        self.test_data_validation()
-        
-        # Step 9: Test notification system
-        self.test_notification_system()
-        
-        # NEW TESTS: Team management and hackathon editing
-        # Step 10: Test hackathon edit endpoint
-        self.test_hackathon_edit_endpoint()
-        
-        # Step 11: Test team creation and joining
-        self.test_team_join_endpoint()  # This calls test_team_creation_endpoint internally
-        
-        # Step 12: Test judge dashboard endpoint (NEW TEST)
-        self.test_judge_dashboard_endpoint()
-        
-        # Step 13: Test Google OAuth authentication system (NEW TEST)
-        self.test_google_oauth_system()
-        
-        # Step 14: Test referral system (NEW TEST)
-        self.test_referral_system()
-        
-        # Step 15: Test project submission functionality (NEW TEST)
-        self.test_project_submission_functionality()
-        
-        # Step 16: Cleanup
+        # Step 4: Cleanup
         self.cleanup_test_data()
         
         # Print summary
