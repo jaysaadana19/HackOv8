@@ -110,6 +110,17 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
     setIsDragging(false);
   };
 
+  const handleImageLoad = (e) => {
+    const img = e.currentTarget;
+    const rect = img.getBoundingClientRect();
+    
+    // Calculate scale ratio for position indicators
+    const scaleX = rect.width / img.naturalWidth;
+    const scaleY = rect.height / img.naturalHeight;
+    
+    setImageScale({ x: scaleX, y: scaleY });
+  };
+
   const handleImageClick = (e) => {
     if (!draggedField) return;
     
