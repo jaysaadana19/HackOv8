@@ -989,10 +989,12 @@ async def bulk_generate_certificates(
             certificates_to_insert.append(certificate)
             certificates_generated += 1
             
-            # Batch insert every 100 certificates to avoid timeout
-            if len(certificates_to_insert) >= 100:
+            # Batch insert every 50 certificates to avoid timeout
+            if len(certificates_to_insert) >= 50:
                 await db.certificates.insert_many(certificates_to_insert)
                 certificates_to_insert = []
+                # Small delay to prevent overwhelming
+                await asyncio.sleep(0.1)
             
         except Exception as e:
             errors.append(f"Row {row_num}: {str(e)}")
