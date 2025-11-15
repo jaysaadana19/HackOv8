@@ -1259,10 +1259,12 @@ async def generate_standalone_certificates(
                 "certificate_url": f"/api/uploads/certificates/{cert_filename}"
             })
             
-            # Batch insert every 100 certificates
-            if len(certificates_to_insert) >= 100:
+            # Batch insert every 50 certificates (reduced for faster response)
+            if len(certificates_to_insert) >= batch_size:
                 await db.certificates.insert_many(certificates_to_insert)
                 certificates_to_insert = []
+                # Small delay to prevent overwhelming the system
+                await asyncio.sleep(0.1)
             
         except Exception as e:
             errors.append(f"Row {row_num}: {str(e)}")
