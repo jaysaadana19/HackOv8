@@ -341,24 +341,76 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                       onLoad={handleImageLoad}
                       style={{ display: 'block' }}
                     />
-                    {/* Position Indicators - Only show enabled fields */}
+                    
+                    {/* Live Preview - Show sample text */}
+                    {Object.keys(positions).filter(field => positions[field].enabled).map((field) => {
+                      const sampleText = {
+                        name: 'John Doe',
+                        role: 'Participant',
+                        hackathon: hackathon?.title || 'Hackathon Name',
+                        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                        qr: '▣' // QR placeholder
+                      };
+                      
+                      return field !== 'qr' ? (
+                        <div
+                          key={`preview-${field}`}
+                          style={{
+                            position: 'absolute',
+                            left: `${positions[field].x * imageScale.x}px`,
+                            top: `${positions[field].y * imageScale.y}px`,
+                            transform: 'translate(-50%, -50%)',
+                            fontSize: `${positions[field].fontSize * imageScale.x}px`,
+                            color: positions[field].color,
+                            fontWeight: 'bold',
+                            pointerEvents: 'none',
+                            whiteSpace: 'nowrap',
+                            textShadow: '1px 1px 2px rgba(255,255,255,0.5), -1px -1px 2px rgba(255,255,255,0.5)'
+                          }}
+                        >
+                          {sampleText[field]}
+                        </div>
+                      ) : (
+                        <div
+                          key={`preview-${field}`}
+                          style={{
+                            position: 'absolute',
+                            left: `${positions[field].x * imageScale.x}px`,
+                            top: `${positions[field].y * imageScale.y}px`,
+                            width: `${positions[field].size * imageScale.x}px`,
+                            height: `${positions[field].size * imageScale.y}px`,
+                            border: '3px solid #000',
+                            background: '#fff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: `${positions[field].size * imageScale.x * 0.6}px`,
+                            pointerEvents: 'none'
+                          }}
+                        >
+                          ▣
+                        </div>
+                      );
+                    })}
+                    
+                    {/* Position Indicators (smaller, corner badges) */}
                     {Object.keys(positions).filter(field => positions[field].enabled).map((field) => (
                       <div
-                        key={field}
+                        key={`indicator-${field}`}
                         style={{
                           position: 'absolute',
                           left: `${positions[field].x * imageScale.x}px`,
                           top: `${positions[field].y * imageScale.y}px`,
-                          transform: 'translate(-50%, -50%)',
-                          padding: '6px 12px',
-                          background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.9)',
+                          transform: 'translate(-50%, -150%)',
+                          padding: '2px 6px',
+                          background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.8)',
                           color: 'white',
-                          borderRadius: '6px',
-                          fontSize: '12px',
+                          borderRadius: '4px',
+                          fontSize: '10px',
                           fontWeight: 'bold',
                           pointerEvents: 'none',
-                          border: `2px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
-                          boxShadow: draggedField === field ? '0 4px 12px rgba(20, 184, 166, 0.5)' : '0 2px 8px rgba(0,0,0,0.3)',
+                          border: `1px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
+                          boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
                           transition: 'all 0.2s'
                         }}
                       >
