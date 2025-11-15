@@ -599,7 +599,8 @@ test_plan:
   viewregistrationsmodal_testing_complete: true
   project_submission_testing_complete: true
   submit_project_modal_needs_frontend_testing: true
-  certificate_system_needs_testing: true
+  certificate_system_backend_testing_complete: true
+  certificate_system_frontend_needs_testing: true
 
 agent_communication:
   - agent: "main"
