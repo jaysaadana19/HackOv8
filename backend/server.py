@@ -2008,7 +2008,7 @@ async def upload_image(file: UploadFile = File(...), request: Request = None):
     shutil.move(temp_file, upload_path)
     
     # Return URL (will be served by static files)
-    file_url = f"/uploads/hackathon_banners/{unique_filename}"
+    file_url = f"/api/uploads/hackathon_banners/{unique_filename}"
     
     return {
         "url": file_url,
