@@ -112,20 +112,30 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
   const handleImageClick = (e) => {
     if (!draggedField) return;
     
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = Math.round(e.clientX - rect.left);
-    const y = Math.round(e.clientY - rect.top);
+    const img = e.currentTarget;
+    const rect = img.getBoundingClientRect();
+    
+    // Get click position relative to displayed image
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    
+    // Scale coordinates to actual image size
+    const scaleX = img.naturalWidth / rect.width;
+    const scaleY = img.naturalHeight / rect.height;
+    
+    const actualX = Math.round(clickX * scaleX);
+    const actualY = Math.round(clickY * scaleY);
 
     setPositions({
       ...positions,
       [draggedField]: {
         ...positions[draggedField],
-        x: x,
-        y: y
+        x: actualX,
+        y: actualY
       }
     });
     
-    toast.success(`${draggedField} positioned at (${x}, ${y})`);
+    toast.success(`${draggedField} positioned at (${actualX}, ${actualY})`);
     setDraggedField(null);
   };
 
