@@ -1259,6 +1259,42 @@ async def retrieve_standalone_certificate(name: str, email: str, event_name: str
     certificate["id"] = certificate.pop("_id")
     return certificate
 
+@api_router.get("/certificates/my")
+async def get_my_certificates(email: str):
+    """Get all certificates for a user by email"""
+    certificates = await db.certificates.find({
+        "user_email": email.lower().strip()
+    }).to_list(100)
+    
+    # Enhance certificates with event/hackathon names
+    enhanced_certs = []
+    for cert in certificates:
+        cert_data = {**cert, "id": cert.pop("_id")}
+        
+        # Check if it's a hackathon certificate or standalone
+        hackathon_id = cert_data.get("hackathon_id", "")
+        if hackathon_id.startswith("standalone_"):
+            # Extract event name from hackathon_id
+            parts = hackathon_id.split("_", 2)
+            if len(parts) >= 3:
+                event_name = parts[2].replace("_", " ").title()
+                cert_data["event_name"] = event_name
+                cert_data["event_type"] = "standalone"
+        else:
+            # Fetch hackathon details
+            hackathon = await db.hackathons.find_one({"_id": hackathon_id})
+            if hackathon:
+                cert_data["event_name"] = hackathon.get("title", "Unknown Event")
+                cert_data["event_type"] = "hackathon"
+                cert_data["hackathon_slug"] = hackathon.get("slug", "")
+        
+        enhanced_certs.append(cert_data)
+    
+    return {
+        "total": len(enhanced_certs),
+        "certificates": enhanced_certs
+    }
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
