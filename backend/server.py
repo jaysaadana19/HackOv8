@@ -1170,18 +1170,6 @@ async def generate_standalone_certificates(
             cert_image = base_image.copy()
             draw = ImageDraw.Draw(cert_image)
             
-            # Try to load fonts
-            try:
-                font_name = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
-                font_role = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
-                font_org = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
-                font_date = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
-            except:
-                font_name = ImageFont.load_default()
-                font_role = ImageFont.load_default()
-                font_org = ImageFont.load_default()
-                font_date = ImageFont.load_default()
-            
             # Draw name (only if enabled)
             if "name" in text_positions and text_positions["name"].get("enabled", True):
                 pos = text_positions["name"]
