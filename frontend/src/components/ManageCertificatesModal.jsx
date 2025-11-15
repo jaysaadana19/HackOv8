@@ -406,7 +406,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                             {/* Font Size Control (not for QR) */}
                             {field !== 'qr' && (
                               <div className="flex items-center gap-2">
-                                <label className="text-xs text-gray-400">Size:</label>
+                                <label className="text-xs text-gray-600">Size:</label>
                                 <input
                                   type="range"
                                   min="12"
@@ -427,7 +427,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                             {/* QR Size Control */}
                             {field === 'qr' && (
                               <div className="flex items-center gap-2">
-                                <label className="text-xs text-gray-400">Size:</label>
+                                <label className="text-xs text-gray-600">Size:</label>
                                 <input
                                   type="range"
                                   min="50"
