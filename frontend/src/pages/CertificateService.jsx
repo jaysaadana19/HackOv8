@@ -17,11 +17,11 @@ export default function CertificateService() {
   const [isDragging, setIsDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [positions, setPositions] = useState({
-    name: { x: 400, y: 350, color: '#000000', fontSize: 48 },
-    role: { x: 400, y: 450, color: '#333333', fontSize: 32 },
-    organization: { x: 400, y: 250, color: '#000000', fontSize: 36 },
-    date: { x: 400, y: 550, color: '#666666', fontSize: 24 },
-    qr: { x: 50, y: 50, size: 100 }
+    name: { enabled: true, x: 400, y: 350, color: '#000000', fontSize: 48 },
+    role: { enabled: true, x: 400, y: 450, color: '#333333', fontSize: 32 },
+    organization: { enabled: true, x: 400, y: 250, color: '#000000', fontSize: 36 },
+    date: { enabled: true, x: 400, y: 550, color: '#666666', fontSize: 24 },
+    qr: { enabled: true, x: 50, y: 50, size: 100 }
   });
   const [draggedField, setDraggedField] = useState(null);
   const [csvFile, setCsvFile] = useState(null);
