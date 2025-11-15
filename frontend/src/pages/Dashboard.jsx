@@ -68,8 +68,14 @@ export default function Dashboard() {
       setNotifications(notifsRes.data);
       setMyReferralStats(referralRes.data);
       
-      // Fetch certificates
-      fetchMyCertificates(userRes.data.email);
+      // Fetch certificates (non-blocking)
+      try {
+        if (userRes.data && userRes.data.email) {
+          await fetchMyCertificates(userRes.data.email);
+        }
+      } catch (certError) {
+        console.log('Could not fetch certificates:', certError);
+      }
     } catch (error) {
       toast.error('Failed to load dashboard data');
     } finally {
