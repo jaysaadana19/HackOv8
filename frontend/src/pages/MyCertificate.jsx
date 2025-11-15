@@ -259,20 +259,22 @@ export default function MyCertificate() {
             </Card>
           )}
 
-          {/* Not Found Message */}
-          {searched && !certificate && !loading && (
-            <Card className="glass-effect p-8 border border-gray-800 text-center">
-              <div className="w-16 h-16 bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-red-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Certificate Not Found</h3>
-              <p className="text-gray-400 mb-4">
-                We couldn't find a certificate with the provided details.
-              </p>
-              <p className="text-gray-500 text-sm">
-                Please check your name and email, or contact the organizer if you believe this is an error.
-              </p>
-            </Card>
+              {/* Not Found Message */}
+              {searched && !certificate && !loading && (
+                <Card className="glass-effect p-8 border border-gray-800 text-center">
+                  <div className="w-16 h-16 bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="w-8 h-8 text-red-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Certificate Not Found</h3>
+                  <p className="text-gray-400 mb-4">
+                    We couldn't find a certificate with the provided details.
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    Please check your name and email, or contact the organizer if you believe this is an error.
+                  </p>
+                </Card>
+              )}
+            </>
           )}
         </div>
       </div>
