@@ -21,6 +21,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
   const [csvFile, setCsvFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [certificates, setCertificates] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
   const fileInputRef = useRef(null);
