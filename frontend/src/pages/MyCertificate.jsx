@@ -119,15 +119,23 @@ export default function MyCertificate() {
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto">
-          {/* Search Form */}
-          <Card className="glass-effect p-8 border border-gray-800 mb-8">
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h1 className="text-3xl font-bold text-white mb-2">Get Your Certificate</h1>
-              <p className="text-gray-400">Enter your details to retrieve your certificate</p>
-            </div>
+          {loadingHackathon ? (
+            <Card className="glass-effect p-12 border border-gray-800 text-center">
+              <Loader2 className="w-16 h-16 text-teal-400 animate-spin mx-auto mb-4" />
+              <p className="text-gray-400">Loading...</p>
+            </Card>
+          ) : (
+            <>
+              {/* Search Form */}
+              <Card className="glass-effect p-8 border border-gray-800 mb-8">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Award className="w-8 h-8 text-white" />
+                  </div>
+                  <h1 className="text-3xl font-bold text-white mb-2">Get Your Certificate</h1>
+                  <p className="text-gray-400">{hackathon?.title || 'Hackathon'}</p>
+                  <p className="text-gray-500 text-sm mt-1">Enter your details to retrieve your certificate</p>
+                </div>
 
             <form onSubmit={handleSearch} className="space-y-4">
               <div>
