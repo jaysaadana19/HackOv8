@@ -1069,6 +1069,7 @@ async def generate_standalone_certificates(
     csv: UploadFile = File(...),
     organization: str = Form(...),
     positions: str = Form(...),
+    batch_size: int = Form(50),  # Process in smaller batches
     request: Request = None
 ):
     """Generate certificates for standalone use (not tied to hackathon)"""
@@ -1076,6 +1077,7 @@ async def generate_standalone_certificates(
     import qrcode
     from io import BytesIO
     import json as json_lib
+    import asyncio
     
     user = await get_current_user(request)
     
