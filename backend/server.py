@@ -1140,8 +1140,8 @@ async def generate_standalone_certificates(
                 font_org = ImageFont.load_default()
                 font_date = ImageFont.load_default()
             
-            # Draw name
-            if "name" in text_positions:
+            # Draw name (only if enabled)
+            if "name" in text_positions and text_positions["name"].get("enabled", True):
                 pos = text_positions["name"]
                 draw.text(
                     (pos.get("x", 400), pos.get("y", 350)),
@@ -1150,8 +1150,8 @@ async def generate_standalone_certificates(
                     font=font_name
                 )
             
-            # Draw role
-            if "role" in text_positions:
+            # Draw role (only if enabled)
+            if "role" in text_positions and text_positions["role"].get("enabled", True):
                 pos = text_positions["role"]
                 draw.text(
                     (pos.get("x", 400), pos.get("y", 450)),
@@ -1160,8 +1160,8 @@ async def generate_standalone_certificates(
                     font=font_role
                 )
             
-            # Draw organization
-            if "organization" in text_positions:
+            # Draw organization (only if enabled)
+            if "organization" in text_positions and text_positions["organization"].get("enabled", True):
                 pos = text_positions["organization"]
                 draw.text(
                     (pos.get("x", 400), pos.get("y", 250)),
@@ -1170,8 +1170,8 @@ async def generate_standalone_certificates(
                     font=font_org
                 )
             
-            # Draw date
-            if "date" in text_positions:
+            # Draw date (only if enabled)
+            if "date" in text_positions and text_positions["date"].get("enabled", True):
                 pos = text_positions["date"]
                 draw.text(
                     (pos.get("x", 400), pos.get("y", 550)),
@@ -1183,8 +1183,8 @@ async def generate_standalone_certificates(
             # Generate certificate ID
             cert_id = str(uuid.uuid4())[:12].upper()
             
-            # Generate QR code
-            if "qr" in text_positions:
+            # Generate QR code (only if enabled)
+            if "qr" in text_positions and text_positions["qr"].get("enabled", True):
                 qr = qrcode.QRCode(version=1, box_size=10, border=2)
                 verify_url = f"{os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')}/verify-certificate/{cert_id}"
                 qr.add_data(verify_url)
