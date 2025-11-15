@@ -230,21 +230,59 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                   <h3 className="text-xl font-bold text-white mb-2">Upload Certificate Template</h3>
                   <p className="text-gray-400 mb-6">Upload a PNG or JPG image to use as your certificate template</p>
                   
-                  <label className="cursor-pointer">
+                  {/* Drag and Drop Zone */}
+                  <div
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    className={`border-2 border-dashed rounded-xl p-12 mb-4 transition-all ${
+                      isDragging 
+                        ? 'border-teal-500 bg-teal-500/10' 
+                        : 'border-gray-700 hover:border-gray-600'
+                    }`}
+                  >
                     <input
+                      ref={fileInputRef}
                       type="file"
                       accept="image/png,image/jpeg,image/jpg"
                       onChange={handleTemplateUpload}
                       className="hidden"
                     />
-                    <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                      <Upload className="w-4 h-4 mr-2" />
-                      Choose Template Image
+                    
+                    <div className="text-gray-400 mb-4">
+                      {isDragging ? (
+                        <p className="text-teal-400 font-medium">Drop your template here</p>
+                      ) : (
+                        <>
+                          <p className="mb-2">Drag and drop your certificate template here</p>
+                          <p className="text-sm text-gray-500">or</p>
+                        </>
+                      )}
+                    </div>
+                    
+                    <Button 
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={loading}
+                      className="bg-teal-600 hover:bg-teal-700 text-white"
+                    >
+                      {loading ? (
+                        <>Uploading...</>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Choose Template Image
+                        </>
+                      )}
                     </Button>
-                  </label>
+                    
+                    <p className="text-xs text-gray-500 mt-4">
+                      Supported formats: PNG, JPG, JPEG (Max size: 10MB)
+                    </p>
+                  </div>
 
                   {templatePreview && (
                     <div className="mt-6">
+                      <p className="text-sm text-green-400 mb-2">✓ Template uploaded successfully</p>
                       <img src={templatePreview} alt="Template Preview" className="max-w-full h-auto rounded-lg border border-gray-700" />
                     </div>
                   )}
