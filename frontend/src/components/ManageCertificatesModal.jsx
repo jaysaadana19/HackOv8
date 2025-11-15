@@ -375,7 +375,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                             <span className="text-gray-900 font-medium capitalize">{field}</span>
                           </div>
                           {positions[field].enabled && (
-                            <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
+                            <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-600' : 'text-gray-600'}`} />
                           )}
                         </div>
 
