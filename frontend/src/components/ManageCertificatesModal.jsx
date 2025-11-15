@@ -420,7 +420,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                                   }}
                                   className="flex-1 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
                                 />
-                                <span className="text-xs text-gray-400 w-8">{positions[field].fontSize}px</span>
+                                <span className="text-xs text-gray-600 w-8">{positions[field].fontSize}px</span>
                               </div>
                             )}
 
