@@ -747,7 +747,7 @@ async def upload_certificate_template(
     return {
         "message": "Template uploaded successfully",
         "template_id": template_id,
-        "template_url": f"/backend-uploads/certificate_templates/{template_filename}"
+        "template_url": f"/uploads/certificate_templates/{template_filename}"
     }
 
 @api_router.put("/hackathons/{hackathon_id}/certificate-template/positions")
