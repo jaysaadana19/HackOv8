@@ -3826,9 +3826,12 @@ def main():
         elif sys.argv[1] == "certificate-failure":
             tester = AdminPanelAPITester()
             success = tester.run_certificate_failure_test()
+        elif sys.argv[1] == "certificate-memory":
+            tester = AdminPanelAPITester()
+            success = tester.run_certificate_memory_tests_only()
         else:
             print(f"Unknown test type: {sys.argv[1]}")
-            print("Available options: referral, certificate-failure")
+            print("Available options: referral, certificate-failure, certificate-memory")
             return 1
     else:
         tester = AdminPanelAPITester()
