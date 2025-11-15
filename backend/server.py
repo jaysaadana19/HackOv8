@@ -729,7 +729,7 @@ async def upload_certificate_template(
         await db.certificate_templates.update_one(
             {"hackathon_id": hackathon_id},
             {"$set": {
-                "template_url": f"/uploads/certificate_templates/{template_filename}",
+                "template_url": f"/backend-uploads/certificate_templates/{template_filename}",
                 "updated_at": datetime.now(timezone.utc)
             }}
         )
