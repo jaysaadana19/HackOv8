@@ -1090,7 +1090,6 @@ async def generate_standalone_certificates(
     import qrcode
     from io import BytesIO
     import json as json_lib
-    import asyncio
     
     user = await get_current_user(request)
     
