@@ -30,6 +30,7 @@ function App() {
           <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
           <Route path="/hackathon/:hackathonSlug/certificate" element={<MyCertificate />} />
           <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
+          <Route path="/get-certificate" element={<GetCertificate />} />
           <Route path="/certificate-service" element={<CertificateService />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/judge" element={<JudgeDashboard />} />
