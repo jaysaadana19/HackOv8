@@ -25,6 +25,7 @@ export default function CertificateService() {
   });
   const [draggedField, setDraggedField] = useState(null);
   const [csvFile, setCsvFile] = useState(null);
+  const [imageScale, setImageScale] = useState({ x: 1, y: 1 });
   const [generatedCertificates, setGeneratedCertificates] = useState([]);
   const [organizationName, setOrganizationName] = useState('');
   
