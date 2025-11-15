@@ -186,6 +186,14 @@ export default function AdminDashboard() {
             </div>
             <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
               <Button
+                onClick={() => navigate('/get-certificate')}
+                className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white border-0 shadow-lg flex-1 sm:flex-initial text-xs sm:text-sm"
+              >
+                <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Find My Certificate</span>
+                <span className="sm:hidden">Certificate</span>
+              </Button>
+              <Button
                 variant="outline"
                 onClick={handleExportUsers}
                 className="border-purple-600 text-purple-400 hover:bg-purple-600/10 flex-1 sm:flex-initial text-xs sm:text-sm"
