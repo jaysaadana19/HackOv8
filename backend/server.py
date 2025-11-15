@@ -896,8 +896,8 @@ async def bulk_generate_certificates(
                 font_role = ImageFont.load_default()
                 font_date = ImageFont.load_default()
             
-            # Draw name
-            if "name" in positions:
+            # Draw name (only if enabled)
+            if "name" in positions and positions["name"].get("enabled", True):
                 pos = positions["name"]
                 draw.text(
                     (pos.get("x", 500), pos.get("y", 400)),
@@ -906,8 +906,8 @@ async def bulk_generate_certificates(
                     font=font_name
                 )
             
-            # Draw role
-            if "role" in positions:
+            # Draw role (only if enabled)
+            if "role" in positions and positions["role"].get("enabled", True):
                 pos = positions["role"]
                 draw.text(
                     (pos.get("x", 500), pos.get("y", 500)),
@@ -916,8 +916,8 @@ async def bulk_generate_certificates(
                     font=font_role
                 )
             
-            # Draw hackathon name
-            if "hackathon" in positions:
+            # Draw hackathon name (only if enabled)
+            if "hackathon" in positions and positions["hackathon"].get("enabled", True):
                 pos = positions["hackathon"]
                 draw.text(
                     (pos.get("x", 500), pos.get("y", 300)),
@@ -926,8 +926,8 @@ async def bulk_generate_certificates(
                     font=font_role
                 )
             
-            # Draw date
-            if "date" in positions:
+            # Draw date (only if enabled)
+            if "date" in positions and positions["date"].get("enabled", True):
                 pos = positions["date"]
                 draw.text(
                     (pos.get("x", 500), pos.get("y", 600)),
@@ -939,8 +939,8 @@ async def bulk_generate_certificates(
             # Generate certificate ID
             cert_id = str(uuid.uuid4())[:12].upper()
             
-            # Generate QR code
-            if "qr" in positions:
+            # Generate QR code (only if enabled)
+            if "qr" in positions and positions["qr"].get("enabled", True):
                 qr = qrcode.QRCode(version=1, box_size=10, border=2)
                 verify_url = f"https://hackov8-1.emergent.host/verify-certificate/{cert_id}"
                 qr.add_data(verify_url)
