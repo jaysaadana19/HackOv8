@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Award, Download, Share2, Loader2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { certificateAPI } from '@/lib/api';
+import { certificateAPI, hackathonAPI } from '@/lib/api';
 
 export default function MyCertificate() {
   const { hackathonSlug } = useParams();
@@ -16,6 +16,23 @@ export default function MyCertificate() {
   const [hackathon, setHackathon] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [loadingHackathon, setLoadingHackathon] = useState(true);
+
+  useEffect(() => {
+    fetchHackathon();
+  }, [hackathonSlug]);
+
+  const fetchHackathon = async () => {
+    try {
+      const response = await hackathonAPI.getBySlug(hackathonSlug);
+      setHackathon(response.data);
+    } catch (error) {
+      toast.error('Hackathon not found');
+      navigate('/');
+    } finally {
+      setLoadingHackathon(false);
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -25,12 +42,8 @@ export default function MyCertificate() {
       return;
     }
 
-    // Get hackathon ID from slug (you'll need to fetch this)
-    // For now, assuming we have hackathon data
-    const hackathonId = localStorage.getItem(`hackathon_${hackathonSlug}_id`);
-    
-    if (!hackathonId) {
-      toast.error('Invalid hackathon. Please visit from hackathon page.');
+    if (!hackathon) {
+      toast.error('Hackathon data not loaded');
       return;
     }
 
@@ -38,7 +51,7 @@ export default function MyCertificate() {
     setSearched(true);
     
     try {
-      const response = await certificateAPI.retrieve(name, email, hackathonId);
+      const response = await certificateAPI.retrieve(name, email, hackathon.id);
       setCertificate(response.data);
       toast.success('Certificate found!');
     } catch (error) {
