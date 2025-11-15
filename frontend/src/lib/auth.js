@@ -1,5 +1,5 @@
 export const AUTH_REDIRECT_URL = `${window.location.origin}/dashboard`;
-export const EMERGENT_AUTH_URL = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(AUTH_REDIRECT_URL)}`;
+export const EMERGENT_AUTH_URL = `${process.env.REACT_APP_AUTH_URL || 'https://auth.emergentagent.com'}/?redirect=${encodeURIComponent(AUTH_REDIRECT_URL)}`;
 
 export const isAuthenticated = () => {
   return !!localStorage.getItem('session_token');
