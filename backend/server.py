@@ -959,7 +959,7 @@ async def bulk_generate_certificates(
                 cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
             
             # Save certificate
-            cert_dir = Path("/app/backend/uploads/certificates")
+            cert_dir = Path("/app/uploads/certificates")
             cert_dir.mkdir(parents=True, exist_ok=True)
             
             cert_filename = f"{hackathon_id}_{cert_id}.png"
@@ -1203,7 +1203,7 @@ async def generate_standalone_certificates(
                 cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
             
             # Save certificate
-            cert_dir = Path("/app/backend/uploads/certificates")
+            cert_dir = Path("/app/uploads/certificates")
             cert_dir.mkdir(parents=True, exist_ok=True)
             
             cert_filename = f"standalone_{user.id}_{cert_id}.png"
