@@ -381,15 +381,15 @@ export default function CertificateService() {
                         left: `${positions[field].x * imageScale.x}px`,
                         top: `${positions[field].y * imageScale.y}px`,
                         transform: 'translate(-50%, -150%)',
-                        padding: '6px 12px',
-                        background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.9)',
+                        padding: '2px 6px',
+                        background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.8)',
                         color: 'white',
-                        borderRadius: '6px',
-                        fontSize: '12px',
+                        borderRadius: '4px',
+                        fontSize: '10px',
                         fontWeight: 'bold',
                         pointerEvents: 'none',
-                        border: `2px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
-                        boxShadow: draggedField === field ? '0 4px 12px rgba(20, 184, 166, 0.5)' : '0 2px 8px rgba(0,0,0,0.3)',
+                        border: `1px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
                         transition: 'all 0.2s'
                       }}
                     >
