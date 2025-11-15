@@ -855,7 +855,11 @@ async def bulk_generate_certificates(
     # Load template image
     # Get template path from URL
     template_url = template['template_url']
-    template_path = Path(f"/app{template_url}")
+    # Remove /api prefix if present since static files are mounted at /api/uploads -> /app/uploads
+    if template_url.startswith('/api/uploads/'):
+        template_path = Path(f"/app/uploads/{template_url[13:]}")  # Remove '/api/uploads/' prefix
+    else:
+        template_path = Path(f"/app{template_url}")
     
     if not template_path.exists():
         raise HTTPException(status_code=404, detail="Template image not found")
