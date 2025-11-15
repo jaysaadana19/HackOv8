@@ -333,10 +333,12 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                   <div className="relative border-2 border-dashed border-gray-700 rounded-lg overflow-hidden bg-gray-900/30"
                        style={{ cursor: draggedField ? 'crosshair' : 'default' }}>
                     <img 
+                      ref={imageRef}
                       src={templatePreview} 
                       alt="Template"
                       className="w-full h-auto"
                       onClick={handleImageClick}
+                      onLoad={handleImageLoad}
                       style={{ display: 'block' }}
                     />
                     {/* Position Indicators - Only show enabled fields */}
@@ -345,8 +347,8 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                         key={field}
                         style={{
                           position: 'absolute',
-                          left: `${positions[field].x}px`,
-                          top: `${positions[field].y}px`,
+                          left: `${positions[field].x * imageScale.x}px`,
+                          top: `${positions[field].y * imageScale.y}px`,
                           transform: 'translate(-50%, -50%)',
                           padding: '6px 12px',
                           background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.9)',
