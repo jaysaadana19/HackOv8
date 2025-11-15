@@ -297,13 +297,17 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
                 <Card className="glass-effect p-4 border border-gray-800">
-                  <h3 className="text-lg font-bold text-white mb-2">Click to Position Fields</h3>
-                  <p className="text-gray-400 text-sm mb-4">
-                    {draggedField ? 
-                      `Click on the template where you want to place "${draggedField}"` : 
-                      'Select a field from the right panel, then click on the template'
-                    }
-                  </p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg font-bold text-white">Position Certificate Fields</h3>
+                      <p className="text-sm text-gray-400 mt-1">
+                        {draggedField ? 
+                          `Click on template to place "${draggedField}"` : 
+                          'Enable fields and click to position them'
+                        }
+                      </p>
+                    </div>
+                  </div>
                   <div className="relative border-2 border-dashed border-gray-700 rounded-lg overflow-hidden bg-gray-900/30"
                        style={{ cursor: draggedField ? 'crosshair' : 'default' }}>
                     <img 
@@ -313,8 +317,8 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                       onClick={handleImageClick}
                       style={{ display: 'block' }}
                     />
-                    {/* Position Indicators */}
-                    {Object.keys(positions).map((field) => (
+                    {/* Position Indicators - Only show enabled fields */}
+                    {Object.keys(positions).filter(field => positions[field].enabled).map((field) => (
                       <div
                         key={field}
                         style={{
@@ -322,15 +326,16 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                           left: `${positions[field].x}px`,
                           top: `${positions[field].y}px`,
                           transform: 'translate(-50%, -50%)',
-                          padding: '4px 8px',
-                          background: 'rgba(20, 184, 166, 0.9)',
+                          padding: '6px 12px',
+                          background: draggedField === field ? 'rgba(20, 184, 166, 1)' : 'rgba(20, 184, 166, 0.9)',
                           color: 'white',
-                          borderRadius: '4px',
+                          borderRadius: '6px',
                           fontSize: '12px',
                           fontWeight: 'bold',
                           pointerEvents: 'none',
-                          border: '2px solid #14b8a6',
-                          boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+                          border: `2px solid ${draggedField === field ? '#0d9488' : '#14b8a6'}`,
+                          boxShadow: draggedField === field ? '0 4px 12px rgba(20, 184, 166, 0.5)' : '0 2px 8px rgba(0,0,0,0.3)',
+                          transition: 'all 0.2s'
                         }}
                       >
                         {field.toUpperCase()}
@@ -341,30 +346,126 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
               </div>
 
               <div>
-                <Card className="glass-effect p-4 border border-gray-800 sticky top-4">
-                  <h3 className="text-lg font-bold text-white mb-4">Select Field to Position</h3>
-                  <div className="space-y-2 mb-6">
+                <Card className="glass-effect p-4 border border-gray-800 sticky top-4 max-h-[80vh] overflow-y-auto">
+                  <h3 className="text-lg font-bold text-white mb-4">Certificate Fields</h3>
+                  
+                  <div className="space-y-3 mb-6">
                     {Object.keys(positions).map((field) => (
-                      <button
-                        key={field}
-                        onClick={() => {
-                          setDraggedField(field);
-                          toast.info(`Click on template to place "${field}"`);
-                        }}
-                        className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
-                          draggedField === field
-                            ? 'bg-teal-900/50 border-teal-500 shadow-lg'
-                            : 'bg-gray-800 border-gray-700 hover:bg-gray-700 hover:border-gray-600'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-white capitalize font-medium">{field}</span>
-                          <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
+                      <div key={field} className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+                        {/* Field Header with Toggle */}
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={positions[field].enabled}
+                                onChange={(e) => {
+                                  setPositions({
+                                    ...positions,
+                                    [field]: { ...positions[field], enabled: e.target.checked }
+                                  });
+                                  if (!e.target.checked && draggedField === field) {
+                                    setDraggedField(null);
+                                  }
+                                }}
+                                className="sr-only peer"
+                              />
+                              <div className="w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
+                            </label>
+                            <span className="text-white font-medium capitalize">{field}</span>
+                          </div>
+                          {positions[field].enabled && (
+                            <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
+                          )}
                         </div>
-                        <div className="text-xs text-gray-400 mt-1">
-                          Position: ({positions[field].x}, {positions[field].y})
-                        </div>
-                      </button>
+
+                        {/* Field Controls - Only show if enabled */}
+                        {positions[field].enabled && (
+                          <div className="space-y-2">
+                            {/* Position Button */}
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                setDraggedField(field);
+                                toast.info(`Click on template to place "${field}"`);
+                              }}
+                              className={`w-full text-xs ${
+                                draggedField === field
+                                  ? 'bg-teal-600 hover:bg-teal-700'
+                                  : 'bg-gray-700 hover:bg-gray-600'
+                              }`}
+                            >
+                              {draggedField === field ? '📍 Positioning...' : 'Set Position'}
+                            </Button>
+
+                            {/* Position Display */}
+                            <div className="text-xs text-gray-400">
+                              Position: ({positions[field].x}, {positions[field].y})
+                            </div>
+
+                            {/* Font Size Control (not for QR) */}
+                            {field !== 'qr' && (
+                              <div className="flex items-center gap-2">
+                                <label className="text-xs text-gray-400">Size:</label>
+                                <input
+                                  type="range"
+                                  min="12"
+                                  max="72"
+                                  value={positions[field].fontSize}
+                                  onChange={(e) => {
+                                    setPositions({
+                                      ...positions,
+                                      [field]: { ...positions[field], fontSize: parseInt(e.target.value) }
+                                    });
+                                  }}
+                                  className="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                />
+                                <span className="text-xs text-gray-400 w-8">{positions[field].fontSize}px</span>
+                              </div>
+                            )}
+
+                            {/* QR Size Control */}
+                            {field === 'qr' && (
+                              <div className="flex items-center gap-2">
+                                <label className="text-xs text-gray-400">Size:</label>
+                                <input
+                                  type="range"
+                                  min="50"
+                                  max="200"
+                                  value={positions[field].size}
+                                  onChange={(e) => {
+                                    setPositions({
+                                      ...positions,
+                                      [field]: { ...positions[field], size: parseInt(e.target.value) }
+                                    });
+                                  }}
+                                  className="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                />
+                                <span className="text-xs text-gray-400 w-8">{positions[field].size}px</span>
+                              </div>
+                            )}
+
+                            {/* Color Control (not for QR) */}
+                            {field !== 'qr' && (
+                              <div className="flex items-center gap-2">
+                                <label className="text-xs text-gray-400">Color:</label>
+                                <input
+                                  type="color"
+                                  value={positions[field].color}
+                                  onChange={(e) => {
+                                    setPositions({
+                                      ...positions,
+                                      [field]: { ...positions[field], color: e.target.value }
+                                    });
+                                  }}
+                                  className="w-8 h-8 rounded cursor-pointer"
+                                />
+                                <span className="text-xs text-gray-400 font-mono">{positions[field].color}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                   
@@ -373,7 +474,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                     disabled={loading}
                     className="w-full bg-teal-600 hover:bg-teal-700 text-white"
                   >
-                    {loading ? 'Saving...' : 'Save Positions & Continue'}
+                    {loading ? 'Saving...' : 'Save & Continue'}
                   </Button>
                   
                   <Button
