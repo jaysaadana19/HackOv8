@@ -2505,6 +2505,332 @@ db.user_sessions.insertOne({{
             else:
                 print(f"   ⚠️  Failed to delete hackathon {hackathon_id[:8]}...")
 
+    def test_certificate_download_debugging(self):
+        """Comprehensive certificate download issue debugging"""
+        print("\n🔍 CERTIFICATE DOWNLOAD ISSUE DEBUGGING...")
+        print("=" * 60)
+        
+        # Test 1: Certificate Generation & URL Verification
+        print("\n📋 TEST 1: Certificate Generation & URL Verification")
+        print("-" * 50)
+        
+        # Create test organizer user and login
+        timestamp = int(datetime.now().timestamp())
+        organizer_user_id = f"cert-organizer-{timestamp}"
+        organizer_session_token = f"cert_organizer_session_{timestamp}"
+        organizer_email = f"cert.organizer.{timestamp}@example.com"
+        
+        mongo_script = f"""
+use('test_database');
+
+// Create certificate test organizer user
+db.users.insertOne({{
+  _id: '{organizer_user_id}',
+  email: '{organizer_email}',
+  name: 'Certificate Test Organizer',
+  role: 'organizer',
+  picture: 'https://via.placeholder.com/150',
+  created_at: new Date(),
+  last_login: null
+}});
+
+db.user_sessions.insertOne({{
+  user_id: '{organizer_user_id}',
+  session_token: '{organizer_session_token}',
+  expires_at: new Date(Date.now() + 7*24*60*60*1000),
+  created_at: new Date()
+}});
+"""
+        
+        try:
+            result = subprocess.run(['mongosh', '--eval', mongo_script], 
+                                  capture_output=True, text=True, timeout=30)
+            
+            if result.returncode == 0:
+                print(f"   ✅ Created certificate test organizer: {organizer_email}")
+            else:
+                print(f"   ❌ Failed to create test organizer: {result.stderr}")
+                return
+                
+        except Exception as e:
+            print(f"   ❌ Failed to create test organizer: {str(e)}")
+            return
+        
+        # Create test hackathon
+        hackathon_data = {
+            "title": f"Certificate Test Hackathon {datetime.now().strftime('%H%M%S')}",
+            "description": "Hackathon for testing certificate downloads",
+            "category": "Technology",
+            "location": "online",
+            "registration_start": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "registration_end": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "event_start": (datetime.now(timezone.utc) + timedelta(days=8)).isoformat(),
+            "event_end": (datetime.now(timezone.utc) + timedelta(days=10)).isoformat(),
+            "submission_deadline": (datetime.now(timezone.utc) + timedelta(days=9)).isoformat(),
+            "max_team_size": 4,
+            "min_team_size": 1
+        }
+        
+        success, response = self.run_test(
+            "Create Test Hackathon for Certificates",
+            "POST",
+            "hackathons",
+            200,
+            data=hackathon_data,
+            session_token=organizer_session_token
+        )
+        
+        if not success:
+            print("   ❌ Failed to create test hackathon")
+            return
+            
+        hackathon_id = response.get('id') or response.get('_id')
+        self.created_hackathon_ids.append(hackathon_id)
+        print(f"   ✅ Created test hackathon: {hackathon_id}")
+        
+        # Upload certificate template (create a small test image)
+        print("\n   📤 Uploading certificate template...")
+        
+        # Create a simple test image using PIL
+        try:
+            from PIL import Image, ImageDraw
+            import io
+            
+            # Create a simple 800x600 test certificate template
+            img = Image.new('RGB', (800, 600), color='white')
+            draw = ImageDraw.Draw(img)
+            
+            # Draw a simple border and text
+            draw.rectangle([10, 10, 790, 590], outline='black', width=3)
+            draw.text((300, 100), "CERTIFICATE", fill='black')
+            draw.text((200, 200), "This certifies that", fill='black')
+            draw.text((300, 300), "[NAME]", fill='blue')
+            draw.text((200, 400), "has participated in", fill='black')
+            draw.text((300, 500), "[HACKATHON]", fill='blue')
+            
+            # Save to bytes
+            img_bytes = io.BytesIO()
+            img.save(img_bytes, format='PNG')
+            img_bytes.seek(0)
+            
+            # Upload template using requests with files
+            url = f"{self.base_url}/hackathons/{hackathon_id}/certificate-template"
+            headers = {'Authorization': f'Bearer {organizer_session_token}'}
+            files = {'file': ('test_template.png', img_bytes, 'image/png')}
+            
+            response = requests.post(url, headers=headers, files=files)
+            
+            if response.status_code == 200:
+                template_data = response.json()
+                template_url = template_data.get('template_url')
+                print(f"   ✅ Template uploaded successfully")
+                print(f"   📍 Template URL: {template_url}")
+                
+                # Test template access
+                if template_url:
+                    full_template_url = f"https://certificate-hub-4.preview.emergentagent.com{template_url}"
+                    print(f"   🔗 Testing template access: {full_template_url}")
+                    
+                    template_response = requests.get(full_template_url)
+                    print(f"   📊 Template access status: {template_response.status_code}")
+                    
+                    if template_response.status_code == 200:
+                        print(f"   ✅ Template accessible via URL")
+                    else:
+                        print(f"   ❌ Template NOT accessible - Status: {template_response.status_code}")
+            else:
+                print(f"   ❌ Template upload failed: {response.status_code} - {response.text}")
+                return
+                
+        except Exception as e:
+            print(f"   ❌ Failed to create/upload template: {str(e)}")
+            return
+        
+        # Set positions for fields
+        print("\n   📍 Setting field positions...")
+        
+        positions = {
+            "name": {"x": 300, "y": 300, "enabled": True, "color": "#000000"},
+            "role": {"x": 300, "y": 350, "enabled": True, "color": "#000000"},
+            "hackathon": {"x": 300, "y": 500, "enabled": True, "color": "#000000"},
+            "date": {"x": 300, "y": 550, "enabled": True, "color": "#000000"},
+            "qr": {"x": 50, "y": 50, "enabled": True, "size": 100}
+        }
+        
+        success, response = self.run_test(
+            "Set Certificate Field Positions",
+            "PUT",
+            f"hackathons/{hackathon_id}/certificate-template/positions",
+            200,
+            data=positions,
+            session_token=organizer_session_token
+        )
+        
+        if success:
+            print(f"   ✅ Field positions set successfully")
+        else:
+            print(f"   ❌ Failed to set field positions")
+            return
+        
+        # Generate certificates via CSV
+        print("\n   📄 Generating certificates via CSV...")
+        
+        # Create test CSV content
+        csv_content = """Name,Email,Role
+John Smith,john.smith@example.com,participation
+Jane Doe,jane.doe@example.com,judge
+Bob Wilson,bob.wilson@example.com,organizer"""
+        
+        try:
+            # Upload CSV for bulk generation
+            url = f"{self.base_url}/hackathons/{hackathon_id}/certificates/bulk-generate"
+            headers = {'Authorization': f'Bearer {organizer_session_token}'}
+            files = {'file': ('test_certificates.csv', csv_content, 'text/csv')}
+            
+            response = requests.post(url, headers=headers, files=files)
+            
+            if response.status_code == 200:
+                cert_data = response.json()
+                certificates_generated = cert_data.get('certificates_generated', 0)
+                errors = cert_data.get('errors', [])
+                
+                print(f"   ✅ Certificates generated: {certificates_generated}")
+                if errors:
+                    print(f"   ⚠️  Errors: {errors}")
+                
+                # Test 2: Certificate Retrieval API
+                print(f"\n📋 TEST 2: Certificate Retrieval API")
+                print("-" * 50)
+                
+                # Test retrieving each certificate
+                test_users = [
+                    {"name": "John Smith", "email": "john.smith@example.com"},
+                    {"name": "Jane Doe", "email": "jane.doe@example.com"},
+                    {"name": "Bob Wilson", "email": "bob.wilson@example.com"}
+                ]
+                
+                for user in test_users:
+                    print(f"\n   👤 Testing certificate retrieval for {user['name']}...")
+                    
+                    success, cert_response = self.run_test(
+                        f"Retrieve Certificate for {user['name']}",
+                        "GET",
+                        f"certificates/retrieve?name={user['name']}&email={user['email']}&hackathon_id={hackathon_id}",
+                        200
+                    )
+                    
+                    if success:
+                        certificate_url = cert_response.get('certificate_url')
+                        certificate_id = cert_response.get('certificate_id')
+                        
+                        print(f"   ✅ Certificate found")
+                        print(f"   🆔 Certificate ID: {certificate_id}")
+                        print(f"   🔗 Certificate URL: {certificate_url}")
+                        
+                        # Test 3: Static File Access
+                        print(f"\n📋 TEST 3: Static File Access for {user['name']}")
+                        print("-" * 50)
+                        
+                        if certificate_url:
+                            # Test different URL combinations
+                            test_urls = [
+                                f"https://certificate-hub-4.preview.emergentagent.com{certificate_url}",
+                                f"http://localhost:8001{certificate_url}",
+                                certificate_url  # Just the path
+                            ]
+                            
+                            for test_url in test_urls:
+                                print(f"   🔗 Testing URL: {test_url}")
+                                
+                                try:
+                                    cert_file_response = requests.get(test_url, timeout=10)
+                                    print(f"   📊 Status Code: {cert_file_response.status_code}")
+                                    
+                                    if cert_file_response.status_code == 200:
+                                        content_type = cert_file_response.headers.get('content-type', 'unknown')
+                                        content_length = len(cert_file_response.content)
+                                        print(f"   ✅ Certificate accessible!")
+                                        print(f"   📄 Content-Type: {content_type}")
+                                        print(f"   📏 Content-Length: {content_length} bytes")
+                                        
+                                        # Check if it's actually an image
+                                        if content_type.startswith('image/') or content_length > 1000:
+                                            print(f"   ✅ Valid image file detected")
+                                        else:
+                                            print(f"   ⚠️  May not be a valid image file")
+                                            
+                                    elif cert_file_response.status_code == 404:
+                                        print(f"   ❌ Certificate file NOT FOUND (404)")
+                                    else:
+                                        print(f"   ❌ Certificate access failed: {cert_file_response.status_code}")
+                                        print(f"   📝 Response: {cert_file_response.text[:200]}")
+                                        
+                                except requests.exceptions.Timeout:
+                                    print(f"   ❌ Request timeout")
+                                except requests.exceptions.ConnectionError:
+                                    print(f"   ❌ Connection error")
+                                except Exception as e:
+                                    print(f"   ❌ Error accessing certificate: {str(e)}")
+                            
+                            # Check if file exists on disk
+                            print(f"\n   💾 Checking file existence on disk...")
+                            if certificate_url.startswith('/backend-uploads/'):
+                                disk_path = f"/app/backend{certificate_url}"
+                                print(f"   📁 Disk path: {disk_path}")
+                                
+                                try:
+                                    import os
+                                    if os.path.exists(disk_path):
+                                        file_size = os.path.getsize(disk_path)
+                                        print(f"   ✅ File exists on disk (size: {file_size} bytes)")
+                                    else:
+                                        print(f"   ❌ File does NOT exist on disk")
+                                except Exception as e:
+                                    print(f"   ❌ Error checking disk file: {str(e)}")
+                        else:
+                            print(f"   ❌ No certificate_url in response")
+                    else:
+                        print(f"   ❌ Failed to retrieve certificate")
+                
+            else:
+                print(f"   ❌ Certificate generation failed: {response.status_code} - {response.text}")
+                return
+                
+        except Exception as e:
+            print(f"   ❌ Failed to generate certificates: {str(e)}")
+            return
+        
+        # Test static file serving configuration
+        print(f"\n📋 TEST 4: Static File Serving Configuration")
+        print("-" * 50)
+        
+        # Test if /backend-uploads/ path is accessible
+        test_static_urls = [
+            "https://certificate-hub-4.preview.emergentagent.com/backend-uploads/",
+            "https://certificate-hub-4.preview.emergentagent.com/backend-uploads/certificates/",
+        ]
+        
+        for url in test_static_urls:
+            print(f"   🔗 Testing static path: {url}")
+            try:
+                response = requests.get(url, timeout=10)
+                print(f"   📊 Status Code: {response.status_code}")
+                
+                if response.status_code == 200:
+                    print(f"   ✅ Static path accessible")
+                elif response.status_code == 403:
+                    print(f"   ⚠️  Static path forbidden (may be normal)")
+                elif response.status_code == 404:
+                    print(f"   ❌ Static path not found")
+                else:
+                    print(f"   ❌ Unexpected status: {response.status_code}")
+                    
+            except Exception as e:
+                print(f"   ❌ Error testing static path: {str(e)}")
+        
+        print(f"\n🔍 CERTIFICATE DOWNLOAD DEBUGGING COMPLETE")
+        print("=" * 60)
+
     # Old test methods removed - replaced with comprehensive admin panel tests
 
     def run_all_tests(self):
