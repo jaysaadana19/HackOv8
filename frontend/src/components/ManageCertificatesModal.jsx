@@ -346,12 +346,12 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
               </div>
 
               <div>
-                <Card className="glass-effect p-4 border border-gray-800 sticky top-4 max-h-[80vh] overflow-y-auto">
-                  <h3 className="text-lg font-bold text-white mb-4">Certificate Fields</h3>
+                <Card className="bg-white p-4 border border-gray-300 sticky top-4 max-h-[80vh] overflow-y-auto shadow-lg">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">Certificate Fields</h3>
                   
                   <div className="space-y-3 mb-6">
                     {Object.keys(positions).map((field) => (
-                      <div key={field} className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+                      <div key={field} className="bg-gray-50 rounded-lg p-3 border-2 border-gray-300 hover:border-teal-400 transition-colors">
                         {/* Field Header with Toggle */}
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
