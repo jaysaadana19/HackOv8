@@ -448,7 +448,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                             {/* Color Control (not for QR) */}
                             {field !== 'qr' && (
                               <div className="flex items-center gap-2">
-                                <label className="text-xs text-gray-400">Color:</label>
+                                <label className="text-xs text-gray-600">Color:</label>
                                 <input
                                   type="color"
                                   value={positions[field].color}
