@@ -1131,6 +1131,19 @@ async def generate_standalone_certificates(
             detail=f"CSV must contain columns: Name, Email, Role"
         )
     
+    # Count rows for validation
+    rows = list(csv_reader)
+    total_rows = len(rows)
+    
+    if total_rows > 500:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Maximum 500 certificates per batch. You have {total_rows} rows. Please split your CSV into smaller files."
+        )
+    
+    # Reset reader with the list
+    csv_reader = iter(rows)
+    
     certificates_generated = 0
     errors = []
     generated_certs = []
