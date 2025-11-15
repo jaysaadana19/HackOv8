@@ -16,6 +16,7 @@ import GoogleCallback from '@/pages/GoogleCallback';
 import MyCertificate from '@/pages/MyCertificate';
 import VerifyCertificate from '@/pages/VerifyCertificate';
 import CertificateService from '@/pages/CertificateService';
+import GetCertificate from '@/pages/GetCertificate';
 import '@/App.css';
 
 function App() {
