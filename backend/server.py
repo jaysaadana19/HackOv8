@@ -1173,7 +1173,7 @@ async def generate_standalone_certificates(
     # Batch processing
     certificates_to_insert = []
     
-    for row_num, row in enumerate(csv_reader, start=2):
+    for row_num, row in enumerate(rows, start=2):
         try:
             name = row.get("name", row.get("Name", "")).strip()
             email = row.get("email", row.get("Email", "")).strip().lower()
