@@ -1239,6 +1239,26 @@ async def generate_standalone_certificates(
     }
 
 
+@api_router.get("/certificates/standalone/retrieve")
+async def retrieve_standalone_certificate(name: str, email: str, event_name: str):
+    """Retrieve standalone certificate by name, email, and event name"""
+    # Create hackathon_id format for standalone certificates
+    hackathon_id_prefix = f"standalone_"
+    event_slug = event_name.lower().replace(' ', '_')
+    
+    # Search for certificate with matching name, email, and event in hackathon_id
+    certificate = await db.certificates.find_one({
+        "user_email": email.lower().strip(),
+        "user_name": {"$regex": f"^{name.strip()}$", "$options": "i"},
+        "hackathon_id": {"$regex": f"^standalone_.*_{event_slug}$", "$options": "i"}
+    })
+    
+    if not certificate:
+        raise HTTPException(status_code=404, detail="Certificate not found. Please verify your name, email, and event name.")
+    
+    certificate["id"] = certificate.pop("_id")
+    return certificate
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
