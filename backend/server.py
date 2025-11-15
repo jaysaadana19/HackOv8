@@ -1270,6 +1270,10 @@ async def generate_standalone_certificates(
             cert_path = cert_dir / cert_filename
             cert_image.save(cert_path, optimize=False, compress_level=1)  # Fast compression
             
+            # Memory management: explicitly close and delete image to free memory
+            cert_image.close()
+            del cert_image
+            
             # Create certificate record (add to batch)
             certificate_data = {
                 "_id": cert_id,
@@ -1292,6 +1296,10 @@ async def generate_standalone_certificates(
                 "certificate_id": cert_id,
                 "certificate_url": f"/api/uploads/certificates/{cert_filename}"
             })
+            
+            # Force garbage collection every 10 certificates to prevent memory buildup
+            if certificates_generated % 10 == 0:
+                gc.collect()
             
             # Batch insert every 25 certificates for faster response
             if len(certificates_to_insert) >= 25:
