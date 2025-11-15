@@ -56,8 +56,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
     }
   };
 
-  const handleTemplateUpload = async (e) => {
-    const file = e.target.files[0];
+  const processFile = async (file) => {
     if (!file) return;
 
     if (!file.type.match(/image\/(png|jpeg|jpg)/)) {
@@ -81,6 +80,32 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleTemplateUpload = async (e) => {
+    const file = e.target.files[0];
+    await processFile(file);
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    const file = e.dataTransfer.files[0];
+    await processFile(file);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
   };
 
   const handleImageClick = (e) => {
