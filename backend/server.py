@@ -1137,6 +1137,25 @@ async def generate_standalone_certificates(
     
     base_image = Image.open(template_path)
     
+    # Pre-load fonts once
+    try:
+        font_name = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+        font_role = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+        font_org = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+        font_date = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
+    except:
+        font_name = ImageFont.load_default()
+        font_role = ImageFont.load_default()
+        font_org = ImageFont.load_default()
+        font_date = ImageFont.load_default()
+    
+    # Create certificate directory
+    cert_dir = Path("/app/uploads/certificates")
+    cert_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Batch processing
+    certificates_to_insert = []
+    
     for row_num, row in enumerate(csv_reader, start=2):
         try:
             name = row.get("name", row.get("Name", "")).strip()
