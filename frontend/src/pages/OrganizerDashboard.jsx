@@ -126,6 +126,22 @@ export default function OrganizerDashboard() {
           </div>
           <div className="flex items-center gap-2">
             <Button
+              onClick={() => navigate('/get-certificate')}
+              className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white border-0 shadow-lg hidden sm:flex"
+              title="Find My Certificate"
+            >
+              <Award className="w-4 h-4 mr-2" />
+              Find My Certificate
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/get-certificate')}
+              className="text-gray-400 hover:text-amber-400 sm:hidden"
+              title="Find My Certificate"
+            >
+              <Award className="w-5 h-5" />
+            </Button>
+            <Button
               variant="ghost"
               onClick={() => navigate('/settings')}
               className="text-gray-400 hover:text-teal-400"
