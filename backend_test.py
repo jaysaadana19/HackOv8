@@ -2487,6 +2487,218 @@ db.user_sessions.insertOne({{
             
         return success and response.get('count') == expected_count
 
+    def test_certificate_generation_failure(self):
+        """Test certificate generation failure issue - URGENT USER REQUEST"""
+        print("\n🚨 URGENT: Testing Certificate Generation Failure...")
+        
+        # Step 1: Create organizer user and login (using existing organizer)
+        print("   Step 1: Using existing organizer user for testing...")
+        
+        # Verify organizer authentication
+        success, organizer_info = self.run_test(
+            "Verify Organizer Authentication",
+            "GET",
+            "auth/me",
+            200,
+            session_token=self.organizer_session_token
+        )
+        
+        if not success or organizer_info.get('role') != 'organizer':
+            print(f"   ❌ Organizer authentication failed: {organizer_info}")
+            return False
+            
+        print(f"   ✅ Organizer authenticated: {organizer_info.get('name')} ({organizer_info.get('email')})")
+        
+        # Step 2: Test standalone certificate generation
+        print("   Step 2: Testing standalone certificate generation...")
+        
+        # Create test CSV content
+        csv_content = """Name,Email,Role
+John Doe,john.doe@example.com,participant
+Jane Smith,jane.smith@example.com,organizer
+Bob Johnson,bob.johnson@example.com,judge"""
+        
+        # Create test template image (simple PNG)
+        import base64
+        from io import BytesIO
+        
+        # Simple 1x1 PNG image in base64
+        simple_png_b64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+        template_bytes = base64.b64decode(simple_png_b64)
+        
+        # Test positions data
+        positions_data = {
+            "name": {"x": 400, "y": 350, "enabled": True, "color": "#000000"},
+            "role": {"x": 400, "y": 450, "enabled": True, "color": "#000000"},
+            "organization": {"x": 400, "y": 250, "enabled": True, "color": "#000000"},
+            "date": {"x": 400, "y": 550, "enabled": True, "color": "#000000"},
+            "qr": {"x": 50, "y": 50, "enabled": True, "size": 100}
+        }
+        
+        # Prepare multipart form data
+        import requests
+        
+        url = f"{self.base_url}/certificates/standalone/generate"
+        headers = {'Authorization': f'Bearer {self.organizer_session_token}'}
+        
+        files = {
+            'template': ('test_template.png', template_bytes, 'image/png'),
+            'csv': ('test_data.csv', csv_content, 'text/csv')
+        }
+        
+        data = {
+            'organization': 'Test Event',
+            'positions': json.dumps(positions_data)
+        }
+        
+        try:
+            print("   Step 3: Attempting certificate generation...")
+            response = requests.post(url, headers=headers, files=files, data=data, timeout=30)
+            
+            print(f"   Response Status: {response.status_code}")
+            print(f"   Response Headers: {dict(response.headers)}")
+            
+            try:
+                response_json = response.json()
+                print(f"   Response JSON: {json.dumps(response_json, indent=2)}")
+            except:
+                print(f"   Response Text: {response.text[:500]}")
+            
+            if response.status_code == 200:
+                print("   ✅ Certificate generation successful!")
+                
+                # Check if certificates were actually generated
+                if 'certificates_generated' in response_json:
+                    count = response_json.get('certificates_generated', 0)
+                    print(f"   ✅ Generated {count} certificates")
+                    
+                    # Check if certificate URLs are returned
+                    certificates = response_json.get('certificates', [])
+                    if certificates:
+                        print(f"   ✅ Certificate URLs returned:")
+                        for cert in certificates[:3]:  # Show first 3
+                            print(f"      - {cert.get('user_name')}: {cert.get('certificate_url')}")
+                    else:
+                        print("   ⚠️  No certificate URLs in response")
+                else:
+                    print("   ⚠️  No certificates_generated field in response")
+                    
+                self.log_test("Certificate Generation - Standalone", True, f"Generated {response_json.get('certificates_generated', 0)} certificates")
+                return True
+                
+            else:
+                error_detail = "Unknown error"
+                if response.headers.get('content-type', '').startswith('application/json'):
+                    try:
+                        error_json = response.json()
+                        error_detail = error_json.get('detail', str(error_json))
+                    except:
+                        error_detail = response.text[:200]
+                else:
+                    error_detail = response.text[:200]
+                
+                print(f"   ❌ Certificate generation failed!")
+                print(f"   ❌ Status Code: {response.status_code}")
+                print(f"   ❌ Error Detail: {error_detail}")
+                
+                # Check specific error conditions
+                if response.status_code == 403:
+                    print("   🔍 PERMISSION ERROR: User may not have organizer/admin role")
+                elif response.status_code == 400:
+                    print("   🔍 BAD REQUEST: Check template file, CSV format, or positions data")
+                elif response.status_code == 500:
+                    print("   🔍 SERVER ERROR: Check backend logs for file write errors or template processing issues")
+                
+                self.log_test("Certificate Generation - Standalone", False, f"Status {response.status_code}: {error_detail}")
+                return False
+                
+        except requests.exceptions.Timeout:
+            print("   ❌ Request timed out - server may be overloaded")
+            self.log_test("Certificate Generation - Standalone", False, "Request timeout")
+            return False
+        except Exception as e:
+            print(f"   ❌ Request failed with exception: {str(e)}")
+            self.log_test("Certificate Generation - Standalone", False, f"Exception: {str(e)}")
+            return False
+    
+    def test_certificate_directories_and_permissions(self):
+        """Test certificate directories and file permissions"""
+        print("\n📁 Testing Certificate Directories and Permissions...")
+        
+        # Check if certificate directories exist and are writable
+        import subprocess
+        import os
+        
+        directories_to_check = [
+            "/app/uploads",
+            "/app/uploads/certificates", 
+            "/app/uploads/certificate_templates"
+        ]
+        
+        for directory in directories_to_check:
+            try:
+                # Check if directory exists
+                result = subprocess.run(['ls', '-la', directory], capture_output=True, text=True)
+                if result.returncode == 0:
+                    print(f"   ✅ Directory exists: {directory}")
+                    print(f"      Permissions: {result.stdout.split()[0] if result.stdout else 'Unknown'}")
+                else:
+                    print(f"   ❌ Directory missing: {directory}")
+                    
+                    # Try to create directory
+                    try:
+                        os.makedirs(directory, exist_ok=True)
+                        print(f"   ✅ Created directory: {directory}")
+                    except Exception as e:
+                        print(f"   ❌ Failed to create directory {directory}: {str(e)}")
+                        
+            except Exception as e:
+                print(f"   ❌ Error checking directory {directory}: {str(e)}")
+        
+        # Test write permissions
+        test_file_path = "/app/uploads/test_write_permission.txt"
+        try:
+            with open(test_file_path, 'w') as f:
+                f.write("test")
+            os.remove(test_file_path)
+            print(f"   ✅ Write permissions OK for /app/uploads/")
+        except Exception as e:
+            print(f"   ❌ Write permission test failed: {str(e)}")
+
+    def run_certificate_failure_test(self):
+        """Run only the certificate generation failure test - URGENT"""
+        print("🚨 URGENT: Certificate Generation Failure Testing...")
+        print(f"   Base URL: {self.base_url}")
+        
+        # Create test users
+        if not self.create_test_users():
+            print("❌ Failed to create test users - aborting tests")
+            return False
+        
+        # Test authentication
+        if not self.test_authentication():
+            print("❌ Authentication tests failed - aborting tests")
+            return False
+        
+        # Test certificate directories and permissions
+        self.test_certificate_directories_and_permissions()
+        
+        # Run the specific certificate generation test
+        success = self.test_certificate_generation_failure()
+        
+        # Print results
+        print(f"\n🎯 CERTIFICATE GENERATION TEST RESULTS:")
+        print(f"   Total Tests: {self.tests_run}")
+        print(f"   Passed: {self.tests_passed}")
+        print(f"   Failed: {self.tests_run - self.tests_passed}")
+        
+        if success:
+            print("   ✅ Certificate generation is working!")
+        else:
+            print("   ❌ Certificate generation failed - check error details above")
+            
+        return success
+
     def cleanup_test_data(self):
         """Clean up created test hackathons"""
         print("\n🧹 Cleaning up test data...")
