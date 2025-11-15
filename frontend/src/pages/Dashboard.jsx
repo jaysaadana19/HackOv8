@@ -67,10 +67,26 @@ export default function Dashboard() {
       setMyTeams(teamsRes.data);
       setNotifications(notifsRes.data);
       setMyReferralStats(referralRes.data);
+      
+      // Fetch certificates
+      fetchMyCertificates(userRes.data.email);
     } catch (error) {
       toast.error('Failed to load dashboard data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMyCertificates = async (userEmail) => {
+    try {
+      const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
+      const response = await fetch(`${API_URL}/certificates/my?email=${encodeURIComponent(userEmail)}`);
+      if (response.ok) {
+        const data = await response.json();
+        setMyCertificates(data.certificates || []);
+      }
+    } catch (error) {
+      console.log('Failed to fetch certificates');
     }
   };
 
