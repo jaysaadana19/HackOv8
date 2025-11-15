@@ -2700,9 +2700,8 @@ async def export_hackathons(request: Request):
 app.include_router(api_router)
 
 # Mount static files for uploads
-app.mount("/uploads", StaticFiles(directory="/app/uploads"), name="uploads")
-# Mount backend uploads for certificates
-app.mount("/backend-uploads", StaticFiles(directory="/app/backend/uploads"), name="backend-uploads")
+# Mount static files under /api prefix so ingress routes correctly
+api_router.mount("/uploads", StaticFiles(directory="/app/uploads"), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,
