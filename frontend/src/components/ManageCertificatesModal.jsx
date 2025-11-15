@@ -460,7 +460,7 @@ export default function ManageCertificatesModal({ hackathon, onClose }) {
                                   }}
                                   className="w-8 h-8 rounded cursor-pointer"
                                 />
-                                <span className="text-xs text-gray-400 font-mono">{positions[field].color}</span>
+                                <span className="text-xs text-gray-600 font-mono">{positions[field].color}</span>
                               </div>
                             )}
                           </div>
