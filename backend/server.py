@@ -849,6 +849,18 @@ async def bulk_generate_certificates(
             detail=f"CSV must contain columns: Name, Email, Role"
         )
     
+    # Convert to list and validate size
+    rows = list(csv_reader)
+    total_rows = len(rows)
+    
+    if total_rows > 500:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Maximum 500 certificates per batch. You have {total_rows} rows. Please split your CSV into smaller files."
+        )
+    
+    csv_reader = iter(rows)
+    
     certificates_generated = 0
     errors = []
     
