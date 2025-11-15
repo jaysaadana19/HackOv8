@@ -969,33 +969,42 @@ async def bulk_generate_certificates(
                 pos = positions["qr"]
                 cert_image.paste(qr_img, (pos.get("x", 50), pos.get("y", 50)))
             
-            # Save certificate
-            cert_dir = Path("/app/uploads/certificates")
-            cert_dir.mkdir(parents=True, exist_ok=True)
-            
+            # Save certificate with optimized format
             cert_filename = f"{hackathon_id}_{cert_id}.png"
             cert_path = cert_dir / cert_filename
-            cert_image.save(cert_path)
+            cert_image.save(cert_path, optimize=True, quality=85)
             
-            # Create certificate record
-            certificate = Certificate(
-                certificate_id=cert_id,
-                hackathon_id=hackathon_id,
-                user_name=name,
-                user_email=email,
-                role=role,
-                certificate_url=f"/api/uploads/certificates/{cert_filename}"
-            )
+            # Create certificate record (add to batch)
+            certificate = {
+                "_id": cert_id,
+                "certificate_id": cert_id,
+                "hackathon_id": hackathon_id,
+                "user_name": name,
+                "user_email": email,
+                "role": role,
+                "certificate_url": f"/api/uploads/certificates/{cert_filename}",
+                "issued_date": datetime.now(timezone.utc).isoformat()
+            }
             
-            await db.certificates.insert_one(certificate.dict(by_alias=True))
+            certificates_to_insert.append(certificate)
             certificates_generated += 1
+            
+            # Batch insert every 100 certificates to avoid timeout
+            if len(certificates_to_insert) >= 100:
+                await db.certificates.insert_many(certificates_to_insert)
+                certificates_to_insert = []
             
         except Exception as e:
             errors.append(f"Row {row_num}: {str(e)}")
     
+    # Insert remaining certificates
+    if certificates_to_insert:
+        await db.certificates.insert_many(certificates_to_insert)
+    
     return {
-        "message": f"Certificates generated successfully",
+        "message": f"Generated {certificates_generated} certificate(s)",
         "certificates_generated": certificates_generated,
+        "total_rows": row_num - 1,
         "errors": errors if errors else None
     }
 
