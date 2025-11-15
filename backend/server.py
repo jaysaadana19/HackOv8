@@ -949,7 +949,7 @@ async def bulk_generate_certificates(
             # Generate QR code (only if enabled)
             if "qr" in positions and positions["qr"].get("enabled", True):
                 qr = qrcode.QRCode(version=1, box_size=10, border=2)
-                verify_url = f"https://hackov8-1.emergent.host/verify-certificate/{cert_id}"
+                verify_url = f"{os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')}/verify-certificate/{cert_id}"
                 qr.add_data(verify_url)
                 qr.make(fit=True)
                 qr_img = qr.make_image(fill_color="black", back_color="white")
