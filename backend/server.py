@@ -970,7 +970,7 @@ async def bulk_generate_certificates(
                 user_name=name,
                 user_email=email,
                 role=role,
-                certificate_url=f"/uploads/certificates/{cert_filename}"
+                certificate_url=f"/backend-uploads/certificates/{cert_filename}"
             )
             
             await db.certificates.insert_one(certificate.dict(by_alias=True))
@@ -1214,7 +1214,7 @@ async def generate_standalone_certificates(
                 user_name=name,
                 user_email=email,
                 role=role,
-                certificate_url=f"/uploads/certificates/{cert_filename}"
+                certificate_url=f"/backend-uploads/certificates/{cert_filename}"
             )
             
             await db.certificates.insert_one(certificate.dict(by_alias=True))
