@@ -493,6 +493,21 @@ frontend:
         agent: "main"
         comment: "SubmitProjectModal redesigned with teal theme, improved UI/UX. Modal includes: 1) Required fields (project name, description) with validation, 2) Optional links (GitHub repo, video demo, live demo) with URL inputs, 3) Submission tips section, 4) Loading states and error handling, 5) Mobile responsive design with max-height constraints, 6) Integration with submissionAPI.create endpoint. Backend testing shows 10/11 tests passed (90.9% success). Ready for comprehensive frontend testing to verify: modal open/close, form field inputs, submission flow, validation, error handling, and mobile responsiveness."
 
+  - task: "Certificate Backend API System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Fixed file upload button in ManageCertificatesModal. Issue was nested Button inside label preventing file input trigger. Applied fix using useRef and programmatic click. Modal has 3-step wizard: 1) Upload template (PNG/JPG), 2) Position editor (drag/drop fields), 3) Bulk certificate generation via CSV. Organizers/Admins can access from their dashboard. Backend API fully implemented."
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE CERTIFICATE SYSTEM BACKEND TESTING COMPLETE: ✅ All 7 certificate API endpoints tested with 19/19 tests passed (100% success rate). ✅ POST /api/hackathons/{id}/certificate-template: Template upload working with PNG/JPG validation, proper authorization (organizer/admin only), file type validation. ✅ PUT /api/hackathons/{id}/certificate-template/positions: Position updates working with proper field positioning (name, role, hackathon, date, QR). ✅ GET /api/hackathons/{id}/certificate-template: Public template retrieval working without authentication. ✅ POST /api/hackathons/{id}/certificates/bulk-generate: CSV bulk generation working with 4 test certificates generated, proper CSV validation (Name, Email, Role columns), authorization enforced. ✅ GET /api/certificates/retrieve: Certificate retrieval by name/email working with case-insensitive matching, 404 for non-existent, public access. ✅ GET /api/certificates/verify/{id}: Certificate verification working with hackathon details, 404 for invalid IDs, public access. ✅ GET /api/hackathons/{id}/certificates: Certificate listing working for organizers/admins with proper structure and count. All authentication, authorization, validation, and error handling working perfectly. Certificate system ready for frontend integration."
+
   - task: "Certificate Management Modal - Template Upload"
     implemented: true
     working: "NA"
