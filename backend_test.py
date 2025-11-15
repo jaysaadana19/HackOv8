@@ -2699,6 +2699,42 @@ Bob Johnson,bob.johnson@example.com,judge"""
             
         return success
 
+    def run_certificate_memory_tests_only(self):
+        """Run only the certificate memory fix tests"""
+        print("🚀 Starting Certificate Memory Fix Testing...")
+        print("=" * 60)
+        
+        # Setup
+        if not self.create_test_users():
+            print("❌ Failed to create test users. Exiting.")
+            return False
+        
+        if not self.test_authentication():
+            print("❌ Authentication failed. Exiting.")
+            return False
+        
+        # Run certificate memory tests
+        self.test_certificate_memory_fix_bulk_operations()
+        
+        # Cleanup
+        self.cleanup_test_data()
+        
+        # Summary
+        print("\n" + "=" * 60)
+        print("🎯 CERTIFICATE MEMORY FIX TEST SUMMARY")
+        print("=" * 60)
+        print(f"Total Tests Run: {self.tests_run}")
+        print(f"Tests Passed: {self.tests_passed}")
+        print(f"Tests Failed: {self.tests_run - self.tests_passed}")
+        print(f"Success Rate: {(self.tests_passed / self.tests_run * 100):.1f}%")
+        
+        if self.tests_passed == self.tests_run:
+            print("🎉 ALL CERTIFICATE MEMORY TESTS PASSED!")
+            return True
+        else:
+            print("⚠️  Some certificate tests failed. Check details above.")
+            return False
+
     def test_certificate_memory_fix_bulk_operations(self):
         """Test certificate generation memory fix for bulk operations"""
         print("\n🏆 Testing Certificate Generation Memory Fix for Bulk Operations...")
