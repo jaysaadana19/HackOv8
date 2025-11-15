@@ -179,18 +179,18 @@ export default function GetCertificate() {
           {certificate && (
             <Card className="glass-effect p-4 sm:p-8 border border-gray-800">
               <div className="text-center mb-6">
-                <div className="inline-block px-4 py-2 bg-green-900/20 border border-green-700/30 rounded-full mb-4">
-                  <span className="text-green-400 text-sm font-medium">✓ Certificate Found</span>
+                <div className="inline-block px-3 sm:px-4 py-2 bg-green-900/20 border border-green-700/30 rounded-full mb-4">
+                  <span className="text-green-400 text-xs sm:text-sm font-medium">✓ Certificate Found</span>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">{certificate.user_name}</h2>
-                <p className="text-gray-400 capitalize">{certificate.role} Certificate</p>
-                <p className="text-gray-500 text-sm mt-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 break-words">{certificate.user_name}</h2>
+                <p className="text-sm sm:text-base text-gray-400 capitalize">{certificate.role} Certificate</p>
+                <p className="text-gray-500 text-xs sm:text-sm mt-1">
                   Event: {eventName}
                 </p>
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-500 text-xs sm:text-sm mt-1">
                   Issued: {new Date(certificate.issued_date).toLocaleDateString()}
                 </p>
-                <p className="text-teal-400 text-sm font-mono mt-1">
+                <p className="text-teal-400 text-xs sm:text-sm font-mono mt-1 break-all">
                   ID: {certificate.certificate_id}
                 </p>
               </div>
