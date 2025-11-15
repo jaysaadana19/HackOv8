@@ -350,12 +350,12 @@ export default function CertificateService() {
                               }}
                               className="sr-only peer"
                             />
-                            <div className="w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
+                            <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
                           </label>
-                          <span className="text-white font-medium capitalize">{field}</span>
+                          <span className="text-gray-900 font-medium capitalize">{field}</span>
                         </div>
                         {positions[field].enabled && (
-                          <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-400' : 'text-gray-400'}`} />
+                          <Award className={`w-4 h-4 ${draggedField === field ? 'text-teal-600' : 'text-gray-600'}`} />
                         )}
                       </div>
 
@@ -371,22 +371,22 @@ export default function CertificateService() {
                             }}
                             className={`w-full text-xs ${
                               draggedField === field
-                                ? 'bg-teal-600 hover:bg-teal-700'
-                                : 'bg-gray-700 hover:bg-gray-600'
+                                ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                                : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
                             }`}
                           >
                             {draggedField === field ? '📍 Positioning...' : 'Set Position'}
                           </Button>
 
                           {/* Position Display */}
-                          <div className="text-xs text-gray-400">
+                          <div className="text-xs text-gray-600">
                             Position: ({positions[field].x}, {positions[field].y})
                           </div>
 
                           {/* Font Size Control (not for QR) */}
                           {field !== 'qr' && (
                             <div className="flex items-center gap-2">
-                              <label className="text-xs text-gray-400">Size:</label>
+                              <label className="text-xs text-gray-600">Size:</label>
                               <input
                                 type="range"
                                 min="12"
@@ -398,16 +398,16 @@ export default function CertificateService() {
                                     [field]: { ...positions[field], fontSize: parseInt(e.target.value) }
                                   });
                                 }}
-                                className="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                className="flex-1 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
                               />
-                              <span className="text-xs text-gray-400 w-8">{positions[field].fontSize}px</span>
+                              <span className="text-xs text-gray-600 w-8">{positions[field].fontSize}px</span>
                             </div>
                           )}
 
                           {/* QR Size Control */}
                           {field === 'qr' && (
                             <div className="flex items-center gap-2">
-                              <label className="text-xs text-gray-400">Size:</label>
+                              <label className="text-xs text-gray-600">Size:</label>
                               <input
                                 type="range"
                                 min="50"
@@ -419,16 +419,16 @@ export default function CertificateService() {
                                     [field]: { ...positions[field], size: parseInt(e.target.value) }
                                   });
                                 }}
-                                className="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                className="flex-1 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
                               />
-                              <span className="text-xs text-gray-400 w-8">{positions[field].size}px</span>
+                              <span className="text-xs text-gray-600 w-8">{positions[field].size}px</span>
                             </div>
                           )}
 
                           {/* Color Control (not for QR) */}
                           {field !== 'qr' && (
                             <div className="flex items-center gap-2">
-                              <label className="text-xs text-gray-400">Color:</label>
+                              <label className="text-xs text-gray-600">Color:</label>
                               <input
                                 type="color"
                                 value={positions[field].color}
@@ -440,7 +440,7 @@ export default function CertificateService() {
                                 }}
                                 className="w-8 h-8 rounded cursor-pointer"
                               />
-                              <span className="text-xs text-gray-400 font-mono">{positions[field].color}</span>
+                              <span className="text-xs text-gray-600 font-mono">{positions[field].color}</span>
                             </div>
                           )}
                         </div>
