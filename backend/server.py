@@ -869,6 +869,23 @@ async def bulk_generate_certificates(
     # Get text positions
     positions = template.get("text_positions", {})
     
+    # Pre-load fonts once (optimization)
+    try:
+        font_name = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+        font_role = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+        font_date = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
+    except:
+        font_name = ImageFont.load_default()
+        font_role = ImageFont.load_default()
+        font_date = ImageFont.load_default()
+    
+    # Create certificate directory
+    cert_dir = Path("/app/uploads/certificates")
+    cert_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Batch processing - collect certificates to insert
+    certificates_to_insert = []
+    
     for row_num, row in enumerate(csv_reader, start=2):
         try:
             name = row.get("name", row.get("Name", "")).strip()
