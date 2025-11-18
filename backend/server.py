@@ -526,6 +526,143 @@ async def google_callback(request: GoogleCallbackRequest):
         session_token=session_token
     )
 
+
+@api_router.get("/auth/github/login")
+async def github_login():
+    """Initiate GitHub OAuth flow"""
+    github_client_id = os.environ.get('GITHUB_CLIENT_ID')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://badgeflow-1.preview.emergentagent.com')
+    
+    if not github_client_id:
+        raise HTTPException(status_code=500, detail="GitHub OAuth not configured")
+    
+    # GitHub OAuth authorization URL
+    redirect_uri = f"{frontend_url}/api/auth/github/callback"
+    auth_url = (
+        f"https://github.com/login/oauth/authorize?"
+        f"client_id={github_client_id}&"
+        f"redirect_uri={redirect_uri}&"
+        f"scope=user:email"
+    )
+    
+    return {"url": auth_url}
+
+@api_router.get("/auth/github/callback")
+async def github_callback(code: str, state: str = None):
+    """Handle GitHub OAuth callback"""
+    github_client_id = os.environ.get('GITHUB_CLIENT_ID')
+    github_client_secret = os.environ.get('GITHUB_CLIENT_SECRET')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://badgeflow-1.preview.emergentagent.com')
+    
+    if not github_client_id or not github_client_secret:
+        raise HTTPException(status_code=500, detail="GitHub OAuth not configured")
+    
+    if not code:
+        raise HTTPException(status_code=400, detail="No authorization code provided")
+    
+    # Exchange code for access token
+    async with httpx.AsyncClient() as client:
+        token_response = await client.post(
+            "https://github.com/login/oauth/access_token",
+            data={
+                "client_id": github_client_id,
+                "client_secret": github_client_secret,
+                "code": code,
+            },
+            headers={"Accept": "application/json"}
+        )
+        
+        if token_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Failed to obtain access token from GitHub")
+        
+        token_data = token_response.json()
+        access_token = token_data.get("access_token")
+        
+        if not access_token:
+            raise HTTPException(status_code=400, detail="No access token in GitHub response")
+        
+        # Get user information from GitHub
+        user_response = await client.get(
+            "https://api.github.com/user",
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "Accept": "application/json"
+            }
+        )
+        
+        if user_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Failed to retrieve user information from GitHub")
+        
+        github_user = user_response.json()
+        
+        # Get user email if not in profile
+        email = github_user.get("email")
+        if not email:
+            email_response = await client.get(
+                "https://api.github.com/user/emails",
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/json"
+                }
+            )
+            if email_response.status_code == 200:
+                emails = email_response.json()
+                primary_email = next((e for e in emails if e.get("primary")), None)
+                if primary_email:
+                    email = primary_email.get("email")
+                elif emails:
+                    email = emails[0].get("email")
+        
+        # Use GitHub login as fallback email
+        if not email:
+            email = f"{github_user.get('login')}@github.user"
+    
+    # Check if user exists by GitHub ID
+    existing_user = await db.users.find_one({"github_id": github_user.get("id")})
+    
+    if existing_user:
+        # Update existing user
+        user_id = existing_user["_id"]
+        await db.users.update_one(
+            {"_id": user_id},
+            {"$set": {
+                "picture": github_user.get("avatar_url"),
+                "bio": github_user.get("bio"),
+                "last_login": datetime.now(timezone.utc)
+            }}
+        )
+        user_doc = await db.users.find_one({"_id": user_id})
+    else:
+        # Create new user
+        new_user = User(
+            email=email,
+            name=github_user.get("name") or github_user.get("login"),
+            picture=github_user.get("avatar_url"),
+            bio=github_user.get("bio"),
+            role="participant",
+            last_login=datetime.now(timezone.utc)
+        )
+        user_dict = new_user.dict(by_alias=True)
+        user_dict["github_id"] = github_user.get("id")
+        user_dict["github_login"] = github_user.get("login")
+        
+        await db.users.insert_one(user_dict)
+        user_id = user_dict["_id"]
+        user_doc = await db.users.find_one({"_id": user_id})
+    
+    # Create session
+    session_token = secrets.token_urlsafe(32)
+    session = UserSession(
+        user_id=user_id,
+        session_token=session_token,
+        expires_at=datetime.now(timezone.utc) + timedelta(days=7)
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    # Redirect to frontend with token
+    redirect_url = f"{frontend_url}?github_auth=success&token={session_token}"
+    return RedirectResponse(url=redirect_url)
+
 @api_router.get("/users/check-email")
 async def check_email_exists(email: str):
     """Check if user with given email exists"""
