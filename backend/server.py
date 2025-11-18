@@ -570,37 +570,49 @@ async def github_callback(code: str = None, state: str = None, error: str = None
         return RedirectResponse(url=redirect_url)
     
     # Exchange code for access token
-    async with httpx.AsyncClient() as client:
-        token_response = await client.post(
-            "https://github.com/login/oauth/access_token",
-            data={
-                "client_id": github_client_id,
-                "client_secret": github_client_secret,
-                "code": code,
-            },
-            headers={"Accept": "application/json"}
-        )
-        
-        if token_response.status_code != 200:
-            raise HTTPException(status_code=400, detail="Failed to obtain access token from GitHub")
-        
-        token_data = token_response.json()
-        access_token = token_data.get("access_token")
-        
-        if not access_token:
-            raise HTTPException(status_code=400, detail="No access token in GitHub response")
-        
-        # Get user information from GitHub
-        user_response = await client.get(
-            "https://api.github.com/user",
-            headers={
-                "Authorization": f"Bearer {access_token}",
-                "Accept": "application/json"
-            }
-        )
-        
-        if user_response.status_code != 200:
-            raise HTTPException(status_code=400, detail="Failed to retrieve user information from GitHub")
+    try:
+        async with httpx.AsyncClient() as client:
+            token_response = await client.post(
+                "https://github.com/login/oauth/access_token",
+                data={
+                    "client_id": github_client_id,
+                    "client_secret": github_client_secret,
+                    "code": code,
+                },
+                headers={"Accept": "application/json"},
+                timeout=10.0
+            )
+            
+            if token_response.status_code != 200:
+                redirect_url = f"{frontend_url}?github_auth=error&error=token_exchange_failed"
+                return RedirectResponse(url=redirect_url)
+            
+            token_data = token_response.json()
+            
+            # Check for error in response
+            if "error" in token_data:
+                redirect_url = f"{frontend_url}?github_auth=error&error={token_data.get('error', 'unknown')}"
+                return RedirectResponse(url=redirect_url)
+            
+            access_token = token_data.get("access_token")
+            
+            if not access_token:
+                redirect_url = f"{frontend_url}?github_auth=error&error=no_access_token"
+                return RedirectResponse(url=redirect_url)
+            
+            # Get user information from GitHub
+            user_response = await client.get(
+                "https://api.github.com/user",
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/json"
+                },
+                timeout=10.0
+            )
+            
+            if user_response.status_code != 200:
+                redirect_url = f"{frontend_url}?github_auth=error&error=user_info_failed"
+                return RedirectResponse(url=redirect_url)
         
         github_user = user_response.json()
         
