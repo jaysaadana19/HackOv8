@@ -395,7 +395,7 @@ export default function AuthModal({ onClose, onSuccess }) {
               </div>
 
               <div className="space-y-3">
-                <GoogleSignInButton disabled={loading} />
+                <GoogleSignInButton disabled={loading} onSuccess={onSuccess} />
                 <GitHubSignInButton disabled={loading} />
               </div>
 
