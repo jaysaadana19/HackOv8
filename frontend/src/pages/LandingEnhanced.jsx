@@ -38,6 +38,16 @@ export default function LandingEnhanced() {
   };
 
   useEffect(() => {
+    // Handle GitHub OAuth callback
+    const urlParams = new URLSearchParams(window.location.search);
+    const githubAuth = urlParams.get('github_auth');
+    const token = urlParams.get('token');
+    
+    if (githubAuth === 'success' && token) {
+      handleGitHubCallback(token);
+      return;
+    }
+
     const fragment = window.location.hash;
     if (fragment && fragment.includes('session_id=')) {
       handleAuthCallback(fragment);
@@ -52,6 +62,26 @@ export default function LandingEnhanced() {
     fetchHackathons();
     animateCounts();
   }, []);
+
+  const handleGitHubCallback = async (token) => {
+    setLoading(true);
+    try {
+      // Get user info using the session token
+      const response = await authAPI.getCurrentUser(token);
+      const user = response.data;
+      
+      setAuth(token, user);
+      window.history.replaceState({}, document.title, '/dashboard');
+      
+      toast.success(`Welcome, ${user.name}!`);
+      navigate('/dashboard');
+    } catch (error) {
+      toast.error('GitHub authentication failed');
+      window.history.replaceState({}, document.title, '/');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleAuthCallback = async (fragment) => {
     setLoading(true);
