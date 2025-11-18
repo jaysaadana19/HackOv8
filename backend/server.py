@@ -49,6 +49,8 @@ class User(BaseModel):
     bio: Optional[str] = None
     github_link: Optional[str] = None
     linkedin_link: Optional[str] = None
+    github_id: Optional[int] = None  # GitHub OAuth user ID
+    github_login: Optional[str] = None  # GitHub username
     company_id: Optional[str] = None  # Link to company if organizer
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     last_login: Optional[datetime] = None  # Track user logins for retention
