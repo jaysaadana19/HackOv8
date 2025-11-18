@@ -3826,7 +3826,7 @@ db.user_sessions.insertOne({{
             "Google OAuth Callback Endpoint Exists",
             "POST",
             "auth/google/callback",
-            400,  # Should return 400 for missing credential
+            422,  # Should return 422 for missing credential (Pydantic validation error)
             data={}
         )
         
