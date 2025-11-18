@@ -550,17 +550,24 @@ async def github_login():
     return {"url": auth_url}
 
 @api_router.get("/auth/github/callback")
-async def github_callback(code: str, state: str = None):
+async def github_callback(code: str = None, state: str = None, error: str = None):
     """Handle GitHub OAuth callback"""
     github_client_id = os.environ.get('GITHUB_CLIENT_ID')
     github_client_secret = os.environ.get('GITHUB_CLIENT_SECRET')
-    frontend_url = os.environ.get('FRONTEND_URL', 'https://badgeflow-1.preview.emergentagent.com')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')
+    
+    # Handle OAuth errors (user denied access, etc.)
+    if error:
+        redirect_url = f"{frontend_url}?github_auth=error&error={error}"
+        return RedirectResponse(url=redirect_url)
     
     if not github_client_id or not github_client_secret:
-        raise HTTPException(status_code=500, detail="GitHub OAuth not configured")
+        redirect_url = f"{frontend_url}?github_auth=error&error=config_error"
+        return RedirectResponse(url=redirect_url)
     
     if not code:
-        raise HTTPException(status_code=400, detail="No authorization code provided")
+        redirect_url = f"{frontend_url}?github_auth=error&error=no_code"
+        return RedirectResponse(url=redirect_url)
     
     # Exchange code for access token
     async with httpx.AsyncClient() as client:
