@@ -66,17 +66,24 @@ export default function LandingEnhanced() {
   const handleGitHubCallback = async (token) => {
     setLoading(true);
     try {
+      // Temporarily set token to make authenticated request
+      localStorage.setItem('session_token', token);
+      
       // Get user info using the session token
-      const response = await authAPI.getCurrentUser(token);
+      const response = await authAPI.getCurrentUser();
       const user = response.data;
       
-      setAuth(token, user);
+      // Save user info
+      localStorage.setItem('user', JSON.stringify(user));
+      
       window.history.replaceState({}, document.title, '/dashboard');
       
       toast.success(`Welcome, ${user.name}!`);
       navigate('/dashboard');
     } catch (error) {
+      console.error('GitHub auth error:', error);
       toast.error('GitHub authentication failed');
+      localStorage.removeItem('session_token');
       window.history.replaceState({}, document.title, '/');
     } finally {
       setLoading(false);
