@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, Mail, Lock, User, Building, Globe, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,6 @@ import axios from 'axios';
 import { setAuth } from '@/lib/auth';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
-const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 // Helper function to safely format error messages for display
 const formatErrorMessage = (error, defaultMessage) => {
