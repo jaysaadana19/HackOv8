@@ -3978,9 +3978,12 @@ def main():
         elif sys.argv[1] == "certificate-memory":
             tester = AdminPanelAPITester()
             success = tester.run_certificate_memory_tests_only()
+        elif sys.argv[1] == "github-oauth":
+            tester = AdminPanelAPITester()
+            success = tester.run_github_oauth_tests()
         else:
             print(f"Unknown test type: {sys.argv[1]}")
-            print("Available options: referral, certificate-failure, certificate-memory")
+            print("Available options: referral, certificate-failure, certificate-memory, github-oauth")
             return 1
     else:
         tester = AdminPanelAPITester()
