@@ -42,6 +42,12 @@ export default function LandingEnhanced() {
     const urlParams = new URLSearchParams(window.location.search);
     const githubAuth = urlParams.get('github_auth');
     const token = urlParams.get('token');
+    const error = urlParams.get('error');
+    
+    if (githubAuth === 'error' && error) {
+      handleGitHubError(error);
+      return;
+    }
     
     if (githubAuth === 'success' && token) {
       handleGitHubCallback(token);
