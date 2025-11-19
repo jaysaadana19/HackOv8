@@ -241,6 +241,7 @@ class SessionResponse(BaseModel):
     name: str
     role: str
     picture: Optional[str]
+    email_verified: bool
     session_token: str
 
 class SignupRequest(BaseModel):
