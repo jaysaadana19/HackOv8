@@ -58,6 +58,9 @@ class User(BaseModel):
     verification_token: Optional[str] = None
     # Referral system
     referral_code: str = Field(default_factory=lambda: secrets.token_urlsafe(8))  # Unique referral code
+    # Public profile
+    profile_slug: Optional[str] = None  # Custom URL slug for public profile
+    profile_photo: Optional[str] = None  # URL to profile photo
     
     class Config:
         populate_by_name = True
