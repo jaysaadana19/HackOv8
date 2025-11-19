@@ -205,8 +205,17 @@ export default function HackathonDetailEnhanced() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
+    <>
+      <SEO 
+        title={`${hackathon.title} | Hackov8`}
+        description={hackathon.description}
+        keywords={`hackathon, ${hackathon.title}, coding competition, ${hackathon.location}, tech event`}
+        ogImage={getHackathonBanner(hackathon)}
+        url={`https://hackov8.xyz/hackathon/${slug}`}
+        type="article"
+      />
+      <div className="min-h-screen bg-gray-50">
+        {/* Navbar */}
       <nav className="border-b border-gray-200 bg-white/95 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-4">
