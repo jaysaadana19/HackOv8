@@ -1771,6 +1771,111 @@ async def update_profile(update: UserUpdate, request: Request):
             {"_id": user.id},
             {"$set": update_data}
         )
+
+
+@api_router.post("/users/profile-photo")
+async def upload_profile_photo(request: Request, file: UploadFile = File(...)):
+    """Upload profile photo"""
+    user = await get_current_user(request)
+    
+    # Validate file type
+    if not file.content_type or not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="File must be an image")
+    
+    # Create uploads directory if it doesn't exist
+    uploads_dir = Path("uploads/profile_photos")
+    uploads_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Generate unique filename
+    file_extension = Path(file.filename).suffix
+    filename = f"{user.id}{file_extension}"
+    file_path = uploads_dir / filename
+    
+    # Save file
+    try:
+        with open(file_path, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
+    
+    # Update user profile with photo URL
+    photo_url = f"/api/uploads/profile_photos/{filename}"
+    await db.users.update_one(
+        {"_id": user.id},
+        {"$set": {"profile_photo": photo_url}}
+    )
+    
+    return {"photo_url": photo_url, "message": "Profile photo uploaded successfully"}
+
+@api_router.post("/users/generate-slug")
+async def generate_profile_slug(request: Request):
+    """Generate a unique profile slug based on user's name"""
+    user = await get_current_user(request)
+    
+    # If user already has a slug, return it
+    if user.profile_slug:
+        return {"slug": user.profile_slug, "message": "Using existing slug"}
+    
+    # Generate slug from name
+    base_slug = user.name.lower().replace(' ', '-')
+    base_slug = re.sub(r'[^a-z0-9-]', '', base_slug)
+    
+    # Check if slug exists and make it unique
+    slug = base_slug
+    counter = 1
+    while await db.users.find_one({"profile_slug": slug}):
+        slug = f"{base_slug}-{counter}"
+        counter += 1
+    
+    # Update user with slug
+    await db.users.update_one(
+        {"_id": user.id},
+        {"$set": {"profile_slug": slug}}
+    )
+    
+    return {"slug": slug, "message": "Profile slug generated successfully"}
+
+@api_router.get("/profile/{slug}")
+async def get_public_profile(slug: str):
+    """Get public profile by slug"""
+    user_doc = await db.users.find_one({"profile_slug": slug})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    user_id = user_doc["_id"]
+    
+    # Get user's participated hackathons
+    registrations = await db.registrations.find({"user_id": user_id}).to_list(length=None)
+    hackathon_ids = [reg["hackathon_id"] for reg in registrations]
+    
+    participated_hackathons = []
+    if hackathon_ids:
+        hackathons = await db.hackathons.find({"_id": {"$in": hackathon_ids}}).to_list(length=None)
+        for hackathon in hackathons:
+            participated_hackathons.append({
+                "id": hackathon["_id"],
+                "name": hackathon["name"],
+                "slug": hackathon.get("slug"),
+                "start_date": hackathon.get("start_date"),
+                "end_date": hackathon.get("end_date"),
+                "location": hackathon.get("location"),
+                "status": hackathon.get("status")
+            })
+    
+    # Build public profile
+    public_profile = {
+        "name": user_doc.get("name"),
+        "bio": user_doc.get("bio"),
+        "profile_photo": user_doc.get("profile_photo"),
+        "github_link": user_doc.get("github_link"),
+        "linkedin_link": user_doc.get("linkedin_link"),
+        "role": user_doc.get("role"),
+        "participated_hackathons": participated_hackathons
+    }
+    
+    return public_profile
+
     
     return {"message": "Profile updated successfully"}
 
