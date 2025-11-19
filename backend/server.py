@@ -559,7 +559,7 @@ async def github_callback(code: str = None, state: str = None, error: str = None
     """Handle GitHub OAuth callback"""
     github_client_id = os.environ.get('GITHUB_CLIENT_ID')
     github_client_secret = os.environ.get('GITHUB_CLIENT_SECRET')
-    frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8-1.emergent.host')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
     
     # Handle OAuth errors (user denied access, etc.)
     if error:
