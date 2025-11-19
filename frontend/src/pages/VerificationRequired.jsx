@@ -13,19 +13,24 @@ export default function VerificationRequired() {
   const navigate = useNavigate();
   const user = getUser();
   const [sending, setSending] = useState(false);
+  const [email, setEmail] = useState(user?.email || '');
 
   const handleResendVerification = async () => {
+    if (!email) {
+      toast.error('Email address is required. Please enter your email below.');
+      return;
+    }
+    
     setSending(true);
     try {
       await axios.post(`${API_URL}/auth/resend-verification`, {
-        email: user?.email
-      }, {
-        withCredentials: true,
+        email: email
       });
       toast.success('Verification email sent! Please check your inbox.');
     } catch (error) {
       console.error('Resend verification error:', error);
-      toast.error(error.response?.data?.detail || 'Failed to send verification email');
+      const errorMsg = error.response?.data?.detail || 'Failed to send verification email';
+      toast.error(errorMsg);
     } finally {
       setSending(false);
     }
