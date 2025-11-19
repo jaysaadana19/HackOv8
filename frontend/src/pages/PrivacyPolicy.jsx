@@ -10,9 +10,16 @@ export default function PrivacyPolicy() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b] flex flex-col">
-      {/* Navbar */}
-      <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
+    <>
+      <SEO 
+        title="Privacy Policy - Hackov8"
+        description="Read Hackov8's privacy policy to understand how we collect, use, and protect your personal information on our hackathon platform."
+        keywords="privacy policy, data protection, user privacy, hackov8 privacy"
+        url="https://hackov8.xyz/privacy"
+      />
+      <div className="min-h-screen bg-[#0a0a0b] flex flex-col">
+        {/* Navbar */}
+        <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <Button
             variant="ghost"
