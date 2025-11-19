@@ -331,6 +331,9 @@ async def send_verification_email(to_email: str, user_name: str, verification_to
     # Create verification URL
     verification_url = f"{frontend_url}/verify-email?token={verification_token}"
     
+    # Log the URL being used (for debugging)
+    print(f"🔗 Generating verification email with URL: {verification_url}")
+    
     # Create email content
     subject = "Verify Your Hackov8 Account"
     
