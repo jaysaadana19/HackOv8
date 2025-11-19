@@ -70,9 +70,15 @@ export default function VerificationRequired() {
           </p>
 
           <div className="bg-gray-800/50 p-4 rounded-lg mb-6">
-            <div className="flex items-center gap-2 justify-center text-gray-300">
-              <Mail className="w-5 h-5 text-purple-500" />
-              <span>{user?.email}</span>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-gray-400">Email Address:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+              />
             </div>
           </div>
 
