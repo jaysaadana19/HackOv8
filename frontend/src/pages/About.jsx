@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Rocket, ArrowLeft, Users, Trophy, Code, TrendingUp, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import SEO from '@/components/SEO';
 
 export default function About() {
   const navigate = useNavigate();
