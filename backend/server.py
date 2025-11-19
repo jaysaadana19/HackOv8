@@ -1757,6 +1757,7 @@ async def signup(signup_data: SignupRequest):
         name=signup_data.name,
         role=signup_data.role,
         picture=None,
+        email_verified=False,
         session_token=session_token
     )
 
