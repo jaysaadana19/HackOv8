@@ -203,6 +203,46 @@ export default function Profile() {
               )}
             </div>
 
+            {/* Email Verification Status */}
+            <div className={`p-4 rounded-lg border ${emailVerified ? 'bg-green-900/20 border-green-800' : 'bg-yellow-900/20 border-yellow-800'}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Mail className={`w-5 h-5 ${emailVerified ? 'text-green-500' : 'text-yellow-500'}`} />
+                  <div>
+                    <p className="font-semibold text-white">{userEmail}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      {emailVerified ? (
+                        <>
+                          <CheckCircle className="w-4 h-4 text-green-500" />
+                          <span className="text-sm text-green-400">Email Verified</span>
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="w-4 h-4 text-yellow-500" />
+                          <span className="text-sm text-yellow-400">Email Not Verified</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                {!emailVerified && (
+                  <Button
+                    onClick={handleResendVerification}
+                    disabled={sendingVerification}
+                    size="sm"
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                  >
+                    {sendingVerification ? 'Sending...' : 'Resend Verification'}
+                  </Button>
+                )}
+              </div>
+              {!emailVerified && (
+                <p className="text-xs text-gray-400 mt-3">
+                  Please verify your email to access all platform features. Check your inbox for the verification link.
+                </p>
+              )}
+            </div>
+
             {/* Public Profile Slug Section */}
             <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 p-4 rounded-lg border border-purple-800">
               <label className="block text-sm font-semibold text-gray-400 mb-2 flex items-center">
