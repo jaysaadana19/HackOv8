@@ -1694,10 +1694,13 @@ async def signup(signup_data: SignupRequest):
     await db.users.insert_one(user_dict)
     user_id = user_dict["_id"]
     
-    # Send verification email (simulated - in production use actual email service)
-    print(f"[EMAIL VERIFICATION] Send to {signup_data.email}")
-    print(f"[VERIFICATION LINK] /api/auth/verify-email?token={verification_token}")
-    # TODO: Integrate with actual email service (SendGrid, AWS SES, etc.)
+    # Send verification email
+    try:
+        await send_verification_email(signup_data.email, signup_data.name, verification_token)
+        print(f"✅ Verification email sent to {signup_data.email}")
+    except Exception as e:
+        print(f"⚠️ Failed to send verification email: {str(e)}")
+        # Continue with signup even if email fails
     
     # If organizer with company, create company
     company_id = None
