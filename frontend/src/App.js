@@ -34,6 +34,7 @@ function App() {
           <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
           <Route path="/get-certificate" element={<GetCertificate />} />
           <Route path="/certificate-service" element={<CertificateService />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/judge" element={<JudgeDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
