@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
-import { HelmetProvider } from 'react-helmet-async';
 import LandingEnhanced from '@/pages/LandingEnhanced';
 import Dashboard from '@/pages/Dashboard';
 import HackathonDetailEnhanced from '@/pages/HackathonDetailEnhanced';
@@ -25,34 +24,32 @@ import '@/App.css';
 
 function App() {
   return (
-    <HelmetProvider>
-      <div className="App">
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingEnhanced />} />
-          <Route path="/auth/google/callback" element={<GoogleCallback />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
-          <Route path="/hackathon/:hackathonSlug/certificate" element={<MyCertificate />} />
-          <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
-          <Route path="/get-certificate" element={<GetCertificate />} />
-          <Route path="/certificate-service" element={<CertificateService />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path="/verification-required" element={<VerificationRequired />} />
-          <Route path="/organizer" element={<OrganizerDashboard />} />
-          <Route path="/judge" element={<JudgeDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/:slug" element={<PublicProfile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster position="top-right" expand={true} richColors />
-    </div>
-    </HelmetProvider>
+    <div className="App">
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingEnhanced />} />
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
+        <Route path="/hackathon/:hackathonSlug/certificate" element={<MyCertificate />} />
+        <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
+        <Route path="/get-certificate" element={<GetCertificate />} />
+        <Route path="/certificate-service" element={<CertificateService />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/verification-required" element={<VerificationRequired />} />
+        <Route path="/organizer" element={<OrganizerDashboard />} />
+        <Route path="/judge" element={<JudgeDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:slug" element={<PublicProfile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+      </Routes>
+    </BrowserRouter>
+    <Toaster position="top-right" expand={true} richColors />
+  </div>
   );
 }
 
