@@ -1864,15 +1864,17 @@ async def get_public_profile(slug: str):
     if hackathon_ids:
         hackathons = await db.hackathons.find({"_id": {"$in": hackathon_ids}}).to_list(length=None)
         for hackathon in hackathons:
-            participated_hackathons.append({
-                "id": hackathon["_id"],
-                "name": hackathon["name"],
-                "slug": hackathon.get("slug"),
-                "start_date": hackathon.get("start_date"),
-                "end_date": hackathon.get("end_date"),
-                "location": hackathon.get("location"),
-                "status": hackathon.get("status")
-            })
+            # Only include hackathons that have a name
+            if hackathon.get("name"):
+                participated_hackathons.append({
+                    "id": hackathon.get("_id"),
+                    "name": hackathon.get("name"),
+                    "slug": hackathon.get("slug"),
+                    "start_date": hackathon.get("start_date"),
+                    "end_date": hackathon.get("end_date"),
+                    "location": hackathon.get("location"),
+                    "status": hackathon.get("status")
+                })
     
     # Build public profile
     public_profile = {
