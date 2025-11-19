@@ -4,6 +4,7 @@ import { Award, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { certificateAPI } from '@/lib/api';
+import SEO from '@/components/SEO';
 
 export default function VerifyCertificate() {
   const { certificateId } = useParams();
