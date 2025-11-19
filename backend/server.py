@@ -1836,6 +1836,17 @@ async def generate_profile_slug(request: Request):
     
     return {"slug": slug, "message": "Profile slug generated successfully"}
 
+
+@api_router.get("/users/check-slug")
+async def check_user_slug(request: Request):
+    """Check if current user has a profile slug"""
+    user = await get_current_user(request)
+    return {
+        "has_slug": bool(user.profile_slug),
+        "slug": user.profile_slug if user.profile_slug else None
+    }
+
+
 @api_router.get("/profile/{slug}")
 async def get_public_profile(slug: str):
     """Get public profile by slug"""
