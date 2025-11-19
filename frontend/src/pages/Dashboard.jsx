@@ -72,15 +72,6 @@ export default function Dashboard() {
         referralAPI.getMyStats(),
       ]);
 
-      // Handle user data
-      if (userRes.status === 'fulfilled') {
-        setUser(userRes.value.data);
-      } else {
-        console.error('Failed to fetch user:', userRes.reason);
-        toast.error('Failed to load user data');
-        return; // Can't continue without user
-      }
-
       // Handle other data with fallbacks
       setHackathons(hackathonsRes.status === 'fulfilled' ? hackathonsRes.value.data : []);
       setMyRegistrations(regsRes.status === 'fulfilled' ? regsRes.value.data : []);
@@ -90,8 +81,8 @@ export default function Dashboard() {
       
       // Fetch certificates (non-blocking)
       try {
-        if (userRes.status === 'fulfilled' && userRes.value.data && userRes.value.data.email) {
-          await fetchMyCertificates(userRes.value.data.email);
+        if (userData && userData.email) {
+          await fetchMyCertificates(userData.email);
         }
       } catch (certError) {
         console.log('Could not fetch certificates:', certError);
