@@ -52,15 +52,24 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
+      console.log('Dashboard: Fetching user data...');
       // Check email verification first
       const userRes = await authAPI.getCurrentUser();
       const userData = userRes.data;
       
+      console.log('Dashboard: User data received:', {
+        email: userData.email,
+        email_verified: userData.email_verified,
+        role: userData.role
+      });
+      
       if (!userData.email_verified) {
+        console.log('Dashboard: Email not verified, redirecting');
         navigate('/verification-required');
         return;
       }
       
+      console.log('Dashboard: Email verified, loading dashboard');
       setUser(userData);
       
       // Fetch data with individual error handling
