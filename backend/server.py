@@ -322,6 +322,17 @@ class UserUpdate(BaseModel):
     name: Optional[str] = None
     bio: Optional[str] = None
     github_link: Optional[str] = None
+    linkedin_link: Optional[str] = None
+    twitter_link: Optional[str] = None
+    portfolio_link: Optional[str] = None
+    location: Optional[str] = None
+    current_status: Optional[str] = None  # "studying" or "working"
+    current_role: Optional[str] = None
+    current_company: Optional[str] = None
+    skills: Optional[List[str]] = None
+    experience: Optional[List[dict]] = None
+    education: Optional[List[dict]] = None
+    profile_slug: Optional[str] = None
 
 
 # Email utility functions
