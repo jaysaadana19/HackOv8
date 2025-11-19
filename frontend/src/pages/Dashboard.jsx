@@ -83,6 +83,8 @@ export default function Dashboard() {
     }
   };
 
+  // Certificate functions removed
+  /*
   const fetchMyCertificates = async (userEmail) => {
     if (!userEmail) return;
     
