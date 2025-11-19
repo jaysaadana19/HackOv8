@@ -34,9 +34,16 @@ export default function VerifyCertificate() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b]">
-      {/* Header */}
-      <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl">
+    <>
+      <SEO 
+        title={certificate ? `Certificate Verification - ${certificate.user_name}` : "Verify Certificate - Hackov8"}
+        description={certificate ? `Verify the authenticity of ${certificate.user_name}'s certificate for ${certificate.hackathon_name}` : "Verify the authenticity of hackathon certificates issued by Hackov8"}
+        keywords="certificate verification, hackathon certificate, verify certificate, authentic certificate"
+        url={`https://hackov8.xyz/verify-certificate/${certificateId}`}
+      />
+      <div className="min-h-screen bg-[#0a0a0b]">
+        {/* Header */}
+        <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
