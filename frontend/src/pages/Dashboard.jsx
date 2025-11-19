@@ -226,15 +226,7 @@ export default function Dashboard() {
                 </Button>
               )}
 
-              {/* Find My Certificate Button */}
-              <Button
-                onClick={() => navigate('/get-certificate')}
-                className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white border-0 shadow-lg"
-                data-testid="find-certificate-btn"
-              >
-                <Award className="w-4 h-4 mr-2" />
-                Find My Certificate
-              </Button>
+              {/* Certificate feature removed */}
 
               {/* Theme Toggle */}
               <Button
