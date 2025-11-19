@@ -74,16 +74,25 @@ export default function AuthModal({ onClose, onSuccess }) {
       });
 
       const { session_token, ...user } = response.data;
+      
+      console.log('Login successful:', {
+        email: user.email,
+        email_verified: user.email_verified,
+        role: user.role
+      });
+      
       setAuth(session_token, user);
       
       // Check if email is verified
       if (!user.email_verified) {
+        console.log('Email not verified, redirecting to verification page');
         toast.warning('Please verify your email to continue');
         onClose();
         window.location.href = '/verification-required';
         return;
       }
       
+      console.log('Email verified, proceeding to dashboard');
       toast.success(`Welcome back, ${user.name}!`);
       onClose();
       
@@ -96,6 +105,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       };
       
       const redirectPath = roleRoutes[user.role] || '/dashboard';
+      console.log('Redirecting to:', redirectPath);
       
       // Force redirect with full page reload
       setTimeout(() => {
