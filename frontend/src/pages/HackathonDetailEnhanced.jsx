@@ -876,6 +876,7 @@ export default function HackathonDetailEnhanced() {
           onClose={() => setShowReferral(false)}
         />
       )}
-    </div>
+      </div>
+    </>
   );
 }
