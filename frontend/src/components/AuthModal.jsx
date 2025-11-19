@@ -85,9 +85,8 @@ export default function AuthModal({ onClose, onSuccess }) {
       }
       
       toast.success(`Welcome back, ${user.name}!`);
-      onClose();
       
-      // Redirect based on role
+      // Store redirect path based on role
       const roleRoutes = {
         'admin': '/admin',
         'organizer': '/organizer',
@@ -96,7 +95,9 @@ export default function AuthModal({ onClose, onSuccess }) {
       };
       
       const redirectPath = roleRoutes[user.role] || '/dashboard';
-      window.location.href = redirectPath;
+      
+      onClose();
+      onSuccess(redirectPath);
     } catch (error) {
       console.error('Login error:', error);
       toast.error(formatErrorMessage(error, 'Login failed'));
