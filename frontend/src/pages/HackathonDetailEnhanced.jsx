@@ -14,6 +14,7 @@ import SubmitProjectModal from '@/components/SubmitProjectModal';
 import AuthModal from '@/components/AuthModal';
 import ReferralModal from '@/components/ReferralModal';
 import { getHackathonBanner } from '@/lib/bannerImages';
+import SEO from '@/components/SEO';
 
 export default function HackathonDetailEnhanced() {
   const { slug } = useParams();
