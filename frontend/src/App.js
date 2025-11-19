@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
+import { HelmetProvider } from 'react-helmet-async';
 import LandingEnhanced from '@/pages/LandingEnhanced';
 import Dashboard from '@/pages/Dashboard';
 import HackathonDetailEnhanced from '@/pages/HackathonDetailEnhanced';
