@@ -27,10 +27,24 @@ export default function VerifyEmail() {
   const verifyEmail = async () => {
     try {
       const response = await axios.get(`${API_URL}/auth/verify-email?token=${token}`);
+      
+      // If verification successful and we got a session token, save it
+      if (response.data.session_token) {
+        localStorage.setItem('session_token', response.data.session_token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Set cookie for backend
+        document.cookie = `session_token=${response.data.session_token}; path=/; max-age=${7 * 24 * 60 * 60}; secure; samesite=none`;
+      }
+      
       setStatus('success');
       setMessage(response.data.message || 'Email verified successfully!');
       toast.success('Email verified! Redirecting to dashboard...');
-      setTimeout(() => navigate('/dashboard'), 3000);
+      
+      // Redirect to dashboard after 2 seconds
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 2000);
     } catch (error) {
       console.error('Verification error:', error);
       setStatus('error');
