@@ -1795,6 +1795,7 @@ async def login(login_data: LoginRequest):
         name=user_doc["name"],
         role=user_doc.get("role", "participant"),
         picture=user_doc.get("picture"),
+        email_verified=user_doc.get("email_verified", False),
         session_token=session_token
     )
 
