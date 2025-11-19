@@ -1841,11 +1841,29 @@ async def verify_email(token: str):
 
 @api_router.post("/auth/resend-verification")
 async def resend_verification(request: Request):
-    user = await get_current_user(request)
+    # Try to get user from session (for logged-in users)
+    user = None
+    try:
+        user = await get_current_user(request)
+    except:
+        pass
     
-    user_doc = await db.users.find_one({"_id": user.id})
-    if not user_doc:
-        raise HTTPException(status_code=404, detail="User not found")
+    # If user is logged in, use their email
+    if user:
+        user_doc = await db.users.find_one({"_id": user.id})
+        if not user_doc:
+            raise HTTPException(status_code=404, detail="User not found")
+        email = user_doc['email']
+    else:
+        # If not logged in, require email in request body
+        body = await request.json()
+        email = body.get('email')
+        if not email:
+            raise HTTPException(status_code=400, detail="Email is required")
+        
+        user_doc = await db.users.find_one({"email": email})
+        if not user_doc:
+            raise HTTPException(status_code=404, detail="User not found")
     
     if user_doc.get("email_verified"):
         raise HTTPException(status_code=400, detail="Email already verified")
@@ -1853,7 +1871,7 @@ async def resend_verification(request: Request):
     # Generate new token
     verification_token = secrets.token_urlsafe(32)
     await db.users.update_one(
-        {"_id": user.id},
+        {"_id": user_doc['_id']},
         {"$set": {"verification_token": verification_token}}
     )
     
