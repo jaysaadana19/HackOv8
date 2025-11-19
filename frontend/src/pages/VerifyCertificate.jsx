@@ -173,6 +173,7 @@ export default function VerifyCertificate() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
