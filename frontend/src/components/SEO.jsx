@@ -11,8 +11,11 @@ export default function SEO({
   const fullTitle = title.includes('Hackov8') ? title : `${title} | Hackov8`;
   
   useEffect(() => {
+    console.log('SEO useEffect running with title:', fullTitle);
+    
     // Update title
     document.title = fullTitle;
+    console.log('Document title updated to:', document.title);
     
     // Helper to update or create meta tag
     const updateMetaTag = (selector, attribute, content) => {
