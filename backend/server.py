@@ -316,6 +316,10 @@ class UserUpdate(BaseModel):
 # Email utility functions
 async def send_verification_email(to_email: str, user_name: str, verification_token: str):
     """Send verification email to user"""
+    # Force reload environment to ensure latest values
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+    
     smtp_host = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
     smtp_port = int(os.environ.get('SMTP_PORT', '587'))
     smtp_user = os.environ.get('SMTP_USER')
