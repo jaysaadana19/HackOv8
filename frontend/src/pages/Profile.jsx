@@ -57,7 +57,9 @@ export default function Profile() {
   const handleResendVerification = async () => {
     setSendingVerification(true);
     try {
-      await axios.post(`${API_URL}/auth/resend-verification`, {}, {
+      await axios.post(`${API_URL}/auth/resend-verification`, {
+        email: userEmail
+      }, {
         withCredentials: true,
       });
       toast.success('Verification email sent! Please check your inbox.');
