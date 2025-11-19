@@ -513,7 +513,6 @@ export default function LandingEnhanced() {
           onSuccess={handleAuthSuccess}
         />
       )}
-      </div>
-    </>
+    </div>
   );
 }
