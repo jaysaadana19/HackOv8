@@ -22,7 +22,7 @@ export default function PublicProfile() {
   const fetchPublicProfile = async () => {
     try {
       console.log('Fetching profile for slug:', slug);
-      const response = await axios.get(`${API_URL}/public-profile/${slug}`);
+      const response = await axios.get(`${API_URL}/users/public/${slug}`);
       console.log('Profile data received:', response.data);
       setProfile(response.data);
     } catch (error) {
