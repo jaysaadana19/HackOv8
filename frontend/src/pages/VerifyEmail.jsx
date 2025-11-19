@@ -88,7 +88,7 @@ export default function VerifyEmail() {
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">Email Verified! 🎉</h2>
               <p className="text-gray-400 mb-6">{message}</p>
-              <p className="text-sm text-gray-500">Redirecting you to dashboard in 3 seconds...</p>
+              <p className="text-sm text-gray-500">Redirecting you to dashboard in 2 seconds...</p>
               <Button
                 onClick={() => navigate('/dashboard')}
                 className="mt-4 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
