@@ -1838,10 +1838,13 @@ async def resend_verification(request: Request):
     )
     
     # Send verification email
-    print(f"[EMAIL VERIFICATION] Resend to {user_doc['email']}")
-    print(f"[VERIFICATION LINK] /api/auth/verify-email?token={verification_token}")
-    
-    return {"message": "Verification email sent"}
+    try:
+        await send_verification_email(user_doc['email'], user_doc['name'], verification_token)
+        print(f"✅ Verification email resent to {user_doc['email']}")
+        return {"message": "Verification email sent successfully"}
+    except Exception as e:
+        print(f"⚠️ Failed to send verification email: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to send verification email")
 
 # ==================== COMPANY ROUTES ====================
 
