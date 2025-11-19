@@ -52,9 +52,19 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
+      // Check email verification first
+      const userRes = await authAPI.getCurrentUser();
+      const userData = userRes.data;
+      
+      if (!userData.email_verified) {
+        navigate('/verification-required');
+        return;
+      }
+      
+      setUser(userData);
+      
       // Fetch data with individual error handling
-      const [userRes, hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.allSettled([
-        authAPI.getCurrentUser(),
+      const [hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.allSettled([
         hackathonAPI.getAll({ status: 'published' }),
         registrationAPI.getMyRegistrations(),
         teamAPI.getMy(),
