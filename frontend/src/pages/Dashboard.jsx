@@ -74,14 +74,7 @@ export default function Dashboard() {
       setNotifications(notifsRes.status === 'fulfilled' ? notifsRes.value.data : []);
       setMyReferralStats(referralRes.status === 'fulfilled' ? referralRes.value.data : null);
       
-      // Fetch certificates (non-blocking)
-      try {
-        if (userData && userData.email) {
-          await fetchMyCertificates(userData.email);
-        }
-      } catch (certError) {
-        console.log('Could not fetch certificates:', certError);
-      }
+      // Certificate feature removed
     } catch (error) {
       console.error('Dashboard error:', error);
       toast.error('Failed to load dashboard data');
