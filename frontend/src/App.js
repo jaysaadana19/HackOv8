@@ -28,10 +28,7 @@ function App() {
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
-        <Route path="/hackathon/:hackathonSlug/certificate" element={<MyCertificate />} />
-        <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
-        <Route path="/get-certificate" element={<GetCertificate />} />
-        <Route path="/certificate-service" element={<CertificateService />} />
+        {/* Certificate routes removed */}
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/verification-required" element={<VerificationRequired />} />
         <Route path="/organizer" element={<OrganizerDashboard />} />
