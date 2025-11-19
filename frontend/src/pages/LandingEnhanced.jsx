@@ -11,6 +11,7 @@ import { isAuthenticated, setAuth } from '@/lib/auth';
 import AuthModal from '@/components/AuthModal';
 import Footer from '@/components/Footer';
 import { getHackathonBanner } from '@/lib/bannerImages';
+import SEO from '@/components/SEO';
 
 export default function LandingEnhanced() {
   const navigate = useNavigate();
