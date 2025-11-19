@@ -25,8 +25,9 @@ import '@/App.css';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <HelmetProvider>
+      <div className="App">
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingEnhanced />} />
           <Route path="/auth/google/callback" element={<GoogleCallback />} />
