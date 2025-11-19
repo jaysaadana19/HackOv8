@@ -10,9 +10,16 @@ export default function TermsOfService() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b] flex flex-col">
-      {/* Navbar */}
-      <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
+    <>
+      <SEO 
+        title="Terms of Service - Hackov8"
+        description="Review Hackov8's terms of service to understand the rules and guidelines for using our hackathon platform."
+        keywords="terms of service, terms and conditions, user agreement, hackov8 terms"
+        url="https://hackov8.xyz/terms"
+      />
+      <div className="min-h-screen bg-[#0a0a0b] flex flex-col">
+        {/* Navbar */}
+        <nav className="border-b border-gray-900 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <Button
             variant="ghost"
