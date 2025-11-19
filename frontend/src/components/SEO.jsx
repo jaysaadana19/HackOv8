@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-console.log('SEO.jsx file loaded');
-
 export default function SEO({ 
   title = "Hackov8 - Discover & Participate in Hackathons",
   description = "Join Hackov8 to discover hackathons, build innovative projects, compete with developers worldwide, and win amazing prizes.",
@@ -10,15 +8,11 @@ export default function SEO({
   url = "https://hackov8.xyz",
   type = "website"
 }) {
-  console.log('SEO component rendered with title:', title);
   const fullTitle = title.includes('Hackov8') ? title : `${title} | Hackov8`;
   
   useEffect(() => {
-    console.log('SEO useEffect running with title:', fullTitle);
-    
     // Update title
     document.title = fullTitle;
-    console.log('Document title updated to:', document.title);
     
     // Helper to update or create meta tag
     const updateMetaTag = (selector, attribute, content) => {
