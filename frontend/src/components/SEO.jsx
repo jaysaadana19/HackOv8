@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 
 export default function SEO({ 
   title = "Hackov8 - Discover & Participate in Hackathons",
@@ -13,7 +12,7 @@ export default function SEO({
   const fullTitle = title.includes('Hackov8') ? title : `${title} | Hackov8`;
   
   return (
-    <Helmet>
+    <>
       {/* Primary Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="title" content={fullTitle} />
@@ -42,6 +41,6 @@ export default function SEO({
           {JSON.stringify(structuredData)}
         </script>
       )}
-    </Helmet>
+    </>
   );
 }
