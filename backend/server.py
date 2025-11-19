@@ -1876,9 +1876,6 @@ async def get_public_profile(slug: str):
     
     return public_profile
 
-    
-    return {"message": "Profile updated successfully"}
-
 @api_router.get("/users/{user_id}")
 async def get_user(user_id: str):
     user_doc = await db.users.find_one({"_id": user_id})
