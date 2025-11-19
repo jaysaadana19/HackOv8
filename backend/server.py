@@ -2013,6 +2013,19 @@ async def get_public_profile(slug: str):
     
     # Build public profile
     public_profile = {
+
+
+@api_router.get("/test/env-check")
+async def test_env_check():
+    """Test endpoint to check environment variables"""
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+    return {
+        "FRONTEND_URL": os.environ.get('FRONTEND_URL'),
+        "SMTP_USER": os.environ.get('SMTP_USER'),
+        "message": "Environment check"
+    }
+
         "name": user_doc.get("name"),
         "bio": user_doc.get("bio"),
         "profile_photo": user_doc.get("profile_photo"),
