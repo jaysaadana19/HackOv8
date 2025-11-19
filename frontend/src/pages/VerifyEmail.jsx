@@ -39,20 +39,11 @@ export default function VerifyEmail() {
       
       setStatus('success');
       setMessage(response.data.message || 'Email verified successfully!');
-      toast.success('Email verified! Redirecting...');
+      toast.success('Email verified! Redirecting to dashboard...');
       
-      // Redirect based on user role after 2 seconds
+      // Always redirect to main dashboard - user can access role dashboards from there
       setTimeout(() => {
-        const user = response.data.user;
-        const roleRoutes = {
-          'admin': '/admin',
-          'organizer': '/organizer',
-          'judge': '/judge',
-          'participant': '/dashboard'
-        };
-        
-        const redirectPath = roleRoutes[user?.role] || '/dashboard';
-        window.location.href = redirectPath;
+        window.location.href = '/dashboard';
       }, 2000);
     } catch (error) {
       console.error('Verification error:', error);
