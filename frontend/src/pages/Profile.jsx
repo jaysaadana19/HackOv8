@@ -44,11 +44,28 @@ export default function Profile() {
       setGithubLink(user.github_link || '');
       setLinkedinLink(user.linkedin_link || '');
       setProfileSlug(user.profile_slug || '');
+      setEmailVerified(user.email_verified || false);
+      setUserEmail(user.email || '');
       if (user.profile_photo) {
         setProfilePhotoPreview(`${process.env.REACT_APP_BACKEND_URL}${user.profile_photo}`);
       }
     } catch (error) {
       toast.error('Failed to load profile');
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setSendingVerification(true);
+    try {
+      await axios.post(`${API_URL}/auth/resend-verification`, {}, {
+        withCredentials: true,
+      });
+      toast.success('Verification email sent! Please check your inbox.');
+    } catch (error) {
+      console.error('Resend verification error:', error);
+      toast.error(error.response?.data?.detail || 'Failed to send verification email');
+    } finally {
+      setSendingVerification(false);
     }
   };
 
