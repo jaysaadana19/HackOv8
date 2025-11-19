@@ -194,6 +194,7 @@ export default function PublicProfile() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
