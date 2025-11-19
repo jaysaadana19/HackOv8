@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, Copy, CheckCircle, User } from 'lucide-react';
+import { Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, Copy, CheckCircle, User, Mail, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { authAPI, userAPI } from '@/lib/api';
 import { getUser } from '@/lib/auth';
@@ -22,10 +23,13 @@ export default function Profile() {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
   const [profileSlug, setProfileSlug] = useState('');
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [generatingSlug, setGeneratingSlug] = useState(false);
   const [slugCopied, setSlugCopied] = useState(false);
+  const [sendingVerification, setSendingVerification] = useState(false);
 
   useEffect(() => {
     fetchProfile();
