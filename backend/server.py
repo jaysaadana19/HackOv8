@@ -538,7 +538,7 @@ async def google_callback(request: GoogleCallbackRequest):
 async def github_login():
     """Initiate GitHub OAuth flow"""
     github_client_id = os.environ.get('GITHUB_CLIENT_ID')
-    frontend_url = os.environ.get('FRONTEND_URL', 'https://badgeflow-1.preview.emergentagent.com')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
     
     if not github_client_id:
         raise HTTPException(status_code=500, detail="GitHub OAuth not configured")
