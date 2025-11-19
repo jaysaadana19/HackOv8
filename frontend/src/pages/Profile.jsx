@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, ArrowLeft, Save, Github, Linkedin } from 'lucide-react';
+import { Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, Copy, CheckCircle, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,6 +8,9 @@ import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { authAPI, userAPI } from '@/lib/api';
 import { getUser } from '@/lib/auth';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -16,7 +19,13 @@ export default function Profile() {
   const [bio, setBio] = useState('');
   const [githubLink, setGithubLink] = useState('');
   const [linkedinLink, setLinkedinLink] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
+  const [profileSlug, setProfileSlug] = useState('');
   const [loading, setLoading] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [generatingSlug, setGeneratingSlug] = useState(false);
+  const [slugCopied, setSlugCopied] = useState(false);
 
   useEffect(() => {
     fetchProfile();
