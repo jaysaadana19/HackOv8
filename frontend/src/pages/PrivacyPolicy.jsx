@@ -4,6 +4,7 @@ import { ArrowLeft, Shield, Lock, Eye, UserCheck, Database, Globe } from 'lucide
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 export default function PrivacyPolicy() {
   const navigate = useNavigate();
