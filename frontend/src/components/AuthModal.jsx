@@ -76,6 +76,14 @@ export default function AuthModal({ onClose, onSuccess }) {
       const { session_token, ...user } = response.data;
       setAuth(session_token, user);
       
+      // Check if email is verified
+      if (!user.email_verified) {
+        toast.warning('Please verify your email to continue');
+        onClose();
+        window.location.href = '/verification-required';
+        return;
+      }
+      
       toast.success(`Welcome back, ${user.name}!`);
       onSuccess();
     } catch (error) {
