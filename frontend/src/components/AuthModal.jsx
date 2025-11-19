@@ -120,8 +120,9 @@ export default function AuthModal({ onClose, onSuccess }) {
       const { session_token, ...user } = response.data;
       setAuth(session_token, user);
       
-      toast.success(`Welcome to Hackov8, ${user.name}!`);
-      onSuccess();
+      toast.success(`Welcome to Hackov8, ${user.name}! Please verify your email.`);
+      onClose();
+      window.location.href = '/verification-required';
     } catch (error) {
       console.error('Signup error:', error);
       toast.error(formatErrorMessage(error, 'Signup failed'));
