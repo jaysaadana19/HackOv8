@@ -141,12 +141,10 @@ export default function LandingEnhanced() {
 
   return (
     <>
-      <SEO 
-        title="Hackov8 - Discover & Participate in Hackathons | Build, Compete, Win"
-        description="Join Hackov8 to discover hackathons, build innovative projects, compete with developers worldwide, and win amazing prizes. Create your hackathon portfolio today!"
-        keywords="hackathon, coding competition, developer events, programming contests, tech competitions, innovation challenges, build projects, developer community"
-        url="https://hackov8.xyz"
-      />
+      <title>Hackov8 - Discover & Participate in Hackathons | Build, Compete, Win</title>
+      <meta name="description" content="Join Hackov8 to discover hackathons, build innovative projects, compete with developers worldwide, and win amazing prizes. Create your hackathon portfolio today!" />
+      <meta property="og:title" content="Hackov8 - Discover & Participate in Hackathons | Build, Compete, Win" />
+      <meta property="og:description" content="Join Hackov8 to discover hackathons, build innovative projects, compete with developers worldwide, and win amazing prizes." />
       <div className="min-h-screen bg-[#0a0a0b] overflow-x-hidden">
         {/* Hero Section */}
         <div className="relative min-h-screen animated-bg" ref={heroRef}>
