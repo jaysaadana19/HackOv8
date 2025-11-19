@@ -1829,7 +1829,7 @@ async def verify_email(token: str):
         raise HTTPException(status_code=400, detail="Invalid verification token")
     
     if user.get("email_verified"):
-        return {"message": "Email already verified"}
+        return {"message": "Email already verified", "already_verified": True}
     
     # Update user as verified
     await db.users.update_one(
@@ -1837,7 +1837,28 @@ async def verify_email(token: str):
         {"$set": {"email_verified": True, "verification_token": None}}
     )
     
-    return {"message": "Email verified successfully"}
+    # Create a new session for the user so they can access dashboard
+    session_token = secrets.token_urlsafe(32)
+    session_data = {
+        "session_token": session_token,
+        "user_id": user["_id"],
+        "created_at": datetime.now(timezone.utc),
+        "expires_at": datetime.now(timezone.utc) + timedelta(days=7)
+    }
+    await db.user_sessions.insert_one(session_data)
+    
+    # Return session token so frontend can store it
+    return {
+        "message": "Email verified successfully",
+        "session_token": session_token,
+        "user": {
+            "id": user["_id"],
+            "email": user["email"],
+            "name": user.get("name"),
+            "role": user.get("role", "participant"),
+            "email_verified": True
+        }
+    }
 
 @api_router.post("/auth/resend-verification")
 async def resend_verification(request: Request):
