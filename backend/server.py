@@ -311,6 +311,112 @@ class UserUpdate(BaseModel):
     name: Optional[str] = None
     bio: Optional[str] = None
     github_link: Optional[str] = None
+
+
+# Email utility functions
+async def send_verification_email(to_email: str, user_name: str, verification_token: str):
+    """Send verification email to user"""
+    smtp_host = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
+    smtp_port = int(os.environ.get('SMTP_PORT', '587'))
+    smtp_user = os.environ.get('SMTP_USER')
+    smtp_password = os.environ.get('SMTP_PASSWORD')
+    from_email = os.environ.get('SMTP_FROM_EMAIL')
+    from_name = os.environ.get('SMTP_FROM_NAME', 'Hackov8')
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
+    
+    if not all([smtp_user, smtp_password, from_email]):
+        print("SMTP credentials not configured, skipping email send")
+        return False
+    
+    # Create verification URL
+    verification_url = f"{frontend_url}/verify-email?token={verification_token}"
+    
+    # Create email content
+    subject = "Verify Your Hackov8 Account"
+    
+    html_body = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+            .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }}
+            .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }}
+            .button {{ display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }}
+            .footer {{ text-align: center; margin-top: 20px; font-size: 12px; color: #666; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🚀 Welcome to Hackov8!</h1>
+            </div>
+            <div class="content">
+                <h2>Hi {user_name},</h2>
+                <p>Thank you for signing up for Hackov8! We're excited to have you join our hackathon community.</p>
+                <p>To complete your registration and start exploring hackathons, please verify your email address by clicking the button below:</p>
+                <div style="text-align: center;">
+                    <a href="{verification_url}" class="button">Verify Email Address</a>
+                </div>
+                <p>Or copy and paste this link into your browser:</p>
+                <p style="word-break: break-all; color: #667eea;">{verification_url}</p>
+                <p><strong>This link will expire in 24 hours.</strong></p>
+                <p>If you didn't create an account with Hackov8, you can safely ignore this email.</p>
+                <p>Best regards,<br>The Hackov8 Team</p>
+            </div>
+            <div class="footer">
+                <p>© 2025 Hackov8. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    
+    text_body = f"""
+    Hi {user_name},
+    
+    Thank you for signing up for Hackov8!
+    
+    To complete your registration, please verify your email address by clicking the link below:
+    {verification_url}
+    
+    This link will expire in 24 hours.
+    
+    If you didn't create an account with Hackov8, you can safely ignore this email.
+    
+    Best regards,
+    The Hackov8 Team
+    """
+    
+    # Create message
+    message = MIMEMultipart('alternative')
+    message['Subject'] = subject
+    message['From'] = f"{from_name} <{from_email}>"
+    message['To'] = to_email
+    
+    # Attach both plain text and HTML versions
+    part1 = MIMEText(text_body, 'plain')
+    part2 = MIMEText(html_body, 'html')
+    message.attach(part1)
+    message.attach(part2)
+    
+    try:
+        # Send email using aiosmtplib
+        await aiosmtplib.send(
+            message,
+            hostname=smtp_host,
+            port=smtp_port,
+            username=smtp_user,
+            password=smtp_password,
+            start_tls=True,
+        )
+        print(f"Verification email sent to {to_email}")
+        return True
+    except Exception as e:
+        print(f"Failed to send email to {to_email}: {str(e)}")
+        return False
+
     linkedin_link: Optional[str] = None
     profile_slug: Optional[str] = None
     profile_photo: Optional[str] = None
