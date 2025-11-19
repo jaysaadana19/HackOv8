@@ -506,16 +506,16 @@ export default function LandingEnhanced() {
         </div>
       </div>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
 
-      {/* Auth Modal */}
-      {showAuthModal && (
-        <AuthModal
-          onClose={() => setShowAuthModal(false)}
-          onSuccess={handleAuthSuccess}
-        />
-      )}
+        {/* Auth Modal */}
+        {showAuthModal && (
+          <AuthModal
+            onClose={() => setShowAuthModal(false)}
+            onSuccess={handleAuthSuccess}
+          />
+        )}
       </div>
     </>
   );
