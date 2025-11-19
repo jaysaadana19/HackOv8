@@ -2075,7 +2075,11 @@ async def get_sitemap():
             sitemap += '  <url>\n'
             sitemap += f'    <loc>{base_url}/hackathons/{hackathon["slug"]}</loc>\n'
             if hackathon.get('updated_at'):
-                sitemap += f'    <lastmod>{hackathon["updated_at"][:10]}</lastmod>\n'
+                updated_date = hackathon["updated_at"]
+                if hasattr(updated_date, 'strftime'):
+                    sitemap += f'    <lastmod>{updated_date.strftime("%Y-%m-%d")}</lastmod>\n'
+                else:
+                    sitemap += f'    <lastmod>{str(updated_date)[:10]}</lastmod>\n'
             else:
                 sitemap += f'    <lastmod>{current_date}</lastmod>\n'
             sitemap += '    <changefreq>weekly</changefreq>\n'
