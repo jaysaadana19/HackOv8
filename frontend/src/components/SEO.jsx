@@ -58,5 +58,5 @@ export default function SEO({
     canonical.setAttribute('href', url);
   }, [fullTitle, description, keywords, ogImage, url, type]);
   
-  return null;
+  return <div style={{display: 'none'}} data-seo-loaded="true" />;
 }
