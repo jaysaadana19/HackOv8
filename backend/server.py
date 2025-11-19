@@ -2025,6 +2025,130 @@ async def get_public_profile(slug: str):
     return public_profile
 
 @api_router.get("/users/{user_id}")
+
+
+@api_router.get("/sitemap.xml")
+async def get_sitemap():
+    """Generate dynamic sitemap for SEO"""
+    from datetime import datetime
+    
+    # Get all published hackathons
+    hackathons = await db.hackathons.find({"status": "published"}).to_list(length=None)
+    
+    # Get all public profiles
+    users_with_slugs = await db.users.find({"profile_slug": {"$exists": True, "$ne": None}}).to_list(length=None)
+    
+    base_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    
+    # Build sitemap XML
+    sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # Homepage
+    sitemap += '  <url>\n'
+    sitemap += f'    <loc>{base_url}</loc>\n'
+    sitemap += f'    <lastmod>{current_date}</lastmod>\n'
+    sitemap += '    <changefreq>daily</changefreq>\n'
+    sitemap += '    <priority>1.0</priority>\n'
+    sitemap += '  </url>\n'
+    
+    # About page
+    sitemap += '  <url>\n'
+    sitemap += f'    <loc>{base_url}/about</loc>\n'
+    sitemap += f'    <lastmod>{current_date}</lastmod>\n'
+    sitemap += '    <changefreq>monthly</changefreq>\n'
+    sitemap += '    <priority>0.8</priority>\n'
+    sitemap += '  </url>\n'
+    
+    # Certificate service
+    sitemap += '  <url>\n'
+    sitemap += f'    <loc>{base_url}/certificate-service</loc>\n'
+    sitemap += f'    <lastmod>{current_date}</lastmod>\n'
+    sitemap += '    <changefreq>monthly</changefreq>\n'
+    sitemap += '    <priority>0.7</priority>\n'
+    sitemap += '  </url>\n'
+    
+    # Individual hackathons
+    for hackathon in hackathons:
+        if hackathon.get('slug'):
+            sitemap += '  <url>\n'
+            sitemap += f'    <loc>{base_url}/hackathons/{hackathon["slug"]}</loc>\n'
+            if hackathon.get('updated_at'):
+                sitemap += f'    <lastmod>{hackathon["updated_at"][:10]}</lastmod>\n'
+            else:
+                sitemap += f'    <lastmod>{current_date}</lastmod>\n'
+            sitemap += '    <changefreq>weekly</changefreq>\n'
+            sitemap += '    <priority>0.9</priority>\n'
+            sitemap += '  </url>\n'
+    
+    # Public profiles
+    for user in users_with_slugs:
+        if user.get('profile_slug'):
+            sitemap += '  <url>\n'
+            sitemap += f'    <loc>{base_url}/profile/{user["profile_slug"]}</loc>\n'
+            sitemap += f'    <lastmod>{current_date}</lastmod>\n'
+            sitemap += '    <changefreq>monthly</changefreq>\n'
+            sitemap += '    <priority>0.6</priority>\n'
+            sitemap += '  </url>\n'
+    
+    sitemap += '</urlset>'
+    
+    return Response(content=sitemap, media_type="application/xml")
+
+@api_router.get("/hackathons/{hackathon_slug}/structured-data")
+async def get_hackathon_structured_data(hackathon_slug: str):
+    """Get structured data (JSON-LD) for a hackathon for SEO"""
+    hackathon = await db.hackathons.find_one({"slug": hackathon_slug})
+    if not hackathon:
+        raise HTTPException(status_code=404, detail="Hackathon not found")
+    
+    base_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
+    
+    # Build JSON-LD structured data for events
+    structured_data = {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": hackathon.get("name", ""),
+        "description": hackathon.get("description", "")[:200] if hackathon.get("description") else "",
+        "url": f"{base_url}/hackathons/{hackathon_slug}",
+        "eventStatus": "https://schema.org/EventScheduled" if hackathon.get("status") == "published" else "https://schema.org/EventCancelled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode" if hackathon.get("mode") == "offline" else "https://schema.org/OnlineEventAttendanceMode",
+        "location": {
+            "@type": "Place",
+            "name": hackathon.get("location", "Online"),
+            "address": hackathon.get("location", "Online")
+        },
+        "organizer": {
+            "@type": "Organization",
+            "name": "Hackov8",
+            "url": base_url
+        }
+    }
+    
+    # Add dates if available
+    if hackathon.get("start_date"):
+        structured_data["startDate"] = hackathon["start_date"]
+    if hackathon.get("end_date"):
+        structured_data["endDate"] = hackathon["end_date"]
+    
+    # Add image if available
+    if hackathon.get("banner_image"):
+        structured_data["image"] = f"{base_url}{hackathon['banner_image']}"
+    
+    # Add offers/prizes
+    if hackathon.get("prizes") and len(hackathon["prizes"]) > 0:
+        total_prize = sum(prize.get("amount", 0) for prize in hackathon["prizes"])
+        if total_prize > 0:
+            structured_data["offers"] = {
+                "@type": "Offer",
+                "price": total_prize,
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock"
+            }
+    
+    return structured_data
+
 async def get_user(user_id: str):
     user_doc = await db.users.find_one({"_id": user_id})
     if not user_doc:
