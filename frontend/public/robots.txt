@@ -1,0 +1,17 @@
+# Hackov8 Robots.txt
+User-agent: *
+Allow: /
+Allow: /hackathons
+Allow: /profile/*
+Allow: /about
+Allow: /certificate-service
+
+# Disallow private pages
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /admin
+Disallow: /verification-required
+Disallow: /verify-email
+
+# Sitemap location
+Sitemap: https://hackov8.xyz/sitemap.xml
