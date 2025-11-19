@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+console.log('SEO.jsx file loaded');
+
 export default function SEO({ 
   title = "Hackov8 - Discover & Participate in Hackathons",
   description = "Join Hackov8 to discover hackathons, build innovative projects, compete with developers worldwide, and win amazing prizes.",
