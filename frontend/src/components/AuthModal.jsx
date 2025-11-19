@@ -96,20 +96,12 @@ export default function AuthModal({ onClose, onSuccess }) {
       toast.success(`Welcome back, ${user.name}!`);
       onClose();
       
-      // Store redirect path based on role
-      const roleRoutes = {
-        'admin': '/admin',
-        'organizer': '/organizer',
-        'judge': '/judge',
-        'participant': '/dashboard'
-      };
+      // Always redirect to main dashboard regardless of role
+      // User can access role-specific dashboards from navigation
+      console.log('Redirecting to: /dashboard');
       
-      const redirectPath = roleRoutes[user.role] || '/dashboard';
-      console.log('Redirecting to:', redirectPath);
-      
-      // Force redirect with full page reload
       setTimeout(() => {
-        window.location.href = redirectPath;
+        window.location.href = '/dashboard';
       }, 100);
     } catch (error) {
       console.error('Login error:', error);
