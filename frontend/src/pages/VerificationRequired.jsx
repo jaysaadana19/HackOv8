@@ -17,7 +17,9 @@ export default function VerificationRequired() {
   const handleResendVerification = async () => {
     setSending(true);
     try {
-      await axios.post(`${API_URL}/auth/resend-verification`, {}, {
+      await axios.post(`${API_URL}/auth/resend-verification`, {
+        email: user?.email
+      }, {
         withCredentials: true,
       });
       toast.success('Verification email sent! Please check your inbox.');
