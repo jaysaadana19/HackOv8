@@ -19,6 +19,7 @@ import VerifyCertificate from '@/pages/VerifyCertificate';
 import CertificateService from '@/pages/CertificateService';
 import GetCertificate from '@/pages/GetCertificate';
 import VerifyEmail from '@/pages/VerifyEmail';
+import VerificationRequired from '@/pages/VerificationRequired';
 import '@/App.css';
 
 function App() {
