@@ -4,6 +4,7 @@ import { ArrowLeft, FileText, CheckCircle, XCircle, AlertTriangle, Scale, Users 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 export default function TermsOfService() {
   const navigate = useNavigate();
