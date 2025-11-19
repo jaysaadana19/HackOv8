@@ -11,6 +11,8 @@ export default function SEO({
   const fullTitle = title.includes('Hackov8') ? title : `${title} | Hackov8`;
   
   useEffect(() => {
+    console.log('[SEO] Running useEffect for:', fullTitle);
+    
     // Update title
     document.title = fullTitle;
     
