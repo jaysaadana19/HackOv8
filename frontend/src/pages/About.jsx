@@ -9,8 +9,15 @@ export default function About() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b]">
-      <nav className="border-b border-gray-900 bg-gray-950/50">
+    <>
+      <SEO 
+        title="About Us - Hackov8"
+        description="Hackov8 is the ultimate platform for hosting, managing, and participating in hackathons. Learn about our mission to streamline the entire hackathon experience from registration to winner announcements."
+        keywords="about hackov8, hackathon platform, developer community, innovation platform"
+        url="https://hackov8.xyz/about"
+      />
+      <div className="min-h-screen bg-[#0a0a0b]">
+        <nav className="border-b border-gray-900 bg-gray-950/50">
         <div className="container mx-auto px-6 py-4 flex items-center gap-4">
           <Button variant="ghost" onClick={() => navigate('/')} className="text-gray-400">
             <ArrowLeft className="w-5 h-5" />
