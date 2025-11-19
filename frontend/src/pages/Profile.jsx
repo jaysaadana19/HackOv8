@@ -149,6 +149,75 @@ export default function Profile() {
 
         <Card className="glass-effect p-8">
           <div className="space-y-6">
+            {/* Profile Photo Section */}
+            <div className="flex flex-col items-center mb-6">
+              <div className="relative">
+                <div className="w-32 h-32 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border-4 border-purple-600">
+                  {profilePhotoPreview ? (
+                    <img src={profilePhotoPreview} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-16 h-16 text-gray-500" />
+                  )}
+                </div>
+                <label htmlFor="photo-upload" className="absolute bottom-0 right-0 bg-purple-600 rounded-full p-2 cursor-pointer hover:bg-purple-700 transition">
+                  <Camera className="w-5 h-5 text-white" />
+                  <input
+                    id="photo-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoSelect}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+              {profilePhoto && (
+                <Button
+                  onClick={handlePhotoUpload}
+                  disabled={uploadingPhoto}
+                  className="mt-4 bg-purple-600 hover:bg-purple-700"
+                  size="sm"
+                >
+                  {uploadingPhoto ? 'Uploading...' : 'Upload Photo'}
+                </Button>
+              )}
+            </div>
+
+            {/* Public Profile Slug Section */}
+            <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 p-4 rounded-lg border border-purple-800">
+              <label className="block text-sm font-semibold text-gray-400 mb-2 flex items-center">
+                <LinkIcon className="w-4 h-4 inline mr-2" />
+                Public Profile URL
+              </label>
+              {profileSlug ? (
+                <div className="flex gap-2">
+                  <Input
+                    type="text"
+                    value={`${window.location.origin}/profile/${profileSlug}`}
+                    readOnly
+                    className="bg-gray-900/50 border-gray-800 text-white"
+                  />
+                  <Button
+                    onClick={copyProfileUrl}
+                    size="icon"
+                    className="bg-purple-600 hover:bg-purple-700"
+                  >
+                    {slugCopied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleGenerateSlug}
+                  disabled={generatingSlug}
+                  className="w-full bg-purple-600 hover:bg-purple-700"
+                >
+                  {generatingSlug ? 'Generating...' : 'Generate Public Profile URL'}
+                </Button>
+              )}
+              <p className="text-xs text-gray-500 mt-2">
+                Share this URL to showcase your hackathon participation history
+              </p>
+            </div>
+
             <div>
               <label className="block text-sm font-semibold text-gray-400 mb-2">Name</label>
               <Input
