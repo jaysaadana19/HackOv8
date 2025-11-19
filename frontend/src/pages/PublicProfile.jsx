@@ -21,12 +21,21 @@ export default function PublicProfile() {
 
   const fetchPublicProfile = async () => {
     try {
+      console.log('Fetching profile for slug:', slug);
       const response = await axios.get(`${API_URL}/profile/${slug}`);
+      console.log('Profile data received:', response.data);
       setProfile(response.data);
     } catch (error) {
       console.error('Error fetching profile:', error);
-      toast.error('Profile not found');
-      setTimeout(() => navigate('/'), 2000);
+      console.error('Error details:', error.response?.data);
+      
+      if (error.response?.status === 404) {
+        toast.error('Profile not found. The user may not have created a public profile yet.');
+      } else {
+        toast.error('Failed to load profile. Please try again.');
+      }
+      
+      setTimeout(() => navigate('/'), 3000);
     } finally {
       setLoading(false);
     }
