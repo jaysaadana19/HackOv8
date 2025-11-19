@@ -309,6 +309,8 @@ class UserUpdate(BaseModel):
     bio: Optional[str] = None
     github_link: Optional[str] = None
     linkedin_link: Optional[str] = None
+    profile_slug: Optional[str] = None
+    profile_photo: Optional[str] = None
 
 # ==================== AUTH HELPER ====================
 
