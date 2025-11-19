@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [selectedHackathonForReferral, setSelectedHackathonForReferral] = useState(null);
   const [myReferralStats, setMyReferralStats] = useState(null);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [myCertificates, setMyCertificates] = useState([]);
+  // Certificate feature removed
 
   useEffect(() => {
     if (theme === 'light') {
