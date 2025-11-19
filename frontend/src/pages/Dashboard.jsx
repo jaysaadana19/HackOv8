@@ -99,6 +99,7 @@ export default function Dashboard() {
       console.log('Failed to fetch certificates');
     }
   };
+  */
 
   const handleLogout = async () => {
     try {
