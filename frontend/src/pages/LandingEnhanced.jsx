@@ -119,9 +119,9 @@ export default function LandingEnhanced() {
     setShowAuthModal(true);
   };
 
-  const handleAuthSuccess = () => {
+  const handleAuthSuccess = (redirectPath = '/dashboard') => {
     setShowAuthModal(false);
-    navigate('/dashboard');
+    navigate(redirectPath);
   };
 
   const filteredHackathons = hackathons.filter((h) => {
