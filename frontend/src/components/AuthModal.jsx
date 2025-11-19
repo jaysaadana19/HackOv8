@@ -131,6 +131,7 @@ export default function AuthModal({ onClose, onSuccess }) {
       const { session_token, ...user } = response.data;
       setAuth(session_token, user);
       
+      // New users always need to verify email first
       toast.success(`Welcome to Hackov8, ${user.name}! Please verify your email.`);
       onClose();
       window.location.href = '/verification-required';
