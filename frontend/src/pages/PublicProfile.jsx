@@ -54,10 +54,20 @@ export default function PublicProfile() {
     return null;
   }
 
+  const profileDescription = profile.bio || `View ${profile.name}'s hackathon portfolio on Hackov8. See all hackathons they've participated in and their achievements.`;
+  
   return (
-    <div className="min-h-screen bg-[#0a0a0b]">
-      {/* Navigation */}
-      <nav className="border-b border-gray-900 bg-gray-950/50">
+    <>
+      <SEO 
+        title={`${profile.name} - Hackathon Portfolio`}
+        description={profileDescription}
+        keywords={`${profile.name}, hackathon portfolio, developer profile, ${profile.role}, coding competitions`}
+        url={`https://hackov8.xyz/profile/${slug}`}
+        ogImage={profile.profile_photo ? `https://hackov8.xyz${profile.profile_photo}` : 'https://hackov8.xyz/og-image.png'}
+      />
+      <div className="min-h-screen bg-[#0a0a0b]">
+        {/* Navigation */}
+        <nav className="border-b border-gray-900 bg-gray-950/50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="ghost" onClick={() => navigate('/')} className="text-gray-400 hover:text-white">
