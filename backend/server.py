@@ -461,6 +461,16 @@ async def require_role(user: User, allowed_roles: List[str]):
     if user.role not in allowed_roles:
         raise HTTPException(status_code=403, detail="Insufficient permissions")
 
+async def get_verified_user(request: Request) -> User:
+    """Get current user and ensure email is verified"""
+    user = await get_current_user(request)
+    if not user.email_verified:
+        raise HTTPException(
+            status_code=403, 
+            detail="Email verification required. Please check your email and verify your account."
+        )
+    return user
+
 # ==================== HELPER FUNCTIONS ====================
 
 def generate_slug(title: str, existing_slugs: List[str] = []) -> str:
