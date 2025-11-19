@@ -1847,7 +1847,7 @@ async def check_user_slug(request: Request):
     }
 
 
-@api_router.get("/public-profile/{slug}")
+@api_router.get("/users/public/{slug}")
 async def get_public_profile(slug: str):
     """Get public profile by slug"""
     user_doc = await db.users.find_one({"profile_slug": slug})
