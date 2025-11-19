@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import axios from 'axios';
+import SEO from '@/components/SEO';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 
