@@ -1845,7 +1845,7 @@ async def resend_verification(request: Request):
     user = None
     try:
         user = await get_current_user(request)
-    except:
+    except HTTPException:
         pass
     
     # If user is logged in, use their email
