@@ -10,7 +10,7 @@ import tempfile
 from PIL import Image
 
 class CertificateDownloadTester:
-    def __init__(self, base_url="https://badgeflow-1.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hacktracker-2.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.organizer_session_token = None
         self.organizer_user_id = None
@@ -360,7 +360,7 @@ certificates.forEach(function(cert) {{
             self.log_test("Test download access", False, "No certificate URLs available")
             return False
         
-        backend_url = "https://badgeflow-1.preview.emergentagent.com"
+        backend_url = "https://hacktracker-2.preview.emergentagent.com"
         
         for i, cert_url in enumerate(self.certificate_urls, 1):
             print(f"\n🔍 Testing Certificate {i}: {cert_url}")

@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://badgeflow-1.preview.emergentagent.com
+**Live Demo:** https://hacktracker-2.preview.emergentagent.com

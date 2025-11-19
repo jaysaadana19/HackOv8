@@ -10,7 +10,7 @@ from PIL import Image
 import io
 
 class CertificateSystemTester:
-    def __init__(self, base_url="https://badgeflow-1.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hacktracker-2.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.organizer_session_token = None
         self.organizer_user_id = None

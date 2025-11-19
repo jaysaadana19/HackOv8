@@ -28,13 +28,13 @@ Find the client: `254236410039-vemtq5so6cq13s1a7mhscvron7kdgp5r.apps.googleuserc
 
 ### Step 3: Configure Authorized JavaScript Origins
 Add these URLs:
-- `https://badgeflow-1.preview.emergentagent.com`
+- `https://hacktracker-2.preview.emergentagent.com`
 - `http://localhost:3000` (for local testing)
 
 ### Step 4: Configure Authorized Redirect URIs
 Add these URLs:
-- `https://badgeflow-1.preview.emergentagent.com`
-- `https://badgeflow-1.preview.emergentagent.com/dashboard`
+- `https://hacktracker-2.preview.emergentagent.com`
+- `https://hacktracker-2.preview.emergentagent.com/dashboard`
 - `http://localhost:3000` (for local testing)
 
 ### Step 5: Save Changes
@@ -44,7 +44,7 @@ Click "Save" at the bottom of the page.
 
 After configuring Google Cloud Console:
 
-1. Open: https://badgeflow-1.preview.emergentagent.com
+1. Open: https://hacktracker-2.preview.emergentagent.com
 2. Click "Get Started" button
 3. Click "Sign in with Google" button
 4. Complete Google authentication
@@ -53,7 +53,7 @@ After configuring Google Cloud Console:
 ## ⚠️ Common Issues
 
 **Issue: "redirect_uri_mismatch" error**
-- Solution: Make sure you added `https://badgeflow-1.preview.emergentagent.com` to Authorized JavaScript origins in Google Cloud Console
+- Solution: Make sure you added `https://hacktracker-2.preview.emergentagent.com` to Authorized JavaScript origins in Google Cloud Console
 
 **Issue: "idpiframe_initialization_failed" error**
 - Solution: Make sure your domain is added to Authorized JavaScript origins (not just redirect URIs)

@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone, timedelta
 
 class GoogleOAuthDebugTester:
-    def __init__(self, base_url="https://badgeflow-1.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://hacktracker-2.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.test_results = []
         
