@@ -53,60 +53,6 @@ export default function LandingEnhanced() {
     animateCounts();
   }, []);
 
-  const handleGitHubCallback = async (token) => {
-    setLoading(true);
-    
-    if (!token) {
-      toast.error('GitHub authentication failed - no token received');
-      window.history.replaceState({}, document.title, '/');
-      setLoading(false);
-      return;
-    }
-    
-    try {
-      // Temporarily set token to make authenticated request
-      localStorage.setItem('session_token', token);
-      
-      // Get user info using the session token
-      const response = await authAPI.getCurrentUser();
-      const user = response.data;
-      
-      // Save user info
-      localStorage.setItem('user', JSON.stringify(user));
-      
-      window.history.replaceState({}, document.title, '/dashboard');
-      
-      toast.success(`Welcome, ${user.name}!`);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('GitHub auth error:', error);
-      toast.error('GitHub authentication failed');
-      localStorage.removeItem('session_token');
-      window.history.replaceState({}, document.title, '/');
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  const handleGitHubError = (errorType) => {
-    const errorMessages = {
-      'access_denied': 'You denied access to GitHub',
-      'config_error': 'GitHub OAuth is not configured properly',
-      'no_code': 'GitHub authorization code is missing',
-      'token_exchange_failed': 'Failed to exchange code for access token',
-      'no_access_token': 'No access token received from GitHub',
-      'user_info_failed': 'Failed to retrieve user information from GitHub',
-      'invalid_user_data': 'Invalid user data received from GitHub',
-      'server_error': 'An error occurred during GitHub authentication',
-      'unknown': 'GitHub authentication failed'
-    };
-    
-    const message = errorMessages[errorType] || errorMessages['unknown'];
-    toast.error(message);
-    window.history.replaceState({}, document.title, '/');
-    setLoading(false);
-  };
-
   const handleAuthCallback = async (fragment) => {
     setLoading(true);
     const sessionId = fragment.split('session_id=')[1]?.split('&')[0];
