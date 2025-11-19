@@ -10,6 +10,7 @@ export default function SEO({
   url = "https://hackov8.xyz",
   type = "website"
 }) {
+  console.log('SEO component rendered with title:', title);
   const fullTitle = title.includes('Hackov8') ? title : `${title} | Hackov8`;
   
   useEffect(() => {
