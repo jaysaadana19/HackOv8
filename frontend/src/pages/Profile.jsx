@@ -39,9 +39,79 @@ export default function Profile() {
       setBio(user.bio || '');
       setGithubLink(user.github_link || '');
       setLinkedinLink(user.linkedin_link || '');
+      setProfileSlug(user.profile_slug || '');
+      if (user.profile_photo) {
+        setProfilePhotoPreview(`${process.env.REACT_APP_BACKEND_URL}${user.profile_photo}`);
+      }
     } catch (error) {
       toast.error('Failed to load profile');
     }
+  };
+
+  const handlePhotoSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
+      setProfilePhoto(file);
+      setProfilePhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handlePhotoUpload = async () => {
+    if (!profilePhoto) {
+      toast.error('Please select a photo first');
+      return;
+    }
+
+    setUploadingPhoto(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', profilePhoto);
+
+      const response = await axios.post(`${API_URL}/users/profile-photo`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      });
+
+      toast.success('Profile photo uploaded successfully!');
+      setProfilePhotoPreview(`${process.env.REACT_APP_BACKEND_URL}${response.data.photo_url}`);
+      setProfilePhoto(null);
+    } catch (error) {
+      console.error('Photo upload error:', error);
+      toast.error('Failed to upload photo');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
+  const handleGenerateSlug = async () => {
+    setGeneratingSlug(true);
+    try {
+      const response = await axios.post(`${API_URL}/users/generate-slug`, {}, {
+        withCredentials: true,
+      });
+
+      setProfileSlug(response.data.slug);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.error('Slug generation error:', error);
+      toast.error('Failed to generate profile slug');
+    } finally {
+      setGeneratingSlug(false);
+    }
+  };
+
+  const copyProfileUrl = () => {
+    const profileUrl = `${window.location.origin}/profile/${profileSlug}`;
+    navigator.clipboard.writeText(profileUrl);
+    setSlugCopied(true);
+    toast.success('Profile URL copied to clipboard!');
+    setTimeout(() => setSlugCopied(false), 2000);
   };
 
   const handleSave = async () => {
