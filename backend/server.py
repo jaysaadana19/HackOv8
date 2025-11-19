@@ -52,9 +52,19 @@ class User(BaseModel):
     bio: Optional[str] = None
     github_link: Optional[str] = None
     linkedin_link: Optional[str] = None
+    twitter_link: Optional[str] = None
+    portfolio_link: Optional[str] = None
     github_id: Optional[int] = None  # GitHub OAuth user ID
     github_login: Optional[str] = None  # GitHub username
     company_id: Optional[str] = None  # Link to company if organizer
+    # CV Fields
+    current_status: Optional[str] = None  # "studying" or "working"
+    current_role: Optional[str] = None  # e.g., "Software Engineer", "Student"
+    current_company: Optional[str] = None  # Company or University name
+    location: Optional[str] = None
+    skills: Optional[List[str]] = []
+    experience: Optional[List[dict]] = []  # [{title, company, duration, description}]
+    education: Optional[List[dict]] = []  # [{degree, institution, year, description}]
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     last_login: Optional[datetime] = None  # Track user logins for retention
     email_verified: bool = False
