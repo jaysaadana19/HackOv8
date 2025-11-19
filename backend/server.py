@@ -1849,6 +1849,41 @@ async def change_password(old_password: str, new_password: str, request: Request
         {"$set": {"password_hash": hashed_password}}
     )
     
+
+    return {"message": "Password changed successfully"}
+
+class SetPasswordRequest(BaseModel):
+    password: str
+
+@api_router.post("/auth/set-password")
+async def set_password(request_data: SetPasswordRequest, request: Request):
+    """Allow Google OAuth users to set a password for backup login"""
+    user = await get_current_user(request)
+    
+    # Get user from database
+    user_doc = await db.users.find_one({"_id": user.id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if user already has a password
+    if user_doc.get("password_hash"):
+        raise HTTPException(status_code=400, detail="Password already set. Use change password instead.")
+    
+    # Validate password strength
+    if len(request_data.password) < 6:
+        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+    
+    # Hash the new password
+    password_hash = pwd_context.hash(request_data.password)
+    
+    # Update user with password
+    await db.users.update_one(
+        {"_id": user.id},
+        {"$set": {"password_hash": password_hash}}
+    )
+    
+    return {"message": "Password set successfully. You can now login with email and password."}
+
     return {"message": "Password changed successfully"}
 
 @api_router.get("/auth/verify-email")
