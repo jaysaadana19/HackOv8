@@ -52,6 +52,7 @@ function App() {
       </BrowserRouter>
       <Toaster position="top-right" expand={true} richColors />
     </div>
+    </HelmetProvider>
   );
 }
 
