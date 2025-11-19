@@ -324,6 +324,9 @@ async def send_verification_email(to_email: str, user_name: str, verification_to
     from_name = os.environ.get('SMTP_FROM_NAME', 'Hackov8')
     frontend_url = os.environ.get('FRONTEND_URL', 'https://hackov8.xyz')
     
+    print(f"📧 EMAIL DEBUG - FRONTEND_URL from env: {frontend_url}")
+    print(f"📧 EMAIL DEBUG - All env keys: {list(os.environ.keys())[:10]}")
+    
     if not all([smtp_user, smtp_password, from_email]):
         print("SMTP credentials not configured, skipping email send")
         return False
