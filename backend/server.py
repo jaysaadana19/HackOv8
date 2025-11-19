@@ -2024,17 +2024,6 @@ async def get_public_profile(slug: str):
     
     return public_profile
 
-        "name": user_doc.get("name"),
-        "bio": user_doc.get("bio"),
-        "profile_photo": user_doc.get("profile_photo"),
-        "github_link": user_doc.get("github_link"),
-        "linkedin_link": user_doc.get("linkedin_link"),
-        "role": user_doc.get("role"),
-        "participated_hackathons": participated_hackathons
-    }
-    
-    return public_profile
-
 @api_router.get("/users/{user_id}")
 async def get_user(user_id: str):
     user_doc = await db.users.find_one({"_id": user_id})
