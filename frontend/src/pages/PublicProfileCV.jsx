@@ -242,7 +242,20 @@ export default function PublicProfileCV() {
           </div>
 
           {/* Content */}
-          <div className="p-8 md:p-12 space-y-12 print:space-y-8">
+          <div className="p-8 md:p-12 space-y-10 bg-white print:space-y-6">
+
+            {/* Current Status Banner */}
+            {profile.current_status && (
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-l-4 border-purple-500 p-6 rounded-lg print:break-inside-avoid">
+                <div className="flex items-center gap-3">
+                  <Target className="w-6 h-6 text-purple-600" />
+                  <div>
+                    <p className="text-sm text-gray-600 font-medium">Current Status</p>
+                    <p className="text-lg font-semibold text-gray-800">{profile.current_status}</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Skills with 3D effect */}
             {profile.skills && profile.skills.length > 0 && (
@@ -259,7 +272,7 @@ export default function PublicProfileCV() {
                   {profile.skills.map((skill, idx) => (
                     <span 
                       key={idx}
-                      className="skill-badge px-5 py-2.5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-lg hover:shadow-2xl print:bg-purple-100 print:text-purple-700 print:border print:border-purple-300"
+                      className="skill-badge px-5 py-2.5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-lg print:bg-purple-100 print:text-purple-700 print:border print:border-purple-300 print:shadow-none"
                     >
                       {skill}
                     </span>
@@ -271,24 +284,36 @@ export default function PublicProfileCV() {
             {/* Experience */}
             {profile.experience && profile.experience.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <Briefcase className="w-6 h-6 text-purple-600" />
-                  Experience
-                </h2>
-                <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    Work <span className="gradient-text">Experience</span>
+                  </h2>
+                </div>
+                <div className="space-y-8">
                   {profile.experience.map((exp, idx) => (
-                    <div key={idx} className="border-l-2 border-purple-600 pl-4 print:break-inside-avoid">
-                      <h3 className="text-lg font-semibold text-gray-800">{exp.title}</h3>
-                      <div className="text-purple-600 font-medium">{exp.company}</div>
-                      <div className="text-sm text-gray-500 flex items-center gap-1 mt-1">
-                        <Calendar className="w-3 h-3" />
-                        {formatDate(exp.start_date)} - {exp.current ? 'Present' : formatDate(exp.end_date)}
+                    <div key={idx} className="relative pl-8 pb-8 border-l-2 border-purple-200 last:border-l-0 last:pb-0 print:break-inside-avoid">
+                      <div className="absolute left-0 top-0 w-4 h-4 bg-purple-500 rounded-full -translate-x-[9px] ring-4 ring-white"></div>
+                      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                          <h3 className="text-xl font-bold text-gray-800">{exp.role}</h3>
+                          <span className="text-sm text-gray-500 flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {formatDate(exp.start_date)} - {exp.end_date ? formatDate(exp.end_date) : 'Present'}
+                          </span>
+                        </div>
+                        <div className="text-purple-600 font-semibold mb-3 flex items-center gap-2">
+                          <Briefcase className="w-4 h-4" />
+                          {exp.company}
+                        </div>
+                        {exp.description && (
+                          <p className="text-gray-700 leading-relaxed">
+                            {exp.description}
+                          </p>
+                        )}
                       </div>
-                      {exp.description && (
-                        <p className="mt-2 text-gray-700 text-sm leading-relaxed">
-                          {exp.description}
-                        </p>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -298,18 +323,27 @@ export default function PublicProfileCV() {
             {/* Education */}
             {profile.education && profile.education.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <GraduationCap className="w-6 h-6 text-purple-600" />
-                  Education
-                </h2>
-                <div className="space-y-4">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <GraduationCap className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    <span className="gradient-text">Education</span>
+                  </h2>
+                </div>
+                <div className="space-y-6">
                   {profile.education.map((edu, idx) => (
-                    <div key={idx} className="border-l-2 border-blue-600 pl-4 print:break-inside-avoid">
-                      <h3 className="text-lg font-semibold text-gray-800">{edu.degree}</h3>
-                      <div className="text-blue-600 font-medium">{edu.institution}</div>
-                      <div className="text-sm text-gray-500">{edu.year}</div>
+                    <div key={idx} className="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl border border-green-200 print:break-inside-avoid">
+                      <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <h3 className="text-xl font-bold text-gray-800">{edu.degree}</h3>
+                        <span className="text-sm text-gray-500">
+                          {formatDate(edu.start_date)} - {formatDate(edu.end_date)}
+                        </span>
+                      </div>
+                      <div className="text-green-700 font-semibold mb-1">{edu.institution}</div>
+                      {edu.field && <div className="text-gray-600 text-sm mb-2">{edu.field}</div>}
                       {edu.description && (
-                        <p className="mt-2 text-gray-700 text-sm">{edu.description}</p>
+                        <p className="text-gray-700 text-sm mt-3">{edu.description}</p>
                       )}
                     </div>
                   ))}
@@ -320,40 +354,58 @@ export default function PublicProfileCV() {
             {/* Projects */}
             {profile.projects && profile.projects.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <FileText className="w-6 h-6 text-purple-600" />
-                  Projects
-                </h2>
-                <div className="grid gap-4">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <Code className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    Featured <span className="gradient-text">Projects</span>
+                  </h2>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
                   {profile.projects.map((project, idx) => (
-                    <Card key={idx} className="p-4 border border-gray-200 print:break-inside-avoid">
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-lg font-semibold text-gray-800">{project.name}</h3>
-                        {project.link && (
-                          <a 
-                            href={project.link} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-purple-600 hover:text-purple-700 no-print"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
+                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-purple-500 hover:shadow-xl transition-all print:break-inside-avoid">
+                      <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-lg font-bold text-gray-800 flex-1">{project.title}</h3>
+                        <div className="flex gap-2">
+                          {project.github_link && (
+                            <a 
+                              href={project.github_link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-gray-600 hover:text-purple-600 no-print transition-colors"
+                              title="View on GitHub"
+                            >
+                              <Github className="w-5 h-5" />
+                            </a>
+                          )}
+                          {project.link && (
+                            <a 
+                              href={project.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-gray-600 hover:text-purple-600 no-print transition-colors"
+                              title="Live Demo"
+                            >
+                              <ExternalLink className="w-5 h-5" />
+                            </a>
+                          )}
+                        </div>
                       </div>
-                      <p className="text-gray-700 text-sm mt-2">{project.description}</p>
-                      {project.technologies && (
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {project.technologies.map((tech, techIdx) => (
+                      <p className="text-gray-700 text-sm leading-relaxed mb-4">{project.description}</p>
+                      {project.tech_stack && (
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech_stack.split(',').map((tech, techIdx) => (
                             <span 
                               key={techIdx}
-                              className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
+                              className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium"
                             >
-                              {tech}
+                              {tech.trim()}
                             </span>
                           ))}
                         </div>
                       )}
-                    </Card>
+                    </div>
                   ))}
                 </div>
               </section>
@@ -362,51 +414,93 @@ export default function PublicProfileCV() {
             {/* Achievements */}
             {profile.achievements && profile.achievements.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <Award className="w-6 h-6 text-purple-600" />
-                  Achievements
-                </h2>
-                <ul className="space-y-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    <span className="gradient-text">Achievements</span>
+                  </h2>
+                </div>
+                <div className="space-y-4">
                   {profile.achievements.map((achievement, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-gray-700">
-                      <span className="text-purple-600 mt-1">•</span>
-                      <span className="text-sm">{achievement}</span>
-                    </li>
+                    <div key={idx} className="flex gap-4 items-start bg-yellow-50 p-4 rounded-lg border border-yellow-200 print:break-inside-avoid">
+                      <Award className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" />
+                      <div className="flex-1">
+                        <h3 className="font-bold text-gray-800 mb-1">{achievement.title}</h3>
+                        {achievement.description && (
+                          <p className="text-sm text-gray-700">{achievement.description}</p>
+                        )}
+                        {achievement.date && (
+                          <p className="text-xs text-gray-500 mt-1">{formatDate(achievement.date)}</p>
+                        )}
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
             {/* Certifications */}
             {profile.certifications && profile.certifications.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <Award className="w-6 h-6 text-purple-600" />
-                  Certifications
-                </h2>
-                <div className="space-y-3">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <FileText className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    <span className="gradient-text">Certifications</span>
+                  </h2>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
                   {profile.certifications.map((cert, idx) => (
-                    <div key={idx} className="flex justify-between items-start print:break-inside-avoid">
-                      <div>
-                        <h3 className="font-semibold text-gray-800">{cert.name}</h3>
-                        <div className="text-sm text-gray-600">{cert.issuer}</div>
-                        <div className="text-xs text-gray-500">{cert.date}</div>
+                    <div key={idx} className="flex items-start gap-4 bg-indigo-50 p-5 rounded-lg border border-indigo-200 print:break-inside-avoid">
+                      <FileText className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" />
+                      <div className="flex-1">
+                        <h3 className="font-bold text-gray-800">{cert.title}</h3>
+                        <div className="text-sm text-indigo-700 font-medium mt-1">{cert.issuer}</div>
+                        <div className="text-xs text-gray-500 mt-1">{formatDate(cert.date)}</div>
+                        {cert.link && (
+                          <a 
+                            href={cert.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-purple-600 hover:text-purple-700 text-xs flex items-center gap-1 mt-2 no-print"
+                          >
+                            View Credential <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
                       </div>
-                      {cert.link && (
-                        <a 
-                          href={cert.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-purple-600 hover:text-purple-700 no-print"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
                     </div>
                   ))}
                 </div>
               </section>
             )}
+
+            {/* Footer with CTA */}
+            <div className="mt-16 pt-8 border-t border-gray-200 text-center print:hidden">
+              <p className="text-gray-600 mb-4">Interested in working together?</p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {profile.email && (
+                  <a 
+                    href={`mailto:${profile.email}`}
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all"
+                  >
+                    Get in Touch
+                  </a>
+                )}
+                {profile.linkedin_link && (
+                  <a 
+                    href={profile.linkedin_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all"
+                  >
+                    Connect on LinkedIn
+                  </a>
+                )}
+              </div>
+            </div>
 
           </div>
         </div>
