@@ -460,6 +460,76 @@ export default function Profile() {
                   )}
                 </div>
 
+                {/* Set Password Section - For Google Sign-In Users */}
+                {!hasPassword && (
+                  <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-4 rounded-lg border border-blue-800">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <h3 className="text-sm font-semibold text-white">Password Login</h3>
+                        <p className="text-xs text-gray-400 mt-1">
+                          Set a password to enable email & password login
+                        </p>
+                      </div>
+                      {!showSetPassword && (
+                        <Button
+                          onClick={() => setShowSetPassword(true)}
+                          size="sm"
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          Set Password
+                        </Button>
+                      )}
+                    </div>
+                    
+                    {showSetPassword && (
+                      <div className="mt-4 space-y-3">
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1">New Password</label>
+                          <Input
+                            type="password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="bg-gray-900/50 border-gray-800 text-white"
+                            placeholder="At least 8 characters"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1">Confirm Password</label>
+                          <Input
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="bg-gray-900/50 border-gray-800 text-white"
+                            placeholder="Re-enter password"
+                          />
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={handleSetPassword}
+                            disabled={settingPassword}
+                            size="sm"
+                            className="bg-blue-600 hover:bg-blue-700 text-white flex-1"
+                          >
+                            {settingPassword ? 'Setting...' : 'Confirm'}
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              setShowSetPassword(false);
+                              setNewPassword('');
+                              setConfirmPassword('');
+                            }}
+                            size="sm"
+                            variant="outline"
+                            className="border-gray-700 text-gray-400"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Public Profile Slug Section */}
                 <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 p-4 rounded-lg border border-purple-800">
                   <label className="block text-sm font-semibold text-gray-400 mb-2 flex items-center">
