@@ -102,29 +102,32 @@ export default function PublicProfileCV() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 print:bg-white">
-      {/* Print Styles */}
-      <style>{`
-        @media print {
-          .no-print { display: none !important; }
-          body { background: white; }
-          .print\\:break-inside-avoid { break-inside: avoid; }
-        }
-      `}</style>
+    <div className="min-h-screen relative print:bg-white">
+      <style>{styles}</style>
+      
+      {/* Animated Background */}
+      <div className="no-print">
+        <AnimatedBackground />
+      </div>
 
-      {/* Header - No Print */}
-      <div className="no-print bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+      {/* Floating Header - No Print */}
+      <div className="no-print fixed top-4 left-1/2 transform -translate-x-1/2 z-50 glass-card rounded-full px-6 py-3 shadow-2xl">
+        <div className="flex items-center gap-4">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 hover:scale-105 transition-transform"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Home
+            <span className="hidden sm:inline">Home</span>
           </Button>
-          <Button onClick={() => window.print()} className="bg-purple-600 hover:bg-purple-700">
-            Download PDF
+          <div className="w-px h-6 bg-gray-300"></div>
+          <Button 
+            onClick={() => window.print()} 
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            <span className="hidden sm:inline">Download PDF</span>
           </Button>
         </div>
       </div>
