@@ -2010,6 +2010,8 @@ async def update_profile(update: UserUpdate, request: Request):
             {"_id": user.id},
             {"$set": update_data}
         )
+    
+    return {"message": "Profile updated successfully"}
 
 
 @api_router.post("/users/profile-photo")
