@@ -268,6 +268,26 @@ export default function AdminDashboard() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-8">
+            {/* Data Loading Warning */}
+            {!stats && !loading && (
+              <Card className="glass-effect p-4 border border-yellow-800/30 bg-yellow-900/10">
+                <div className="flex items-center gap-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-500" />
+                  <div className="flex-1">
+                    <p className="text-yellow-400 font-semibold">Some data couldn't be loaded</p>
+                    <p className="text-sm text-gray-400">Click the refresh icon on any card to retry, or refresh the page.</p>
+                  </div>
+                  <Button
+                    onClick={fetchData}
+                    size="sm"
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                  >
+                    Retry All
+                  </Button>
+                </div>
+              </Card>
+            )}
+            
             {/* Key Metrics */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="glass-effect p-6 hover-lift border border-purple-800/30">
