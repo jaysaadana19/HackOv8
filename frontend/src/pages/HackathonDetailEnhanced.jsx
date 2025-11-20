@@ -58,38 +58,55 @@ export default function HackathonDetailEnhanced() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Fetch hackathon by slug
+      // Fetch hackathon by slug - this is the most important part
       const hackathonRes = await hackathonAPI.getBySlug(slug);
-      const hackathonId = hackathonRes.data.id;
+      const hackathonData = hackathonRes.data;
+      const hackathonId = hackathonData.id;
       
-      const [teamsRes, leaderboardRes, regCountRes] = await Promise.all([
+      // Set hackathon first so page can render even if other requests fail
+      setHackathon(hackathonData);
+      
+      // Fetch additional data with error handling for each
+      const [teamsRes, leaderboardRes, regCountRes] = await Promise.allSettled([
         hackathonAPI.getTeams(hackathonId),
         hackathonAPI.getLeaderboard(hackathonId),
         hackathonAPI.getRegistrationCount(hackathonId),
       ]);
 
-      setHackathon(hackathonRes.data);
-      setTeams(teamsRes.data);
-      setLeaderboard(leaderboardRes.data);
-      setRegistrationCount(regCountRes.data.count);
+      // Set data with fallbacks
+      setTeams(teamsRes.status === 'fulfilled' ? teamsRes.value.data : []);
+      setLeaderboard(leaderboardRes.status === 'fulfilled' ? leaderboardRes.value.data : []);
+      setRegistrationCount(regCountRes.status === 'fulfilled' ? regCountRes.value.data.count : 0);
 
       // Only fetch user-specific data if authenticated
       if (isAuthenticated()) {
-        const regsRes = await registrationAPI.getMyRegistrations();
-        const registered = regsRes.data.some(r => r.hackathon_id === hackathonId);
-        setIsRegistered(registered);
+        try {
+          const regsRes = await registrationAPI.getMyRegistrations();
+          const registered = regsRes.data.some(r => r.hackathon_id === hackathonId);
+          setIsRegistered(registered);
 
-        const myTeamsRes = await teamAPI.getMy();
-        const team = myTeamsRes.data.find(t => t.hackathon_id === hackathonId);
-        setMyTeam(team);
+          const myTeamsRes = await teamAPI.getMy();
+          const team = myTeamsRes.data.find(t => t.hackathon_id === hackathonId);
+          setMyTeam(team);
 
-        if (team) {
-          const subRes = await submissionAPI.getTeamSubmission(team.id, hackathonId);
-          setSubmission(subRes.data);
+          if (team) {
+            const subRes = await submissionAPI.getTeamSubmission(team.id, hackathonId);
+            setSubmission(subRes.data);
+          }
+        } catch (userError) {
+          console.error('Error fetching user data:', userError);
+          // Don't show error toast for user-specific data failures
         }
       }
     } catch (error) {
-      toast.error('Failed to load hackathon details');
+      console.error('Error fetching hackathon:', error);
+      // Only show error if hackathon fetch itself failed
+      if (error.response?.status === 404) {
+        toast.error('Hackathon not found');
+      } else {
+        toast.error('Failed to load hackathon details');
+      }
+      setHackathon(null);
     } finally {
       setLoading(false);
     }
