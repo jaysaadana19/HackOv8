@@ -80,6 +80,7 @@ export default function Profile() {
       setProfileSlug(user.profile_slug || '');
       setEmailVerified(user.email_verified || false);
       setUserEmail(user.email || '');
+      setHasPassword(user.password_hash !== null && user.password_hash !== undefined);
       
       // Social Links
       setGithubLink(user.github_link || '');
