@@ -213,6 +213,94 @@ export default function Profile() {
     }
   };
 
+  // Skills Management
+  const addSkill = () => {
+    if (skillInput.trim()) {
+      setSkills([...skills, skillInput.trim()]);
+      setSkillInput('');
+    }
+  };
+
+  const removeSkill = (index) => {
+    setSkills(skills.filter((_, i) => i !== index));
+  };
+
+  // Experience Management
+  const addExperience = () => {
+    setExperience([...experience, { company: '', role: '', start_date: '', end_date: '', description: '' }]);
+  };
+
+  const updateExperience = (index, field, value) => {
+    const updated = [...experience];
+    updated[index][field] = value;
+    setExperience(updated);
+  };
+
+  const removeExperience = (index) => {
+    setExperience(experience.filter((_, i) => i !== index));
+  };
+
+  // Education Management
+  const addEducation = () => {
+    setEducation([...education, { institution: '', degree: '', field: '', start_date: '', end_date: '', description: '' }]);
+  };
+
+  const updateEducation = (index, field, value) => {
+    const updated = [...education];
+    updated[index][field] = value;
+    setEducation(updated);
+  };
+
+  const removeEducation = (index) => {
+    setEducation(education.filter((_, i) => i !== index));
+  };
+
+  // Projects Management
+  const addProject = () => {
+    setProjects([...projects, { title: '', description: '', tech_stack: '', link: '', github_link: '' }]);
+  };
+
+  const updateProject = (index, field, value) => {
+    const updated = [...projects];
+    updated[index][field] = value;
+    setProjects(updated);
+  };
+
+  const removeProject = (index) => {
+    setProjects(projects.filter((_, i) => i !== index));
+  };
+
+  // Achievements Management
+  const addAchievement = () => {
+    setAchievements([...achievements, { title: '', description: '', date: '' }]);
+  };
+
+  const updateAchievement = (index, field, value) => {
+    const updated = [...achievements];
+    updated[index][field] = value;
+    setAchievements(updated);
+  };
+
+  const removeAchievement = (index) => {
+    setAchievements(achievements.filter((_, i) => i !== index));
+  };
+
+  // Certifications Management
+  const addCertification = () => {
+    setCertifications([...certifications, { title: '', issuer: '', date: '', link: '' }]);
+  };
+
+  const updateCertification = (index, field, value) => {
+    const updated = [...certifications];
+    updated[index][field] = value;
+    setCertifications(updated);
+  };
+
+  const removeCertification = (index) => {
+    setCertifications(certifications.filter((_, i) => i !== index));
+  };
+
+
   return (
     <div className="min-h-screen bg-[#0a0a0b]">
       <nav className="border-b border-gray-900 bg-gray-950/50">
