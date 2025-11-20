@@ -336,7 +336,7 @@ class UserUpdate(BaseModel):
     experience: Optional[List[dict]] = None
     education: Optional[List[dict]] = None
     projects: Optional[List[dict]] = None
-    achievements: Optional[List[str]] = None
+    achievements: Optional[List[dict]] = None
     certifications: Optional[List[dict]] = None
     profile_slug: Optional[str] = None
 
