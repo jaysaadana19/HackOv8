@@ -114,10 +114,18 @@ export default function PublicProfileCV() {
   }
 
   const formatDate = (dateStr) => {
-    if (!dateStr) return '';
-    const [year, month] = dateStr.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[parseInt(month) - 1]} ${year}`;
+    if (!dateStr) return 'Present';
+    try {
+      const [year, month] = dateStr.split('-');
+      if (!year || !month) return dateStr;
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const monthIndex = parseInt(month) - 1;
+      if (monthIndex < 0 || monthIndex > 11) return dateStr;
+      return `${months[monthIndex]} ${year}`;
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateStr || '';
+    }
   };
 
   return (
