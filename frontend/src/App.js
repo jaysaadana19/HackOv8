@@ -8,7 +8,7 @@ import OrganizerDashboard from '@/pages/OrganizerDashboard';
 import JudgeDashboard from '@/pages/JudgeDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
 import Profile from '@/pages/Profile';
-import PublicProfile from '@/pages/PublicProfile';
+import PublicProfile from '@/pages/PublicProfileCV';
 import About from '@/pages/About';
 import Settings from '@/pages/Settings';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
