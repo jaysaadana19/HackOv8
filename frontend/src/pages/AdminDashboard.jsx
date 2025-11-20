@@ -53,12 +53,31 @@ export default function AdminDashboard() {
       setHackathons(hackathonsRes.status === 'fulfilled' ? hackathonsRes.value.data : []);
       
       // Show warning if any request failed
-      const failedRequests = [statsRes, growthRes, retentionRes, hackathonsRes, usersRes]
-        .filter(res => res.status === 'rejected');
+      const allRequests = [
+        { name: 'Stats Overview', result: statsRes },
+        { name: 'Growth Stats', result: growthRes },
+        { name: 'Retention Stats', result: retentionRes },
+        { name: 'Hackathons', result: hackathonsRes },
+        { name: 'Users', result: usersRes }
+      ];
+      
+      const failedRequests = allRequests.filter(req => req.result.status === 'rejected');
       
       if (failedRequests.length > 0) {
-        console.error('Some admin data failed to load:', failedRequests);
-        toast.error(`Failed to load some dashboard data (${failedRequests.length} requests failed)`);
+        const failedNames = failedRequests.map(req => req.name).join(', ');
+        console.error('Failed to load:', failedNames);
+        console.error('Error details:', failedRequests);
+        
+        // Only show toast if critical data failed (not just growth/retention)
+        const criticalFailed = failedRequests.some(req => 
+          req.name === 'Stats Overview' || req.name === 'Hackathons' || req.name === 'Users'
+        );
+        
+        if (criticalFailed) {
+          toast.warning(`Some data couldn't be loaded. Try refreshing the page.`, {
+            duration: 3000
+          });
+        }
       }
     } catch (error) {
       toast.error('Failed to load dashboard data. Please try refreshing the page.');
