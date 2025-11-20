@@ -417,9 +417,9 @@ export default function PublicProfileCV() {
                         </div>
                       </div>
                       <p className="text-gray-700 text-sm leading-relaxed mb-4">{project.description}</p>
-                      {project.tech_stack && (
+                      {project.tech_stack && typeof project.tech_stack === 'string' && (
                         <div className="flex flex-wrap gap-2">
-                          {project.tech_stack.split(',').map((tech, techIdx) => (
+                          {project.tech_stack.split(',').filter(t => t.trim()).map((tech, techIdx) => (
                             <span 
                               key={techIdx}
                               className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium"
