@@ -376,7 +376,7 @@ export default function PublicProfileCV() {
             )}
 
             {/* Projects */}
-            {profile.projects && profile.projects.length > 0 && (
+            {Array.isArray(profile.projects) && profile.projects.length > 0 && (
               <section className="print:break-inside-avoid">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg">
