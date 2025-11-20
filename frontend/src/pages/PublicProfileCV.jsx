@@ -133,85 +133,112 @@ export default function PublicProfileCV() {
       </div>
 
       {/* CV Container */}
-      <div className="max-w-4xl mx-auto p-8 print:p-0">
-        <div className="bg-white shadow-lg print:shadow-none">
+      <div className="max-w-5xl mx-auto px-4 py-20 print:py-0 print:px-0">
+        <div className="glass-card rounded-3xl shadow-2xl overflow-hidden print:shadow-none print:rounded-none">
           
-          {/* Header Section */}
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 print:bg-purple-700">
-            <div className="flex items-start gap-6">
-              {/* Photo */}
-              {profile.profile_photo && (
-                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white flex-shrink-0">
-                  <img 
-                    src={`${process.env.REACT_APP_BACKEND_URL}${profile.profile_photo}`}
-                    alt={profile.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              {/* Info */}
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-2">{profile.name}</h1>
-                
-                {profile.current_role && (
-                  <div className="text-xl font-medium mb-2 opacity-90">
-                    {profile.current_role}
-                    {profile.current_company && ` @ ${profile.current_company}`}
+          {/* Hero Header Section */}
+          <div className="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-600 text-white p-12 print:bg-purple-700 overflow-hidden">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-32 -mt-32 no-print"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24 no-print"></div>
+            
+            <div className="relative z-10">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+                {/* Photo with cool border */}
+                {profile.profile_photo ? (
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 no-print"></div>
+                    <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                      <img 
+                        src={`${process.env.REACT_APP_BACKEND_URL}${profile.profile_photo}`}
+                        alt={profile.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="w-40 h-40 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border-4 border-white/50">
+                    <Sparkles className="w-16 h-16 text-white" />
                   </div>
                 )}
 
-                <div className="flex flex-wrap gap-4 text-sm opacity-90 mb-3">
-                  {profile.location && (
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" />
-                      {profile.location}
+                {/* Info */}
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex items-center gap-3 justify-center md:justify-start mb-2 no-print">
+                    <Sparkles className="w-6 h-6 text-yellow-300 animate-pulse" />
+                    <span className="text-sm font-semibold bg-white/20 px-3 py-1 rounded-full">
+                      Available for Opportunities
                     </span>
+                  </div>
+                  
+                  <h1 className="text-5xl font-black mb-3 leading-tight">
+                    {profile.name}
+                  </h1>
+                  
+                  {profile.current_role && (
+                    <div className="text-2xl font-bold mb-4 opacity-95 flex items-center gap-2 justify-center md:justify-start">
+                      <Rocket className="w-6 h-6" />
+                      {profile.current_role}
+                      {profile.current_company && (
+                        <span className="text-xl">@ {profile.current_company}</span>
+                      )}
+                    </div>
                   )}
-                  {profile.email && (
-                    <span className="flex items-center gap-1">
-                      <Mail className="w-4 h-4" />
-                      {profile.email}
-                    </span>
-                  )}
-                </div>
 
-                {/* Social Links */}
-                <div className="flex gap-3">
-                  {profile.github_link && (
-                    <a href={profile.github_link} target="_blank" rel="noopener noreferrer" 
-                       className="hover:scale-110 transition-transform">
-                      <Github className="w-5 h-5" />
-                    </a>
-                  )}
-                  {profile.linkedin_link && (
-                    <a href={profile.linkedin_link} target="_blank" rel="noopener noreferrer"
-                       className="hover:scale-110 transition-transform">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  )}
-                  {profile.twitter_link && (
-                    <a href={profile.twitter_link} target="_blank" rel="noopener noreferrer"
-                       className="hover:scale-110 transition-transform">
-                      <Twitter className="w-5 h-5" />
-                    </a>
-                  )}
-                  {profile.portfolio_link && (
-                    <a href={profile.portfolio_link} target="_blank" rel="noopener noreferrer"
-                       className="hover:scale-110 transition-transform">
-                      <Globe className="w-5 h-5" />
-                    </a>
-                  )}
+                  <div className="flex flex-wrap gap-4 text-sm mb-6 justify-center md:justify-start">
+                    {profile.location && (
+                      <span className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full backdrop-blur">
+                        <MapPin className="w-4 h-4" />
+                        {profile.location}
+                      </span>
+                    )}
+                    {profile.email && (
+                      <span className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full backdrop-blur">
+                        <Mail className="w-4 h-4" />
+                        {profile.email}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Social Links with hover effects */}
+                  <div className="flex gap-4 justify-center md:justify-start">
+                    {profile.github_link && (
+                      <a href={profile.github_link} target="_blank" rel="noopener noreferrer" 
+                         className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white hover:text-purple-600 transition-all duration-300 hover:scale-110 hover:shadow-xl">
+                        <Github className="w-6 h-6" />
+                      </a>
+                    )}
+                    {profile.linkedin_link && (
+                      <a href={profile.linkedin_link} target="_blank" rel="noopener noreferrer"
+                         className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white hover:text-blue-600 transition-all duration-300 hover:scale-110 hover:shadow-xl">
+                        <Linkedin className="w-6 h-6" />
+                      </a>
+                    )}
+                    {profile.twitter_link && (
+                      <a href={profile.twitter_link} target="_blank" rel="noopener noreferrer"
+                         className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white hover:text-sky-500 transition-all duration-300 hover:scale-110 hover:shadow-xl">
+                        <Twitter className="w-6 h-6" />
+                      </a>
+                    )}
+                    {profile.portfolio_link && (
+                      <a href={profile.portfolio_link} target="_blank" rel="noopener noreferrer"
+                         className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all duration-300 hover:scale-110 hover:shadow-xl">
+                        <Globe className="w-6 h-6" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
+
+              {/* Bio with cool styling */}
+              {profile.bio && (
+                <div className="mt-8 p-6 bg-white/10 backdrop-blur rounded-2xl border border-white/20">
+                  <p className="text-lg leading-relaxed">
+                    {profile.bio}
+                  </p>
+                </div>
+              )}
             </div>
-
-            {/* Bio */}
-            {profile.bio && (
-              <div className="mt-4 text-sm opacity-90 leading-relaxed">
-                {profile.bio}
-              </div>
-            )}
           </div>
 
           {/* Content */}
