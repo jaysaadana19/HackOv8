@@ -52,11 +52,22 @@ export default function Dashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Get user data
-      const userRes = await authAPI.getCurrentUser();
-      const userData = userRes.data;
-      
-      setUser(userData);
+      // Get user data with error handling
+      let userData = null;
+      try {
+        const userRes = await authAPI.getCurrentUser();
+        userData = userRes.data;
+        setUser(userData);
+      } catch (userError) {
+        console.error('Failed to fetch user data:', userError);
+        // If user fetch fails, redirect to login
+        if (userError.response?.status === 401) {
+          localStorage.removeItem('user');
+          localStorage.removeItem('session_token');
+          window.location.href = '/';
+          return;
+        }
+      }
       
       // Fetch data with individual error handling
       const [hackathonsRes, regsRes, teamsRes, notifsRes, referralRes] = await Promise.allSettled([
@@ -77,7 +88,7 @@ export default function Dashboard() {
       // Certificate feature removed
     } catch (error) {
       console.error('Dashboard error:', error);
-      toast.error('Failed to load dashboard data');
+      toast.error('Failed to load dashboard data. Please try refreshing the page.');
     } finally {
       setLoading(false);
     }
