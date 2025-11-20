@@ -201,7 +201,26 @@ export default function HackathonDetailEnhanced() {
   }
 
   if (!hackathon) {
-    return <div className="min-h-screen bg-white flex items-center justify-center text-gray-900">Hackathon not found</div>;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
+        <div className="text-center bg-white rounded-2xl p-8 max-w-md shadow-2xl">
+          <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-10 h-10 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Hackathon Not Found</h2>
+          <p className="text-gray-600 mb-6">
+            The hackathon you're looking for doesn't exist or may have been removed.
+          </p>
+          <Button 
+            onClick={() => navigate('/')} 
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg w-full"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
