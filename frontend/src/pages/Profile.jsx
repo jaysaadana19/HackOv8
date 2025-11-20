@@ -121,6 +121,44 @@ export default function Profile() {
     }
   };
 
+  const handleSetPassword = async () => {
+    if (!newPassword || !confirmPassword) {
+      toast.error('Please fill in all password fields');
+      return;
+    }
+    
+    if (newPassword.length < 8) {
+      toast.error('Password must be at least 8 characters long');
+      return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+
+    setSettingPassword(true);
+    try {
+      await axios.post(`${API_URL}/auth/set-password`, {
+        password: newPassword
+      }, {
+        withCredentials: true,
+      });
+      
+      toast.success('Password set successfully! You can now login with email and password.');
+      setHasPassword(true);
+      setShowSetPassword(false);
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      console.error('Set password error:', error);
+      toast.error(error.response?.data?.detail || 'Failed to set password');
+    } finally {
+      setSettingPassword(false);
+    }
+  };
+
+
   const handlePhotoSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
