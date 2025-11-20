@@ -66,13 +66,29 @@ export default function Profile() {
     try {
       const response = await authAPI.getCurrentUser();
       const user = response.data;
+      
+      // Basic Info
       setName(user.name || '');
       setBio(user.bio || '');
-      setGithubLink(user.github_link || '');
-      setLinkedinLink(user.linkedin_link || '');
+      setCurrentStatus(user.current_status || '');
       setProfileSlug(user.profile_slug || '');
       setEmailVerified(user.email_verified || false);
       setUserEmail(user.email || '');
+      
+      // Social Links
+      setGithubLink(user.github_link || '');
+      setLinkedinLink(user.linkedin_link || '');
+      setTwitterLink(user.twitter_link || '');
+      setPortfolioLink(user.portfolio_link || '');
+      
+      // CV Data
+      setSkills(user.skills || []);
+      setExperience(user.experience || []);
+      setEducation(user.education || []);
+      setProjects(user.projects || []);
+      setAchievements(user.achievements || []);
+      setCertifications(user.certifications || []);
+      
       if (user.profile_photo) {
         setProfilePhotoPreview(`${process.env.REACT_APP_BACKEND_URL}${user.profile_photo}`);
       }
