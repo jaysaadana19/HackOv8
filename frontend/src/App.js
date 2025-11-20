@@ -13,7 +13,7 @@ import About from '@/pages/About';
 import Settings from '@/pages/Settings';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfService from '@/pages/TermsOfService';
-import GoogleCallback from '@/pages/GoogleCallback';
+// Google OAuth removed
 // Certificate pages removed
 import VerifyEmail from '@/pages/VerifyEmail';
 import VerificationRequired from '@/pages/VerificationRequired';
