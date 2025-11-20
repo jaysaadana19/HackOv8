@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, Copy, CheckCircle, User, Mail, AlertCircle } from 'lucide-react';
+import { 
+  Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, 
+  Copy, CheckCircle, User, Mail, AlertCircle, Plus, Trash2, Edit, 
+  Briefcase, GraduationCap, Code, Award, Trophy, X, Globe, Twitter
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { authAPI, userAPI } from '@/lib/api';
 import { getUser } from '@/lib/auth';
