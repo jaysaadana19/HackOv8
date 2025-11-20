@@ -66,7 +66,7 @@ class User(BaseModel):
     experience: Optional[List[dict]] = []  # [{title, company, start_date, end_date, description, current}]
     education: Optional[List[dict]] = []  # [{degree, institution, year, description}]
     projects: Optional[List[dict]] = []  # [{name, description, link, technologies}]
-    achievements: Optional[List[str]] = []  # List of achievements
+    achievements: Optional[List[dict]] = []  # [{title, description, date}]
     certifications: Optional[List[dict]] = []  # [{name, issuer, date, link}]
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     last_login: Optional[datetime] = None  # Track user logins for retention
