@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingEnhanced />} />
-        {/* Google OAuth callback removed */}
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/hackathon/:slug" element={<HackathonDetailEnhanced />} />
         {/* Certificate routes removed */}
