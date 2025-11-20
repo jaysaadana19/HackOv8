@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Rocket, ArrowLeft, Save, Github, Linkedin, Camera, Link as LinkIcon, 
   Copy, CheckCircle, User, Mail, AlertCircle, Plus, Trash2, Edit, 
-  Briefcase, GraduationCap, Code, Award, Trophy, X, Globe, Twitter
+  Briefcase, GraduationCap, Code, Award, Trophy, X, Globe, Twitter, Lock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
