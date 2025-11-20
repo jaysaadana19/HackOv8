@@ -466,9 +466,16 @@ export default function AdminDashboard() {
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => navigate(`/hackathon/${hackathon.slug}`)}
+                        onClick={() => {
+                          if (!hackathon.slug) {
+                            toast.error('This hackathon does not have a slug. Please contact support.');
+                            return;
+                          }
+                          navigate(`/hackathon/${hackathon.slug}`);
+                        }}
                         variant="outline"
                         className="border-purple-600 text-purple-400 hover:bg-purple-600/10"
+                        disabled={!hackathon.slug}
                       >
                         <Eye className="w-4 h-4" />
                       </Button>
