@@ -68,7 +68,7 @@ export default function PublicProfileCV() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchPublicProfile = async () => {
+  const fetchPublicProfile = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/users/public/${slug}`);
       if (response.data) {
@@ -82,7 +82,7 @@ export default function PublicProfileCV() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
 
   useEffect(() => {
     if (slug) {
