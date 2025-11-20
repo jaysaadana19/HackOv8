@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Rocket, Calendar, MapPin, Trophy, Users, Code, ArrowLeft, Clock, FileText, Star, Zap, Award, Twitter, Linkedin, Globe, MessageCircle, ExternalLink, User, Share2 } from 'lucide-react';
+import { Rocket, Calendar, MapPin, Trophy, Users, Code, ArrowLeft, Clock, FileText, Star, Zap, Award, Twitter, Linkedin, Globe, MessageCircle, ExternalLink, User, Share2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
