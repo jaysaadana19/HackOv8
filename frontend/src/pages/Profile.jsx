@@ -183,14 +183,31 @@ export default function Profile() {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await userAPI.updateProfile({ name, bio, github_link: githubLink, linkedin_link: linkedinLink });
+      const profileData = {
+        name,
+        bio,
+        current_status: currentStatus,
+        github_link: githubLink,
+        linkedin_link: linkedinLink,
+        twitter_link: twitterLink,
+        portfolio_link: portfolioLink,
+        skills,
+        experience,
+        education,
+        projects,
+        achievements,
+        certifications
+      };
+      
+      await userAPI.updateProfile(profileData);
       toast.success('Profile updated successfully!');
       
       // Update local storage
       const user = getUser();
-      localStorage.setItem('user', JSON.stringify({ ...user, name, bio, github_link: githubLink, linkedin_link: linkedinLink }));
+      localStorage.setItem('user', JSON.stringify({ ...user, ...profileData }));
     } catch (error) {
       toast.error('Failed to update profile');
+      console.error('Profile update error:', error);
     } finally {
       setLoading(false);
     }
