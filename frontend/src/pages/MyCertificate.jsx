@@ -245,9 +245,14 @@ export default function MyCertificate() {
                     className="bg-gray-800 border-gray-700 text-gray-300 text-sm"
                   />
                   <Button
-                    onClick={() => {
-                      navigator.clipboard.writeText(`${window.location.origin}/verify-certificate/${certificate.certificate_id}`);
-                      toast.success('Link copied!');
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(`${window.location.origin}/verify-certificate/${certificate.certificate_id}`);
+                        toast.success('Link copied!');
+                      } catch (error) {
+                        console.error('Failed to copy:', error);
+                        toast.error('Failed to copy link');
+                      }
                     }}
                     variant="outline"
                     className="border-gray-700"
