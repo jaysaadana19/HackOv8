@@ -266,7 +266,7 @@ export default function AdminDashboard() {
                   <Trophy className="w-10 h-10 text-yellow-500" />
                   {stats?.pending_hackathons > 0 && (
                     <Badge className="bg-orange-600 text-white animate-pulse">
-                      {stats.pending_hackathons} pending
+                      {stats?.pending_hackathons || 0} pending
                     </Badge>
                   )}
                 </div>
