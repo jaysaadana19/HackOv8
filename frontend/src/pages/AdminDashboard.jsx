@@ -461,6 +461,9 @@ export default function AdminDashboard() {
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
                         Created: {new Date(hackathon.created_at).toLocaleDateString()}
+                        {!hackathon.slug && (
+                          <span className="ml-2 text-red-400">⚠️ Missing slug</span>
+                        )}
                       </p>
                     </div>
                     <div className="flex gap-2">
