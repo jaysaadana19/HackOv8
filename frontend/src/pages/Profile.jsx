@@ -217,12 +217,33 @@ export default function Profile() {
     }
   };
 
-  const copyProfileUrl = () => {
-    const profileUrl = `${window.location.origin}/profile/${profileSlug}`;
-    navigator.clipboard.writeText(profileUrl);
-    setSlugCopied(true);
-    toast.success('Profile URL copied to clipboard!');
-    setTimeout(() => setSlugCopied(false), 2000);
+  const copyProfileUrl = async () => {
+    try {
+      const profileUrl = `${window.location.origin}/profile/${profileSlug}`;
+      await navigator.clipboard.writeText(profileUrl);
+      setSlugCopied(true);
+      toast.success('Profile URL copied to clipboard!');
+      setTimeout(() => setSlugCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+      // Fallback method for older browsers or permission issues
+      const textArea = document.createElement('textarea');
+      textArea.value = `${window.location.origin}/profile/${profileSlug}`;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setSlugCopied(true);
+        toast.success('Profile URL copied to clipboard!');
+        setTimeout(() => setSlugCopied(false), 2000);
+      } catch (err) {
+        console.error('Fallback copy failed:', err);
+        toast.error('Failed to copy URL. Please copy manually.');
+      }
+      document.body.removeChild(textArea);
+    }
   };
 
   const handleSave = async () => {
