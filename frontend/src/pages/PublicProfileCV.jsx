@@ -242,20 +242,24 @@ export default function PublicProfileCV() {
           </div>
 
           {/* Content */}
-          <div className="p-8 space-y-8">
+          <div className="p-8 md:p-12 space-y-12 print:space-y-8">
 
-            {/* Skills */}
+            {/* Skills with 3D effect */}
             {profile.skills && profile.skills.length > 0 && (
               <section className="print:break-inside-avoid">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-                  <Code className="w-6 h-6 text-purple-600" />
-                  Skills
-                </h2>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-black text-gray-800">
+                    Skills & <span className="gradient-text">Expertise</span>
+                  </h2>
+                </div>
+                <div className="flex flex-wrap gap-3">
                   {profile.skills.map((skill, idx) => (
                     <span 
                       key={idx}
-                      className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium print:border print:border-purple-300"
+                      className="skill-badge px-5 py-2.5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-lg hover:shadow-2xl print:bg-purple-100 print:text-purple-700 print:border print:border-purple-300"
                     >
                       {skill}
                     </span>
