@@ -622,7 +622,8 @@ test_plan:
     - "Certificate Management Modal - CSV Bulk Generation"
     - "User Certificate Retrieval Page"
     - "Public Certificate Verification Page"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Profile Editing Feature - Complete Testing"
   test_all: false
   test_priority: "high_first"
   backend_testing_complete: true
@@ -636,6 +637,7 @@ test_plan:
   submit_project_modal_needs_frontend_testing: true
   certificate_system_backend_testing_complete: true
   certificate_system_frontend_needs_testing: true
+  profile_editing_testing_blocked_by_auth: true
 
 agent_communication:
   - agent: "main"
