@@ -88,8 +88,7 @@ export default function PublicProfileCV() {
     if (slug) {
       fetchPublicProfile();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [slug, fetchPublicProfile]);
 
   if (loading) {
     return (
