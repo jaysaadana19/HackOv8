@@ -36,7 +36,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [statsRes, growthRes, retentionRes, hackathonsRes, usersRes] = await Promise.all([
+      // Use Promise.allSettled to handle individual failures gracefully
+      const [statsRes, growthRes, retentionRes, hackathonsRes, usersRes] = await Promise.allSettled([
         adminAPI.getStatsOverview(selectedPeriod === 0 ? 0 : selectedPeriod),
         adminAPI.getGrowthStats(selectedPeriod === 0 ? 365 : selectedPeriod),
         adminAPI.getRetentionStats(),
@@ -44,14 +45,24 @@ export default function AdminDashboard() {
         adminAPI.getAllUsers()
       ]);
 
-      setStats(statsRes.data);
-      setGrowthData(growthRes.data);
-      setUsers(usersRes.data || []);
-      setRetentionData(retentionRes.data);
-      setHackathons(hackathonsRes.data);
+      // Set data with fallbacks for failed requests
+      setStats(statsRes.status === 'fulfilled' ? statsRes.value.data : null);
+      setGrowthData(growthRes.status === 'fulfilled' ? growthRes.value.data : null);
+      setUsers(usersRes.status === 'fulfilled' ? (usersRes.value.data || []) : []);
+      setRetentionData(retentionRes.status === 'fulfilled' ? retentionRes.value.data : null);
+      setHackathons(hackathonsRes.status === 'fulfilled' ? hackathonsRes.value.data : []);
+      
+      // Show warning if any request failed
+      const failedRequests = [statsRes, growthRes, retentionRes, hackathonsRes, usersRes]
+        .filter(res => res.status === 'rejected');
+      
+      if (failedRequests.length > 0) {
+        console.error('Some admin data failed to load:', failedRequests);
+        toast.error(`Failed to load some dashboard data (${failedRequests.length} requests failed)`);
+      }
     } catch (error) {
-      toast.error('Failed to load dashboard data');
-      console.error(error);
+      toast.error('Failed to load dashboard data. Please try refreshing the page.');
+      console.error('Admin dashboard error:', error);
     } finally {
       setLoading(false);
     }
