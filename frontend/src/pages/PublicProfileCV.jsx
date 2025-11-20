@@ -68,21 +68,25 @@ export default function PublicProfileCV() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchPublicProfile();
-  }, [slug]);
-
   const fetchPublicProfile = async () => {
     try {
       const response = await axios.get(`${API_URL}/users/public/${slug}`);
       setProfile(response.data);
     } catch (error) {
       console.error('Error fetching profile:', error);
+      setProfile(null);
       setTimeout(() => navigate('/'), 3000);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (slug) {
+      fetchPublicProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   if (loading) {
     return (
