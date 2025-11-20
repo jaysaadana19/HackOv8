@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { setAuth } from '@/lib/auth';
-import GoogleSignInButton from './GoogleSignInButton';
+// Google sign-in removed
 
 const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 
