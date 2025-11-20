@@ -171,17 +171,14 @@ export default function PublicProfileCV() {
                     </span>
                   </div>
                   
-                  <h1 className="text-5xl font-black mb-3 leading-tight">
+                  <h1 className="text-5xl md:text-6xl font-black mb-3 leading-tight drop-shadow-lg">
                     {profile.name}
                   </h1>
                   
-                  {profile.current_role && (
-                    <div className="text-2xl font-bold mb-4 opacity-95 flex items-center gap-2 justify-center md:justify-start">
-                      <Rocket className="w-6 h-6" />
-                      {profile.current_role}
-                      {profile.current_company && (
-                        <span className="text-xl">@ {profile.current_company}</span>
-                      )}
+                  {profile.current_status && (
+                    <div className="text-xl md:text-2xl font-semibold mb-4 opacity-95 flex items-center gap-2 justify-center md:justify-start">
+                      <Rocket className="w-5 h-5 md:w-6 md:h-6" />
+                      {profile.current_status}
                     </div>
                   )}
 
