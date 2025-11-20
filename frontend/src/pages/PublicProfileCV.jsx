@@ -91,12 +91,27 @@ export default function PublicProfileCV() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center print:bg-white">
-        <div className="text-gray-600">Loading CV...</div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="text-gray-600">Loading CV...</div>
+        </div>
       </div>
     );
   }
 
-  if (!profile) return null;
+  if (!profile) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Profile Not Found</h2>
+          <p className="text-gray-600 mb-4">This profile doesn't exist or has been removed.</p>
+          <Button onClick={() => navigate('/')} className="bg-purple-600 hover:bg-purple-700 text-white">
+            Go to Homepage
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
