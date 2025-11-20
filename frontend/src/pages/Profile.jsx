@@ -54,6 +54,13 @@ export default function Profile() {
   const [sendingVerification, setSendingVerification] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
   
+  // Set Password States
+  const [hasPassword, setHasPassword] = useState(true);
+  const [showSetPassword, setShowSetPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [settingPassword, setSettingPassword] = useState(false);
+  
   // Form States for Adding/Editing Items
   const [skillInput, setSkillInput] = useState('');
 
