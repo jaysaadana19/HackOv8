@@ -71,11 +71,14 @@ export default function PublicProfileCV() {
   const fetchPublicProfile = async () => {
     try {
       const response = await axios.get(`${API_URL}/users/public/${slug}`);
-      setProfile(response.data);
+      if (response.data) {
+        setProfile(response.data);
+      } else {
+        setProfile(null);
+      }
     } catch (error) {
       console.error('Error fetching profile:', error);
       setProfile(null);
-      setTimeout(() => navigate('/'), 3000);
     } finally {
       setLoading(false);
     }
