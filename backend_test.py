@@ -6,7 +6,7 @@ import uuid
 import subprocess
 
 class AdminPanelAPITester:
-    def __init__(self, base_url="https://hacktracker-2.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://webvita.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.admin_session_token = None
         self.organizer_session_token = None
@@ -3288,7 +3288,7 @@ db.user_sessions.insertOne({{
                 
                 # Test template access
                 if template_url:
-                    full_template_url = f"https://hacktracker-2.preview.emergentagent.com{template_url}"
+                    full_template_url = f"https://webvita.preview.emergentagent.com{template_url}"
                     print(f"   🔗 Testing template access: {full_template_url}")
                     
                     template_response = requests.get(full_template_url)
@@ -3394,7 +3394,7 @@ Bob Wilson,bob.wilson@example.com,organizer"""
                         if certificate_url:
                             # Test different URL combinations
                             test_urls = [
-                                f"https://hacktracker-2.preview.emergentagent.com{certificate_url}",
+                                f"https://webvita.preview.emergentagent.com{certificate_url}",
                                 f"http://localhost:8001{certificate_url}",
                                 certificate_url  # Just the path
                             ]
@@ -3466,8 +3466,8 @@ Bob Wilson,bob.wilson@example.com,organizer"""
         
         # Test if /backend-uploads/ path is accessible
         test_static_urls = [
-            "https://hacktracker-2.preview.emergentagent.com/backend-uploads/",
-            "https://hacktracker-2.preview.emergentagent.com/backend-uploads/certificates/",
+            "https://webvita.preview.emergentagent.com/backend-uploads/",
+            "https://webvita.preview.emergentagent.com/backend-uploads/certificates/",
         ]
         
         for url in test_static_urls:
@@ -3697,7 +3697,7 @@ db.user_sessions.insertOne({{
         print("   Step 6: Testing certificate URL access...")
         
         # Test with production backend URL
-        backend_url = "https://hacktracker-2.preview.emergentagent.com"
+        backend_url = "https://webvita.preview.emergentagent.com"
         full_certificate_url = f"{backend_url}{certificate_url}"
         
         print(f"   🔍 Testing URL: {full_certificate_url}")

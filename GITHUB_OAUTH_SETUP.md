@@ -36,13 +36,13 @@ Find the app with Client ID: `Iv23liWCyz4gr6q3M8tZ`
 ### Step 3: Configure Authorization Callback URL
 Set the callback URL to:
 ```
-https://hacktracker-2.preview.emergentagent.com/api/auth/github/callback
+https://webvita.preview.emergentagent.com/api/auth/github/callback
 ```
 
 ### Step 4: Configure Homepage URL
 Set to:
 ```
-https://hacktracker-2.preview.emergentagent.com
+https://webvita.preview.emergentagent.com
 ```
 
 ### Step 5: Save Changes
@@ -52,7 +52,7 @@ Click "Update application"
 
 After configuring GitHub OAuth App:
 
-1. Open: https://hacktracker-2.preview.emergentagent.com
+1. Open: https://webvita.preview.emergentagent.com
 2. Click "Get Started" button
 3. Click "Sign in with GitHub" button
 4. Authorize the application on GitHub
@@ -91,7 +91,7 @@ From GitHub API:
 ## ⚠️ Common Issues
 
 **Issue: "Bad verification code" error**
-- Solution: Make sure the callback URL in GitHub matches exactly: `https://hacktracker-2.preview.emergentagent.com/api/auth/github/callback`
+- Solution: Make sure the callback URL in GitHub matches exactly: `https://webvita.preview.emergentagent.com/api/auth/github/callback`
 
 **Issue: "Redirect URI mismatch" error**
 - Solution: Check that Homepage URL is set correctly in GitHub OAuth App settings

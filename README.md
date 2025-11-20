@@ -51,4 +51,4 @@ cd frontend && yarn install && yarn start
 
 MIT License
 
-**Live Demo:** https://hacktracker-2.preview.emergentagent.com
+**Live Demo:** https://webvita.preview.emergentagent.com
