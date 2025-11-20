@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, MapPin, Github, Linkedin, Twitter, Globe, 
   Briefcase, GraduationCap, Code, Award, FileText, Mail,
-  Calendar, ExternalLink, Download, Sparkles, Zap, Target, Rocket
+  Calendar, ExternalLink, Download, Sparkles, Zap, Target, Rocket, AlertCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
