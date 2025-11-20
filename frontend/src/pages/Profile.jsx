@@ -21,20 +21,42 @@ const API_URL = process.env.REACT_APP_BACKEND_URL + '/api';
 export default function Profile() {
   const navigate = useNavigate();
   const currentUser = getUser();
+  
+  // Basic Info
   const [name, setName] = useState(currentUser?.name || '');
   const [bio, setBio] = useState('');
-  const [githubLink, setGithubLink] = useState('');
-  const [linkedinLink, setLinkedinLink] = useState('');
+  const [currentStatus, setCurrentStatus] = useState('');
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
   const [profileSlug, setProfileSlug] = useState('');
   const [emailVerified, setEmailVerified] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  
+  // Social Links
+  const [githubLink, setGithubLink] = useState('');
+  const [linkedinLink, setLinkedinLink] = useState('');
+  const [twitterLink, setTwitterLink] = useState('');
+  const [portfolioLink, setPortfolioLink] = useState('');
+  
+  // CV Data
+  const [skills, setSkills] = useState([]);
+  const [experience, setExperience] = useState([]);
+  const [education, setEducation] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [achievements, setAchievements] = useState([]);
+  const [certifications, setCertifications] = useState([]);
+  
+  // UI States
   const [loading, setLoading] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [generatingSlug, setGeneratingSlug] = useState(false);
   const [slugCopied, setSlugCopied] = useState(false);
   const [sendingVerification, setSendingVerification] = useState(false);
+  const [activeTab, setActiveTab] = useState('basic');
+  
+  // Form States for Adding/Editing Items
+  const [skillInput, setSkillInput] = useState('');
+  const [editingIndex, setEditingIndex] = useState({ type: null, index: -1 });
 
   useEffect(() => {
     fetchProfile();
