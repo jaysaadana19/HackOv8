@@ -30,11 +30,16 @@ export default function CreateTeamModal({ hackathonId, onClose, onSuccess }) {
     }
   };
 
-  const handleCopyInviteCode = () => {
-    navigator.clipboard.writeText(createdTeam.invite_code);
-    setCopied(true);
-    toast.success('Invite code copied to clipboard!');
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyInviteCode = async () => {
+    try {
+      await navigator.clipboard.writeText(createdTeam.invite_code);
+      setCopied(true);
+      toast.success('Invite code copied to clipboard!');
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+      toast.error('Failed to copy invite code');
+    }
   };
 
   const handleDone = () => {
