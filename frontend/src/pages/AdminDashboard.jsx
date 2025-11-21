@@ -186,6 +186,38 @@ export default function AdminDashboard() {
     }
   };
 
+
+  const handleDeleteUser = async (userId, userName) => {
+    if (!window.confirm(`Are you sure you want to delete user "${userName}"? This action cannot be undone and will delete all their data.`)) {
+      return;
+    }
+
+    try {
+      await adminAPI.deleteUser(userId);
+      toast.success(`User ${userName} deleted successfully`);
+      fetchData(); // Refresh data
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to delete user');
+    }
+  };
+
+  const fetchUTMData = async () => {
+    try {
+      const response = await adminAPI.getUTMAnalytics(selectedPeriod);
+      setUtmData(response.data);
+    } catch (error) {
+      console.error('Failed to fetch UTM data:', error);
+      toast.error('Failed to load UTM analytics');
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'utm') {
+      fetchUTMData();
+    }
+  }, [activeTab, selectedPeriod]);
+
+
   const pendingHackathons = hackathons.filter(h => h.status === 'pending_approval');
   const publishedHackathons = hackathons.filter(h => h.status === 'published');
   const rejectedHackathons = hackathons.filter(h => h.status === 'rejected');
