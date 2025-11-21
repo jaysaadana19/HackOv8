@@ -452,12 +452,12 @@ export default function Profile() {
                           {emailVerified ? (
                             <>
                               <CheckCircle className="w-4 h-4 text-green-500" />
-                              <span className="text-sm text-green-400">Email Verified</span>
+                              <span className="text-sm font-semibold text-green-400">✓ Email Verified</span>
                             </>
                           ) : (
                             <>
                               <AlertCircle className="w-4 h-4 text-yellow-500" />
-                              <span className="text-sm text-yellow-400">Email Not Verified</span>
+                              <span className="text-sm font-semibold text-yellow-400">⚠ Email Not Verified</span>
                             </>
                           )}
                         </div>
@@ -477,6 +477,11 @@ export default function Profile() {
                   {!emailVerified && (
                     <p className="text-xs text-gray-400 mt-3">
                       Please verify your email to access all platform features. Check your inbox for the verification link.
+                    </p>
+                  )}
+                  {emailVerified && (
+                    <p className="text-xs text-green-400/70 mt-3">
+                      Your email is verified and you have full access to all platform features.
                     </p>
                   )}
                 </div>
