@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   const [retentionData, setRetentionData] = useState(null);
   const [hackathons, setHackathons] = useState([]);
   const [users, setUsers] = useState([]);
+  const [utmData, setUtmData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState(30);
   const [activeTab, setActiveTab] = useState('overview');
