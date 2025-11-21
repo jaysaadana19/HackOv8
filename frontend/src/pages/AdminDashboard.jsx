@@ -888,7 +888,7 @@ export default function AdminDashboard() {
                       </div>
                     </div>
 
-                    {/* Role Change Dropdown */}
+                    {/* Role Change Dropdown & Delete Button */}
                     <div className="flex items-center gap-2">
                       <select
                         value={user.role}
@@ -901,8 +901,17 @@ export default function AdminDashboard() {
                         <option value="judge">Judge</option>
                         <option value="admin">Admin</option>
                       </select>
-                      {user.id === getUser()?.id && (
+                      {user.id === getUser()?.id ? (
                         <span className="text-xs text-gray-500">(You)</span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDeleteUser(user.id, user.name)}
+                          className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
                       )}
                     </div>
                   </div>
