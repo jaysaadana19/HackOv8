@@ -3431,6 +3431,74 @@ async def delete_user(user_id: str, request: Request):
     
     # Delete the user
     await db.users.delete_one({"_id": user_id})
+
+
+@api_router.get("/admin/analytics/utm")
+async def get_utm_analytics(request: Request, days: int = 30):
+    """Get UTM tracking analytics for the platform"""
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    # Calculate date range
+    end_date = datetime.now(timezone.utc)
+    start_date = end_date - timedelta(days=days if days > 0 else 365)
+    
+    # Get all registrations with UTM data
+    registrations = await db.registrations.find({
+        "created_at": {"$gte": start_date}
+    }).to_list(10000)
+    
+    # Get all users with UTM data
+    users = await db.users.find({
+        "created_at": {"$gte": start_date}
+    }).to_list(10000)
+    
+    # Aggregate UTM data
+    utm_sources = {}
+    utm_campaigns = {}
+    utm_mediums = {}
+    utm_contents = {}
+    referrers = {}
+    
+    # Process registrations
+    for reg in registrations:
+        utm_data = reg.get("utm_data", {})
+        source = utm_data.get("utm_source", "direct")
+        campaign = utm_data.get("utm_campaign", "none")
+        medium = utm_data.get("utm_medium", "none")
+        content = utm_data.get("utm_content", "none")
+        ref = utm_data.get("ref", "none")
+        
+        utm_sources[source] = utm_sources.get(source, 0) + 1
+        utm_campaigns[campaign] = utm_campaigns.get(campaign, 0) + 1
+        utm_mediums[medium] = utm_mediums.get(medium, 0) + 1
+        utm_contents[content] = utm_contents.get(content, 0) + 1
+        referrers[ref] = referrers.get(ref, 0) + 1
+    
+    # Process user signups
+    signup_sources = {}
+    for user_doc in users:
+        utm_data = user_doc.get("utm_data", {})
+        source = utm_data.get("utm_source", "direct")
+        signup_sources[source] = signup_sources.get(source, 0) + 1
+    
+    # Sort and get top entries
+    top_sources = sorted(utm_sources.items(), key=lambda x: x[1], reverse=True)[:10]
+    top_campaigns = sorted(utm_campaigns.items(), key=lambda x: x[1], reverse=True)[:10]
+    top_mediums = sorted(utm_mediums.items(), key=lambda x: x[1], reverse=True)[:10]
+    top_referrers = sorted(referrers.items(), key=lambda x: x[1], reverse=True)[:10]
+    
+    return {
+        "period_days": days,
+        "total_tracked_registrations": len(registrations),
+        "total_tracked_signups": len(users),
+        "utm_sources": [{"name": k, "count": v} for k, v in top_sources],
+        "utm_campaigns": [{"name": k, "count": v} for k, v in top_campaigns],
+        "utm_mediums": [{"name": k, "count": v} for k, v in top_mediums],
+        "top_referrers": [{"name": k, "count": v} for k, v in top_referrers],
+        "signup_sources": [{"name": k, "count": v} for k, v in sorted(signup_sources.items(), key=lambda x: x[1], reverse=True)[:10]]
+    }
+
     
     return {"message": f"User {target_user.get('name', 'Unknown')} deleted successfully"}
 
