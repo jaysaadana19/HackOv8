@@ -3431,6 +3431,8 @@ async def delete_user(user_id: str, request: Request):
     
     # Delete the user
     await db.users.delete_one({"_id": user_id})
+    
+    return {"message": f"User {target_user.get('name', 'Unknown')} deleted successfully"}
 
 
 @api_router.get("/admin/analytics/utm")
