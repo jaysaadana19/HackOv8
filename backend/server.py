@@ -581,11 +581,16 @@ async def process_session(request: Request):
     )
     await db.user_sessions.insert_one(session.dict())
     
+    # Get user data to include all fields
+    user_doc = await db.users.find_one({"_id": user_id})
+    
     return SessionResponse(
         id=user_id,
         email=data["email"],
         name=data["name"],
+        role=user_doc.get("role", "participant"),
         picture=data.get("picture"),
+        email_verified=user_doc.get("email_verified", True),
         session_token=data["session_token"]
     )
 
