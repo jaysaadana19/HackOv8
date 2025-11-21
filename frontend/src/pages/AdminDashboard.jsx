@@ -1073,7 +1073,7 @@ export default function AdminDashboard() {
               )}
             </Card>
           </TabsContent>
-
+        </Tabs>
       </div>
     </div>
   );
