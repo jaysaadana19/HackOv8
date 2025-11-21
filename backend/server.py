@@ -3501,10 +3501,6 @@ async def get_utm_analytics(request: Request, days: int = 30):
         "signup_sources": [{"name": k, "count": v} for k, v in sorted(signup_sources.items(), key=lambda x: x[1], reverse=True)[:10]]
     }
 
-    
-    return {"message": f"User {target_user.get('name', 'Unknown')} deleted successfully"}
-
-
 @api_router.get("/admin/export/users")
 async def export_users(request: Request):
     user = await get_current_user(request)
