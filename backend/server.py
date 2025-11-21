@@ -687,6 +687,7 @@ async def google_callback(request: GoogleCallbackRequest):
         name=user_doc["name"],
         role=user_doc.get("role", "participant"),
         picture=user_doc.get("picture"),
+        email_verified=user_doc.get("email_verified", True),  # Google emails are pre-verified
         session_token=session_token
     )
 
