@@ -82,7 +82,11 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedPeriod]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleApproveHackathon = async (hackathonId) => {
     try {
