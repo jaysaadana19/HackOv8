@@ -159,6 +159,8 @@ export const adminAPI = {
   deleteHackathon: (hackathonId) => api.delete(`/admin/hackathons/${hackathonId}`),
   toggleFeatured: (hackathonId, featured) => api.put(`/admin/hackathons/${hackathonId}/feature`, null, { params: { featured } }),
   updateUserRole: (userId, role) => api.put(`/admin/users/${userId}/role`, null, { params: { new_role: role } }),
+  deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
+  getUTMAnalytics: (days = 30) => api.get('/admin/analytics/utm', { params: { days } }),
   exportUsers: () => api.get('/admin/export/users', { responseType: 'blob' }),
   exportHackathons: () => api.get('/admin/export/hackathons', { responseType: 'blob' }),
 };
