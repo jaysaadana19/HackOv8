@@ -30,11 +30,7 @@ export default function AdminDashboard() {
   const [selectedPeriod, setSelectedPeriod] = useState(30);
   const [activeTab, setActiveTab] = useState('overview');
 
-  useEffect(() => {
-    fetchData();
-  }, [selectedPeriod]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       // Use Promise.allSettled to handle individual failures gracefully
