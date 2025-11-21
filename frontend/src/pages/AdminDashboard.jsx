@@ -926,8 +926,6 @@ export default function AdminDashboard() {
               )}
             </Card>
           </TabsContent>
-        </Tabs>
-
 
           {/* UTM Tracking Tab */}
           <TabsContent value="utm" className="space-y-6">
