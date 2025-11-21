@@ -646,6 +646,7 @@ async def google_callback(request: GoogleCallbackRequest):
             name=user_info.get("name", user_info["email"].split("@")[0]),
             picture=user_info.get("picture"),
             role=user_role,
+            email_verified=True,  # Google emails are already verified
             last_login=datetime.now(timezone.utc)
         )
         user_dict = user.dict(by_alias=True)
