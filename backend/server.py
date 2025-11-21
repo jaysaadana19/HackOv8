@@ -3407,6 +3407,34 @@ async def update_user_role(user_id: str, new_role: str, request: Request):
     
     return {"message": "User role updated successfully"}
 
+
+@api_router.delete("/admin/users/{user_id}")
+async def delete_user(user_id: str, request: Request):
+    """Delete a user (admin only)"""
+    user = await get_current_user(request)
+    await require_role(user, ["admin"])
+    
+    # Prevent admin from deleting themselves
+    if user.id == user_id:
+        raise HTTPException(status_code=400, detail="You cannot delete your own account")
+    
+    # Check if user exists
+    target_user = await db.users.find_one({"_id": user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Delete user's related data
+    await db.registrations.delete_many({"user_id": user_id})
+    await db.teams.delete_many({"leader_id": user_id})
+    await db.submissions.delete_many({"user_id": user_id})
+    await db.notifications.delete_many({"user_id": user_id})
+    
+    # Delete the user
+    await db.users.delete_one({"_id": user_id})
+    
+    return {"message": f"User {target_user.get('name', 'Unknown')} deleted successfully"}
+
+
 @api_router.get("/admin/export/users")
 async def export_users(request: Request):
     user = await get_current_user(request)
