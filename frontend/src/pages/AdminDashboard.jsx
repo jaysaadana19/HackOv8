@@ -201,7 +201,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const fetchUTMData = async () => {
+  const fetchUTMData = useCallback(async () => {
     try {
       const response = await adminAPI.getUTMAnalytics(selectedPeriod);
       setUtmData(response.data);
@@ -209,13 +209,13 @@ export default function AdminDashboard() {
       console.error('Failed to fetch UTM data:', error);
       toast.error('Failed to load UTM analytics');
     }
-  };
+  }, [selectedPeriod]);
 
   useEffect(() => {
     if (activeTab === 'utm') {
       fetchUTMData();
     }
-  }, [activeTab, selectedPeriod]);
+  }, [activeTab, fetchUTMData]);
 
 
   const pendingHackathons = hackathons.filter(h => h.status === 'pending_approval');
