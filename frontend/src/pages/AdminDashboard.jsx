@@ -927,6 +927,155 @@ export default function AdminDashboard() {
             </Card>
           </TabsContent>
         </Tabs>
+
+
+          {/* UTM Tracking Tab */}
+          <TabsContent value="utm" className="space-y-6">
+            <Card className="glass-effect p-6 border border-purple-800/30">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">
+                  <span className="gradient-text">UTM Tracking Analytics</span>
+                </h2>
+                <Button
+                  onClick={fetchUTMData}
+                  size="sm"
+                  className="bg-purple-600 hover:bg-purple-700 text-white"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
+
+              {!utmData ? (
+                <div className="text-center py-12">
+                  <TrendingUp className="w-16 h-16 mx-auto mb-4 text-gray-500 opacity-50" />
+                  <p className="text-gray-400">Loading UTM analytics...</p>
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {/* Summary Cards */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border-blue-800/30 p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400 mb-1">Tracked Registrations</p>
+                          <p className="text-3xl font-bold text-white">{utmData.total_tracked_registrations}</p>
+                          <p className="text-xs text-gray-500 mt-1">Last {utmData.period_days} days</p>
+                        </div>
+                        <BarChart3 className="w-12 h-12 text-blue-500 opacity-50" />
+                      </div>
+                    </Card>
+
+                    <Card className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 border-purple-800/30 p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400 mb-1">Tracked Signups</p>
+                          <p className="text-3xl font-bold text-white">{utmData.total_tracked_signups}</p>
+                          <p className="text-xs text-gray-500 mt-1">Last {utmData.period_days} days</p>
+                        </div>
+                        <Users className="w-12 h-12 text-purple-500 opacity-50" />
+                      </div>
+                    </Card>
+                  </div>
+
+                  {/* Top Sources */}
+                  <Card className="bg-gray-900/50 border-gray-800 p-6">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-green-500" />
+                      Top Traffic Sources
+                    </h3>
+                    <div className="space-y-3">
+                      {utmData.utm_sources.length > 0 ? (
+                        utmData.utm_sources.map((source, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <span className="text-sm font-mono text-purple-400">#{idx + 1}</span>
+                              <span className="font-semibold text-white">{source.name}</span>
+                            </div>
+                            <Badge className="bg-green-600/20 text-green-400 border-green-600">
+                              {source.count} registrations
+                            </Badge>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-gray-500 text-center py-4">No source data available</p>
+                      )}
+                    </div>
+                  </Card>
+
+                  {/* Top Campaigns */}
+                  <Card className="bg-gray-900/50 border-gray-800 p-6">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-yellow-500" />
+                      Top Campaigns
+                    </h3>
+                    <div className="space-y-3">
+                      {utmData.utm_campaigns.length > 0 ? (
+                        utmData.utm_campaigns.map((campaign, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <span className="text-sm font-mono text-blue-400">#{idx + 1}</span>
+                              <span className="font-semibold text-white">{campaign.name}</span>
+                            </div>
+                            <Badge className="bg-blue-600/20 text-blue-400 border-blue-600">
+                              {campaign.count} registrations
+                            </Badge>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-gray-500 text-center py-4">No campaign data available</p>
+                      )}
+                    </div>
+                  </Card>
+
+                  {/* Top Mediums */}
+                  <Card className="bg-gray-900/50 border-gray-800 p-6">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-purple-500" />
+                      Top Mediums
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-3">
+                      {utmData.utm_mediums.length > 0 ? (
+                        utmData.utm_mediums.map((medium, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <span className="font-semibold text-white">{medium.name}</span>
+                            <Badge className="bg-purple-600/20 text-purple-400 border-purple-600">
+                              {medium.count}
+                            </Badge>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-gray-500 text-center py-4 col-span-2">No medium data available</p>
+                      )}
+                    </div>
+                  </Card>
+
+                  {/* Top Referrers */}
+                  <Card className="bg-gray-900/50 border-gray-800 p-6">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <UserCheck className="w-5 h-5 text-teal-500" />
+                      Top Referrers
+                    </h3>
+                    <div className="space-y-3">
+                      {utmData.top_referrers.length > 0 ? (
+                        utmData.top_referrers.map((ref, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <span className="font-semibold text-white">{ref.name}</span>
+                            <Badge className="bg-teal-600/20 text-teal-400 border-teal-600">
+                              {ref.count} referrals
+                            </Badge>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-gray-500 text-center py-4">No referrer data available</p>
+                      )}
+                    </div>
+                  </Card>
+                </div>
+              )}
+            </Card>
+          </TabsContent>
+
       </div>
     </div>
   );
