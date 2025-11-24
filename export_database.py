@@ -57,7 +57,7 @@ async def export_database():
     print("="*80)
     print(f"MongoDB: {MONGO_URL}/{DB_NAME}")
     print(f"Export Directory: {output_dir}")
-    print(f"Time: {datetime.utcnow().isoformat()}")
+    print(f"Time: {datetime.now().isoformat()}")
     print("="*80)
     
     # Connect to MongoDB
@@ -79,7 +79,7 @@ async def export_database():
     
     # Create metadata file
     metadata = {
-        "export_date": datetime.utcnow().isoformat(),
+        "export_date": datetime.now().isoformat(),
         "database_name": DB_NAME,
         "mongo_url": MONGO_URL,
         "total_collections": len(collections),
